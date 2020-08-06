@@ -1,4 +1,4 @@
-<img width="160" height="160" src="https://raw.githubusercontent.com/jsilve24/stray/master/inst/fido.png" />
+<img width="160" height="160" src="https://raw.githubusercontent.com/jsilve24/fido/master/inst/fido.png" />
 
   <!-- badges: start -->
   [![Travis build status](https://travis-ci.org/jsilve24/fido.svg?branch=master)](https://travis-ci.org/jsilve24/fido)
