@@ -32,7 +32,7 @@
 #' fit <- conjugateLinearModel(eta.hat, sim$X, sim$Theta, sim$Gamma, 
 #'                             sim$Xi, sim$upsilon, n_samples=2000)
 conjugateLinearModel <- function(Y, X, Theta, Gamma, Xi, upsilon, n_samples = 2000L) {
-    .Call('_stray_conjugateLinearModel', PACKAGE = 'stray', Y, X, Theta, Gamma, Xi, upsilon, n_samples)
+    .Call('_fido_conjugateLinearModel', PACKAGE = 'fido', Y, X, Theta, Gamma, Xi, upsilon, n_samples)
 }
 
 #' Calculations for the Collapsed Maltipoo Model
@@ -53,19 +53,19 @@ conjugateLinearModel <- function(Y, X, Theta, Gamma, Xi, upsilon, n_samples = 20
 #' @name loglikMaltipooCollapsed
 #' @export
 loglikMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv = FALSE) {
-    .Call('_stray_loglikMaltipooCollapsed', PACKAGE = 'stray', Y, upsilon, Theta, X, KInv, U, eta, ell, sylv)
+    .Call('_fido_loglikMaltipooCollapsed', PACKAGE = 'fido', Y, upsilon, Theta, X, KInv, U, eta, ell, sylv)
 }
 
 #' @rdname loglikMaltipooCollapsed
 #' @export
 gradMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv = FALSE) {
-    .Call('_stray_gradMaltipooCollapsed', PACKAGE = 'stray', Y, upsilon, Theta, X, KInv, U, eta, ell, sylv)
+    .Call('_fido_gradMaltipooCollapsed', PACKAGE = 'fido', Y, upsilon, Theta, X, KInv, U, eta, ell, sylv)
 }
 
 #' @rdname loglikMaltipooCollapsed
 #' @export
 hessMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv = FALSE) {
-    .Call('_stray_hessMaltipooCollapsed', PACKAGE = 'stray', Y, upsilon, Theta, X, KInv, U, eta, ell, sylv)
+    .Call('_fido_hessMaltipooCollapsed', PACKAGE = 'fido', Y, upsilon, Theta, X, KInv, U, eta, ell, sylv)
 }
 
 #' Function to Optimize the Collapsed Maltipoo Model
@@ -149,7 +149,7 @@ hessMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv 
 #' optimization algorithms}. arXiv 1609.04747
 #' @seealso \code{\link{uncollapsePibble}}
 optimMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, init, ellinit, n_samples = 2000L, calcGradHess = TRUE, b1 = 0.9, b2 = 0.99, step_size = 0.003, epsilon = 10e-7, eps_f = 1e-10, eps_g = 1e-4, max_iter = 10000L, verbose = FALSE, verbose_rate = 10L, decomp_method = "cholesky", eigvalthresh = 0, jitter = 0) {
-    .Call('_stray_optimMaltipooCollapsed', PACKAGE = 'stray', Y, upsilon, Theta, X, KInv, U, init, ellinit, n_samples, calcGradHess, b1, b2, step_size, epsilon, eps_f, eps_g, max_iter, verbose, verbose_rate, decomp_method, eigvalthresh, jitter)
+    .Call('_fido_optimMaltipooCollapsed', PACKAGE = 'fido', Y, upsilon, Theta, X, KInv, U, init, ellinit, n_samples, calcGradHess, b1, b2, step_size, epsilon, eps_f, eps_g, max_iter, verbose, verbose_rate, decomp_method, eigvalthresh, jitter)
 }
 
 #' Calculations for the Collapsed Pibble Model
@@ -210,19 +210,19 @@ optimMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, init, ellinit,
 #' gradPibbleCollapsed(Y, upsilon, ThetaX, KInv, AInv, Eta)[1:5]
 #' hessPibbleCollapsed(Y, upsilon, ThetaX, KInv, AInv, Eta)[1:5,1:5]
 loglikPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALSE) {
-    .Call('_stray_loglikPibbleCollapsed', PACKAGE = 'stray', Y, upsilon, ThetaX, KInv, AInv, eta, sylv)
+    .Call('_fido_loglikPibbleCollapsed', PACKAGE = 'fido', Y, upsilon, ThetaX, KInv, AInv, eta, sylv)
 }
 
 #' @rdname loglikPibbleCollapsed
 #' @export
 gradPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALSE) {
-    .Call('_stray_gradPibbleCollapsed', PACKAGE = 'stray', Y, upsilon, ThetaX, KInv, AInv, eta, sylv)
+    .Call('_fido_gradPibbleCollapsed', PACKAGE = 'fido', Y, upsilon, ThetaX, KInv, AInv, eta, sylv)
 }
 
 #' @rdname loglikPibbleCollapsed
 #' @export
 hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALSE) {
-    .Call('_stray_hessPibbleCollapsed', PACKAGE = 'stray', Y, upsilon, ThetaX, KInv, AInv, eta, sylv)
+    .Call('_fido_hessPibbleCollapsed', PACKAGE = 'fido', Y, upsilon, ThetaX, KInv, AInv, eta, sylv)
 }
 
 #' Function to Optimize the Collapsed Pibble Model
@@ -323,7 +323,7 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #' fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, sim$Theta%*%sim$X, sim$KInv, 
 #'                              sim$AInv, random_pibble_init(sim$Y))  
 optimPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, init, n_samples = 2000L, calcGradHess = TRUE, b1 = 0.9, b2 = 0.99, step_size = 0.003, epsilon = 10e-7, eps_f = 1e-10, eps_g = 1e-4, max_iter = 10000L, verbose = FALSE, verbose_rate = 10L, decomp_method = "cholesky", optim_method = "adam", eigvalthresh = 0, jitter = 0, multDirichletBoot = -1.0, useSylv = TRUE, ncores = -1L, seed = -1L) {
-    .Call('_stray_optimPibbleCollapsed', PACKAGE = 'stray', Y, upsilon, ThetaX, KInv, AInv, init, n_samples, calcGradHess, b1, b2, step_size, epsilon, eps_f, eps_g, max_iter, verbose, verbose_rate, decomp_method, optim_method, eigvalthresh, jitter, multDirichletBoot, useSylv, ncores, seed)
+    .Call('_fido_optimPibbleCollapsed', PACKAGE = 'fido', Y, upsilon, ThetaX, KInv, AInv, init, n_samples, calcGradHess, b1, b2, step_size, epsilon, eps_f, eps_g, max_iter, verbose, verbose_rate, decomp_method, optim_method, eigvalthresh, jitter, multDirichletBoot, useSylv, ncores, seed)
 }
 
 #' Uncollapse output from optimPibbleCollapsed to full pibble Model
@@ -389,31 +389,31 @@ optimPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, init, n_samples
 #'                                    sim$Gamma, sim$Xi, sim$upsilon, 
 #'                                    seed=2849)
 uncollapsePibble <- function(eta, X, Theta, Gamma, Xi, upsilon, seed, ret_mean = FALSE, ncores = -1L) {
-    .Call('_stray_uncollapsePibble', PACKAGE = 'stray', eta, X, Theta, Gamma, Xi, upsilon, seed, ret_mean, ncores)
+    .Call('_fido_uncollapsePibble', PACKAGE = 'fido', eta, X, Theta, Gamma, Xi, upsilon, seed, ret_mean, ncores)
 }
 
 rMatNormalCholesky_test <- function(M, LU, LV, discard) {
-    .Call('_stray_rMatNormalCholesky_test', PACKAGE = 'stray', M, LU, LV, discard)
+    .Call('_fido_rMatNormalCholesky_test', PACKAGE = 'fido', M, LU, LV, discard)
 }
 
 rInvWishRevCholesky_test <- function(v, Psi) {
-    .Call('_stray_rInvWishRevCholesky_test', PACKAGE = 'stray', v, Psi)
+    .Call('_fido_rInvWishRevCholesky_test', PACKAGE = 'fido', v, Psi)
 }
 
 rInvWishRevCholesky_thread_test <- function(v, Psi, discard) {
-    .Call('_stray_rInvWishRevCholesky_thread_test', PACKAGE = 'stray', v, Psi, discard)
+    .Call('_fido_rInvWishRevCholesky_thread_test', PACKAGE = 'fido', v, Psi, discard)
 }
 
 rInvWishRevCholesky_thread_inplace_test <- function(v, Psi, discard) {
-    .Call('_stray_rInvWishRevCholesky_thread_inplace_test', PACKAGE = 'stray', v, Psi, discard)
+    .Call('_fido_rInvWishRevCholesky_thread_inplace_test', PACKAGE = 'fido', v, Psi, discard)
 }
 
 rMatUnitNormal_test1 <- function(n, m) {
-    .Call('_stray_rMatUnitNormal_test1', PACKAGE = 'stray', n, m)
+    .Call('_fido_rMatUnitNormal_test1', PACKAGE = 'fido', n, m)
 }
 
 rMatUnitNormal_test2 <- function(n) {
-    .Call('_stray_rMatUnitNormal_test2', PACKAGE = 'stray', n)
+    .Call('_fido_rMatUnitNormal_test2', PACKAGE = 'fido', n)
 }
 
 #' Log of Multivarate Gamma Function - Gamma_p(a)
@@ -421,7 +421,7 @@ rMatUnitNormal_test2 <- function(n) {
 #' @param p defined by Gamma_p(a)
 #' @references https://en.wikipedia.org/wiki/Multivariate_gamma_function
 lmvgamma <- function(a, p) {
-    .Call('_stray_lmvgamma', PACKAGE = 'stray', a, p)
+    .Call('_fido_lmvgamma', PACKAGE = 'fido', a, p)
 }
 
 #' Derivative of Log of Multivariate Gamma Function - Gamma_p(a)
@@ -429,38 +429,38 @@ lmvgamma <- function(a, p) {
 #' @param p defined by Gamma_p(a)
 #' @references https://en.wikipedia.org/wiki/Multivariate_gamma_function
 lmvgamma_deriv <- function(a, p) {
-    .Call('_stray_lmvgamma_deriv', PACKAGE = 'stray', a, p)
+    .Call('_fido_lmvgamma_deriv', PACKAGE = 'fido', a, p)
 }
 
 eigen_lap_test <- function(n_samples, m, S, eigvalthresh) {
-    .Call('_stray_eigen_lap_test', PACKAGE = 'stray', n_samples, m, S, eigvalthresh)
+    .Call('_fido_eigen_lap_test', PACKAGE = 'fido', n_samples, m, S, eigvalthresh)
 }
 
 cholesky_lap_test <- function(n_samples, m, S, eigvalthresh) {
-    .Call('_stray_cholesky_lap_test', PACKAGE = 'stray', n_samples, m, S, eigvalthresh)
+    .Call('_fido_cholesky_lap_test', PACKAGE = 'fido', n_samples, m, S, eigvalthresh)
 }
 
 LaplaceApproximation_test <- function(n_samples, m, S, decomp_method, eigvalthresh) {
-    .Call('_stray_LaplaceApproximation_test', PACKAGE = 'stray', n_samples, m, S, decomp_method, eigvalthresh)
+    .Call('_fido_LaplaceApproximation_test', PACKAGE = 'fido', n_samples, m, S, decomp_method, eigvalthresh)
 }
 
 alrInv_default_test <- function(eta) {
-    .Call('_stray_alrInv_default_test', PACKAGE = 'stray', eta)
+    .Call('_fido_alrInv_default_test', PACKAGE = 'fido', eta)
 }
 
 alr_default_test <- function(pi) {
-    .Call('_stray_alr_default_test', PACKAGE = 'stray', pi)
+    .Call('_fido_alr_default_test', PACKAGE = 'fido', pi)
 }
 
 rDirichlet_test <- function(n_samples, alpha) {
-    .Call('_stray_rDirichlet_test', PACKAGE = 'stray', n_samples, alpha)
+    .Call('_fido_rDirichlet_test', PACKAGE = 'fido', n_samples, alpha)
 }
 
 MultDirichletBoot_test <- function(n_samples, eta, Y, pseudocount) {
-    .Call('_stray_MultDirichletBoot_test', PACKAGE = 'stray', n_samples, eta, Y, pseudocount)
+    .Call('_fido_MultDirichletBoot_test', PACKAGE = 'fido', n_samples, eta, Y, pseudocount)
 }
 
 fillUnitNormal_test <- function(Z) {
-    invisible(.Call('_stray_fillUnitNormal_test', PACKAGE = 'stray', Z))
+    invisible(.Call('_fido_fillUnitNormal_test', PACKAGE = 'fido', Z))
 }
 

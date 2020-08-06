@@ -1,4 +1,4 @@
-# stray 0.1.13
+# fido 0.1.13
 
 * tons of tiny changes to prepare for version 0.2 (and ultimately CRAN) featured changes include:
 * plot and coef methods for *fit objects now abide by CRAN generic naming scheme - may cause
@@ -10,11 +10,11 @@
   rather than both importing as `ps`. Solved a R CMD CHECK warning. 
 * Lots of tiny updates to documentation 
 
-# stray 0.1.12
+# fido 0.1.12
 
 * orthus added for jointly fitting multinomial and gaussian data (e.g., 16S microbiome and metabolomics data)
 
-# stray 0.1.11
+# fido 0.1.11
 
 * Kim fixed windows installation problems (Thanks Kim!)
 * Fixed bug in predict that was effecting ppc
@@ -23,8 +23,8 @@
 * Fixed issue with Xi=NULL in pibblefit when trying to transform
 * small changes to make pibble wrapper around c++ functions faster
 
-# stray 0.1.10
+# fido 0.1.10
 
-* basset added for fitting non-linear regression using stray
+* basset added for fitting non-linear regression using fido
 * numerous changes to make installation easier
 * Added a `NEWS.md` file to track changes to the package.

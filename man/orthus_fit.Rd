@@ -5,9 +5,18 @@
 \alias{orthus}
 \title{Interface to fit orthus models}
 \usage{
-orthus(Y = NULL, Z = NULL, X = NULL, upsilon = NULL,
-  Theta = NULL, Gamma = NULL, Xi = NULL, init = NULL,
-  pars = c("Eta", "Lambda", "Sigma"), ...)
+orthus(
+  Y = NULL,
+  Z = NULL,
+  X = NULL,
+  upsilon = NULL,
+  Theta = NULL,
+  Gamma = NULL,
+  Xi = NULL,
+  init = NULL,
+  pars = c("Eta", "Lambda", "Sigma"),
+  ...
+)
 }
 \arguments{
 \item{Y}{D x N matrix of counts (if NULL uses priors only)}
@@ -79,7 +88,7 @@ JD Silverman K Roche, ZC Holmes, LA David, S Mukherjee.
   2019, arXiv e-prints, arXiv:1903.11695
 }
 \seealso{
-\code{\link{stray_transforms}} provide convenience methods for
+\code{\link{fido_transforms}} provide convenience methods for
 transforming the representation of pibblefit objects (e.g., conversion to
 proportions, alr, clr, or ilr coordinates.)
 

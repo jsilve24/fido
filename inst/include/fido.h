@@ -1,12 +1,12 @@
 // File used to import others in order
 
-#ifdef STRAY_USE_MKL // requres openmp support
-  #define STRAY_USE_PARALLEL
+#ifdef FIDO_USE_MKL // requres openmp support
+  #define FIDO_USE_PARALLEL
   #define EIGEN_USE_MKL_ALL
   // #define EIGEN_DONT_PARALLELIZE
 #else
   #ifdef _OPENMP
-    #define STRAY_USE_PARALLEL
+    #define FIDO_USE_PARALLEL
     #include <omp.h>
   #endif
 #endif 

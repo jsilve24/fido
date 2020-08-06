@@ -1,11 +1,11 @@
 ---
-title: "Joint Modeling  (e.g., Multiomics) with Stray::Orthus"
+title: "Joint Modeling  (e.g., Multiomics) with fido::Orthus"
 author: "Justin Silverman"
 output: 
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{intro_stray_orthus}
+  %\VignetteIndexEntry{intro_fido_orthus}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r message=FALSE, warning=FALSE}
-library(stray)
+library(fido)
 library(phyloseq)
 library(dplyr)
 library(driver)
@@ -31,8 +31,8 @@ set.seed(48482)
 
 If you have not already done so, I would read through the *pibble* vignette before this one. 
 
-# stray::orthus, the model
-Stray can be used for jointly modeling multivariate count data and multivariate Gaussian data. For example, this would be a reasonable model to jointly model 16S microbiome data and metabolomics data jointly. Because of the "two-headed" nature of this model, e.g., two observed data-sets, I named this model *orthus* (a two-headed dog and brother of Cerberus in Greek Mythology)[https://en.Wikipedia.org/wiki/Orthrus]. The *orthus* model can be written as
+# fido::orthus, the model
+fido can be used for jointly modeling multivariate count data and multivariate Gaussian data. For example, this would be a reasonable model to jointly model 16S microbiome data and metabolomics data jointly. Because of the "two-headed" nature of this model, e.g., two observed data-sets, I named this model *orthus* (a two-headed dog and brother of Cerberus in Greek Mythology)[https://en.Wikipedia.org/wiki/Orthrus]. The *orthus* model can be written as
 
 $$
 \begin{align}
@@ -62,8 +62,8 @@ and $\Theta$ undergo a similar expansion to accommodate the second dataset.
 To demonstrate *orthus* I will perform a toy analysis on data from @kashyap2013 and made available by @callahan2016 as part of their recently published microbiome data analysis workflow [@callahan2016]. I follow the data preprocessing of @callahan2016 we just don't drop taxa but instead amalgamate those that don't pass filtering to a category called "other". I do this to maintain the proper variance in the multinomial model.
 
 ```{r}
-metab_path <- system.file("extdata/Kashyap2013", "metabolites.csv", package="stray")
-microbe_path <- system.file("extdata/Kashyap2013", "microbe.rda", package="stray")
+metab_path <- system.file("extdata/Kashyap2013", "metabolites.csv", package="fido")
+microbe_path <- system.file("extdata/Kashyap2013", "microbe.rda", package="fido")
 metab <- read.csv(metab_path, row.names = 1)
 metab <- as.matrix(metab)
 microbe <- get(load(microbe_path))

@@ -6,8 +6,17 @@
 \alias{refit.bassetfit}
 \title{Interface to fit basset models}
 \usage{
-basset(Y = NULL, X, upsilon = NULL, Theta = NULL, Gamma = NULL,
-  Xi = NULL, init = NULL, pars = c("Eta", "Lambda", "Sigma"), ...)
+basset(
+  Y = NULL,
+  X,
+  upsilon = NULL,
+  Theta = NULL,
+  Gamma = NULL,
+  Xi = NULL,
+  init = NULL,
+  pars = c("Eta", "Lambda", "Sigma"),
+  ...
+)
 
 \method{refit}{bassetfit}(m, pars = c("Eta", "Lambda", "Sigma"), ...)
 }
@@ -40,7 +49,7 @@ fit the basset model)}
 an object of class bassetfit
 }
 \description{
-Basset (A Lazy Learner) - non-linear regression models in stray
+Basset (A Lazy Learner) - non-linear regression models in fido
 }
 \details{
 the full model is given by:

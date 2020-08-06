@@ -1,4 +1,4 @@
-#include <stray.h>
+#include <fido.h>.h>
 #include <Rcpp/Benchmark/Timer.h>
 
 // [[Rcpp::depends(RcppNumerical)]]
@@ -135,7 +135,7 @@ List optimPibbleCollapsed(const Eigen::ArrayXXd Y,
                bool useSylv = true, 
                int ncores=-1, 
                long seed=-1){  
-  #ifdef STRAY_USE_PARALLEL 
+  #ifdef FIDO_USE_PARALLEL 
     Eigen::initParallel();
     if (ncores > 0) Eigen::setNbThreads(ncores);
   #endif 

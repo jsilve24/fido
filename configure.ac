@@ -2,7 +2,7 @@
 # https://github.com/USCbiostats/software-dev/wiki/Setting-up-optional-OpenMP-support
 
 AC_PREREQ([2.69])
-AC_INIT(stray, m4_esyscmd_s([awk '/^Version:/ {print $2}' DESCRIPTION]))
+AC_INIT(fido, m4_esyscmd_s([awk '/^Version:/ {print $2}' DESCRIPTION]))
 
 ## Set R_HOME, respecting an environment variable if one is set 
 : ${R_HOME=$(R RHOME)}

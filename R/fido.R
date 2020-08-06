@@ -1,4 +1,4 @@
-#' stray: Fitting and Analysis of Multinomial Logistic Normal  Models
+#' fido: Fitting and Analysis of Multinomial Logistic Normal  Models
 #' 
 #'  Provides methods for fitting and inspection of Bayesian Multinomial 
 #'  Logistic Normal Models using MAP estimation 
@@ -6,9 +6,9 @@
 #'  implemented in C++ for scalability. 
 #'  
 #' @docType package
-#' @name stray_package
+#' @name fido_package
 #' 
-#' @useDynLib stray
+#' @useDynLib fido
 #' @importFrom Rcpp sourceCpp
 NULL
 

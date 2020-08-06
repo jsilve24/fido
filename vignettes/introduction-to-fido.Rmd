@@ -1,11 +1,11 @@
 ---
-title: "Introduction to Stray::Pibble"
+title: "Introduction to fido::Pibble"
 author: "Justin Silverman"
 output: 
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{intro_stray_pibble}
+  %\VignetteIndexEntry{intro_fido_pibble}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -20,17 +20,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-# An introduction to *stray*
-*stray* [@silverman2019] is a loose acronym for **"(Bayesian) Multinomial Logistic-Normal Models"**. 
+# An introduction to *fido*
+*fido* [@silverman2019] is a loose acronym for **"(Bayesian) Multinomial Logistic-Normal Models"**. 
 In particular the development of 
-*stray* stems from the need for fast inference for time-invariant MALLARD models[@silverman2018]. 
-*stray* is very fast! It uses closed form solutions for model gradients and Hessians written
+*fido* stems from the need for fast inference for time-invariant MALLARD models[@silverman2018]. 
+*fido* is very fast! It uses closed form solutions for model gradients and Hessians written
 in C++ to preform [MAP estimation](https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation)
 in combination with parameter uncertainty estimation using a [Laplace Approximation](http://www.sumsar.net/blog/2013/11/easy-laplace-approximation/).
-One of the main models in *stray* is the function *pibble* which fits a Multinomial
+One of the main models in *fido* is the function *pibble* which fits a Multinomial
 Logistic-Normal **Linear Regerssion** model. 
 
-**So what is a *stray* model exactly?** First let me give the broad description
+**So what is a *fido* model exactly?** First let me give the broad description
 from 10,000ft up: Basically its a model for multinomial count
 data (e.g., each sample contains the counts of $D$ "types of things"). Importantly, 
 unlike the more common Poisson count models, the multinomial models a "competition to
@@ -58,7 +58,7 @@ is that sequencing only samples a small portion of the total genetic material
 available and leads to similar competition to be counted. 
 
 ## The *pibble* model
-*Pibble* is one type of *stray* model. In particular its a *stray* model for 
+*Pibble* is one type of *fido* model. In particular its a *fido* model for 
 multivariate linear regression. 
 
 Let $Y$ denote an $D\times N$ matrix of counts. Let us denote the $j$-th 
@@ -104,7 +104,7 @@ and $\Sigma$ is the covariance matrix for the regression residuals.
 
 
 # Example analysis of microbiome data
-This analysis is the same as that presented in the *stray* manuscript [@silverman2019]. 
+This analysis is the same as that presented in the *fido* manuscript [@silverman2019]. 
 I will reanalyze a previously published study comparing microbial composition in the terminal ileum of subjects with 
 Crohn's Disease (CD) to healthy controls [@gevers2014]. To do this I will fit a pibble model using 
 CD status, inflammation status and age as covariates (plus a constant intercept term). 
@@ -113,7 +113,7 @@ CD status, inflammation status and age as covariates (plus a constant intercept 
 library(MicrobeDS)
 library(phyloseq)
 library(dplyr)
-library(stray)
+library(fido)
 
 set.seed(899)
 
@@ -137,8 +137,8 @@ Create Design Matrix and OTU Table
 ```{r}
 sample_dat <- as.data.frame(as(sample_data(dat),"matrix")) %>% 
   mutate(age = as.numeric(as.character(age)),
-         diagnosis = relevel(diagnosis, ref="no"), 
-         disease_stat = relevel(disease_stat, ref="non-inflamed"))
+         diagnosis = relevel(factor(diagnosis, ordered = FALSE), ref="no"), 
+         disease_stat = relevel(factor(disease_stat, ordered = FALSE), ref="non-inflamed"))
 X <- t(model.matrix(~diagnosis + disease_stat+age, data=sample_dat))
 Y <- otu_table(dat)
 
@@ -179,7 +179,7 @@ Gamma <- diag(nrow(X))
 ```
 
 I strongly recommend users perform prior predictive checks to make sure their
-priors make sense to them. *stray* makes this easy, all the main fitting functions 
+priors make sense to them. *fido* makes this easy, all the main fitting functions 
 (e.g., `pibble`) will automatically sample from the prior predictive 
 distribution if `Y` is left as `NULL` (e.g., without data your posterior is
 just your prior). 
@@ -188,7 +188,7 @@ priors <- pibble(NULL, X, upsilon, Theta, Gamma, Xi)
 print(priors)
 ```
 
-The main fitting functions in the *stray* package output special fit objects (e.g.,
+The main fitting functions in the *fido* package output special fit objects (e.g.,
 `pibble` outputs an object of class `pibblefit`). These fit objects
 are just lists with some extra metadata that allows special method dispatch. For 
 example, if you call print on a `pibblefit` object you will get a nice 
@@ -201,7 +201,7 @@ reference (this will be generalized in future versions).
 More specifically for a vector $x$ representing the proportions of 
 categories $\{1, \dots, D\}$ we can write 
 $$x^* = \left( \log \frac{x_1}{x_D}, \dots, \log \frac{x_{D-1}}{x_D}\right).$$
-As mentioned above however, I have designed *stray* to work with many 
+As mentioned above however, I have designed *fido* to work with many 
 different coordinate systems including the ALR (with respect to any category), CLR, 
 ILR, or proportions. To help transform things between these coordinate systems
 I have written a series of transformation functions that transform any `pibblefit` 
@@ -235,7 +235,7 @@ plot(priors, par="Lambda") + ggplot2::xlim(c(-10, 10))
 ```
 
 This looks fairly reasonable to me. So I am going to go ahead and 
-fit the model with data. `stray` provides a helper method called `refit` 
+fit the model with data. `fido` provides a helper method called `refit` 
 that we will use to avoid passing prior parameters again. 
 
 ```{r}
@@ -275,7 +275,7 @@ There are a few things to note about this plot. First, when zoomed out like this
 it looks it is hard to make much of it. This is a fairly large dataset we are 
 analyzing and its hard to view an uncertainty interval; in this case its plotting
 the median and 95% confidence interval in grey and black and the observed counts in green.
-*stray* also has a simpler function that summarizes the posterior predictive check. 
+*fido* also has a simpler function that summarizes the posterior predictive check. 
 
 ```{r}
 ppc_summary(posterior)
@@ -329,7 +329,7 @@ plot(posterior, par="Lambda", focus.coord = focus, focus.cov = rownames(X)[2])
 # More Technical Details 
 ## A few notes on model inference and parameter collapsing
 
-Along with some algorithmic speed-ups enabled by the C++ Eigen library *stray* uses conjugate priors for the regression component of the model allowing the last three lines of the model to be
+Along with some algorithmic speed-ups enabled by the C++ Eigen library *fido* uses conjugate priors for the regression component of the model allowing the last three lines of the model to be
 collapsed into 1 line. After this the last three lines of the model can be re-expanded using fully conjugate sampling schemes
 that do not require optimization or MCMC (only matrix operations). 
 
@@ -343,7 +343,7 @@ Y_j & \sim \text{Multinomial}\left(\pi_j, n_j\right)  \\
 $$
 where $A=(I_N + X^T \Gamma, X)^{-1}$ and $T_{(D-1)\times N}$ refers to the Matrix T-distribution the $(D-1)\times N$ matrix $\eta$ with log density given by 
 $$\log T_{(D-1)\times N}(\eta | \upsilon, \Theta X, \Xi, A) \propto -\frac{\upsilon+N-D-2}{2}\log | I_{D-1}+\Xi^{-1}(\eta-\Theta X)A(\eta-\Theta X)^T |.$$
-Rather than using MCMC to sample $\eta$ stray uses MAP estimation (using a custom C++ Eigen based implementation of the ADAM optimizer and closed form solutions for gradient and hessian of the collapsed model)^[Which we found preformed substantially better than L-BFGS, which we also tried.]. Additionally, *stray* allows quantification of uncertainty in MAP estimates using a Laplace approximation. We found that in practice this MAP based Laplace approximation produced 
+Rather than using MCMC to sample $\eta$ fido uses MAP estimation (using a custom C++ Eigen based implementation of the ADAM optimizer and closed form solutions for gradient and hessian of the collapsed model)^[Which we found preformed substantially better than L-BFGS, which we also tried.]. Additionally, *fido* allows quantification of uncertainty in MAP estimates using a Laplace approximation. We found that in practice this MAP based Laplace approximation produced 
 comparable results to a full MCMC sampler but with tremendous improvements in compute time. 
 
 Once samples of $\eta$ are produced using the Laplace approximation closed form 

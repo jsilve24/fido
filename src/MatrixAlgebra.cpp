@@ -1,6 +1,6 @@
 #include <RcppEigen.h>
 #include "MatrixAlgebra.h"
-#ifdef STRAY_USE_MKL
+#ifdef FIDO_USE_MKL
   #include <mkl.h>
 #endif
 
@@ -83,7 +83,7 @@ void tveclmult_minus(const int m, const int n, Ref<MatrixXd> A,
   int ar=A.rows();
   int ac=A.cols();
   
-  #ifdef STRAY_USE_MKL
+  #ifdef FIDO_USE_MKL
   Eigen::VectorXi k(ar);
     for (int i=0; i<m; i++){
       for (int j=0; j<n; j++)

@@ -37,7 +37,7 @@ nll <- function(eta, Y, X, upsilon, Theta, Xi, Gamma){
 
 #' function to calculate hessian for model at a given eta 
 #' @param eta (D-1) x N matrix 
-#' @details uses hessPibbleCollapsed function of stray 
+#' @details uses hessPibbleCollapsed function of fido 
 hessMC <- function(mdataset, eta){
   X <- mdataset$X
   A <- solve(diag(mdataset$N)+ t(X)%*%mdataset$Gamma%*%X)

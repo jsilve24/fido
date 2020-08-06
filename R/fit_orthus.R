@@ -49,7 +49,7 @@
 #' @examples 
 #' sim <- orthus_sim()
 #' fit <- orthus(sim$Y, sim$Z, sim$X)
-#' @seealso \code{\link{stray_transforms}} provide convenience methods for 
+#' @seealso \code{\link{fido_transforms}} provide convenience methods for 
 #'  transforming the representation of pibblefit objects (e.g., conversion to 
 #'  proportions, alr, clr, or ilr coordinates.)
 #'  

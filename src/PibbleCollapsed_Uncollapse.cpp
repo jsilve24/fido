@@ -1,8 +1,8 @@
-#include <stray.h>
+#include <fido.h>
 #include <Rcpp/Benchmark/Timer.h>
 #include <boost/random/mersenne_twister.hpp>
 
-#ifdef STRAY_USE_PARALLEL
+#ifdef FIDO_USE_PARALLEL
 #include <omp.h>
 #endif 
 
@@ -88,7 +88,7 @@ List uncollapsePibble(const Eigen::Map<Eigen::VectorXd> eta, // note this is ess
                     long seed, 
                     bool ret_mean = false, 
                     int ncores=-1){
-  #ifdef STRAY_USE_PARALLEL
+  #ifdef FIDO_USE_PARALLEL
     Eigen::initParallel();
     if (ncores > 0) Eigen::setNbThreads(ncores);
     if (ncores > 0) {
@@ -119,13 +119,13 @@ List uncollapsePibble(const Eigen::Map<Eigen::VectorXd> eta, // note this is ess
   MatrixXd SigmaDraw0((D-1)*(D-1), iter);
   
   //iterate over all draws of eta - embarrassingly parallel with parallel rng
-  #ifdef STRAY_USE_PARALLEL
+  #ifdef FIDO_USE_PARALLEL
     Eigen::setNbThreads(1);
     //Rcout << "thread: "<< omp_get_max_threads() << std::endl;
   #endif 
   #pragma omp parallel shared(D, N, Q, LambdaDraw0, SigmaDraw0)
   {
-  #ifdef STRAY_USE_PARALLEL
+  #ifdef FIDO_USE_PARALLEL
     boost::random::mt19937 rng(omp_get_thread_num()+seed);
   #else 
     boost::random::mt19937 rng(seed);
@@ -166,7 +166,7 @@ List uncollapsePibble(const Eigen::Map<Eigen::VectorXd> eta, // note this is ess
     }
   }
   }
-  #ifdef STRAY_USE_PARALLEL
+  #ifdef FIDO_USE_PARALLEL
   if (ncores > 0){
     Eigen::setNbThreads(ncores);
   } else {

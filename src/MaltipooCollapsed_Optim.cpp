@@ -1,4 +1,4 @@
-#include <stray.h>
+#include <fido.h>
 // [[Rcpp::depends(RcppNumerical)]]
 // [[Rcpp::depends(RcppEigen)]]
 

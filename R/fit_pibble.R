@@ -44,7 +44,7 @@
 #' @examples 
 #' sim <- pibble_sim()
 #' fit <- pibble(sim$Y, sim$X)
-#' @seealso \code{\link{stray_transforms}} provide convenience methods for 
+#' @seealso \code{\link{fido_transforms}} provide convenience methods for 
 #'  transforming the representation of pibblefit objects (e.g., conversion to 
 #'  proportions, alr, clr, or ilr coordinates.)
 #'  

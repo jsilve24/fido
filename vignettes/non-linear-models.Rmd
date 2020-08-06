@@ -1,11 +1,11 @@
 ---
-title: "Non-linear models with stray::basset"
+title: "Non-linear models with fido::basset"
 author: "Justin Silverman"
 output: 
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{intro_stray_basset}
+  %\VignetteIndexEntry{intro_fido_basset}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -22,8 +22,8 @@ knitr::opts_chunk$set(
 
 If you have not already done so, I would read through the *pibble* vignette before this one.  
 
-# stray::basset, the model
-Stray can be used for non-linear modeling. Here we are going to go through one 
+# fido::basset, the model
+fido can be used for non-linear modeling. Here we are going to go through one 
 such model which is based on multivariate Gaussian processes. As Gaussian
 processes are a type of lazy learner, I have named this model after a lazy dog: 
 a Basset Hound. Hence this model is called *basset*. The *basset* model
@@ -50,7 +50,7 @@ functions makes this a very flexible and powerful model.
 # Non-linear time-series modeling
 To demonstrate *basset* I am going to reanalyze the mallard^[I have a long
 history of coming up with ridiculous names for statistical models and software.] dataset from 
-@silverman2018 which is provided as a phyloseq object in *stray*. This dataset
+@silverman2018 which is provided as a phyloseq object in *fido*. This dataset
 features 4 artificial gut vessels sampled both daily and hourly for 1 month with 
 many technical replicates. 
 
@@ -64,7 +64,7 @@ just a different kernel function that also relates the covariance between
 samples as a function of which vessel they were taken from.]. 
 
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
-library(stray)
+library(fido)
 library(phyloseq)
 library(dplyr)
 library(driver)
@@ -94,13 +94,13 @@ X <- as.numeric(sample_data(mallard_family)$time)
 X <- t((X-min(X)) / 3600)
 ```
 
-The function *basset* is a wrapper around some *stray* internals that make fitting
+The function *basset* is a wrapper around some *fido* internals that make fitting
 the above model easy. *basset* is patterned after the function *pibble* but
 requires that `Theta` and `Gamma` be given as matrix functions rather than as
 matrices. That is `Theta` must be a function that given `X` outputs a $D-1 \times N$ matrix 
 (just like you would give to *pibble*) and `Gamma` must be a function that given `X`
 outputs a $N \times N$ covariance matrix (e.g., covariance over the samples). 
-There are a few kernel functions that meet the requirements for `Gamma` in *stray* already. 
+There are a few kernel functions that meet the requirements for `Gamma` in *fido* already. 
 Here we will use a Squared Exponential (SE) kernel for `Gamma` and will set `Theta`
 to be the zero function. The SE kernel will give us non-linear smoothing of the
 observed time-series. 
@@ -120,7 +120,7 @@ Xi <- matrix(.4, D-1, D-1)
 diag(Xi) <- 1
 
 # Now fit the model
-fit <- stray::basset(Y, X, upsilon, Theta, Gamma, Xi)
+fit <- fido::basset(Y, X, upsilon, Theta, Gamma, Xi)
 ```
 
 It turns out that *basset* is really just creating a *pibblefit* object that 

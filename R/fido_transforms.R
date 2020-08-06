@@ -1,7 +1,7 @@
-#' Transform Fit Stray Parameters to other representations
+#' Transform Fit fido Parameters to other representations
 #' 
 #' These are a collection of convenience functions for transforming
-#' stray fit objects to a number of different representations including
+#' fido fit objects to a number of different representations including
 #' ILR bases, CLR coordinates, ALR coordinates, and proportions. 
 #' 
 #' For orthus, transforms only appleid to log-ratio parameters
@@ -18,7 +18,7 @@
 #' or prior Xi and instead just removes them from the pibblefit object returned. 
 #' 
 #' @return object
-#' @name stray_transforms
+#' @name fido_transforms
 #' @import driver 
 #' @examples
 #' \dontrun{
@@ -33,31 +33,31 @@
 NULL
 
 
-#' @rdname stray_transforms
+#' @rdname fido_transforms
 #' @export
 to_proportions <- function(m){
   UseMethod("to_proportions",m)
 }
 
-#' @rdname stray_transforms
+#' @rdname fido_transforms
 #' @export
 to_alr <- function(m, d){
   UseMethod("to_alr",m)
 }
 
-#' @rdname stray_transforms
+#' @rdname fido_transforms
 #' @export
 to_ilr <- function(m, V=NULL){
   UseMethod("to_ilr", m)
 }
 
-#' @rdname stray_transforms
+#' @rdname fido_transforms
 #' @export
 to_clr <- function(m){
   UseMethod("to_clr",m)
 }
 
-#' @rdname stray_transforms
+#' @rdname fido_transforms
 #' @export
 to_proportions.pibblefit <- function(m){
   if (m$coord_system == "alr"){
@@ -139,7 +139,7 @@ to_proportions.pibblefit <- function(m){
 }
 
 
-#' @rdname stray_transforms
+#' @rdname fido_transforms
 #' @export
 to_proportions.orthusfit <- function(m){
   if (m$coord_system == "alr"){
@@ -201,7 +201,7 @@ to_proportions.orthusfit <- function(m){
   return(m)
 }
 
-#' @rdname stray_transforms
+#' @rdname fido_transforms
 #' @export
 to_alr.pibblefit <- function(m, d){
   if (m$coord_system=="alr"){
@@ -234,7 +234,7 @@ to_alr.pibblefit <- function(m, d){
   return(m)
 }
 
-#' @rdname stray_transforms
+#' @rdname fido_transforms
 #' @export
 to_alr.orthusfit <- function(m, d){
   if (m$coord_system=="alr"){
@@ -262,7 +262,7 @@ to_alr.orthusfit <- function(m, d){
   return(m)
 }
 
-#' @rdname stray_transforms
+#' @rdname fido_transforms
 #' @export
 to_ilr.pibblefit <- function(m, V=NULL){
   if (m$coord_system=="ilr"){
@@ -296,7 +296,7 @@ to_ilr.pibblefit <- function(m, V=NULL){
   return(m)
 }
 
-#' @rdname stray_transforms
+#' @rdname fido_transforms
 #' @export
 to_ilr.orthusfit <- function(m, V=NULL){
   if (m$coord_system=="ilr"){
@@ -325,7 +325,7 @@ to_ilr.orthusfit <- function(m, V=NULL){
   return(m)
 }
 
-#' @rdname stray_transforms
+#' @rdname fido_transforms
 #' @export
 to_clr.pibblefit <- function(m){
   if (m$coord_system=="clr") return(m)
@@ -356,7 +356,7 @@ to_clr.pibblefit <- function(m){
 }
 
 
-#' @rdname stray_transforms
+#' @rdname fido_transforms
 #' @export
 to_clr.orthusfit <- function(m){
   if (m$coord_system=="clr") return(m)

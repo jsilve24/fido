@@ -1,15 +1,15 @@
 navbar:
-  title: "stray"
+  title: "fido"
   left: 
     - text: "Installation"
-      href: https://github.com/jsilve24/stray/wiki/Installation-Details
+      href: https://github.com/jsilve24/fido/wiki/Installation-Details
     - text: "Vignettes"
       menu:
-        - text: "Intro to stray through stray::pibble"
-          href: articles/introduction-to-stray.html
-        - text: "Non-Linear Modeling with stray::basset"
+        - text: "Intro to fido through fido::pibble"
+          href: articles/introduction-to-fido.html
+        - text: "Non-Linear Modeling with fido::basset"
           href: articles/non-linear-models.html
-        - text: "Joint Modeling  (e.g., Multiomics) with Stray::Orthus"
+        - text: "Joint Modeling  (e.g., Multiomics) with fido::Orthus"
           href: articles/orthus.html
         - text: "Tips on Specifying Priors"
           href: articles/picking_priors.html
@@ -31,7 +31,7 @@ navbar:
     - icon: fa-twitter
       href: https://twitter.com/inschool4life
     - icon: fa-github
-      href: https://github.com/jsilve24/stray
+      href: https://github.com/jsilve24/fido
       
 reference:
   - title: "Main Model Functions"
@@ -66,7 +66,7 @@ reference:
       - predict.pibblefit
       - plot.pibblefit
       - sample_prior
-      - stray_transforms
+      - fido_transforms
       - req
       - verify
       - summary.pibblefit

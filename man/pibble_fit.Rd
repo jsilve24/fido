@@ -6,9 +6,17 @@
 \alias{refit.pibblefit}
 \title{Interface to fit pibble models}
 \usage{
-pibble(Y = NULL, X = NULL, upsilon = NULL, Theta = NULL,
-  Gamma = NULL, Xi = NULL, init = NULL, pars = c("Eta", "Lambda",
-  "Sigma"), ...)
+pibble(
+  Y = NULL,
+  X = NULL,
+  upsilon = NULL,
+  Theta = NULL,
+  Gamma = NULL,
+  Xi = NULL,
+  init = NULL,
+  pars = c("Eta", "Lambda", "Sigma"),
+  ...
+)
 
 \method{refit}{pibblefit}(m, pars = c("Eta", "Lambda", "Sigma"), ...)
 }
@@ -77,7 +85,7 @@ JD Silverman K Roche, ZC Holmes, LA David, S Mukherjee.
   2019, arXiv e-prints, arXiv:1903.11695
 }
 \seealso{
-\code{\link{stray_transforms}} provide convenience methods for
+\code{\link{fido_transforms}} provide convenience methods for
 transforming the representation of pibblefit objects (e.g., conversion to
 proportions, alr, clr, or ilr coordinates.)
 

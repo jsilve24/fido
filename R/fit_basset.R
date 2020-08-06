@@ -1,7 +1,7 @@
 
 #' Interface to fit basset models
 #' 
-#' Basset (A Lazy Learner) - non-linear regression models in stray
+#' Basset (A Lazy Learner) - non-linear regression models in fido
 #'
 #' @param Y D x N matrix of counts (if NULL uses priors only)
 #' @param X Q x N matrix of covariates (cannot be NULL)
