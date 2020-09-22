@@ -113,6 +113,9 @@
     <li>
       <a href="../articles/picking_priors.html">Tips on Specifying Priors</a>
     </li>
+    <li>
+      <a href="../articles/mitigating-pcrbias.html">Mitigating PCR Bias</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -198,7 +201,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>m</th>
-      <td><p>object of class pibblefit (e.g., output of <code>pibble</code>)</p></td>
+      <td><p>object of class pibblefit (e.g., output of <code><a href='pibble_fit.html'>pibble</a></code>)</p></td>
     </tr>
     <tr>
       <th>focus.cov</th>
@@ -227,8 +230,8 @@ assumption that only small group of categories (e.g., taxa / genes) are changing
   datasets. arxiv:1704.01841v1</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>sim</span> <span class='kw'>&lt;-</span> <span class='fu'>pibble_sim</span>()
-<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>pibble</span>(<span class='no'>sim</span>$<span class='no'>Y</span>, <span class='no'>sim</span>$<span class='no'>X</span>)
+    <pre class="examples"><div class='input'><span class='no'>sim</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='pibble_sim.html'>pibble_sim</a></span>()
+<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='pibble_fit.html'>pibble</a></span>(<span class='no'>sim</span>$<span class='no'>Y</span>, <span class='no'>sim</span>$<span class='no'>X</span>)
 <span class='co'># Use first two covariates to define iqlr, just show first 5 samples</span>
 <span class='fu'>lambda_to_iqlr</span>(<span class='no'>fit</span>, <span class='fl'>1</span>:<span class='fl'>2</span>)[,,<span class='fl'>1</span>:<span class='fl'>5</span>]</div><div class='output co'>#&gt; , , 1
 #&gt; 

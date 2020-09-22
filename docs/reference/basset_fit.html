@@ -100,6 +100,9 @@
     <li>
       <a href="../articles/picking_priors.html">Tips on Specifying Priors</a>
     </li>
+    <li>
+      <a href="../articles/mitigating-pcrbias.html">Mitigating PCR Bias</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -178,7 +181,7 @@
 )
 
 <span class='co'># S3 method for bassetfit</span>
-<span class='fu'>refit</span>(<span class='no'>m</span>, <span class='kw'>pars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Eta"</span>, <span class='st'>"Lambda"</span>, <span class='st'>"Sigma"</span>), <span class='no'>...</span>)</pre>
+<span class='fu'><a href='refit.html'>refit</a></span>(<span class='no'>m</span>, <span class='kw'>pars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Eta"</span>, <span class='st'>"Lambda"</span>, <span class='st'>"Sigma"</span>), <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -220,7 +223,7 @@ essentially iid on "base scale" using Aitchison terminology)</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed to pibble (which is used internally to
+      <td><p>other arguments passed to <a href='pibble_fit.html'>pibble</a> (which is used internally to
 fit the basset model)</p></td>
     </tr>
     <tr>

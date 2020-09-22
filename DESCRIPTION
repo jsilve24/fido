@@ -20,7 +20,7 @@ Depends: R (>= 3.5.0)
 Imports: Rcpp (>= 0.12.17), RcppEigen (>= 0.3.3.4.0), driver, dplyr, ggplot2, 
   purrr, tidybayes, rlang
 LinkingTo: Rcpp, RcppEigen, RcppNumerical, RcppZiggurat, BH
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
@@ -29,7 +29,8 @@ Suggests:
     ape,
     numDeriv,
     MCMCpack, 
-    MicrobeDS
+    MicrobeDS, 
+    tidyr
 Remotes:
     jsilve24/driver,
     twbattaglia/MicrobeDS

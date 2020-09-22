@@ -101,6 +101,9 @@ DxQxiter (if in proportions or clr)." />
     <li>
       <a href="../articles/picking_priors.html">Tips on Specifying Priors</a>
     </li>
+    <li>
+      <a href="../articles/mitigating-pcrbias.html">Mitigating PCR Bias</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -190,14 +193,14 @@ DxQxiter (if in proportions or clr).</p>
 
     <p>Other arguments:</p><ul>
 <li><p>`use_names` if column and row names were passed for Y and X in 
-call to <code>pibble</code>, should these names be applied to output 
+call to <code><a href='pibble_fit.html'>pibble</a></code>, should these names be applied to output 
 array.</p></li>
 </ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>pibble</span>(<span class='no'>Y</span>, <span class='no'>X</span>)
+<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='pibble_fit.html'>pibble</a></span>(<span class='no'>Y</span>, <span class='no'>X</span>)
 <span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>fit</span>)
 }</div></pre>
   </div>

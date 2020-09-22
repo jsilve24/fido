@@ -59,6 +59,9 @@
     <li>
       <a href="../articles/picking_priors.html">Tips on Specifying Priors</a>
     </li>
+    <li>
+      <a href="../articles/mitigating-pcrbias.html">Mitigating PCR Bias</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -112,7 +115,7 @@
 
       
 
-      </header><script src="non-linear-models_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
+      </header><script src="non-linear-models_files/header-attrs-2.3/header-attrs.js"></script><script src="non-linear-models_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Non-linear models with fido::basset</h1>
@@ -177,16 +180,16 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 <p><em>Important Note:</em> Currently, <code>Theta</code> must output a matrix represented in the default coordinate system (<span class="math inline">\(ALR_D\)</span>). This may be generalized in the future.</p>
 <p>Here we will just specify the Kernel parameters manually, more generally these parameters can be chosen by cross-validation.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># Specify Priors</span>
-<span class="no">Gamma</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">X</span>) <span class="fu"><a href="https://rdrr.io/pkg/fido/man/kernels.html">SE</a></span>(<span class="no">X</span>, <span class="kw">sigma</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">rho</span><span class="kw">=</span><span class="fl">10</span>) <span class="co"># Create partial function </span>
+<span class="no">Gamma</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">X</span>) <span class="fu"><a href="../reference/kernels.html">SE</a></span>(<span class="no">X</span>, <span class="kw">sigma</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">rho</span><span class="kw">=</span><span class="fl">10</span>) <span class="co"># Create partial function </span>
 <span class="no">Theta</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">X</span>) <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">0</span>, <span class="no">D</span>-<span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(<span class="no">X</span>))
 <span class="no">upsilon</span> <span class="kw">&lt;-</span> <span class="no">D</span>-<span class="fl">1</span>+<span class="fl">3</span>
 <span class="no">Xi</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">.4</span>, <span class="no">D</span>-<span class="fl">1</span>, <span class="no">D</span>-<span class="fl">1</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="no">Xi</span>) <span class="kw">&lt;-</span> <span class="fl">1</span>
 
 <span class="co"># Now fit the model</span>
-<span class="no">fit</span> <span class="kw">&lt;-</span> <span class="kw pkg">fido</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/fido/man/basset_fit.html">basset</a></span>(<span class="no">Y</span>, <span class="no">X</span>, <span class="no">upsilon</span>, <span class="no">Theta</span>, <span class="no">Gamma</span>, <span class="no">Xi</span>)</pre></body></html></div>
+<span class="no">fit</span> <span class="kw">&lt;-</span> <span class="kw pkg">fido</span><span class="kw ns">::</span><span class="fu"><a href="../reference/basset_fit.html">basset</a></span>(<span class="no">Y</span>, <span class="no">X</span>, <span class="no">upsilon</span>, <span class="no">Theta</span>, <span class="no">Gamma</span>, <span class="no">Xi</span>)</pre></body></html></div>
 <p>It turns out that <em>basset</em> is really just creating a <em>pibblefit</em> object that is a little special because it represents a posterior over non-linear functions. The benefit of this is that many of the methods available for <em>pibblefit</em> objects work for <em>bassetfit</em> objects. For example, we can use the same transformation methods:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">fit.clr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/fido/man/fido_transforms.html">to_clr</a></span>(<span class="no">fit</span>)
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">fit.clr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/fido_transforms.html">to_clr</a></span>(<span class="no">fit</span>)
 
 <span class="co"># Plot Sigma in CLR</span>
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">fit.clr</span>, <span class="kw">par</span><span class="kw">=</span><span class="st">"Sigma"</span>, <span class="kw">focus.coord</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"clr_seq_6"</span>, <span class="st">"clr_seq_5"</span>, <span class="st">"clr_seq_2"</span>))</pre></body></html></div>

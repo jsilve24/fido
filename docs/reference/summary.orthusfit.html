@@ -100,6 +100,9 @@
     <li>
       <a href="../articles/picking_priors.html">Tips on Specifying Priors</a>
     </li>
+    <li>
+      <a href="../articles/mitigating-pcrbias.html">Mitigating PCR Bias</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -189,7 +192,7 @@
     <tr>
       <th>use_names</th>
       <td><p>should summary replace dimension indices with orthusfit 
-names if names Y and X were named in call to <code>orthus</code></p></td>
+names if names Y and X were named in call to <code><a href='orthus_fit.html'>orthus</a></code></p></td>
     </tr>
     <tr>
       <th>as_factor</th>
@@ -211,7 +214,7 @@ probably what you want)</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>orthus</span>(<span class='no'>Y</span>, <span class='no'>Z</span>, <span class='no'>X</span>)
+<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='orthus_fit.html'>orthus</a></span>(<span class='no'>Y</span>, <span class='no'>Z</span>, <span class='no'>X</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>fit</span>, <span class='kw'>pars</span><span class='kw'>=</span><span class='st'>"Eta"</span>, <span class='kw'>median</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>(<span class='no'>val</span>))
 
 <span class='co'># Some later functions make use of precomputation</span>

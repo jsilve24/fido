@@ -1,6 +1,11 @@
 pandoc: 2.9.2.1
 pkgdown: 1.5.1
 pkgdown_sha: ~
-articles: []
-last_built: 2020-08-06T01:04Z
+articles:
+  introduction-to-fido: introduction-to-fido.html
+  mitigating-pcrbias: mitigating-pcrbias.html
+  non-linear-models: non-linear-models.html
+  orthus: orthus.html
+  picking_priors: picking_priors.html
+last_built: 2020-09-16T00:24Z
 

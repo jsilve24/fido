@@ -59,6 +59,9 @@
     <li>
       <a href="../articles/picking_priors.html">Tips on Specifying Priors</a>
     </li>
+    <li>
+      <a href="../articles/mitigating-pcrbias.html">Mitigating PCR Bias</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -112,7 +115,7 @@
 
       
 
-      </header><script src="orthus_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
+      </header><script src="orthus_files/header-attrs-2.3/header-attrs.js"></script><script src="orthus_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Joint Modeling (e.g., Multiomics) with fido::Orthus</h1>
@@ -202,9 +205,9 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">Gamma</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="no">Q</span>)
 <span class="no">Theta</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">0</span>, <span class="no">D</span>-<span class="fl">1</span>+<span class="no">P</span>, <span class="fl">1</span>)</pre></body></html></div>
 <p>Finally I fit the model.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">fit</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/fido/man/orthus_fit.html">orthus</a></span>(<span class="no">Y</span>, <span class="no">Z</span>, <span class="no">X</span>, <span class="kw">Theta</span><span class="kw">=</span><span class="no">Theta</span>, <span class="kw">Gamma</span><span class="kw">=</span><span class="no">Gamma</span>, <span class="kw">Xi</span><span class="kw">=</span><span class="no">Xi</span>, <span class="kw">upsilon</span><span class="kw">=</span><span class="no">upsilon</span>, <span class="kw">n_samples</span><span class="kw">=</span><span class="fl">1000</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">fit</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/orthus_fit.html">orthus</a></span>(<span class="no">Y</span>, <span class="no">Z</span>, <span class="no">X</span>, <span class="kw">Theta</span><span class="kw">=</span><span class="no">Theta</span>, <span class="kw">Gamma</span><span class="kw">=</span><span class="no">Gamma</span>, <span class="kw">Xi</span><span class="kw">=</span><span class="no">Xi</span>, <span class="kw">upsilon</span><span class="kw">=</span><span class="no">upsilon</span>, <span class="kw">n_samples</span><span class="kw">=</span><span class="fl">1000</span>)</pre></body></html></div>
 <p>Next we are going to transform the log-ratios from <span class="math inline">\(ALR_D\)</span> to the <span class="math inline">\(CLR\)</span>. I have written all the transformation functions, <em>e.g.</em>, <code>to_clr</code> etc… to work on <code>orthusfit</code> objects in a similar manner to how they work on <code>pibblefit</code> objects. For <code>orthusfit</code> objects they only transform the log-ratio components of parameters leaving the other parts of inferred model parameters (<em>i.e.</em>, the parts associated with the metabolites) untouched.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">fit</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/fido/man/fido_transforms.html">to_clr</a></span>(<span class="no">fit</span>)
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">fit</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/fido_transforms.html">to_clr</a></span>(<span class="no">fit</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">fit</span>)
 <span class="co">#&gt; orthusfit Object: </span>
 <span class="co">#&gt;   Number of Samples:      12 </span>

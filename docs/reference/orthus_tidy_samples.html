@@ -102,6 +102,9 @@ summary.orthusfit." />
     <li>
       <a href="../articles/picking_priors.html">Tips on Specifying Priors</a>
     </li>
+    <li>
+      <a href="../articles/mitigating-pcrbias.html">Mitigating PCR Bias</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -166,7 +169,7 @@ summary.orthusfit." />
     <div class="ref-description">
     <p>Combines them all into a single tibble, see example for formatting and 
 column headers. Primarily designed to be used by 
-<code>summary.orthusfit</code>.</p>
+<code><a href='summary.orthusfit.html'>summary.orthusfit</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>orthus_tidy_samples</span>(<span class='no'>m</span>, <span class='kw'>use_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>as_factor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -194,8 +197,8 @@ dimension names if provided in data used to fit pibble model.</p></td>
     <p>tibble</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>sim</span> <span class='kw'>&lt;-</span> <span class='fu'>orthus_sim</span>()
-<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>orthus</span>(<span class='no'>sim</span>$<span class='no'>Y</span>, <span class='no'>sim</span>$<span class='no'>Z</span>, <span class='no'>sim</span>$<span class='no'>X</span>)
+    <pre class="examples"><div class='input'><span class='no'>sim</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='orthus_sim.html'>orthus_sim</a></span>()
+<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='orthus_fit.html'>orthus</a></span>(<span class='no'>sim</span>$<span class='no'>Y</span>, <span class='no'>sim</span>$<span class='no'>Z</span>, <span class='no'>sim</span>$<span class='no'>X</span>)
 <span class='no'>fit_tidy</span> <span class='kw'>&lt;-</span> <span class='fu'>orthus_tidy_samples</span>(<span class='no'>fit</span>, <span class='kw'>use_names</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>fit_tidy</span>)</div><div class='output co'>#&gt;   Parameter       coord sample iter        val covariate coord2
 #&gt; 1       Eta log(c1/c10)     s1    1 -3.0554548      &lt;NA&gt;   &lt;NA&gt;

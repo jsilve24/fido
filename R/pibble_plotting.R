@@ -50,9 +50,9 @@ plot_mf_lambdaeta <- function(m, par, focus.cov=NULL, focus.coord=NULL,
   # some code to handle numeric focuses
   
   # Focus 
-  if (!is.null(focus.cov)) data <- filter(data, .data$covariate %in% focus.cov)
-  if (!is.null(focus.coord)) data <- filter(data, .data$coord %in% focus.coord)
-  if (!is.null(focus.sample)) data <- filter(data, .data$sample %in% focus.sample)
+  if (!is.null(focus.cov)) data <- filter(data, as.character(.data$covariate) %in% focus.cov)
+  if (!is.null(focus.coord)) data <- filter(data, as.character(.data$coord) %in% focus.coord)
+  if (!is.null(focus.sample)) data <- filter(data, as.character(.data$sample) %in% focus.sample)
   
   
   if (par=="Lambda"){

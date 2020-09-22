@@ -102,6 +102,9 @@ ILR bases, CLR coordinates, ALR coordinates, and proportions." />
     <li>
       <a href="../articles/picking_priors.html">Tips on Specifying Priors</a>
     </li>
+    <li>
+      <a href="../articles/mitigating-pcrbias.html">Mitigating PCR Bias</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -206,8 +209,8 @@ ILR bases, CLR coordinates, ALR coordinates, and proportions.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>m</th>
-      <td><p>object of class pibblefit or orthusfit (e.g., output of <code>pibble</code>
-or <code>orthus</code>)</p></td>
+      <td><p>object of class pibblefit or orthusfit (e.g., output of <code><a href='pibble_fit.html'>pibble</a></code>
+or <code><a href='orthus_fit.html'>orthus</a></code>)</p></td>
     </tr>
     <tr>
       <th>d</th>
@@ -233,11 +236,11 @@ or prior Xi and instead just removes them from the pibblefit object returned.</p
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'>pibble</span>(<span class='no'>Y</span>, <span class='no'>X</span>)
+<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='pibble_fit.html'>pibble</a></span>(<span class='no'>Y</span>, <span class='no'>X</span>)
 <span class='no'>m.prop</span> <span class='kw'>&lt;-</span> <span class='fu'>to_proportions</span>(<span class='no'>m</span>)
 <span class='co'># convert back to default coordinates (alr with D-th part as reference)</span>
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'>to_alr</span>(<span class='no'>m.prop</span>, <span class='fu'>ncategories</span>(<span class='no'>m</span>))
-<span class='no'>V</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>driver</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/driver/man/base_lr_transforms.html'>create_default_ilr_base</a></span>(<span class='fu'>ncategories</span>(<span class='no'>m</span>))
+<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'>to_alr</span>(<span class='no'>m.prop</span>, <span class='fu'><a href='access_dims.html'>ncategories</a></span>(<span class='no'>m</span>))
+<span class='no'>V</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>driver</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/driver/man/base_lr_transforms.html'>create_default_ilr_base</a></span>(<span class='fu'><a href='access_dims.html'>ncategories</a></span>(<span class='no'>m</span>))
 <span class='no'>m.ilr</span> <span class='kw'>&lt;-</span> <span class='fu'>to_ilr</span>(<span class='no'>m</span>, <span class='no'>V</span>)
 <span class='no'>m.clr</span> <span class='kw'>&lt;-</span> <span class='fu'>to_clr</span>(<span class='no'>m</span>)
 }</div></pre>

@@ -587,7 +587,7 @@ predict.pibblefit <- function(object, newdata=NULL, response="LambdaX", size=NUL
       group_by(.data$coord, .data$sample) %>% 
       summarise_posterior(.data$val, ...) %>% 
       ungroup() %>% 
-      name_tidy(object, list("coord" = "cat", "sample"=colnames(newdata)))
+      name_tidy(reapply_coord(object, l), list("coord" = "cat", "sample"=colnames(newdata)))
     return(LambdaX)
   }
   if (response == "LambdaX") return(LambdaX)

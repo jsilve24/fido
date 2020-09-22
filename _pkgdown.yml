@@ -13,6 +13,8 @@ navbar:
           href: articles/orthus.html
         - text: "Tips on Specifying Priors"
           href: articles/picking_priors.html
+        - text: "Mitigating PCR Bias"
+          href: articles/mitigating-pcrbias.html
     - text: "Functions"
       href: "reference/index.html"
     - text: "News"

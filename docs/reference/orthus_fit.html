@@ -109,6 +109,9 @@ optimPibbleCollapsed)" />
     <li>
       <a href="../articles/picking_priors.html">Tips on Specifying Priors</a>
     </li>
+    <li>
+      <a href="../articles/mitigating-pcrbias.html">Mitigating PCR Bias</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -172,15 +175,15 @@ optimPibbleCollapsed)" />
 
     <div class="ref-description">
     <p>This function is largely a more user friendly wrapper around
-<code>optimPibbleCollapsed</code> and
-<code>uncollapsePibble</code> for fitting orthus models.
+<code><a href='optimPibbleCollapsed.html'>optimPibbleCollapsed</a></code> and
+<code><a href='uncollapsePibble.html'>uncollapsePibble</a></code> for fitting orthus models.
 See details for model specification.
 Notation: <code>N</code> is number of samples, <code>P</code> is the number of dimensions
 of observations in the second dataset,
 <code>D</code> is number of multinomial categories, <code>Q</code> is number
 of covariates, <code>iter</code> is the number of samples of <code>eta</code> (e.g.,
 the parameter <code>n_samples</code> in the function
-<code>optimPibbleCollapsed</code>)</p>
+<code><a href='optimPibbleCollapsed.html'>optimPibbleCollapsed</a></code>)</p>
     </div>
 
     <pre class="usage"><span class='fu'>orthus</span>(
@@ -244,8 +247,8 @@ essentially iid on "base scale" using Aitchison terminology)</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code>optimPibbleCollapsed</code> and
-<code>uncollapsePibble</code></p></td>
+      <td><p>arguments passed to <code><a href='optimPibbleCollapsed.html'>optimPibbleCollapsed</a></code> and
+<code><a href='uncollapsePibble.html'>uncollapsePibble</a></code></p></td>
     </tr>
     </table>
 
@@ -274,14 +277,14 @@ model if laplace approximation is not preformed.</p>
   2019, arXiv e-prints, arXiv:1903.11695</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>fido_transforms</code> provide convenience methods for
+    <div class='dont-index'><p><code><a href='fido_transforms.html'>fido_transforms</a></code> provide convenience methods for
 transforming the representation of pibblefit objects (e.g., conversion to
 proportions, alr, clr, or ilr coordinates.)</p>
-<p><code>access_dims</code> provides convenience methods for accessing
+<p><code><a href='access_dims.html'>access_dims</a></code> provides convenience methods for accessing
 dimensions of pibblefit object</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>sim</span> <span class='kw'>&lt;-</span> <span class='fu'>orthus_sim</span>()
+    <pre class="examples"><div class='input'><span class='no'>sim</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='orthus_sim.html'>orthus_sim</a></span>()
 <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>orthus</span>(<span class='no'>sim</span>$<span class='no'>Y</span>, <span class='no'>sim</span>$<span class='no'>Z</span>, <span class='no'>sim</span>$<span class='no'>X</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

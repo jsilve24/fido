@@ -104,6 +104,9 @@ the parameter n_samples in the function optimPibbleCollapsed)" />
     <li>
       <a href="../articles/picking_priors.html">Tips on Specifying Priors</a>
     </li>
+    <li>
+      <a href="../articles/mitigating-pcrbias.html">Mitigating PCR Bias</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -167,7 +170,7 @@ the parameter n_samples in the function optimPibbleCollapsed)" />
 
     <div class="ref-description">
     <p>See details for model. Should likely be called following
-<code>optimPibbleCollapsed</code>. Notation: <code>N</code> is number of samples,
+<code><a href='optimPibbleCollapsed.html'>optimPibbleCollapsed</a></code>. Notation: <code>N</code> is number of samples,
 <code>D</code> is number of multinomial categories, <code>Q</code> is number
 of covariates, <code>iter</code> is the number of samples of <code>eta</code> (e.g.,
 the parameter <code>n_samples</code> in the function <code>optimPibbleCollapsed</code>)</p>
@@ -265,14 +268,14 @@ Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T P
 2019, arXiv e-prints, arXiv:1903.11695</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>optimPibbleCollapsed</code></p></div>
+    <div class='dont-index'><p><code><a href='optimPibbleCollapsed.html'>optimPibbleCollapsed</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>sim</span> <span class='kw'>&lt;-</span> <span class='fu'>pibble_sim</span>()
+    <pre class="examples"><div class='input'><span class='no'>sim</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='pibble_sim.html'>pibble_sim</a></span>()
 
 <span class='co'># Fit model for eta</span>
-<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>optimPibbleCollapsed</span>(<span class='no'>sim</span>$<span class='no'>Y</span>, <span class='no'>sim</span>$<span class='no'>upsilon</span>, <span class='no'>sim</span>$<span class='no'>Theta</span><span class='kw'>%*%</span><span class='no'>sim</span>$<span class='no'>X</span>, <span class='no'>sim</span>$<span class='no'>KInv</span>,
-                             <span class='no'>sim</span>$<span class='no'>AInv</span>, <span class='fu'>random_pibble_init</span>(<span class='no'>sim</span>$<span class='no'>Y</span>))
+<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='optimPibbleCollapsed.html'>optimPibbleCollapsed</a></span>(<span class='no'>sim</span>$<span class='no'>Y</span>, <span class='no'>sim</span>$<span class='no'>upsilon</span>, <span class='no'>sim</span>$<span class='no'>Theta</span><span class='kw'>%*%</span><span class='no'>sim</span>$<span class='no'>X</span>, <span class='no'>sim</span>$<span class='no'>KInv</span>,
+                             <span class='no'>sim</span>$<span class='no'>AInv</span>, <span class='fu'><a href='random_pibble_init.html'>random_pibble_init</a></span>(<span class='no'>sim</span>$<span class='no'>Y</span>))
 
 <span class='co'># Finally obtain samples from Lambda and Sigma</span>
 <span class='no'>fit2</span> <span class='kw'>&lt;-</span> <span class='fu'>uncollapsePibble</span>(<span class='no'>fit</span>$<span class='no'>Samples</span>, <span class='no'>sim</span>$<span class='no'>X</span>, <span class='no'>sim</span>$<span class='no'>Theta</span>,

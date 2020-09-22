@@ -103,6 +103,9 @@ of covariates." />
     <li>
       <a href="../articles/picking_priors.html">Tips on Specifying Priors</a>
     </li>
+    <li>
+      <a href="../articles/mitigating-pcrbias.html">Mitigating PCR Bias</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -166,7 +169,7 @@ of covariates." />
 
     <div class="ref-description">
     <p>See details for model. Should likely be followed by function
-<code>uncollapsePibble</code>. Notation: <code>N</code> is number of samples,
+<code><a href='uncollapsePibble.html'>uncollapsePibble</a></code>. Notation: <code>N</code> is number of samples,
 <code>D</code> is number of multinomial categories, and <code>Q</code> is number
 of covariates.</p>
     </div>
@@ -367,14 +370,14 @@ optimization algorithms</em>. arXiv 1609.04747</p>
 2019, arXiv e-prints, arXiv:1903.11695</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>uncollapsePibble</code></p></div>
+    <div class='dont-index'><p><code><a href='uncollapsePibble.html'>uncollapsePibble</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>sim</span> <span class='kw'>&lt;-</span> <span class='fu'>pibble_sim</span>()
+    <pre class="examples"><div class='input'><span class='no'>sim</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='pibble_sim.html'>pibble_sim</a></span>()
 
 <span class='co'># Fit model for eta</span>
 <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>optimPibbleCollapsed</span>(<span class='no'>sim</span>$<span class='no'>Y</span>, <span class='no'>sim</span>$<span class='no'>upsilon</span>, <span class='no'>sim</span>$<span class='no'>Theta</span><span class='kw'>%*%</span><span class='no'>sim</span>$<span class='no'>X</span>, <span class='no'>sim</span>$<span class='no'>KInv</span>,
-                             <span class='no'>sim</span>$<span class='no'>AInv</span>, <span class='fu'>random_pibble_init</span>(<span class='no'>sim</span>$<span class='no'>Y</span>))</div></pre>
+                             <span class='no'>sim</span>$<span class='no'>AInv</span>, <span class='fu'><a href='random_pibble_init.html'>random_pibble_init</a></span>(<span class='no'>sim</span>$<span class='no'>Y</span>))</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

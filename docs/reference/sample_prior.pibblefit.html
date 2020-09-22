@@ -101,6 +101,9 @@ be called to get counts or LambdaX (predict.pibblefit)" />
     <li>
       <a href="../articles/picking_priors.html">Tips on Specifying Priors</a>
     </li>
+    <li>
+      <a href="../articles/mitigating-pcrbias.html">Mitigating PCR Bias</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -164,11 +167,11 @@ be called to get counts or LambdaX (predict.pibblefit)" />
 
     <div class="ref-description">
     <p>Note this can be used to sample from prior and then predict can
-be called to get counts or LambdaX (<code>predict.pibblefit</code>)</p>
+be called to get counts or LambdaX (<code><a href='predict.pibblefit.html'>predict.pibblefit</a></code>)</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for pibblefit</span>
-<span class='fu'>sample_prior</span>(
+<span class='fu'><a href='sample_prior.html'>sample_prior</a></span>(
   <span class='no'>m</span>,
   <span class='kw'>n_samples</span> <span class='kw'>=</span> <span class='fl'>2000L</span>,
   <span class='kw'>pars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Eta"</span>, <span class='st'>"Lambda"</span>, <span class='st'>"Sigma"</span>),
@@ -209,10 +212,11 @@ header in this library - see MatDist.h).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Sample prior of already fitted  pibblefit object</span>
-<span class='no'>sim</span> <span class='kw'>&lt;-</span> <span class='fu'>pibble_sim</span>()
-<span class='fu'><a href='https://rdrr.io/r/base/attach.html'>attach</a></span>(<span class='no'>sim</span>)
-<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>pibble</span>(<span class='no'>Y</span>, <span class='no'>X</span>)
-<span class='fu'>sample_prior</span>(<span class='no'>fit</span>)</div><div class='output co'>#&gt;  pibblefit Object (Priors Only): 
+<span class='no'>sim</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='pibble_sim.html'>pibble_sim</a></span>()
+<span class='fu'><a href='https://rdrr.io/r/base/attach.html'>attach</a></span>(<span class='no'>sim</span>)</div><div class='output co'>#&gt; <span class='message'>The following object is masked from package:fido:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    Y</span></div><div class='input'><span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='pibble_fit.html'>pibble</a></span>(<span class='no'>Y</span>, <span class='no'>X</span>)
+<span class='fu'><a href='sample_prior.html'>sample_prior</a></span>(<span class='no'>fit</span>)</div><div class='output co'>#&gt;  pibblefit Object (Priors Only): 
 #&gt;   Number of Samples:		 30 
 #&gt;   Number of Categories:		 10 
 #&gt;   Number of Covariates:		 2 
@@ -220,12 +224,14 @@ header in this library - see MatDist.h).</p>
 #&gt;   Contains Samples of Parameters:Eta  Lambda  Sigma
 #&gt;   Coordinate System:		 alr, reference category: 10 [c10] </div><div class='input'>
 <span class='co'># Sample prior as part of model fitting</span>
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'>pibblefit</span>(<span class='kw'>N</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='no'>sim</span>$<span class='no'>N</span>), <span class='kw'>D</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='no'>sim</span>$<span class='no'>D</span>), <span class='kw'>Q</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='no'>sim</span>$<span class='no'>Q</span>),
+<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='pibblefit.html'>pibblefit</a></span>(<span class='kw'>N</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='no'>sim</span>$<span class='no'>N</span>), <span class='kw'>D</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='no'>sim</span>$<span class='no'>D</span>), <span class='kw'>Q</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='no'>sim</span>$<span class='no'>Q</span>),
                 <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>2000L</span>, <span class='kw'>upsilon</span><span class='kw'>=</span><span class='no'>upsilon</span>,
                 <span class='kw'>Xi</span><span class='kw'>=</span><span class='no'>Xi</span>, <span class='kw'>Gamma</span><span class='kw'>=</span><span class='no'>Gamma</span>, <span class='kw'>Theta</span><span class='kw'>=</span><span class='no'>Theta</span>, <span class='kw'>X</span><span class='kw'>=</span><span class='no'>X</span>,
                 <span class='kw'>coord_system</span><span class='kw'>=</span><span class='st'>"alr"</span>, <span class='kw'>alr_base</span><span class='kw'>=</span><span class='no'>D</span>)
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'>sample_prior</span>(<span class='no'>m</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>m</span>) <span class='co'># plot prior distribution (defaults to parameter Lambda) </span></div><div class='img'><img src='sample_prior.pibblefit-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sample_prior.html'>sample_prior</a></span>(<span class='no'>m</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>m</span>) <span class='co'># plot prior distribution (defaults to parameter Lambda) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'geom_intervalh' is deprecated.</span>
+#&gt; <span class='warning'>Use 'geom_interval' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated") and help("tidybayes-deprecated").</span></div><div class='img'><img src='sample_prior.pibblefit-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
