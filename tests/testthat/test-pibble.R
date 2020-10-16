@@ -195,3 +195,9 @@ test_that("max_iter leads to warning not error", {
   expect_warning(pibble(sim$Y, sim$X, max_iter=3))
 })
 
+test_that("init argument words in refit", {
+  fit <- pibble(sim$Y, sim$X)
+  fit <- refit(fit, init=random_pibble_init(sim$Y))
+  expect(TRUE, "init argument not working in refit")
+})
+

@@ -268,14 +268,17 @@ refit.pibblefit <- function(m, pars=c("Eta", "Lambda", "Sigma"), ...){
   argl <- list(...)
   argl$pars <- pars
   ml <- as.list(m)
-  argl <- c(ml, argl)
+  for (i in 1:length(argl)){
+    ml[[names(argl)[i]]] <- argl[[i]]
+  }
+  #argl <- c(ml, argl)
   
   # Need to handle iter as part of m but no n_samples passed
   # in this situation should pull iter from m and pass as n_samples to pibble 
-  if (is.null(argl[["n_samples"]]) & !is.null(m$iter)) argl[["n_samples"]] <- m$iter 
+  if (is.null(ml[["n_samples"]]) & !is.null(m$iter)) ml[["n_samples"]] <- m$iter 
   
   # pass to pibble function
-  m <- do.call(pibble, argl)
+  m <- do.call(pibble, ml)
   
   # Reapply original coordinates
   m <- reapply_coord(m, l)
