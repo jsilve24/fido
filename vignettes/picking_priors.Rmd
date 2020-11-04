@@ -94,11 +94,11 @@ $\Sigma$ describes the covariance between $ALR_D$ coordinates. Also note, this s
 ## Background on the Prior
 The prior for $\Sigma$ is an [Inverse Wishart](https://en.wikipedia.org/wiki/Inverse-Wishart_distribution) written
 $$\Sigma \sim W^{-1}(\Xi, \upsilon)$$
-where $\Psi$ is called the scale matrix (and must be a valid covariance matrix itself), and $\upsilon$ is called the degrees of freedom parameter. If $\Sigma$ is a $(D-1)x(D-1)$ matrix, then there is a constraint on $\upsilon$
+where $\Xi$ is called the scale matrix (and must be a valid covariance matrix itself), and $\upsilon$ is called the degrees of freedom parameter. If $\Sigma$ is a $(D-1)x(D-1)$ matrix, then there is a constraint on $\upsilon$
 such that $\upsilon \geq D-1$. 
 
 The inverse Wishart has a mildly complex form for its moments (e.g., mean and variance). Its mean is given by
-$$E[\Sigma] = \frac{\Psi}{\upsilon-D-2} \quad \text{for } \upsilon > D.$$
+$$E[\Sigma] = \frac{\Xi}{\upsilon-D-2} \quad \text{for } \upsilon > D.$$
 Its variance is somewhat complicated ([Wikipedia gives the relationships](https://en.wikipedia.org/wiki/Inverse-Wishart_distribution#Moments)) but for most purposes you can think
 of $\upsilon$ as setting the variance, larger $\upsilon$ means less uncertainty (lower variance) about the mean, smaller $\upsilon$ means more uncertainty (higher variance) about the mean. 
 
