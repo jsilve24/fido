@@ -1,5 +1,4 @@
-#' @rdname plot
-#' @export plot 
+#' @export
 plot <- function(x, ...){
   UseMethod("plot")
 }
@@ -23,8 +22,7 @@ plot <- function(x, ...){
 #'   rather than using dimension integer indices. 
 #' }
 #' @import graphics
-#' @rdname plot
-#' @export plot 
+#' @export
 #' @examples
 #' sim <- pibble_sim(N=10, D=4, Q=3)
 #' fit <- pibble(sim$Y, sim$X)

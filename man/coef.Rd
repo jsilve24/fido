@@ -20,10 +20,10 @@ Array of dimension (D-1) x Q x iter
 Array of dimension (D-1) x Q x iter
 }
 \description{
-Returned as array of dimension (D-1) x Q x iter (if in ALR or ILR) otherwise
+Pibble: Returned as array of dimension (D-1) x Q x iter (if in ALR or ILR) otherwise
 DxQxiter (if in proportions or clr).
 
-Returned as array of dimension (D-1+P) x Q x iter (if in ALR or ILR) 
+Orthus: Returned as array of dimension (D-1+P) x Q x iter (if in ALR or ILR) 
 otherwise (D+P) x Q x iter.
 }
 \details{

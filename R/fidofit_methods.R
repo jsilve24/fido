@@ -518,8 +518,8 @@ as.list.orthusfit <- function(x,...){
 
 
 #' @export 
-plot <- function(x, ...){
-  UseMethod("plot")
+predict <- function(x, ...){
+  UseMethod("predict")
 }
 
 
