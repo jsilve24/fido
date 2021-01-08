@@ -63,17 +63,19 @@ plot_mf_lambdaeta <- function(m, par, focus.cov=NULL, focus.coord=NULL,
   
   if (par=="Lambda"){
     p <- data %>% 
-      ggplot(aes(x=.data$val, y=.data$coord)) +
-      geom_intervalh() +
+      ggplot(aes(x=.data$val, y=.data$coord, xmin=.lower, xmax=.upper)) +
+      geom_interval() +
       geom_point() + 
-      facet_grid(~.data$covariate)
+      facet_grid(~.data$covariate) +
+      scale_color_brewer()
   }
   if (par=="Eta"){
     p <- data %>% 
-      ggplot(aes(x=.data$val, y=.data$coord)) +
-      geom_intervalh() +
+      ggplot(aes(x=.data$val, y=.data$coord,  xmin=.lower, xmax=.upper)) +
+      geom_interval() +
       geom_point() +
-      facet_grid(~.data$sample)
+      facet_grid(~.data$sample) +
+      scale_color_brewer()
   }
   p <- p+
     theme_minimal() +
