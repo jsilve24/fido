@@ -30,7 +30,8 @@ Suggests:
     numDeriv,
     MCMCpack, 
     MicrobeDS, 
-    tidyr
+    tidyr, 
+    tidybayes
 Remotes:
     jsilve24/driver,
     twbattaglia/MicrobeDS
