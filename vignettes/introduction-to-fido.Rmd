@@ -231,7 +231,8 @@ to provide some more specific names for the covariates (helpful when we then plo
 
 ```{r fig.height=5, fig.width=7}
 names_covariates(priors) <- rownames(X)
-plot(priors, par="Lambda") + ggplot2::xlim(c(-10, 10))  
+p <- plot(priors, par="Lambda") 
+p + ggplot2::xlim(c(-10, 10))  
 ```
 
 This looks fairly reasonable to me. So I am going to go ahead and 
