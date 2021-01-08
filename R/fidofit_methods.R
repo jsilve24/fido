@@ -122,6 +122,13 @@ summary_check_precomputed <- function(m, pars){
   return(FALSE)
 }
 
+
+#' @export 
+summary <- function(x, ...){
+  UseMethod("summary")
+}
+
+
 #' Summarise pibblefit object and print posterior quantiles
 #' 
 #' Default calculates median, mean, 50\% and 95\% credible interval
@@ -288,6 +295,13 @@ summary.orthusfit <- function(object, pars=NULL, use_names=TRUE, as_factor=FALSE
   return(mtidy)
 }
 
+
+#' @export 
+print <- function(x, ...){
+  UseMethod("print")
+}
+
+
 #' Print dimensions and coordinate system information for pibblefit object. 
 #'
 #' @param x an object of class pibblefit
@@ -389,10 +403,16 @@ print.orthusfit <- function(x, summary=FALSE, ...){
 }
 
 
+#' @export 
+coef <- function(x, ...){
+  UseMethod("coef")
+}
+
+
 
 #' Return regression coefficients of pibblefit object
 #' 
-#' Returned as array of dimension (D-1) x Q x iter (if in ALR or ILR) otherwise
+#' Pibble: Returned as array of dimension (D-1) x Q x iter (if in ALR or ILR) otherwise
 #' DxQxiter (if in proportions or clr).
 #' 
 #' @param object an object of class pibblefit
@@ -404,8 +424,8 @@ print.orthusfit <- function(x, summary=FALSE, ...){
 #' call to \code{\link{pibble}}, should these names be applied to output 
 #' array. 
 #' }
-#' 
-#' @export
+#' @rdname coef
+#' @export coef
 #' @examples 
 #' \dontrun{
 #' fit <- pibble(Y, X)
@@ -424,7 +444,7 @@ coef.pibblefit <- function(object, ...){
 
 #' Return regression coefficients of orthus object
 #' 
-#' Returned as array of dimension (D-1+P) x Q x iter (if in ALR or ILR) 
+#' Orthus: Returned as array of dimension (D-1+P) x Q x iter (if in ALR or ILR) 
 #' otherwise (D+P) x Q x iter.
 #' 
 #' @param object an object of class orthusfit
@@ -437,7 +457,8 @@ coef.pibblefit <- function(object, ...){
 #' array. 
 #' }
 #' 
-#' @export
+#' @rdname coef
+#' @export coef
 #' @examples 
 #' \dontrun{
 #' fit <- orthus(Y, Z, X)
@@ -450,6 +471,13 @@ coef.orthusfit <- function(object, ...){
   if (use_names) object <- name.orthusfit(object)
   x <- object$Lambda
   return(x)
+}
+
+
+
+#' @export
+as.list <- function(x, ...){
+  UseMethod("as.list")
 }
 
 
@@ -486,6 +514,14 @@ as.list.orthusfit <- function(x,...){
   attr(x, "class") <- "list"
   return(x)
 }
+
+
+
+#' @export 
+plot <- function(x, ...){
+  UseMethod("plot")
+}
+
 
 
 #' Predict response from new data

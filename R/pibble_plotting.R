@@ -1,3 +1,9 @@
+#' @rdname plot
+#' @export plot 
+plot <- function(x, ...){
+  UseMethod("plot")
+}
+
 #' Plot Summaries of Posterior Distribution of pibblefit Parameters
 #' 
 #' @param x an object of class pibblefit
@@ -16,7 +22,9 @@
 #' \item `use_names` if TRUE, uses dimension names found in data as plot labels
 #'   rather than using dimension integer indices. 
 #' }
-#' @export
+#' @import graphics
+#' @rdname plot
+#' @export plot 
 #' @examples
 #' sim <- pibble_sim(N=10, D=4, Q=3)
 #' fit <- pibble(sim$Y, sim$X)
