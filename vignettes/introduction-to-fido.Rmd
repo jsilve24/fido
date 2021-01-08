@@ -217,7 +217,7 @@ Faster implementations of summary may be included as a future update if need ari
 
 ```{r}
 priors <- to_clr(priors)  
-summary(priors, pars="Lambda")  
+summary(priors, pars="Lambda", gather_prob=TRUE, as_factor=TRUE, use_names=TRUE)  
 ```
 
 By default the `summary` function returns a list (with possible elements `Lambda`, 
