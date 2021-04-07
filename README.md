@@ -33,6 +33,14 @@ A few notes:
 want vignettes to build locally during package installation you must also pass the `build=TRUE` and `build_opts = c("--no-resave-data", "--no-manual")` options to `install_github`. 
 
 
+## Research Using *fido*
+
+* [Silverman et al., Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes](https://arxiv.org/abs/1903.11695)
+* [Silverman et al., Measuring and Mitigating PCR Bias in Microbiome Data](https://www.biorxiv.org/content/10.1101/604025v1.abstract)
+* [Holmes et al., Short-Chain Fatty Acid Production by Gut Microbiota from Children with Obesity Differs According to Prebiotic Choice and Bacterial Community Composition](https://mbio.asm.org/content/11/4/e00914-20.abstract)
+* [Silverman et al., Using Influenza surveillance ntworks to estimate state-specific prevalance of SARS-CoV-2 in the United States](https://stm.sciencemag.org/content/12/554/eabc1126)
+
+
 ## Bugs/Feature requests ##
 Have you checked out [our FAQ](https://github.com/jsilve24/fido/wiki/Frequently-Asked-Questions)? 
 
