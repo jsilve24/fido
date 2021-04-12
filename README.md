@@ -32,6 +32,14 @@ A few notes:
 * Vignettes are prebuilt on the [*fido* webpage](https://jsilve24.github.io/fido/). If you 
 want vignettes to build locally during package installation you must also pass the `build=TRUE` and `build_opts = c("--no-resave-data", "--no-manual")` options to `install_github`. 
 
+## Vignettes
+
+* [Introduction to fido::Pibble](https://jsilve24.github.io/fido/articles/introduction-to-fido.html)
+* [Non-linear models with fido::basset](https://jsilve24.github.io/fido/articles/non-linear-models.html)
+* [Joint Modeling (e.g., Multinomics) with fido::Orthus](https://jsilve24.github.io/fido/articles/orthus.html)
+* [Tips for Specifying Priors](https://jsilve24.github.io/fido/articles/picking_priors.html)
+* [Mitigating PCR bias](https://jsilve24.github.io/fido/articles/mitigating-pcrbias.html)
+
 
 ## Research Using *fido*
 
