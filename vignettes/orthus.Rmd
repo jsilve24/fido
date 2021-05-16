@@ -33,7 +33,7 @@ $$
 \begin{align}
 Y_j & \sim \text{Multinomial}\left(\pi_j \right)  \\
 \pi_j & = \phi^{-1}(\eta_j) \\
-\begin{bmatrix}\eta_j \\ Z_j \end{bmatrix} &\sim N(\Lambda X, \Sigma) \\
+\begin{bmatrix}\eta_j \\ Z_j \end{bmatrix} &\sim N(\Lambda X_j, \Sigma) \\
 \Lambda &\sim  N(\Theta, \Sigma, \Gamma) \\
 \Sigma &\sim W^{-1}(\Xi, \upsilon) 
 \end{align}
