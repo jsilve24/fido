@@ -2,63 +2,24 @@
 % Please edit documentation in R/fidofit_methods.R
 \name{coef}
 \alias{coef}
-\alias{coef.pibblefit}
-\alias{coef.orthusfit}
 \title{Return regression coefficients of pibblefit or orthusfit object}
 \usage{
-coef(x, ...)
-
-\method{coef}{pibblefit}(object, ...)
-
-\method{coef}{orthusfit}(object, ...)
+coef(object, ...)
 }
 \arguments{
-\item{x}{an object of class pibblefit or orthusfit}
+\item{object}{an object of class pibblefit or orthusfit}
 
-\item{...}{other options passed to coef.orthusfit (see details)}
-
-\item{object}{an object of class orthusfit}
+\item{...}{other options passed to coef.pibblefit  or coef.orthusfit (see details)}
 }
 \value{
 Array of dimension (D-1) x Q x iter
-
-Array of dimension (D-1) x Q x iter
-
-Array of dimension (D-1) x Q x iter
 }
 \description{
-Pibble: Returned as array of dimension (D-1) x Q x iter (if in ALR or ILR) otherwise
-DxQxiter (if in proportions or clr).
-
-Orthus: Returned as array of dimension (D-1+P) x Q x iter (if in ALR or ILR) 
-otherwise (D+P) x Q x iter.
-}
-\details{
-Other arguments:
-\itemize{
-\item `use_names` if column and row names were passed for Y and X in 
-call to \code{\link{pibble}}, should these names be applied to output 
-array. 
-}
-
-Other arguments:
-\itemize{
-\item use_names if column and row names were passed for Y and X in 
-call to \code{\link{pibble}}, should these names be applied to output 
-array. 
-}
+Return regression coefficients of pibblefit or orthusfit object
 }
 \examples{
 \dontrun{
 fit <- pibble(Y, X)
 coef(fit)
 } 
-\dontrun{
-fit <- pibble(Y, X)
-coef(fit)
-}
-\dontrun{
-fit <- orthus(Y, Z, X)
-coef(fit)
-}
 }

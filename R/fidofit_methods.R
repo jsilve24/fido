@@ -421,7 +421,7 @@ print.orthusfit <- function(x, summary=FALSE, ...){
 #' Return regression coefficients of pibblefit or orthusfit object
 
 #' 
-#' @param x an object of class pibblefit or orthusfit
+#' @param object an object of class pibblefit or orthusfit
 #' @param ... other options passed to coef.pibblefit  or coef.orthusfit (see details)
 #' @return Array of dimension (D-1) x Q x iter
 #'
@@ -431,7 +431,7 @@ print.orthusfit <- function(x, summary=FALSE, ...){
 #' fit <- pibble(Y, X)
 #' coef(fit)
 #' } 
-coef <- function(x, ...){
+coef <- function(object, ...){
   UseMethod("coef")
 }
 
@@ -451,8 +451,9 @@ coef <- function(x, ...){
 #' call to \code{\link{pibble}}, should these names be applied to output 
 #' array. 
 #' }
-#' @rdname coef
-#' @export coef
+#' 
+#' @export
+#' 
 #' @examples 
 #' \dontrun{
 #' fit <- pibble(Y, X)
@@ -484,8 +485,8 @@ coef.pibblefit <- function(object, ...){
 #' array. 
 #' }
 #' 
-#' @rdname coef
-#' @export coef
+#' @export
+#' 
 #' @examples 
 #' \dontrun{
 #' fit <- orthus(Y, Z, X)
