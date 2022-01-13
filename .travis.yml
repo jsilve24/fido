@@ -11,7 +11,6 @@ os:
 
 
 # Packages to install from specific sources other than CRAN   
-use_bioc: true
 bioc_required: true
 bioc_packages:
   - phyloseq

@@ -165,7 +165,7 @@ optimMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, init, ellinit,
 #'
 #' @inheritParams optimPibbleCollapsed
 #' @param AInv Inverse of A for LTP (for Pibble defined as 
-#'   AInv = solve(diag(N)+ t(X)\%*\%Gamma\%*\%X) )
+#'   AInv = solve(diag(N)+ X'GammaX) )
 #' @param KInv Inverse of K for LTP (for Pibble defined as KInv = solve(Xi))
 #' @param eta matrix (D-1)xN of parameter values at which to calculate quantities
 #' @param sylv (default:false) if true and if N < D-1 will use sylvester determinant

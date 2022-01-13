@@ -5,11 +5,13 @@ Version: 0.1.13
 Date: 2019-07-06
 Author: Justin Silverman
 Authors@R: c(person("Justin", "Silverman", role=c("aut", "cre"),
-                     email = "Justin.Silverman@duke.edu"), 
+                     email = "Justin.Silverman@psu.edu"), 
              person("Kim", "Roche", role=("ctb"), 
-                     email = "kimberly.roche@duke.edu"))
+                     email = "kimberly.roche@duke.edu"),
+             person("Michelle", "Nixon", role=("ctb"), 
+                     email = "pistner@psu.edu"))
 Maintainer: Justin Silverman
-    <Justin.Silverman@duke.edu>
+    <Justin.Silverman@psu.edu>
 Description: Provides methods for fitting and inspection of Bayesian Multinomial 
  Logistic Normal Models using MAP estimation 
  and Laplace Approximation. Key functionality is implemented in C++ for 
@@ -30,10 +32,10 @@ Suggests:
     numDeriv,
     MCMCpack, 
     MicrobeDS, 
-    tidyr, 
-    tidybayes
+    tidyr
 Remotes:
     jsilve24/driver,
     twbattaglia/MicrobeDS
 VignetteBuilder: knitr
 LazyData: true
+Encoding: UTF-8
