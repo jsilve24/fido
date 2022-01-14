@@ -20,6 +20,11 @@ bioc_packages:
 # Linus System dependencies:
 apt_packages:
   - libgsl0-dev
+
+# Github packages:
+r_github_packages:
+  - jsilve24/driver
+  - twbattaglia/MicrobeDS
   
 # Increase build time-out time - because of long package vignette built times
 
