@@ -1,4 +1,4 @@
-citHeader("To cite stray in publications use:")
+citHeader("To cite fido in publications use:")
 
 citEntry(
   entry = "article",

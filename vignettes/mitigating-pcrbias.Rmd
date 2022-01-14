@@ -190,7 +190,7 @@ for (i in seq_along(sigma)){
   fit <- pibble(Y=Y, X=X, Gamma = sigma[i]*diag(nrow(X)))
   lml[i] <- fit$logMarginalLikelihood # this is calculated automatically by fido
 }
-plot(sigma, lml)
+base::plot(sigma, lml)
 ```
 
 

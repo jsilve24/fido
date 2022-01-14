@@ -1,7 +1,7 @@
 Package: fido
 Type: Package
 Title: Bayesian Multinomial Logistic Normal Regression
-Version: 0.1.13
+Version: 0.1.14
 Date: 2019-07-06
 Author: Justin Silverman
 Authors@R: c(person("Justin", "Silverman", role=c("aut", "cre"),
@@ -12,11 +12,10 @@ Authors@R: c(person("Justin", "Silverman", role=c("aut", "cre"),
                      email = "pistner@psu.edu"))
 Maintainer: Justin Silverman
     <Justin.Silverman@psu.edu>
-Description: Provides methods for fitting and inspection of Bayesian Multinomial 
- Logistic Normal Models using MAP estimation 
+Description: Provides methods for fitting and inspection of Bayesian Multinomial Logistic Normal Models using MAP estimation 
  and Laplace Approximation. Key functionality is implemented in C++ for 
- scalability. (renamed from stray)
-License: GPL (>=2)
+ scalability. fido replaces the previous package stray.
+License: GPL-3 + file LICENSE
 URL: https://jsilve24.github.io/fido/
 Depends: R (>= 3.5.0)
 Imports: Rcpp (>= 0.12.17), RcppEigen (>= 0.3.3.4.0), driver, dplyr, ggplot2, 

@@ -53,7 +53,7 @@ plot.pibblefit <- function(x, ...){
 }
 
 plot_mf_lambdaeta <- function(m, par, focus.cov=NULL, focus.coord=NULL, 
-                              focus.sample=NULL, use_names=TRUE){
+                              focus.sample=NULL, use_names=TRUE,.lower = .025, .upper = .975,...){
   data <- summary.pibblefit(m, pars=par, use_names=use_names, 
                              as_factor=TRUE, gather_prob=TRUE)
   data <- data[[par]]

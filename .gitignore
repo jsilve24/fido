@@ -12,3 +12,5 @@ inst/doc
 /R/open_mp_status.R
 /src/Makevars
 /src/RcppExports-c6dce4e0.o.tmp
+/doc/
+/Meta/
