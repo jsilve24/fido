@@ -1,3 +1,11 @@
+# fido 0.1.14
+
+* More changes to prepare for version 0.2 (and CRAN soon), including:
+* Lots of cleaning of small warnings and notes
+* Fixing erorrs with the base plot function
+* Cleaning up some manual entries
+* Fixing the errors posted on Github (to_ilr among others)
+
 # fido 0.1.13
 
 * tons of tiny changes to prepare for version 0.2 (and ultimately CRAN) featured changes include:
