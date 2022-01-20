@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,14 +33,14 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="https://github.com/jsilve24/fido/wiki/Installation-Details">Installation</a>
+  <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -78,29 +80,29 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="https://github.com/jsilve24/RcppCoDA">RcppCoDA</a>
+      <a href="https://github.com/jsilve24/RcppCoDA" class="external-link">RcppCoDA</a>
     </li>
     <li>
-      <a href="https://jsilve24.github.io/driver/">driver</a>
+      <a href="https://jsilve24.github.io/driver/" class="external-link">driver</a>
     </li>
     <li>
-      <a href="https://bioconductor.org/packages/release/bioc/html/philr.html">philr</a>
+      <a href="https://bioconductor.org/packages/release/bioc/html/philr.html" class="external-link">philr</a>
     </li>
     <li>
-      <a href="https://cran.r-project.org/package=RcppHungarian">RcppHungarian</a>
+      <a href="https://cran.r-project.org/package=RcppHungarian" class="external-link">RcppHungarian</a>
     </li>
   </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://twitter.com/inschool4life">
+  <a href="https://twitter.com/inschool4life" class="external-link">
     <span class="fa fa-twitter"></span>
      
   </a>
 </li>
 <li>
-  <a href="https://github.com/jsilve24/fido">
+  <a href="https://github.com/jsilve24/fido" class="external-link">
     <span class="fa fa-github"></span>
      
   </a>
@@ -115,11 +117,11 @@
 
       
 
-      </header><script src="non-linear-models_files/header-attrs-2.3/header-attrs.js"></script><script src="non-linear-models_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Non-linear models with fido::basset</h1>
-                        <h4 class="author">Justin Silverman</h4>
+                        <h4 data-toc-skip class="author">Justin Silverman</h4>
             
       
       
@@ -130,9 +132,9 @@
     
     
 <p>If you have not already done so, I would read through the <em>pibble</em> vignette before this one.</p>
-<div id="fidobasset-the-model" class="section level1">
-<h1 class="hasAnchor">
-<a href="#fidobasset-the-model" class="anchor"></a>fido::basset, the model</h1>
+<div class="section level2">
+<h2 id="fidobasset-the-model">fido::basset, the model<a class="anchor" aria-label="anchor" href="#fidobasset-the-model"></a>
+</h2>
 <p>fido can be used for non-linear modeling. Here we are going to go through one such model which is based on multivariate Gaussian processes. As Gaussian processes are a type of lazy learner, I have named this model after a lazy dog: a Basset Hound. Hence this model is called <em>basset</em>. The <em>basset</em> model can be written as <span class="math display">\[
 \begin{align}
 Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
@@ -143,94 +145,99 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 \end{align}
 \]</span> where we now label quantities interpreted as function with square brackets. In particular, we use the notation that <span class="math inline">\(\Lambda[X]\)</span> is a function that maps am <span class="math inline">\(Q \times N\)</span> matrix of covariates <span class="math inline">\(X\)</span> to a matrix <span class="math inline">\(\eta\)</span>. <span class="math inline">\(\Lambda\)</span> can be interpreted as a smooth function that relates covariates <span class="math inline">\(X\)</span> to composition <span class="math inline">\(\eta\)</span> in a potentially non-linear manner. <span class="math inline">\(\Theta[X]\)</span> is the mean function evaluated at <span class="math inline">\(X\)</span>, <span class="math inline">\(\Gamma[X]\)</span> is a covariance matrix (or gram matrix) formed by evaluating a positive semi-definite kernel function <span class="math inline">\(K\)</span> at each set of points <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>, <em>i.e.</em>, <span class="math inline">\(\Gamma_{ij} = K(X_i, X_j)\)</span>. Many different possible kernel functions makes this a very flexible and powerful model.</p>
 </div>
-<div id="non-linear-time-series-modeling" class="section level1">
-<h1 class="hasAnchor">
-<a href="#non-linear-time-series-modeling" class="anchor"></a>Non-linear time-series modeling</h1>
+<div class="section level2">
+<h2 id="non-linear-time-series-modeling">Non-linear time-series modeling<a class="anchor" aria-label="anchor" href="#non-linear-time-series-modeling"></a>
+</h2>
 <p>To demonstrate <em>basset</em> I am going to reanalyze the mallard<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> dataset from <span class="citation">Silverman et al. (2018)</span> which is provided as a phyloseq object in <em>fido</em>. This dataset features 4 artificial gut vessels sampled both daily and hourly for 1 month with many technical replicates.</p>
-<p>To accord with prior analyses (and to make it easy to visualize results) I am going to just analyze those bacterial families that are frequently observed. Note: the full dataset (at the sequence variant level without preprocessing) is available if you run <code><a href="https://rdrr.io/r/utils/data.html">data(mallard)</a></code>. For simplicity we will just look at samples from vessel 1<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">fido</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">phyloseq</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">driver</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">mallard_family</span>)
+<p>To accord with prior analyses (and to make it easy to visualize results) I am going to just analyze those bacterial families that are frequently observed. Note: the full dataset (at the sequence variant level without preprocessing) is available if you run <code>data(mallard)</code>. For simplicity we will just look at samples from vessel 1<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jsilve24.github.io/fido/" class="external-link">fido</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://dx.plos.org/10.1371/journal.pone.0061217" class="external-link">phyloseq</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jsilve24.github.io/driver/" class="external-link">driver</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span>
 
 <span class="co"># Just take vessel 1</span>
-<span class="no">mallard_family</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/prune_samples-methods.html">prune_samples</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html">sample_data</a></span>(<span class="no">mallard_family</span>)$<span class="no">Vessel</span><span class="kw">==</span><span class="fl">1</span>, <span class="no">mallard_family</span>)
+<span class="va">mallard_family</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/prune_samples-methods.html" class="external-link">prune_samples</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html" class="external-link">sample_data</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span><span class="op">$</span><span class="va">Vessel</span><span class="op">==</span><span class="fl">1</span>, <span class="va">mallard_family</span><span class="op">)</span>
 
 <span class="co"># Just take hourly samples</span>
-<span class="no">mallard_family</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/prune_samples-methods.html">prune_samples</a></span>((<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html">sample_data</a></span>(<span class="no">mallard_family</span>)$<span class="no">time</span> <span class="kw">&gt;</span> <span class="st">"2015-11-20 15:00:00 UTC"</span>) <span class="kw">&amp;</span>
-                      (<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html">sample_data</a></span>(<span class="no">mallard_family</span>)$<span class="no">time</span> <span class="kw">&lt;</span> <span class="st">"2015-11-25 16:00:00 UTC"</span>), <span class="no">mallard_family</span>)
+<span class="va">mallard_family</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/prune_samples-methods.html" class="external-link">prune_samples</a></span><span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html" class="external-link">sample_data</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span><span class="op">$</span><span class="va">time</span> <span class="op">&gt;</span> <span class="st">"2015-11-20 15:00:00 UTC"</span><span class="op">)</span> <span class="op">&amp;</span>
+                      <span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html" class="external-link">sample_data</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span><span class="op">$</span><span class="va">time</span> <span class="op">&lt;</span> <span class="st">"2015-11-25 16:00:00 UTC"</span><span class="op">)</span>, <span class="va">mallard_family</span><span class="op">)</span>
 
 <span class="co"># Order samples - to make plotting easy later</span>
-<span class="no">o</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html">sample_data</a></span>(<span class="no">mallard_family</span>)$<span class="no">time</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/otu_table-methods.html">otu_table</a></span>(<span class="no">mallard_family</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/otu_table-methods.html">otu_table</a></span>(<span class="no">mallard_family</span>)[<span class="no">o</span>,]
-<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html">sample_data</a></span>(<span class="no">mallard_family</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html">sample_data</a></span>(<span class="no">mallard_family</span>)[<span class="no">o</span>,]
+<span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html" class="external-link">sample_data</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span><span class="op">$</span><span class="va">time</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/otu_table-methods.html" class="external-link">otu_table</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/otu_table-methods.html" class="external-link">otu_table</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span><span class="op">[</span><span class="va">o</span>,<span class="op">]</span>
+<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html" class="external-link">sample_data</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html" class="external-link">sample_data</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span><span class="op">[</span><span class="va">o</span>,<span class="op">]</span>
 
 <span class="co"># Extract Data / dimensions from Phyloseq object</span>
-<span class="no">Y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/transpose-methods.html">t</a></span>(<span class="fu">as</span>(<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/otu_table-methods.html">otu_table</a></span>(<span class="no">mallard_family</span>), <span class="st">"matrix"</span>))
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">Y</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/taxa_names-methods.html">taxa_names</a></span>(<span class="no">mallard_family</span>)
-<span class="no">D</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html">ntaxa</a></span>(<span class="no">mallard_family</span>)
-<span class="no">N</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html">sample_data</a></span>(<span class="no">mallard_family</span>))
+<span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/transpose-methods.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">as</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/otu_table-methods.html" class="external-link">otu_table</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span>, <span class="st">"matrix"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/taxa_names-methods.html" class="external-link">taxa_names</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span>
+<span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html" class="external-link">ntaxa</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span>
+<span class="va">N</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html" class="external-link">sample_data</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># X in hours</span>
-<span class="no">X</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html">sample_data</a></span>(<span class="no">mallard_family</span>)$<span class="no">time</span>)
-<span class="no">X</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/transpose-methods.html">t</a></span>((<span class="no">X</span>-<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="no">X</span>)) / <span class="fl">3600</span>)</pre></body></html></div>
+<span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html" class="external-link">sample_data</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span><span class="op">$</span><span class="va">time</span><span class="op">)</span>
+<span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/transpose-methods.html" class="external-link">t</a></span><span class="op">(</span><span class="op">(</span><span class="va">X</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">3600</span><span class="op">)</span></code></pre></div>
 <p>The function <em>basset</em> is a wrapper around some <em>fido</em> internals that make fitting the above model easy. <em>basset</em> is patterned after the function <em>pibble</em> but requires that <code>Theta</code> and <code>Gamma</code> be given as matrix functions rather than as matrices. That is <code>Theta</code> must be a function that given <code>X</code> outputs a <span class="math inline">\(D-1 \times N\)</span> matrix (just like you would give to <em>pibble</em>) and <code>Gamma</code> must be a function that given <code>X</code> outputs a <span class="math inline">\(N \times N\)</span> covariance matrix (e.g., covariance over the samples). There are a few kernel functions that meet the requirements for <code>Gamma</code> in <em>fido</em> already. Here we will use a Squared Exponential (SE) kernel for <code>Gamma</code> and will set <code>Theta</code> to be the zero function. The SE kernel will give us non-linear smoothing of the observed time-series.</p>
 <p><em>Important Note:</em> Currently, <code>Theta</code> must output a matrix represented in the default coordinate system (<span class="math inline">\(ALR_D\)</span>). This may be generalized in the future.</p>
 <p>Here we will just specify the Kernel parameters manually, more generally these parameters can be chosen by cross-validation.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># Specify Priors</span>
-<span class="no">Gamma</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">X</span>) <span class="fu"><a href="../reference/kernels.html">SE</a></span>(<span class="no">X</span>, <span class="kw">sigma</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">rho</span><span class="kw">=</span><span class="fl">10</span>) <span class="co"># Create partial function </span>
-<span class="no">Theta</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">X</span>) <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">0</span>, <span class="no">D</span>-<span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(<span class="no">X</span>))
-<span class="no">upsilon</span> <span class="kw">&lt;-</span> <span class="no">D</span>-<span class="fl">1</span>+<span class="fl">3</span>
-<span class="no">Xi</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">.4</span>, <span class="no">D</span>-<span class="fl">1</span>, <span class="no">D</span>-<span class="fl">1</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="no">Xi</span>) <span class="kw">&lt;-</span> <span class="fl">1</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Specify Priors</span>
+<span class="va">Gamma</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span><span class="op">)</span> <span class="fu"><a href="../reference/kernels.html">SE</a></span><span class="op">(</span><span class="va">X</span>, sigma<span class="op">=</span><span class="fl">5</span>, rho<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="co"># Create partial function </span>
+<span class="va">Theta</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">D</span><span class="op">-</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span>
+<span class="va">upsilon</span> <span class="op">&lt;-</span> <span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">+</span><span class="fl">3</span>
+<span class="va">Xi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">.4</span>, <span class="va">D</span><span class="op">-</span><span class="fl">1</span>, <span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">Xi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1</span>
 
 <span class="co"># Now fit the model</span>
-<span class="no">fit</span> <span class="kw">&lt;-</span> <span class="kw pkg">fido</span><span class="kw ns">::</span><span class="fu"><a href="../reference/basset_fit.html">basset</a></span>(<span class="no">Y</span>, <span class="no">X</span>, <span class="no">upsilon</span>, <span class="no">Theta</span>, <span class="no">Gamma</span>, <span class="no">Xi</span>)</pre></body></html></div>
+<span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">fido</span><span class="fu">::</span><span class="fu"><a href="../reference/basset_fit.html">basset</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">X</span>, <span class="va">upsilon</span>, <span class="va">Theta</span>, <span class="va">Gamma</span>, <span class="va">Xi</span><span class="op">)</span></code></pre></div>
 <p>It turns out that <em>basset</em> is really just creating a <em>pibblefit</em> object that is a little special because it represents a posterior over non-linear functions. The benefit of this is that many of the methods available for <em>pibblefit</em> objects work for <em>bassetfit</em> objects. For example, we can use the same transformation methods:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">fit.clr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/fido_transforms.html">to_clr</a></span>(<span class="no">fit</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fit.clr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fido_transforms.html">to_clr</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>
 
 <span class="co"># Plot Sigma in CLR</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">fit.clr</span>, <span class="kw">par</span><span class="kw">=</span><span class="st">"Sigma"</span>, <span class="kw">focus.coord</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"clr_seq_6"</span>, <span class="st">"clr_seq_5"</span>, <span class="st">"clr_seq_2"</span>))</pre></body></html></div>
+<span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">fit.clr</span>, par<span class="op">=</span><span class="st">"Sigma"</span>, focus.coord<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"clr_seq_6"</span>, <span class="st">"clr_seq_5"</span>, <span class="st">"clr_seq_2"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="non-linear-models_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <p>Really <em>basset</em> shows its power when you use it to smooth.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># predict not just missing days but also forecast into future</span>
-<span class="no">X_predict</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/transpose-methods.html">t</a></span>(<span class="fl">1</span>:(<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">X</span>)))
-<span class="no">predicted</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="no">fit.clr</span>, <span class="no">X_predict</span>, <span class="kw">jitter</span><span class="kw">=</span><span class="fl">1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># predict not just missing days but also forecast into future</span>
+<span class="va">X_predict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/transpose-methods.html" class="external-link">t</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">predicted</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict.html">predict</a></span><span class="op">(</span><span class="va">fit.clr</span>, <span class="va">X_predict</span>, jitter<span class="op">=</span><span class="fl">1</span><span class="op">)</span> </code></pre></div>
 <p>Now I am going to create a visual that shows the observed data in CLR coordinates (to do that I will need to add a pseudo-count) along with the smoothed estimates.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">family_names</span> <span class="kw">&lt;-</span> <span class="fu">as</span>(<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/tax_table-methods.html">tax_table</a></span>(<span class="no">mallard_family</span>)[,<span class="st">"Family"</span>], <span class="st">"vector"</span>)
-<span class="no">Y_clr_tidy</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/driver/man/array_lr_transforms.html">clr_array</a></span>(<span class="no">Y</span>+<span class="fl">0.65</span>, <span class="kw">parts</span> <span class="kw">=</span> <span class="fl">1</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/driver/man/gather_array.html">gather_array</a></span>(<span class="no">mean</span>, <span class="no">coord</span>, <span class="no">sample</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">time</span> <span class="kw">=</span> <span class="no">X</span>[<span class="fl">1</span>,<span class="no">sample</span>],
-         <span class="kw">coord</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"CLR("</span>, <span class="no">family_names</span>[<span class="no">coord</span>],<span class="st">")"</span>))
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">family_names</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/tax_table-methods.html" class="external-link">tax_table</a></span><span class="op">(</span><span class="va">mallard_family</span><span class="op">)</span><span class="op">[</span>,<span class="st">"Family"</span><span class="op">]</span>, <span class="st">"vector"</span><span class="op">)</span>
+<span class="va">Y_clr_tidy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://jsilve24.github.io/driver/reference/array_lr_transforms.html" class="external-link">clr_array</a></span><span class="op">(</span><span class="va">Y</span><span class="op">+</span><span class="fl">0.65</span>, parts <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://jsilve24.github.io/driver/reference/gather_array.html" class="external-link">gather_array</a></span><span class="op">(</span><span class="va">mean</span>, <span class="va">coord</span>, <span class="va">sample</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>time <span class="op">=</span> <span class="va">X</span><span class="op">[</span><span class="fl">1</span>,<span class="va">sample</span><span class="op">]</span>, 
+         coord <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"CLR("</span>, <span class="va">family_names</span><span class="op">[</span><span class="va">coord</span><span class="op">]</span>,<span class="st">")"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="no">predicted_tidy</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/driver/man/gather_array.html">gather_array</a></span>(<span class="no">predicted</span>, <span class="no">val</span>, <span class="no">coord</span>, <span class="no">sample</span>, <span class="no">iter</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">time</span> <span class="kw">=</span> <span class="no">X_predict</span>[<span class="fl">1</span>,<span class="no">sample</span>]) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(!<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">val</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">time</span>, <span class="no">coord</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/driver/man/summarise_posterior.html">summarise_posterior</a></span>(<span class="no">val</span>, <span class="kw">na.rm</span><span class="kw">=</span><span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">coord</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"CLR("</span>, <span class="no">family_names</span>[<span class="no">coord</span>],<span class="st">")"</span>))
+<span class="va">predicted_tidy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://jsilve24.github.io/driver/reference/gather_array.html" class="external-link">gather_array</a></span><span class="op">(</span><span class="va">predicted</span>, <span class="va">val</span>, <span class="va">coord</span>, <span class="va">sample</span>, <span class="va">iter</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>time <span class="op">=</span> <span class="va">X_predict</span><span class="op">[</span><span class="fl">1</span>,<span class="va">sample</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">val</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">coord</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://jsilve24.github.io/driver/reference/summarise_posterior.html" class="external-link">summarise_posterior</a></span><span class="op">(</span><span class="va">val</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>coord <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"CLR("</span>, <span class="va">family_names</span><span class="op">[</span><span class="va">coord</span><span class="op">]</span>,<span class="st">")"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">predicted_tidy</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">time</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">mean</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">ymin</span><span class="kw">=</span><span class="no">p2.5</span>, <span class="kw">ymax</span><span class="kw">=</span><span class="no">p97.5</span>), <span class="kw">fill</span><span class="kw">=</span><span class="st">"darkgrey"</span>, <span class="kw">alpha</span><span class="kw">=</span><span class="fl">0.5</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">ymin</span><span class="kw">=</span><span class="no">p25</span>, <span class="kw">ymax</span><span class="kw">=</span><span class="no">p75</span>), <span class="kw">fill</span><span class="kw">=</span><span class="st">"darkgrey"</span>, <span class="kw">alpha</span><span class="kw">=</span><span class="fl">0.9</span>)+
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span>(<span class="kw">color</span><span class="kw">=</span><span class="st">"blue"</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">Y_clr_tidy</span>, <span class="kw">alpha</span><span class="kw">=</span><span class="fl">0.5</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span>(~<span class="no">coord</span>, <span class="kw">scales</span><span class="kw">=</span><span class="st">"free_y"</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span>()+
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">axis.title.y</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span>(),
-        <span class="kw">axis.title.x</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span>(),
-        <span class="kw">axis.text.x</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="kw">angle</span><span class="kw">=</span><span class="fl">45</span>))</pre></body></html></div>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">predicted_tidy</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">time</span>, y<span class="op">=</span><span class="va">mean</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="va">p2.5</span>, ymax<span class="op">=</span><span class="va">p97.5</span><span class="op">)</span>, fill<span class="op">=</span><span class="st">"darkgrey"</span>, alpha<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="va">p25</span>, ymax<span class="op">=</span><span class="va">p75</span><span class="op">)</span>, fill<span class="op">=</span><span class="st">"darkgrey"</span>, alpha<span class="op">=</span><span class="fl">0.9</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">Y_clr_tidy</span>, alpha<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">coord</span>, scales<span class="op">=</span><span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>, 
+        axis.title.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>, 
+        axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle<span class="op">=</span><span class="fl">45</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="non-linear-models_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
-<div id="refs" class="references hanging-indent">
-<div id="ref-silverman2018">
-<p>Silverman, Justin D, Heather Durand, Rachael J Bloom, Sayan Mukherjee, and Lawrence A David. 2018. “Dynamic Linear Models Guide Design and Analysis of Microbiota Studies Within Artificial Human Guts.” <em>bioRxiv</em>. <a href="https://doi.org/10.1101/306597">https://doi.org/10.1101/306597</a>.</p>
+<div class="section level2">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-silverman2018" class="csl-entry">
+Silverman, Justin D, Heather Durand, Rachael J Bloom, Sayan Mukherjee, and Lawrence A David. 2018. <span>“Dynamic Linear Models Guide Design and Analysis of Microbiota Studies Within Artificial Human Guts.”</span> <em>bioRxiv</em>. <a href="https://doi.org/10.1101/306597" class="external-link">https://doi.org/10.1101/306597</a>.
 </div>
 </div>
 </div>
@@ -254,11 +261,13 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 
 
       <footer><div class="copyright">
-  <p>Developed by Justin Silverman.</p>
+  <p></p>
+<p>Developed by Justin Silverman.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -266,6 +275,8 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 
   
 
+
+  
 
   </body>
 </html>

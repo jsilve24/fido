@@ -37,7 +37,7 @@ header in this library - see MatDist.h).
 sim <- pibble_sim()
 attach(sim)
 fit <- pibble(Y, X)
-sample_prior(fit)
+head(sample_prior(fit))
 
 # Sample prior as part of model fitting
 m <- pibblefit(N=as.integer(sim$N), D=as.integer(sim$D), Q=as.integer(sim$Q), 

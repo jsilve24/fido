@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,14 +33,14 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="https://github.com/jsilve24/fido/wiki/Installation-Details">Installation</a>
+  <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -78,29 +80,29 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="https://github.com/jsilve24/RcppCoDA">RcppCoDA</a>
+      <a href="https://github.com/jsilve24/RcppCoDA" class="external-link">RcppCoDA</a>
     </li>
     <li>
-      <a href="https://jsilve24.github.io/driver/">driver</a>
+      <a href="https://jsilve24.github.io/driver/" class="external-link">driver</a>
     </li>
     <li>
-      <a href="https://bioconductor.org/packages/release/bioc/html/philr.html">philr</a>
+      <a href="https://bioconductor.org/packages/release/bioc/html/philr.html" class="external-link">philr</a>
     </li>
     <li>
-      <a href="https://cran.r-project.org/package=RcppHungarian">RcppHungarian</a>
+      <a href="https://cran.r-project.org/package=RcppHungarian" class="external-link">RcppHungarian</a>
     </li>
   </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://twitter.com/inschool4life">
+  <a href="https://twitter.com/inschool4life" class="external-link">
     <span class="fa fa-twitter"></span>
      
   </a>
 </li>
 <li>
-  <a href="https://github.com/jsilve24/fido">
+  <a href="https://github.com/jsilve24/fido" class="external-link">
     <span class="fa fa-github"></span>
      
   </a>
@@ -115,11 +117,11 @@
 
       
 
-      </header><script src="introduction-to-fido_files/header-attrs-2.3/header-attrs.js"></script><script src="introduction-to-fido_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to fido::Pibble</h1>
-                        <h4 class="author">Justin Silverman</h4>
+                        <h4 data-toc-skip class="author">Justin Silverman</h4>
             
       
       
@@ -129,18 +131,17 @@
 
     
     
-<div id="an-introduction-to-fido" class="section level1">
-<h1 class="hasAnchor">
-<a href="#an-introduction-to-fido" class="anchor"></a>An introduction to <em>fido</em>
-</h1>
-<p><em>fido</em> <span class="citation">(Silverman et al. 2019)</span> is a loose acronym for <strong>“(Bayesian) Multinomial Logistic-Normal Models”</strong>. In particular the development of <em>fido</em> stems from the need for fast inference for time-invariant MALLARD models<span class="citation">(Silverman et al. 2018)</span>. <em>fido</em> is very fast! It uses closed form solutions for model gradients and Hessians written in C++ to preform <a href="https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation">MAP estimation</a> in combination with parameter uncertainty estimation using a <a href="http://www.sumsar.net/blog/2013/11/easy-laplace-approximation/">Laplace Approximation</a>. One of the main models in <em>fido</em> is the function <em>pibble</em> which fits a Multinomial Logistic-Normal <strong>Linear Regerssion</strong> model.</p>
+<div class="section level2">
+<h2 id="an-introduction-to-fido">An introduction to <em>fido</em><a class="anchor" aria-label="anchor" href="#an-introduction-to-fido"></a>
+</h2>
+<p><em>fido</em> <span class="citation">(Justin D. Silverman et al. 2019)</span> is a loose acronym for <strong>“(Bayesian) Multinomial Logistic-Normal Models”</strong>. In particular the development of <em>fido</em> stems from the need for fast inference for time-invariant MALLARD models<span class="citation">(Justin D. Silverman et al. 2018)</span>. <em>fido</em> is very fast! It uses closed form solutions for model gradients and Hessians written in C++ to preform <a href="https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation" class="external-link">MAP estimation</a> in combination with parameter uncertainty estimation using a <a href="http://www.sumsar.net/blog/2013/11/easy-laplace-approximation/" class="external-link">Laplace Approximation</a>. One of the main models in <em>fido</em> is the function <em>pibble</em> which fits a Multinomial Logistic-Normal <strong>Linear Regerssion</strong> model.</p>
 <p><strong>So what is a <em>fido</em> model exactly?</strong> First let me give the broad description from 10,000ft up: Basically its a model for multinomial count data (e.g., each sample contains the counts of <span class="math inline">\(D\)</span> “types of things”). Importantly, unlike the more common Poisson count models, the multinomial models a “competition to be counted” (i.e., cases in which counting more of one type of thing means that I have less resources available to count other types of things).</p>
-<p>This may seem vague so let me give an example. Pretend there is a ball pit with red, green, and blue balls. Pretend that the ball pit is very large and I don’t know the total number of balls in the ball pit, yet I want to say something about the relative number of red, blue, and green balls in the pit. One way I may choose to measure the ball pit is by grabbing an armful of balls and counting the number of balls of each color (e.g., in one armful I may collect 5 red, 3 blue, and 6 green). My arms can only contain so many balls (in this example about 14) and so if I were to have (randomly) gotten another green ball in my armful (making 7 total) I would likely not have been able to measure one of the red or blue balls; hence the “competition to be counted”. It turns out that this type of sampling occurs all the time in many situations (Wikipedia has an example with <a href="https://en.wikipedia.org/wiki/Multinomial_distribution#Example">political polling</a>). Perhaps one of the most notable examples of this type of count data occurs with modern high-throughput sequencing studies such as 16S rRNA studies to profile microbial communities or bulk/single-cell RNA-seq studies to study expression profiles of cells. In all cases, transcripts are sequenced and the number of different types of transcripts are counted. The important part is that sequencing only samples a small portion of the total genetic material available and leads to similar competition to be counted.</p>
-<div id="the-pibble-model" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-pibble-model" class="anchor"></a>The <em>pibble</em> model</h2>
+<p>This may seem vague so let me give an example. Pretend there is a ball pit with red, green, and blue balls. Pretend that the ball pit is very large and I don’t know the total number of balls in the ball pit, yet I want to say something about the relative number of red, blue, and green balls in the pit. One way I may choose to measure the ball pit is by grabbing an armful of balls and counting the number of balls of each color (e.g., in one armful I may collect 5 red, 3 blue, and 6 green). My arms can only contain so many balls (in this example about 14) and so if I were to have (randomly) gotten another green ball in my armful (making 7 total) I would likely not have been able to measure one of the red or blue balls; hence the “competition to be counted.” It turns out that this type of sampling occurs all the time in many situations (Wikipedia has an example with <a href="https://en.wikipedia.org/wiki/Multinomial_distribution#Example" class="external-link">political polling</a>). Perhaps one of the most notable examples of this type of count data occurs with modern high-throughput sequencing studies such as 16S rRNA studies to profile microbial communities or bulk/single-cell RNA-seq studies to study expression profiles of cells. In all cases, transcripts are sequenced and the number of different types of transcripts are counted. The important part is that sequencing only samples a small portion of the total genetic material available and leads to similar competition to be counted.</p>
+<div class="section level3">
+<h3 id="the-pibble-model">The <em>pibble</em> model<a class="anchor" aria-label="anchor" href="#the-pibble-model"></a>
+</h3>
 <p><em>Pibble</em> is one type of <em>fido</em> model. In particular its a <em>fido</em> model for multivariate linear regression.</p>
-<p>Let <span class="math inline">\(Y\)</span> denote an <span class="math inline">\(D\times N\)</span> matrix of counts. Let us denote the <span class="math inline">\(j\)</span>-th column of <span class="math inline">\(Y\)</span> as <span class="math inline">\(Y_j\)</span>. Thus each “sample” in the dataset is a measurement of the relative amount of <span class="math inline">\(D\)</span> “types of things”. Suppose we also have have covariate information in the form of a <span class="math inline">\(Q\times N\)</span> matrix <span class="math inline">\(X\)</span>.</p>
+<p>Let <span class="math inline">\(Y\)</span> denote an <span class="math inline">\(D\times N\)</span> matrix of counts. Let us denote the <span class="math inline">\(j\)</span>-th column of <span class="math inline">\(Y\)</span> as <span class="math inline">\(Y_j\)</span>. Thus each “sample” in the dataset is a measurement of the relative amount of <span class="math inline">\(D\)</span> “types of things.” Suppose we also have have covariate information in the form of a <span class="math inline">\(Q\times N\)</span> matrix <span class="math inline">\(X\)</span>.</p>
 <p>The following is the pibble model including likelihood and priors: <span class="math display">\[
 \begin{align}
 Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
@@ -149,50 +150,57 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 \Lambda &amp;\sim  MN_{(D-1) \times Q}(\Theta, \Sigma, \Gamma) \\
 \Sigma &amp;\sim W^{-1}(\Xi, \upsilon) 
 \end{align}
-\]</span> Here <span class="math inline">\(MN_{(D-1) \times Q}\)</span> denotes a <a href="https://en.wikipedia.org/wiki/Matrix_normal_distribution">Matrix Normal distribution</a> for a matrix <span class="math inline">\(\Lambda\)</span> of regression coefficients of dimension <span class="math inline">\((D-1)\times Q\)</span>. Essentially you can think of the Matrix normal as having two covariance matrices one describing the covariation between the rows of <span class="math inline">\(\Lambda\)</span> (<span class="math inline">\(\Sigma\)</span>) and another describing the covariation of the columns of <span class="math inline">\(\Lambda\)</span> (<span class="math inline">\(\Gamma\)</span>). and <span class="math inline">\(W^{-1}\)</span> refers to the <a href="https://en.wikipedia.org/wiki/Inverse-Wishart_distribution">Inverse Wishart distribution</a> (which is a common distribution over covariance matrices). The line <span class="math inline">\(\pi_j = \phi^{-1}(\eta_j)\)</span> represents a transformation between the parameters <span class="math inline">\(\pi_j\)</span> which exist on a simplex (e.g., <span class="math inline">\(\pi_j\)</span> must sum to 1) and the transformed parameters <span class="math inline">\(\eta_j\)</span> that exist in real space. In particular we define <span class="math inline">\(\phi^{-1}\)</span> to be the <a href="http://www.sediment.uni-goettingen.de/staff/tolosana/extra/CoDaNutshell.pdf">inverse additive log ratio transform</a> (which conversely implies that <span class="math inline">\(\eta_j = ALR(\pi_j)\)</span>) also known as the identified softmax transform (as it is more commonly known in the Machine Learning community). While I will say more on this later in this tutorial, one thing to know is that I have the model implemented using the ALR transform as it is computationally simple and fast; the results of the model can be viewed as if any number of transforms had been used (instead of the ALR) including the isometric log-ratio transform, or the centered log-ratio transform.</p>
+\]</span> Here <span class="math inline">\(MN_{(D-1) \times Q}\)</span> denotes a <a href="https://en.wikipedia.org/wiki/Matrix_normal_distribution" class="external-link">Matrix Normal distribution</a> for a matrix <span class="math inline">\(\Lambda\)</span> of regression coefficients of dimension <span class="math inline">\((D-1)\times Q\)</span>. Essentially you can think of the Matrix normal as having two covariance matrices one describing the covariation between the rows of <span class="math inline">\(\Lambda\)</span> (<span class="math inline">\(\Sigma\)</span>) and another describing the covariation of the columns of <span class="math inline">\(\Lambda\)</span> (<span class="math inline">\(\Gamma\)</span>). and <span class="math inline">\(W^{-1}\)</span> refers to the <a href="https://en.wikipedia.org/wiki/Inverse-Wishart_distribution" class="external-link">Inverse Wishart distribution</a> (which is a common distribution over covariance matrices). The line <span class="math inline">\(\pi_j = \phi^{-1}(\eta_j)\)</span> represents a transformation between the parameters <span class="math inline">\(\pi_j\)</span> which exist on a simplex (e.g., <span class="math inline">\(\pi_j\)</span> must sum to 1) and the transformed parameters <span class="math inline">\(\eta_j\)</span> that exist in real space. In particular we define <span class="math inline">\(\phi^{-1}\)</span> to be the <a href="http://www.sediment.uni-goettingen.de/staff/tolosana/extra/CoDaNutshell.pdf" class="external-link">inverse additive log ratio transform</a> (which conversely implies that <span class="math inline">\(\eta_j = ALR(\pi_j)\)</span>) also known as the identified softmax transform (as it is more commonly known in the Machine Learning community). While I will say more on this later in this tutorial, one thing to know is that I have the model implemented using the ALR transform as it is computationally simple and fast; the results of the model can be viewed as if any number of transforms had been used (instead of the ALR) including the isometric log-ratio transform, or the centered log-ratio transform.</p>
 <p>Before moving on, I would like to give <strong>a more intuitive description of <em>pibble</em></strong>. Essentially the main modeling component of <em>pibble</em> is the third equation above (<span class="math inline">\(\eta_j \sim N(\Lambda X_j, \Sigma)\)</span>) which is just a multivariate linear model. That is, <span class="math inline">\(X\)</span> are your covariates (which can be continuous, discrete, binary, etc…), and <span class="math inline">\(\Sigma\)</span> is the covariance matrix for the regression residuals.</p>
 </div>
 </div>
-<div id="example-analysis-of-microbiome-data" class="section level1">
-<h1 class="hasAnchor">
-<a href="#example-analysis-of-microbiome-data" class="anchor"></a>Example analysis of microbiome data</h1>
-<p>This analysis is the same as that presented in the <em>fido</em> manuscript <span class="citation">(Silverman et al. 2019)</span>. I will reanalyze a previously published study comparing microbial composition in the terminal ileum of subjects with Crohn’s Disease (CD) to healthy controls <span class="citation">(Gevers et al. 2014)</span>. To do this I will fit a pibble model using CD status, inflammation status and age as covariates (plus a constant intercept term).</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">MicrobeDS</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">phyloseq</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">fido</span>)
+<div class="section level2">
+<h2 id="example-analysis-of-microbiome-data">Example analysis of microbiome data<a class="anchor" aria-label="anchor" href="#example-analysis-of-microbiome-data"></a>
+</h2>
+<p>This analysis is the same as that presented in the <em>fido</em> manuscript <span class="citation">(Justin D. Silverman et al. 2019)</span>. I will reanalyze a previously published study comparing microbial composition in the terminal ileum of subjects with Crohn’s Disease (CD) to healthy controls <span class="citation">(Gevers et al. 2014)</span>. To do this I will fit a pibble model using CD status, inflammation status and age as covariates (plus a constant intercept term).</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://github.com/twbattaglia/MicrobeDS" class="external-link">MicrobeDS</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://dx.plos.org/10.1371/journal.pone.0061217" class="external-link">phyloseq</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jsilve24.github.io/fido/" class="external-link">fido</a></span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">899</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">899</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"RISK_CCFA"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"RISK_CCFA"</span><span class="op">)</span>
 <span class="co"># drop low abundant taxa and samples</span>
-<span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">RISK_CCFA</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html">subset_samples</a></span>(<span class="no">disease_stat</span><span class="kw">!=</span><span class="st">"missing"</span>,
-                 <span class="no">immunosup</span><span class="kw">!=</span><span class="st">"missing"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html">subset_samples</a></span>(<span class="no">diagnosis</span> <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"no"</span>, <span class="st">"CD"</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html">subset_samples</a></span>(<span class="no">steroids</span><span class="kw">==</span><span class="st">"false"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html">subset_samples</a></span>(<span class="no">antibiotics</span><span class="kw">==</span><span class="st">"false"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html">subset_samples</a></span>(<span class="no">biologics</span><span class="kw">==</span><span class="st">"false"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html">subset_samples</a></span>(<span class="no">biopsy_location</span><span class="kw">==</span><span class="st">"Terminal ileum"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/tax_glom.html">tax_glom</a></span>(<span class="st">"Family"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/prune_samples-methods.html">prune_samples</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_sums.html">sample_sums</a></span>(<span class="no">.</span>) <span class="kw">&gt;=</span> <span class="fl">5000</span>,<span class="no">.</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/filter_taxa.html">filter_taxa</a></span>(<span class="kw">function</span>(<span class="no">x</span>) <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">x</span> <span class="kw">&gt;</span> <span class="fl">3</span>) <span class="kw">&gt;</span> <span class="fl">0.10</span>*<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>), <span class="fl">TRUE</span>)</pre></body></html></div>
+<span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">RISK_CCFA</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html" class="external-link">subset_samples</a></span><span class="op">(</span><span class="va">disease_stat</span><span class="op">!=</span><span class="st">"missing"</span>, 
+                 <span class="va">immunosup</span><span class="op">!=</span><span class="st">"missing"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html" class="external-link">subset_samples</a></span><span class="op">(</span><span class="va">diagnosis</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"no"</span>, <span class="st">"CD"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html" class="external-link">subset_samples</a></span><span class="op">(</span><span class="va">steroids</span><span class="op">==</span><span class="st">"false"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html" class="external-link">subset_samples</a></span><span class="op">(</span><span class="va">antibiotics</span><span class="op">==</span><span class="st">"false"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html" class="external-link">subset_samples</a></span><span class="op">(</span><span class="va">biologics</span><span class="op">==</span><span class="st">"false"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html" class="external-link">subset_samples</a></span><span class="op">(</span><span class="va">biopsy_location</span><span class="op">==</span><span class="st">"Terminal ileum"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/tax_glom.html" class="external-link">tax_glom</a></span><span class="op">(</span><span class="st">"Family"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/prune_samples-methods.html" class="external-link">prune_samples</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_sums.html" class="external-link">sample_sums</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">5000</span>,<span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/filter_taxa.html" class="external-link">filter_taxa</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">3</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0.10</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Create Design Matrix and OTU Table</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">sample_dat</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="fu">as</span>(<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html">sample_data</a></span>(<span class="no">dat</span>),<span class="st">"matrix"</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">age</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">age</span>)),
-         <span class="kw">diagnosis</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html">relevel</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">diagnosis</span>, <span class="kw">ordered</span> <span class="kw">=</span> <span class="fl">FALSE</span>), <span class="kw">ref</span><span class="kw">=</span><span class="st">"no"</span>),
-         <span class="kw">disease_stat</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html">relevel</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">disease_stat</span>, <span class="kw">ordered</span> <span class="kw">=</span> <span class="fl">FALSE</span>), <span class="kw">ref</span><span class="kw">=</span><span class="st">"non-inflamed"</span>))
-<span class="no">X</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/transpose-methods.html">t</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span>(~<span class="no">diagnosis</span> + <span class="no">disease_stat</span>+<span class="no">age</span>, <span class="kw">data</span><span class="kw">=</span><span class="no">sample_dat</span>))
-<span class="no">Y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/otu_table-methods.html">otu_table</a></span>(<span class="no">dat</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sample_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu">as</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_data-methods.html" class="external-link">sample_data</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>,<span class="st">"matrix"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span>,
+         diagnosis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html" class="external-link">relevel</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">diagnosis</span>, ordered <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>, ref<span class="op">=</span><span class="st">"no"</span><span class="op">)</span>, 
+         disease_stat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html" class="external-link">relevel</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">disease_stat</span>, ordered <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>, ref<span class="op">=</span><span class="st">"non-inflamed"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/transpose-methods.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span><span class="va">diagnosis</span> <span class="op">+</span> <span class="va">disease_stat</span><span class="op">+</span><span class="va">age</span>, data<span class="op">=</span><span class="va">sample_dat</span><span class="op">)</span><span class="op">)</span>
+<span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/otu_table-methods.html" class="external-link">otu_table</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>
 
 <span class="co"># Investigate X and Y look like</span>
-<span class="no">X</span>[,<span class="fl">1</span>:<span class="fl">5</span>]
-<span class="co">#&gt;                             1        2     3        4     5</span>
-<span class="co">#&gt; (Intercept)           1.00000  1.00000  1.00  1.00000  1.00</span>
-<span class="co">#&gt; diagnosisCD           1.00000  1.00000  1.00  1.00000  1.00</span>
-<span class="co">#&gt; disease_statinflamed  0.00000  1.00000  1.00  1.00000  1.00</span>
-<span class="co">#&gt; age                  15.16667 14.33333 15.75 13.58333 15.75</span>
-<span class="no">Y</span>[<span class="fl">1</span>:<span class="fl">5</span>,<span class="fl">1</span>:<span class="fl">5</span>]
+<span class="va">X</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
+<span class="co">#&gt;                      1939.SKBTI.0175 1939.SKBTI047 1939.SKBTI051 1939.SKBTI063</span>
+<span class="co">#&gt; (Intercept)                  1.00000       1.00000          1.00       1.00000</span>
+<span class="co">#&gt; diagnosisCD                  1.00000       1.00000          1.00       1.00000</span>
+<span class="co">#&gt; disease_statinflamed         0.00000       1.00000          1.00       1.00000</span>
+<span class="co">#&gt; age                         15.16667      14.33333         15.75      13.58333</span>
+<span class="co">#&gt;                      1939.SKBTI072</span>
+<span class="co">#&gt; (Intercept)                   1.00</span>
+<span class="co">#&gt; diagnosisCD                   1.00</span>
+<span class="co">#&gt; disease_statinflamed          1.00</span>
+<span class="co">#&gt; age                          15.75</span>
+<span class="va">Y</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
 <span class="co">#&gt; OTU Table:          [5 taxa and 5 samples]</span>
 <span class="co">#&gt;                      taxa are rows</span>
 <span class="co">#&gt;         1939.SKBTI.0175 1939.SKBTI047 1939.SKBTI051 1939.SKBTI063 1939.SKBTI072</span>
@@ -200,86 +208,98 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 <span class="co">#&gt; 74305                 1             2            35             1             0</span>
 <span class="co">#&gt; 663573               36             1             0             2             1</span>
 <span class="co">#&gt; 2685602              10           264           211           276            83</span>
-<span class="co">#&gt; 4339819               0            37            42            70            22</span></pre></body></html></div>
+<span class="co">#&gt; 4339819               0            37            42            70            22</span></code></pre></div>
 <p>Next specify priors. We are going to start by specifying a prior on the covariance between log-ratios <span class="math inline">\(\Sigma\)</span>. I like to do this by thinking about a prior on the covariance between taxa on the log-scale (i.e., between the log of their absolute abundances not the log-ratios). I will refer to this covariance on log-absolute abundances <span class="math inline">\(\Omega\)</span>. For example, here I will build a prior that states that the mean of <span class="math inline">\(\Omega\)</span> is the identity matrix <span class="math inline">\(I_D\)</span>. From From <span class="citation">Aitchison (1986)</span>, we know that if we assume that the taxa have a covariance <span class="math inline">\(\Omega\)</span> in terms of log-absolute abundance then their correlation in the <span class="math inline">\(\text{ALR}_D\)</span> is given by <span class="math display">\[ \Sigma = G \Omega G^T \]</span> where <span class="math inline">\(G\)</span> is a <span class="math inline">\(D-1 \times D\)</span> matrix given by <span class="math inline">\(G = [I_{D-1}; -1_{D-1}]\)</span> (i.e., <span class="math inline">\(G\)</span> is the <span class="math inline">\(\text{ALR}_D\)</span> contrast matrix). Additionally, we know that the Inverse Wishart mode is given by <span class="math inline">\(\frac{\Xi}{\upsilon + D}\)</span>. Finally, note that <span class="math inline">\(\upsilon\)</span> essentially controls our uncertainty in <span class="math inline">\(\Sigma\)</span> about this prior mean. Here I will take <span class="math inline">\(\upsilon = D+3\)</span>. This then gives us <span class="math inline">\(\Xi = (\upsilon - D) GIG^T\)</span>. We scale <span class="math inline">\(\Xi\)</span> by a factor of 1/2 to make <span class="math inline">\(Tr(\Xi)=D-1\)</span>.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">upsilon</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html">ntaxa</a></span>(<span class="no">dat</span>)+<span class="fl">3</span>
-<span class="no">Omega</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html">ntaxa</a></span>(<span class="no">dat</span>))
-<span class="no">G</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html">ntaxa</a></span>(<span class="no">dat</span>)-<span class="fl">1</span>), -<span class="fl">1</span>)
-<span class="no">Xi</span> <span class="kw">&lt;-</span> (<span class="no">upsilon</span>-<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html">ntaxa</a></span>(<span class="no">dat</span>))*<span class="no">G</span><span class="kw">%*%</span><span class="no">Omega</span><span class="kw">%*%</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/transpose-methods.html">t</a></span>(<span class="no">G</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">upsilon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html" class="external-link">ntaxa</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">+</span><span class="fl">3</span> 
+<span class="va">Omega</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html" class="external-link">ntaxa</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">)</span>
+<span class="va">G</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html" class="external-link">ntaxa</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>
+<span class="va">Xi</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">upsilon</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html" class="external-link">ntaxa</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="va">G</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">Omega</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/transpose-methods.html" class="external-link">t</a></span><span class="op">(</span><span class="va">G</span><span class="op">)</span></code></pre></div>
 <p>Finally I specify my priors for <span class="math inline">\(\Theta\)</span> (mean of <span class="math inline">\(\Lambda\)</span>) and <span class="math inline">\(\Gamma\)</span> (covariance between columns of <span class="math inline">\(\Lambda\)</span>; i.e., covariance between the covariates). I will center my prior for <span class="math inline">\(\Lambda\)</span> about zero, and assume that the covariates are independent.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">Theta</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html">ntaxa</a></span>(<span class="no">dat</span>)-<span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">X</span>))
-<span class="no">Gamma</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">X</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html" class="external-link">ntaxa</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span>
+<span class="va">Gamma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>I strongly recommend users perform prior predictive checks to make sure their priors make sense to them. <em>fido</em> makes this easy, all the main fitting functions (e.g., <code>pibble</code>) will automatically sample from the prior predictive distribution if <code>Y</code> is left as <code>NULL</code> (e.g., without data your posterior is just your prior).</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">priors</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/pibble_fit.html">pibble</a></span>(<span class="kw">NULL</span>, <span class="no">X</span>, <span class="no">upsilon</span>, <span class="no">Theta</span>, <span class="no">Gamma</span>, <span class="no">Xi</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">priors</span>)
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">priors</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pibble_fit.html">pibble</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">X</span>, <span class="va">upsilon</span>, <span class="va">Theta</span>, <span class="va">Gamma</span>, <span class="va">Xi</span><span class="op">)</span>  
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">priors</span><span class="op">)</span>
 <span class="co">#&gt;  pibblefit Object (Priors Only): </span>
 <span class="co">#&gt;   Number of Samples:      250 </span>
 <span class="co">#&gt;   Number of Categories:       49 </span>
 <span class="co">#&gt;   Number of Covariates:       4 </span>
 <span class="co">#&gt;   Number of Posterior Samples:    2000 </span>
 <span class="co">#&gt;   Contains Samples of Parameters:Eta  Lambda  Sigma</span>
-<span class="co">#&gt;   Coordinate System:      alr, reference category: 49</span></pre></body></html></div>
+<span class="co">#&gt;   Coordinate System:      alr, reference category: 49</span></code></pre></div>
 <p>The main fitting functions in the <em>fido</em> package output special fit objects (e.g., <code>pibble</code> outputs an object of class <code>pibblefit</code>). These fit objects are just lists with some extra metadata that allows special method dispatch. For example, if you call print on a <code>pibblefit</code> object you will get a nice summary of what is in the object.</p>
 <p><em>Note:</em> Currently, the function <code>pibble</code> takes expects inputs and outputs in the “default” coordinate system; this is simply the ALR coordinate system where the last category (49 above) is taken as reference (this will be generalized in future versions). More specifically for a vector <span class="math inline">\(x\)</span> representing the proportions of categories <span class="math inline">\(\{1, \dots, D\}\)</span> we can write <span class="math display">\[x^* = \left( \log \frac{x_1}{x_D}, \dots, \log \frac{x_{D-1}}{x_D}\right).\]</span> As mentioned above however, I have designed <em>fido</em> to work with many different coordinate systems including the ALR (with respect to any category), CLR, ILR, or proportions. To help transform things between these coordinate systems I have written a series of transformation functions that transform any <code>pibblefit</code> object into a desired coordinate system. Importantly, <code>pibblefit</code> objects keep track of what coordinate system they are currently in so as a user you only need to specify the coordinate system that you want to change into. Keep in mind that covariance matrices cannot be represented in proportions and so visualizations or summaries based on covariance matrices will be suppressed when <code>pibblefit</code> objects are in the proportions coordinate system. As an example, lets look at viewing a summary of the prior for <span class="math inline">\(\Lambda\)</span> with respect to the CLR coordinate system<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">priors</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/fido_transforms.html">to_clr</a></span>(<span class="no">priors</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">priors</span>, <span class="kw">pars</span><span class="kw">=</span><span class="st">"Lambda"</span>)
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">priors</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fido_transforms.html">to_clr</a></span><span class="op">(</span><span class="va">priors</span><span class="op">)</span>  
+<span class="fu"><a href="../reference/summary.html">summary</a></span><span class="op">(</span><span class="va">priors</span>, pars<span class="op">=</span><span class="st">"Lambda"</span>, gather_prob<span class="op">=</span><span class="cn">TRUE</span>, as_factor<span class="op">=</span><span class="cn">TRUE</span>, use_names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>  
 <span class="co">#&gt; $Lambda</span>
-<span class="co">#&gt; # A tibble: 196 x 9</span>
-<span class="co">#&gt;    Parameter coord covariate  p2.5    p25      p50        mean   p75 p97.5</span>
-<span class="co">#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 Lambda        1         1 -1.74 -0.528  0.0421   0.0509     0.596  2.09</span>
-<span class="co">#&gt;  2 Lambda        1         2 -2.08 -0.567  0.0143   0.00199    0.575  1.96</span>
-<span class="co">#&gt;  3 Lambda        1         3 -2.06 -0.620 -0.0102  -0.0373     0.532  1.98</span>
-<span class="co">#&gt;  4 Lambda        1         4 -1.90 -0.554 -0.00469 -0.00205    0.549  2.01</span>
-<span class="co">#&gt;  5 Lambda        2         1 -1.86 -0.564 -0.0249   0.00991    0.535  2.13</span>
-<span class="co">#&gt;  6 Lambda        2         2 -1.89 -0.572 -0.00610 -0.00000782 0.580  2.02</span>
-<span class="co">#&gt;  7 Lambda        2         3 -2.14 -0.570 -0.0388  -0.0247     0.518  1.93</span>
-<span class="co">#&gt;  8 Lambda        2         4 -2.00 -0.536  0.0240   0.0165     0.589  1.95</span>
-<span class="co">#&gt;  9 Lambda        3         1 -2.02 -0.584  0.0224   0.0138     0.620  2.04</span>
-<span class="co">#&gt; 10 Lambda        3         2 -2.05 -0.542 -0.00311 -0.00502    0.581  1.86</span>
-<span class="co">#&gt; # … with 186 more rows</span></pre></body></html></div>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 784 x 9</span></span>
+<span class="co">#&gt;    Parameter coord covariate         val .lower .upper .width .point .interval</span>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Lambda        1         1  0.050<span style="text-decoration: underline;">9</span>     -<span style="color: #BB0000;">0.528</span>  0.596    0.5 mean   qi       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Lambda        1         2  0.001<span style="text-decoration: underline;">99</span>    -<span style="color: #BB0000;">0.567</span>  0.575    0.5 mean   qi       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Lambda        1         3 -<span style="color: #BB0000;">0.037</span><span style="color: #BB0000; text-decoration: underline;">3</span>     -<span style="color: #BB0000;">0.620</span>  0.532    0.5 mean   qi       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Lambda        1         4 -<span style="color: #BB0000;">0.002</span><span style="color: #BB0000; text-decoration: underline;">05</span>    -<span style="color: #BB0000;">0.554</span>  0.549    0.5 mean   qi       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Lambda        2         1  0.009<span style="text-decoration: underline;">91</span>    -<span style="color: #BB0000;">0.564</span>  0.535    0.5 mean   qi       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Lambda        2         2 -<span style="color: #BB0000;">0.000</span><span style="color: #BB0000; text-decoration: underline;">007</span><span style="color: #BB0000;">82</span> -<span style="color: #BB0000;">0.572</span>  0.580    0.5 mean   qi       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Lambda        2         3 -<span style="color: #BB0000;">0.024</span><span style="color: #BB0000; text-decoration: underline;">7</span>     -<span style="color: #BB0000;">0.570</span>  0.518    0.5 mean   qi       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Lambda        2         4  0.016<span style="text-decoration: underline;">5</span>     -<span style="color: #BB0000;">0.536</span>  0.589    0.5 mean   qi       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Lambda        3         1  0.013<span style="text-decoration: underline;">8</span>     -<span style="color: #BB0000;">0.584</span>  0.620    0.5 mean   qi       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Lambda        3         2 -<span style="color: #BB0000;">0.005</span><span style="color: #BB0000; text-decoration: underline;">02</span>    -<span style="color: #BB0000;">0.542</span>  0.581    0.5 mean   qi       </span>
+<span class="co">#&gt; <span style="color: #949494;"># ... with 774 more rows</span></span></code></pre></div>
 <p>By default the <code>summary</code> function returns a list (with possible elements <code>Lambda</code>, <code>Sigma</code>, and <code>Eta</code>) summarizing each posterior parameter based on quantiles and mean (e.g., p2.5 is the 0.025 percentile of the posterior distribution). As this type of table may be hard to take in due to how large it is, <code>pibblefit</code> objects also come with a default plotting option for each of the parameters. Also the returned plot objects are <code>ggplot</code> objects so normal <code>ggplot2</code> commands work on them. Before doing that though we are going to use one of the <code>names</code> functions for <code>pibblefit</code> objects to provide some more specific names for the covariates (helpful when we then plot).</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/name_dims.html">names_covariates</a></span>(<span class="no">priors</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">X</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">priors</span>, <span class="kw">par</span><span class="kw">=</span><span class="st">"Lambda"</span>) + <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">10</span>, <span class="fl">10</span>))
-<span class="co">#&gt; Warning: 'geom_intervalh' is deprecated.</span>
-<span class="co">#&gt; Use 'geom_interval' instead.</span>
-<span class="co">#&gt; See help("Deprecated") and help("tidybayes-deprecated").</span></pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/name_dims.html">names_covariates</a></span><span class="op">(</span><span class="va">priors</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>
+<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">priors</span>, par<span class="op">=</span><span class="st">"Lambda"</span><span class="op">)</span> 
+<span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour',</span>
+<span class="co">#&gt; which will replace the existing scale.</span>
+<span class="va">p</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>  </code></pre></div>
 <p><img src="introduction-to-fido_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
 <p>This looks fairly reasonable to me. So I am going to go ahead and fit the model with data. <code>fido</code> provides a helper method called <code>refit</code> that we will use to avoid passing prior parameters again.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">priors</span>$<span class="no">Y</span> <span class="kw">&lt;-</span> <span class="no">Y</span> <span class="co"># remember pibblefit objects are just lists</span>
-<span class="no">posterior</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/refit.html">refit</a></span>(<span class="no">priors</span>, <span class="kw">optim_method</span><span class="kw">=</span><span class="st">"adam"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">priors</span><span class="op">$</span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="va">Y</span> <span class="co"># remember pibblefit objects are just lists</span>
+<span class="va">posterior</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/refit.html">refit</a></span><span class="op">(</span><span class="va">priors</span>, optim_method<span class="op">=</span><span class="st">"adam"</span><span class="op">)</span></code></pre></div>
 <p>Unlike the main <em>pibble</em> function, the <code>refit</code> method can be called on objects in any coordinate system and all transformations to and from the default coordinate system are handled internally<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. This is one nice thing about using the <code>refit</code> method. That said, new objects added to the <code>pibblefit</code> object need to be added in the proper coordinates For example, if we wanted to replace our prior for <span class="math inline">\(\Xi\)</span> for an object in CLR coordinates, we would had to transform our prior for <code>Xi</code> to CLR coordinates before adding it to the <code>priors</code> object.</p>
 <p>Now I are also going to add in the taxa names to make it easier to interpret the results.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">tax</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/tax_table-methods.html">tax_table</a></span>(<span class="no">dat</span>)[,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Class"</span>, <span class="st">"Family"</span>)]
-<span class="no">tax</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="no">tax</span>, <span class="fl">1</span>, <span class="no">paste</span>, <span class="kw">collapse</span><span class="kw">=</span><span class="st">"_"</span>)
-<span class="fu"><a href="../reference/name_dims.html">names_categories</a></span>(<span class="no">posterior</span>) <span class="kw">&lt;-</span> <span class="no">tax</span></pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tax</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/tax_table-methods.html" class="external-link">tax_table</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Class"</span>, <span class="st">"Family"</span><span class="op">)</span><span class="op">]</span>
+<span class="va">tax</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">tax</span>, <span class="fl">1</span>, <span class="va">paste</span>, collapse<span class="op">=</span><span class="st">"_"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/name_dims.html">names_categories</a></span><span class="op">(</span><span class="va">posterior</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">tax</span></code></pre></div>
 <p>Before doing anything else lets look at the posterior predictive distribution to assess model fit. This can be accessed through the method <code>ppc</code><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/ppc.html">ppc</a></span>(<span class="no">posterior</span>) + <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span>(<span class="kw">ylim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">30000</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ppc.html">ppc</a></span><span class="op">(</span><span class="va">posterior</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30000</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="introduction-to-fido_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
 <p>There are a few things to note about this plot. First, when zoomed out like this it looks it is hard to make much of it. This is a fairly large dataset we are analyzing and its hard to view an uncertainty interval; in this case its plotting the median and 95% confidence interval in grey and black and the observed counts in green. <em>fido</em> also has a simpler function that summarizes the posterior predictive check.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="../reference/ppc_summary.html">ppc_summary</a></span>(<span class="no">posterior</span>)
-<span class="co">#&gt; Proportions of Observations within 95% Credible Interval: 0.9897959</span></pre></body></html></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ppc_summary.html">ppc_summary</a></span><span class="op">(</span><span class="va">posterior</span><span class="op">)</span>
+<span class="co">#&gt; Proportions of Observations within 95% Credible Interval: 0.9898776</span></code></pre></div>
 <p>Here we see that the model appears to be fitting well (at least based on the posterior predictive check) and that only about 1.5% of observations fall outside of the 95% posterior predictive density (this is good).</p>
-<p>Some readers will look at the above <code>ppc</code> plots and think “looks like over-fitting”. However, note that there are two ways of using <code>ppc</code>. One is to predict the counts based on the samples of <span class="math inline">\(\eta\)</span> (Eta; as we did above); the other is to predict “from scratch” that is to predict starting form the posterior samples of <span class="math inline">\(\Lambda\)</span> (Lambda) then sampling <span class="math inline">\(\eta\)</span> and only then sampling <span class="math inline">\(Y\)</span>. This later functionality can be accessed by also passing the parameters <code>from_scratch=TRUE</code> to the <code>ppc</code> function. Note: these two posterior predictive checks have different meanings, one is not better than the other.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/ppc.html">ppc</a></span>(<span class="no">posterior</span>, <span class="kw">from_scratch</span><span class="kw">=</span><span class="fl">TRUE</span>) +<span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span>(<span class="kw">ylim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">30000</span>))</pre></body></html></div>
+<p>Some readers will look at the above <code>ppc</code> plots and think “looks like over-fitting.” However, note that there are two ways of using <code>ppc</code>. One is to predict the counts based on the samples of <span class="math inline">\(\eta\)</span> (Eta; as we did above); the other is to predict “from scratch” that is to predict starting form the posterior samples of <span class="math inline">\(\Lambda\)</span> (Lambda) then sampling <span class="math inline">\(\eta\)</span> and only then sampling <span class="math inline">\(Y\)</span>. This later functionality can be accessed by also passing the parameters <code>from_scratch=TRUE</code> to the <code>ppc</code> function. Note: these two posterior predictive checks have different meanings, one is not better than the other.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ppc.html">ppc</a></span><span class="op">(</span><span class="va">posterior</span>, from_scratch<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30000</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="introduction-to-fido_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="../reference/ppc_summary.html">ppc_summary</a></span>(<span class="no">posterior</span>, <span class="kw">from_scratch</span><span class="kw">=</span><span class="fl">TRUE</span>)
-<span class="co">#&gt; Proportions of Observations within 95% Credible Interval: 0.9732245</span></pre></body></html></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ppc_summary.html">ppc_summary</a></span><span class="op">(</span><span class="va">posterior</span>, from_scratch<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; Proportions of Observations within 95% Credible Interval: 0.9722449</span></code></pre></div>
 <p>Now we are going to finally look at the posterior distribution of our regression parameters, but because there are so many we will focus on just those that have a 95% credible interval not including zero (i.e., those that the model is fairly certain are non-zero). We are also going to ignore the intercept term and just look at parameters associated with age and disease status.</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">posterior_summary</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">posterior</span>, <span class="kw">pars</span><span class="kw">=</span><span class="st">"Lambda"</span>)$<span class="no">Lambda</span>
-<span class="no">focus</span> <span class="kw">&lt;-</span> <span class="no">posterior_summary</span>[<span class="fu"><a href="https://rdrr.io/r/base/sign.html">sign</a></span>(<span class="no">posterior_summary</span>$<span class="no">p2.5</span>) <span class="kw">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sign.html">sign</a></span>(<span class="no">posterior_summary</span>$<span class="no">p97.5</span>),]
-<span class="no">focus</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="no">focus</span>$<span class="no">coord</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">posterior</span>, <span class="kw">par</span><span class="kw">=</span><span class="st">"Lambda"</span>, <span class="kw">focus.coord</span> <span class="kw">=</span> <span class="no">focus</span>, <span class="kw">focus.cov</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">X</span>)[<span class="fl">2</span>:<span class="fl">4</span>])
-<span class="co">#&gt; Warning: 'geom_intervalh' is deprecated.</span>
-<span class="co">#&gt; Use 'geom_interval' instead.</span>
-<span class="co">#&gt; See help("Deprecated") and help("tidybayes-deprecated").</span></pre></body></html></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">posterior_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/summary.html">summary</a></span><span class="op">(</span><span class="va">posterior</span>, pars<span class="op">=</span><span class="st">"Lambda"</span><span class="op">)</span><span class="op">$</span><span class="va">Lambda</span>
+<span class="va">focus</span> <span class="op">&lt;-</span> <span class="va">posterior_summary</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">posterior_summary</span><span class="op">$</span><span class="va">p2.5</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">posterior_summary</span><span class="op">$</span><span class="va">p97.5</span><span class="op">)</span>,<span class="op">]</span>
+<span class="va">focus</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">focus</span><span class="op">$</span><span class="va">coord</span><span class="op">)</span>
+<span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">posterior</span>, par<span class="op">=</span><span class="st">"Lambda"</span>, focus.coord <span class="op">=</span> <span class="va">focus</span>, focus.cov <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour',</span>
+<span class="co">#&gt; which will replace the existing scale.</span></code></pre></div>
 <p><img src="introduction-to-fido_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
 <p>The first, and most obvious ting to notice is that the covariate <code>age</code> has pretty much no effect at all, whatever effect it may have is incredibly weak. So we are going to remove age from the plot and just look at those coordinates with non-zero effect for diagnosis CD</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">posterior_summary</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">posterior_summary</span>, <span class="no">covariate</span><span class="kw">==</span><span class="st">"diagnosisCD"</span>)
-<span class="no">focus</span> <span class="kw">&lt;-</span> <span class="no">posterior_summary</span>[<span class="fu"><a href="https://rdrr.io/r/base/sign.html">sign</a></span>(<span class="no">posterior_summary</span>$<span class="no">p2.5</span>) <span class="kw">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sign.html">sign</a></span>(<span class="no">posterior_summary</span>$<span class="no">p97.5</span>),]
-<span class="no">focus</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="no">focus</span>$<span class="no">coord</span>)
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">posterior_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">posterior_summary</span>, <span class="va">covariate</span><span class="op">==</span><span class="st">"diagnosisCD"</span><span class="op">)</span> 
+<span class="va">focus</span> <span class="op">&lt;-</span> <span class="va">posterior_summary</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">posterior_summary</span><span class="op">$</span><span class="va">p2.5</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">posterior_summary</span><span class="op">$</span><span class="va">p97.5</span><span class="op">)</span>,<span class="op">]</span>
+<span class="va">focus</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">focus</span><span class="op">$</span><span class="va">coord</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/tax_table-methods.html">tax_table</a></span>(<span class="no">dat</span>)[<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/taxa_names-methods.html">taxa_names</a></span>(<span class="no">dat</span>)[<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="fu"><a href="../reference/name_dims.html">names_coords</a></span>(<span class="no">posterior</span>) <span class="kw">%in%</span> <span class="no">focus</span>)]]
+<span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/tax_table-methods.html" class="external-link">tax_table</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/taxa_names-methods.html" class="external-link">taxa_names</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="../reference/name_dims.html">names_coords</a></span><span class="op">(</span><span class="va">posterior</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">focus</span><span class="op">)</span><span class="op">]</span><span class="op">]</span>
 <span class="co">#&gt; Taxonomy Table:     [13 taxa by 7 taxonomic ranks]:</span>
 <span class="co">#&gt;         Kingdom    Phylum           Class                  </span>
 <span class="co">#&gt; 74305   "Bacteria" "Proteobacteria" "Epsilonproteobacteria"</span>
@@ -309,18 +329,17 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 <span class="co">#&gt; 1788466 "Clostridiales"      "Lachnospiraceae"       NA    NA     </span>
 <span class="co">#&gt; 1896700 "Clostridiales"      "Peptostreptococcaceae" NA    NA     </span>
 <span class="co">#&gt; 191718  "Erysipelotrichales" "Erysipelotrichaceae"   NA    NA</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">posterior</span>, <span class="kw">par</span><span class="kw">=</span><span class="st">"Lambda"</span>, <span class="kw">focus.coord</span> <span class="kw">=</span> <span class="no">focus</span>, <span class="kw">focus.cov</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">X</span>)[<span class="fl">2</span>])
-<span class="co">#&gt; Warning: 'geom_intervalh' is deprecated.</span>
-<span class="co">#&gt; Use 'geom_interval' instead.</span>
-<span class="co">#&gt; See help("Deprecated") and help("tidybayes-deprecated").</span></pre></body></html></div>
+<span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">posterior</span>, par<span class="op">=</span><span class="st">"Lambda"</span>, focus.coord <span class="op">=</span> <span class="va">focus</span>, focus.cov <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour',</span>
+<span class="co">#&gt; which will replace the existing scale.</span></code></pre></div>
 <p><img src="introduction-to-fido_files/figure-html/unnamed-chunk-14-1.png" width="672"></p>
 </div>
-<div id="more-technical-details" class="section level1">
-<h1 class="hasAnchor">
-<a href="#more-technical-details" class="anchor"></a>More Technical Details</h1>
-<div id="a-few-notes-on-model-inference-and-parameter-collapsing" class="section level2">
-<h2 class="hasAnchor">
-<a href="#a-few-notes-on-model-inference-and-parameter-collapsing" class="anchor"></a>A few notes on model inference and parameter collapsing</h2>
+<div class="section level2">
+<h2 id="more-technical-details">More Technical Details<a class="anchor" aria-label="anchor" href="#more-technical-details"></a>
+</h2>
+<div class="section level3">
+<h3 id="a-few-notes-on-model-inference-and-parameter-collapsing">A few notes on model inference and parameter collapsing<a class="anchor" aria-label="anchor" href="#a-few-notes-on-model-inference-and-parameter-collapsing"></a>
+</h3>
 <p>Along with some algorithmic speed-ups enabled by the C++ Eigen library <em>fido</em> uses conjugate priors for the regression component of the model allowing the last three lines of the model to be collapsed into 1 line. After this the last three lines of the model can be re-expanded using fully conjugate sampling schemes that do not require optimization or MCMC (only matrix operations).</p>
 <p><strong>Here are the details:</strong> The collapsed model is given by <span class="math display">\[
 \begin{align}
@@ -342,21 +361,21 @@ p(\Lambda | \Sigma, \eta, X) &amp;= MN_{(D-1)\times Q}(\Lambda_N, \Sigma, \Gamma
 \]</span> If Laplace approximation is too slow, unstable (see below) or simply not needed, the default behavior of <em>pibble</em> is to preform the above matrix calculations and produce a single point estimate of <span class="math inline">\(\Sigma\)</span> and <span class="math inline">\(\Lambda\)</span> based on the posterior means of <span class="math inline">\(p(\Sigma | \eta, X)\)</span> and <span class="math inline">\((\Lambda | \Sigma, \eta, X)\)</span>.</p>
 </div>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
-<div id="refs" class="references hanging-indent">
-<div id="ref-aitchison1986">
-<p>Aitchison, J. 1986. <em>The Statistical Analysis of Compositional Data</em>. Book. Monographs on Statistics and Applied Probability. London ; New York: Chapman; Hall.</p>
+<div class="section level2">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-aitchison1986" class="csl-entry">
+Aitchison, J. 1986. <em>The Statistical Analysis of Compositional Data</em>. Book. Monographs on Statistics and Applied Probability. London ; New York: Chapman; Hall.
 </div>
-<div id="ref-gevers2014">
-<p>Gevers, Dirk, Subra Kugathasan, Lee A Denson, Yoshiki Vázquez-Baeza, Will Van Treuren, Boyu Ren, Emma Schwager, et al. 2014. “The Treatment-Naive Microbiome in New-Onset Crohn’s Disease.” <em>Cell Host &amp; Microbe</em> 15 (3): 382–92.</p>
+<div id="ref-gevers2014" class="csl-entry">
+Gevers, Dirk, Subra Kugathasan, Lee A Denson, Yoshiki Vázquez-Baeza, Will Van Treuren, Boyu Ren, Emma Schwager, et al. 2014. <span>“The Treatment-Naive Microbiome in New-Onset Crohn’s Disease.”</span> <em>Cell Host &amp; Microbe</em> 15 (3): 382–92.
 </div>
-<div id="ref-silverman2018">
-<p>Silverman, Justin D, Heather Durand, Rachael J Bloom, Sayan Mukherjee, and Lawrence A David. 2018. “Dynamic Linear Models Guide Design and Analysis of Microbiota Studies Within Artificial Human Guts.” <em>bioRxiv</em>. <a href="https://doi.org/10.1101/306597">https://doi.org/10.1101/306597</a>.</p>
+<div id="ref-silverman2018" class="csl-entry">
+Silverman, Justin D, Heather Durand, Rachael J Bloom, Sayan Mukherjee, and Lawrence A David. 2018. <span>“Dynamic Linear Models Guide Design and Analysis of Microbiota Studies Within Artificial Human Guts.”</span> <em>bioRxiv</em>. <a href="https://doi.org/10.1101/306597" class="external-link">https://doi.org/10.1101/306597</a>.
 </div>
-<div id="ref-silverman2019">
-<p>Silverman, Justin D., Kimberly Roche, Zachary C. Holmes, Lawrence A. David, and Sayan Mukherjee. 2019. “Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes.” <em>arXiv E-Prints</em>, March, arXiv:1903.11695. <a href="http://arxiv.org/abs/1903.11695">http://arxiv.org/abs/1903.11695</a>.</p>
+<div id="ref-silverman2019" class="csl-entry">
+Silverman, Justin D., Kimberly Roche, Zachary C. Holmes, Lawrence A. David, and Sayan Mukherjee. 2019. <span>“<span class="nocase">Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes</span>.”</span> <em>arXiv e-Prints</em>, March, arXiv:1903.11695. <a href="https://arxiv.org/abs/1903.11695" class="external-link">https://arxiv.org/abs/1903.11695</a>.
 </div>
 </div>
 </div>
@@ -382,11 +401,13 @@ p(\Lambda | \Sigma, \eta, X) &amp;= MN_{(D-1)\times Q}(\Lambda_N, \Sigma, \Gamma
 
 
       <footer><div class="copyright">
-  <p>Developed by Justin Silverman.</p>
+  <p></p>
+<p>Developed by Justin Silverman.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -394,6 +415,8 @@ p(\Lambda | \Sigma, \eta, X) &amp;= MN_{(D-1)\times Q}(\Lambda_N, \Sigma, \Gamma
 
   
 
+
+  
 
   </body>
 </html>

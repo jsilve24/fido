@@ -1,13 +1,3 @@
-#' Plot Summaries of Posterior Distribution of pibblefit or orthusfit Parameters
-#' 
-#' @param x an object of class pibblefit or orthusfit
-#' @param ... other arguments passed to plot.pibblefit (see details)
-#' @return ggplot object
-#' @export
-plot <- function(x, ...){
-  UseMethod("plot")
-}
-
 #' Plot Summaries of Posterior Distribution of pibblefit Parameters
 #' 
 #' @param x an object of class pibblefit

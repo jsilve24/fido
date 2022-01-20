@@ -290,6 +290,8 @@ to_ilr.pibblefit <- function(m, V=NULL){
   }
   if (!is.null(m$init)) m$init <- ilr_array(m$init, V, 1)
   
+  colnames(V) <- paste0("ilr_", rep(1:ncol(V)))
+    
   m$summary <- NULL
   m$coord_system <- "ilr"
   m$ilr_base <- V
@@ -318,6 +320,8 @@ to_ilr.orthusfit <- function(m, V=NULL){
   }
   if (!is.null(m$Theta)) m$Theta <- oilr(m$Theta, m$D, V)  
   if (!is.null(m$init)) m$init <- ilr_array(m$init, V, 1)
+  
+  colnames(V) <- paste0("ilr_", rep(1:ncol(V)))
   
   m$summary <- NULL
   m$coord_system <- "ilr"
