@@ -32,10 +32,10 @@ jobs:
       - name: Configure git
         run: git config --global core.autocrlf false
 
-      - if: runner.os == 'ubuntu-latest'
+      - if: runner.os == 'Linux'
         run: sudo apt-get install -y libgsl-dev
 
-      - if: runner.os == 'ubuntu-latest'
+      - if: runner.os == 'Linux'
         run: sudo apt-get install -y libglpk-dev
 
       - uses: actions/checkout@v2
