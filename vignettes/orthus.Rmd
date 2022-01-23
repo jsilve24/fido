@@ -5,7 +5,7 @@ output:
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{intro_fido_orthus}
+  %\VignetteIndexEntry{Joint Modeling  (e.g., Multiomics) with fido::Orthus}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -32,7 +32,7 @@ set.seed(48482)
 If you have not already done so, I would read through the *pibble* vignette before this one. 
 
 # fido::orthus, the model
-fido can be used for jointly modeling multivariate count data and multivariate Gaussian data. For example, this would be a reasonable model to jointly model 16S microbiome data and metabolomics data jointly. Because of the "two-headed" nature of this model, e.g., two observed data-sets, I named this model *orthus* (a two-headed dog and brother of Cerberus in Greek Mythology)[https://en.Wikipedia.org/wiki/Orthrus]. The *orthus* model can be written as
+fido can be used for jointly modeling multivariate count data and multivariate Gaussian data. For example, this would be a reasonable model to jointly model 16S microbiome data and metabolomics data jointly. Because of the "two-headed" nature of this model, e.g., two observed data-sets, I named this model *orthus*, [a two-headed dog and brother of Cerberus in Greek Mythology](https://en.Wikipedia.org/wiki/Orthrus). The *orthus* model can be written as
 
 $$
 \begin{align}
