@@ -34,6 +34,8 @@ jobs:
 
       - if: runner.os == 'ubuntu-latest'
         run: sudo apt-get install -y libgsl-dev
+
+      - if: runner.os == 'ubuntu-latest'
         run: sudo apt-get install -y libglpk-dev
 
       - uses: actions/checkout@v2
