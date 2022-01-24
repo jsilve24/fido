@@ -8,7 +8,7 @@ Authors@R: c(person("Justin", "Silverman", role=c("aut", "cre"),
                      email = "Justin.Silverman@psu.edu"), 
              person("Kim", "Roche", role=("ctb"), 
                      email = "kimberly.roche@duke.edu"),
-             person("Michelle", "Nixon", role=("ctb"), 
+             person("Michelle", "Nixon", role=c("ctb","cre"), 
                      email = "pistner@psu.edu"))
 Maintainer: Michelle Nixon
     <pistner@psu.edu>
