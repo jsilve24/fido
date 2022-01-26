@@ -1,4 +1,4 @@
-#include <fido.h>.h>
+#include <fido.h>
 #include <Rcpp/Benchmark/Timer.h>
 
 // [[Rcpp::depends(RcppNumerical)]]
