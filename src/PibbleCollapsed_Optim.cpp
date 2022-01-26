@@ -1,4 +1,4 @@
-#include <fido.h>.h>
+#include <fido.h>
 #include <Rcpp/Benchmark/Timer.h>
 
 // [[Rcpp::depends(RcppNumerical)]]
@@ -134,7 +134,8 @@ List optimPibbleCollapsed(const Eigen::ArrayXXd Y,
                double multDirichletBoot = -1.0, 
                bool useSylv = true, 
                int ncores=-1, 
-               long seed=-1){  
+               long seed=-1){ 
+
   #ifdef FIDO_USE_PARALLEL 
     Eigen::initParallel();
     if (ncores > 0) Eigen::setNbThreads(ncores);
@@ -146,9 +147,9 @@ List optimPibbleCollapsed(const Eigen::ArrayXXd Y,
   PibbleCollapsed cm(Y, upsilon, ThetaX, KInv, AInv, useSylv);
   Map<VectorXd> eta(init.data(), init.size()); // will rewrite by optim
   double nllopt; // NEGATIVE LogLik at optim
-  List out(7);
+  List out(8);
   out.names() = CharacterVector::create("LogLik", "Gradient", "Hessian",
-            "Pars", "Samples", "Timer", "logInvNegHessDet");
+            "Pars", "Samples", "Timer", "logInvNegHessDet", "numCores");
   
   // Pick optimizer (ADAM - without perturbation appears to be best)
   //   ADAM with perturbations not fully implemented
@@ -236,5 +237,6 @@ List optimPibbleCollapsed(const Eigen::ArrayXXd Y,
   timer.step("Overall_stop");
   NumericVector t(timer);
   out[5] = t;
+  out[8] = omp_get_num_threads();
   return out;
 }
