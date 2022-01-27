@@ -4,7 +4,7 @@ Title: Bayesian Multinomial Logistic Normal Regression
 Version: 0.1.14
 Date: 2019-07-06
 Author: Justin Silverman
-Authors@R: c(person("Justin", "Silverman", role=c("aut", "cre"),
+Authors@R: c(person("Justin", "Silverman", role=c("aut"),
                      email = "Justin.Silverman@psu.edu"), 
              person("Kim", "Roche", role=("ctb"), 
                      email = "kimberly.roche@duke.edu"),
@@ -17,7 +17,7 @@ Description: Provides methods for fitting and inspection of Bayesian Multinomial
  scalability. fido replaces the previous package stray.
 License: GPL-3 + file LICENSE
 URL: https://jsilve24.github.io/fido/
-Depends: R (>= 3.5.0)
+Depends: R (>= 4.1.0)
 Imports: Rcpp (>= 0.12.17), driver, dplyr, ggplot2, 
   purrr, tidybayes, rlang
 LinkingTo: Rcpp, RcppEigen, RcppNumerical, RcppZiggurat, BH
