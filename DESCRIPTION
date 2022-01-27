@@ -19,7 +19,7 @@ License: GPL-3 + file LICENSE
 URL: https://jsilve24.github.io/fido/
 Depends: R (>= 3.5.0)
 Imports: Rcpp (>= 0.12.17), driver, dplyr, ggplot2, 
-  purrr, tidybayes, rlang (<= 0.4.12)
+  purrr, tidybayes, rlang
 LinkingTo: Rcpp, RcppEigen, RcppNumerical, RcppZiggurat, BH
 RoxygenNote: 7.1.1
 Suggests: 
