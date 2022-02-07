@@ -60,7 +60,8 @@ using Eigen::Lower;
 //' @return List with components 
 //' 1. Lambda Array of dimension (D-1) x Q x iter (posterior samples)
 //' 2. Sigma Array of dimension (D-1) x (D-1) x iter (posterior samples)
-//' 3. Timer
+//' 3. The number of cores used
+//' 4. Timer
 //' @export
 //' @md
 //' @seealso \code{\link{optimPibbleCollapsed}}
@@ -99,8 +100,8 @@ List uncollapsePibble(const Eigen::Map<Eigen::VectorXd> eta, // note this is ess
   #endif 
   Timer timer;
   timer.step("Overall_start");
-  List out(3);
-  out.names() = CharacterVector::create("Lambda", "Sigma", "Timer");
+  List out(4);
+  out.names() = CharacterVector::create("Lambda", "Sigma", "Timer", "NoCores");
   int Q = Gamma.rows();
   int D = Xi.rows()+1;
   int N = X.cols();
@@ -173,6 +174,7 @@ List uncollapsePibble(const Eigen::Map<Eigen::VectorXd> eta, // note this is ess
     Eigen::setNbThreads(omp_get_max_threads());  
   }
   #endif 
+  int n_coresUsed = Eigen::nbThreads();
 
   IntegerVector dLambda = IntegerVector::create(D-1, Q, iter);
   IntegerVector dSigma = IntegerVector::create(D-1, D-1, iter);
@@ -182,6 +184,7 @@ List uncollapsePibble(const Eigen::Map<Eigen::VectorXd> eta, // note this is ess
   nvSigma.attr("dim") = dSigma;
   out[0] = nvLambda;
   out[1] = nvSigma;
+  out[3] = n_coresUsed;
   timer.step("Overall_stop");
   NumericVector t(timer);
   out[2] = timer;

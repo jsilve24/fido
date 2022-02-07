@@ -370,7 +370,8 @@ optimPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, init, n_samples
 #' @return List with components 
 #' 1. Lambda Array of dimension (D-1) x Q x iter (posterior samples)
 #' 2. Sigma Array of dimension (D-1) x (D-1) x iter (posterior samples)
-#' 3. Timer
+#' 3. The number of cores used
+#' 4. Timer
 #' @export
 #' @md
 #' @seealso \code{\link{optimPibbleCollapsed}}
