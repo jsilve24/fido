@@ -17,7 +17,7 @@ Description: Provides methods for fitting and inspection of Bayesian Multinomial
  scalability. fido replaces the previous package stray.
 License: GPL-3 + file LICENSE
 URL: https://jsilve24.github.io/fido/
-Depends: R (>= 4.0.0)
+Depends: R (>= 4.1.0)
 Imports: Rcpp (>= 0.12.17), driver, dplyr, ggplot2, 
   purrr, tidybayes, rlang
 LinkingTo: Rcpp, RcppEigen, RcppNumerical, RcppZiggurat, BH
