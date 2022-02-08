@@ -1,7 +1,7 @@
 Package: fido
 Type: Package
 Title: Bayesian Multinomial Logistic Normal Regression
-Version: 0.1.14
+Version: 1.0.0
 Date: 2019-07-06
 Author: Justin Silverman
 Authors@R: c(person("Justin", "Silverman", role=c("aut"),
@@ -13,7 +13,7 @@ Authors@R: c(person("Justin", "Silverman", role=c("aut"),
 Maintainer: Michelle Nixon
     <pistner@psu.edu>
 Description: Provides methods for fitting and inspection of Bayesian Multinomial Logistic Normal Models using MAP estimation 
- and Laplace Approximation. Key functionality is implemented in C++ for 
+ and Laplace Approximation as developed in Silverman et. Al. (2022) <https://www.jmlr.org/papers/v23/19-882.html>. Key functionality is implemented in C++ for 
  scalability. fido replaces the previous package stray.
 License: GPL-3 + file LICENSE
 URL: https://jsilve24.github.io/fido/
@@ -37,4 +37,5 @@ Remotes:
     twbattaglia/MicrobeDS
 VignetteBuilder: knitr
 LazyData: true
+BugReports: https://github.com/jsilve24/fido/issues
 Encoding: UTF-8

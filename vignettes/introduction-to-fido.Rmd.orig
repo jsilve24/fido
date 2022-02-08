@@ -13,7 +13,12 @@ editor_options:
 bibliography: bibliography.bib
 ---
 
-
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
 # An introduction to *fido*
 *fido* [@silverman2019] is a loose acronym for **"(Bayesian) Multinomial Logistic-Normal Models"**. 
@@ -104,8 +109,7 @@ I will reanalyze a previously published study comparing microbial composition in
 Crohn's Disease (CD) to healthy controls [@gevers2014]. To do this I will fit a pibble model using 
 CD status, inflammation status and age as covariates (plus a constant intercept term). 
 
-
-```r
+```{r message=FALSE, warning=FALSE}
 library(MicrobeDS)
 library(phyloseq)
 library(dplyr)
@@ -130,8 +134,7 @@ dat <- RISK_CCFA %>%
 
 
 Create Design Matrix and OTU Table
-
-```r
+```{r}
 sample_dat <- as.data.frame(as(sample_data(dat),"matrix")) %>% 
   mutate(age = as.numeric(as.character(age)),
          diagnosis = relevel(factor(diagnosis, ordered = FALSE), ref="no"), 
@@ -141,20 +144,7 @@ Y <- otu_table(dat)
 
 # Investigate X and Y look like
 X[,1:5]
-#>                      1939.SKBTI.0175 1939.SKBTI047 1939.SKBTI051 1939.SKBTI063 1939.SKBTI072
-#> (Intercept)                  1.00000       1.00000          1.00       1.00000          1.00
-#> diagnosisCD                  1.00000       1.00000          1.00       1.00000          1.00
-#> disease_statinflamed         0.00000       1.00000          1.00       1.00000          1.00
-#> age                         15.16667      14.33333         15.75      13.58333         15.75
 Y[1:5,1:5]
-#> OTU Table:          [5 taxa and 5 samples]
-#>                      taxa are rows
-#>         1939.SKBTI.0175 1939.SKBTI047 1939.SKBTI051 1939.SKBTI063 1939.SKBTI072
-#> 4442127               0             9             0            14             2
-#> 74305                 1             2            35             1             0
-#> 663573               36             1             0             2             1
-#> 2685602              10           264           211           276            83
-#> 4339819               0            37            42            70            22
 ```
 
 Next specify priors. We are going to start by specifying 
@@ -173,8 +163,7 @@ the Inverse Wishart mode is given by $\frac{\Xi}{\upsilon + D}$. Finally,
 note that $\upsilon$ essentially controls our uncertainty in $\Sigma$ about
 this prior mean. Here I will take $\upsilon = D+3$. This then gives us 
 $\Xi = (\upsilon - D) GIG^T$. We scale $\Xi$ by a factor of 1/2 to make $Tr(\Xi)=D-1$. 
-
-```r
+```{r fig.height=5, fig.width=7}
 upsilon <- ntaxa(dat)+3 
 Omega <- diag(ntaxa(dat))
 G <- cbind(diag(ntaxa(dat)-1), -1)
@@ -184,8 +173,7 @@ Xi <- (upsilon-ntaxa(dat))*G%*%Omega%*%t(G)
 Finally I specify my priors for $\Theta$ (mean of $\Lambda$) and $\Gamma$ (covariance
 between columns of $\Lambda$; i.e., covariance between the covariates). I will
 center my prior for $\Lambda$ about zero, and assume that the covariates are independent. 
-
-```r
+```{r fig.height=5, fig.width=7}
 Theta <- matrix(0, ntaxa(dat)-1, nrow(X))
 Gamma <- diag(nrow(X))
 ```
@@ -195,17 +183,9 @@ priors make sense to them. *fido* makes this easy, all the main fitting function
 (e.g., `pibble`) will automatically sample from the prior predictive 
 distribution if `Y` is left as `NULL` (e.g., without data your posterior is
 just your prior). 
-
-```r
+```{r}
 priors <- pibble(NULL, X, upsilon, Theta, Gamma, Xi)  
 print(priors)
-#>  pibblefit Object (Priors Only): 
-#>   Number of Samples:		 250 
-#>   Number of Categories:		 49 
-#>   Number of Covariates:		 4 
-#>   Number of Posterior Samples:	 2000 
-#>   Contains Samples of Parameters:Eta  Lambda  Sigma
-#>   Coordinate System:		 alr, reference category: 49
 ```
 
 The main fitting functions in the *fido* package output special fit objects (e.g.,
@@ -216,7 +196,7 @@ summary of what is in the object.
 
 
 *Note:* Currently, the function `pibble` takes expects inputs and outputs in the "default" coordinate system;
-this is simply the ALR coordinate system where the last category (49 above) is taken as 
+this is simply the ALR coordinate system where the last category (`r ncategories(priors)` above) is taken as 
 reference (this will be generalized in future versions). 
 More specifically for a vector $x$ representing the proportions of 
 categories $\{1, \dots, D\}$ we can write 
@@ -235,25 +215,9 @@ a summary of the prior for $\Lambda$ with respect to the CLR coordinate system^[
 very large objects with many posterior samples, so it can take a little time to compute. 
 Faster implementations of summary may be included as a future update if need arises]. 
 
-
-```r
+```{r}
 priors <- to_clr(priors)  
 summary(priors, pars="Lambda", gather_prob=TRUE, as_factor=TRUE, use_names=TRUE)  
-#> $Lambda
-#> # A tibble: 784 x 9
-#>    Parameter coord covariate         val .lower .upper .width .point .interval
-#>    <chr>     <int>     <int>       <dbl>  <dbl>  <dbl>  <dbl> <chr>  <chr>    
-#>  1 Lambda        1         1  0.0509     -0.528  0.596    0.5 mean   qi       
-#>  2 Lambda        1         2  0.00199    -0.567  0.575    0.5 mean   qi       
-#>  3 Lambda        1         3 -0.0373     -0.620  0.532    0.5 mean   qi       
-#>  4 Lambda        1         4 -0.00205    -0.554  0.549    0.5 mean   qi       
-#>  5 Lambda        2         1  0.00991    -0.564  0.535    0.5 mean   qi       
-#>  6 Lambda        2         2 -0.00000782 -0.572  0.580    0.5 mean   qi       
-#>  7 Lambda        2         3 -0.0247     -0.570  0.518    0.5 mean   qi       
-#>  8 Lambda        2         4  0.0165     -0.536  0.589    0.5 mean   qi       
-#>  9 Lambda        3         1  0.0138     -0.584  0.620    0.5 mean   qi       
-#> 10 Lambda        3         2 -0.00502    -0.542  0.581    0.5 mean   qi       
-#> # ... with 774 more rows
 ```
 
 By default the `summary` function returns a list (with possible elements `Lambda`, 
@@ -265,22 +229,17 @@ are `ggplot` objects so normal `ggplot2` commands work on them. Before doing tha
 though we are going to use one of the `names` functions for `pibblefit` objects
 to provide some more specific names for the covariates (helpful when we then plot). 
 
-
-```r
+```{r fig.height=5, fig.width=7}
 names_covariates(priors) <- rownames(X)
 p <- plot(priors, par="Lambda") 
-#> Scale for 'colour' is already present. Adding another scale for 'colour', which will replace the existing scale.
 p + ggplot2::xlim(c(-10, 10))  
 ```
-
-![](figure/unnamed-chunk-7-1.png)
 
 This looks fairly reasonable to me. So I am going to go ahead and 
 fit the model with data. `fido` provides a helper method called `refit` 
 that we will use to avoid passing prior parameters again. 
 
-
-```r
+```{r}
 priors$Y <- Y # remember pibblefit objects are just lists
 posterior <- refit(priors, optim_method="adam")
 ```
@@ -298,8 +257,7 @@ had to transform our prior for `Xi` to CLR coordinates before adding it to the `
 
 Now I are also going to add in the taxa names to make it easier to 
 interpret the results. 
-
-```r
+```{r}
 tax <- tax_table(dat)[,c("Class", "Family")]
 tax <- apply(tax, 1, paste, collapse="_")
 names_categories(posterior) <- tax
@@ -310,12 +268,9 @@ to assess model fit. This can be accessed through the method `ppc`^[This can als
 be used to plot samples of the prior predictive distribution if Y is null in the 
 object as in our `priors` object].
 
-
-```r
+```{r fig.height=5, fig.width=7}
 ppc(posterior) + ggplot2::coord_cartesian(ylim=c(0, 30000))
 ```
-
-![](figure/unnamed-chunk-10-1.png)
 
 There are a few things to note about this plot. First, when zoomed out like this
 it looks it is hard to make much of it. This is a fairly large dataset we are 
@@ -323,10 +278,8 @@ analyzing and its hard to view an uncertainty interval; in this case its plottin
 the median and 95% confidence interval in grey and black and the observed counts in green.
 *fido* also has a simpler function that summarizes the posterior predictive check. 
 
-
-```r
+```{r}
 ppc_summary(posterior)
-#> Proportions of Observations within 95% Credible Interval: 0.9902857
 ```
 
 Here we see that the model appears to be fitting well (at least based on the posterior
@@ -341,16 +294,9 @@ sampling $\eta$ and only then sampling $Y$. This later functionality can be acce
 by also passing the parameters `from_scratch=TRUE` to the `ppc` function. Note:
 these two posterior predictive checks have different meanings, one is not better 
 than the other.
-
-```r
+```{r}
 ppc(posterior, from_scratch=TRUE) +ggplot2::coord_cartesian(ylim=c(0, 30000))
-```
-
-![](figure/unnamed-chunk-12-1.png)
-
-```r
 ppc_summary(posterior, from_scratch=TRUE)
-#> Proportions of Observations within 95% Credible Interval: 0.9722449
 ```
 
 Now we are going to finally look at the posterior distribution of our regression
@@ -359,49 +305,26 @@ that have a 95% credible interval not including zero (i.e., those that
 the model is fairly certain are non-zero). We are also going to ignore the 
 intercept term and just look at parameters associated with age and disease status. 
 
-
-```r
+```{r fig.height=5, fig.width=7}
 posterior_summary <- summary(posterior, pars="Lambda")$Lambda
 focus <- posterior_summary[sign(posterior_summary$p2.5) == sign(posterior_summary$p97.5),]
 focus <- unique(focus$coord)
 plot(posterior, par="Lambda", focus.coord = focus, focus.cov = rownames(X)[2:4])
-#> Scale for 'colour' is already present. Adding another scale for 'colour', which will replace the existing scale.
 ```
-
-![](figure/unnamed-chunk-13-1.png)
 
 The first, and most obvious ting to notice is that the covariate `age` has pretty 
 much no effect at all, whatever effect it may have is incredibly weak. So 
 we are going to remove age from the plot and just look at those 
 coordinates with non-zero effect for diagnosis CD
 
-
-```r
+```{r fig.height=5, fig.width=7}
 posterior_summary <- filter(posterior_summary, covariate=="diagnosisCD") 
 focus <- posterior_summary[sign(posterior_summary$p2.5) == sign(posterior_summary$p97.5),]
 focus <- unique(focus$coord)
 
 tax_table(dat)[taxa_names(dat)[which(names_coords(posterior) %in% focus)]]
-#> Taxonomy Table:     [13 taxa by 7 taxonomic ranks]:
-#>         Kingdom    Phylum           Class                   Order                Family                  Genus Species
-#> 74305   "Bacteria" "Proteobacteria" "Epsilonproteobacteria" "Campylobacterales"  "Helicobacteraceae"     NA    NA     
-#> 4449236 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"    "Alcaligenaceae"        NA    NA     
-#> 1105919 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"    "Oxalobacteraceae"      NA    NA     
-#> 4477696 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Pasteurellales"     "Pasteurellaceae"       NA    NA     
-#> 4448331 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Enterobacteriales"  "Enterobacteriaceae"    NA    NA     
-#> 4154872 "Bacteria" "Bacteroidetes"  "Flavobacteriia"        "Flavobacteriales"   "[Weeksellaceae]"       NA    NA     
-#> 4452538 "Bacteria" "Fusobacteria"   "Fusobacteriia"         "Fusobacteriales"    "Fusobacteriaceae"      NA    NA     
-#> 341322  "Bacteria" "Firmicutes"     "Bacilli"               "Turicibacterales"   "Turicibacteraceae"     NA    NA     
-#> 1015143 "Bacteria" "Firmicutes"     "Bacilli"               "Gemellales"         "Gemellaceae"           NA    NA     
-#> 176318  "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"      "Christensenellaceae"   NA    NA     
-#> 1788466 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"      "Lachnospiraceae"       NA    NA     
-#> 1896700 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"      "Peptostreptococcaceae" NA    NA     
-#> 191718  "Bacteria" "Firmicutes"     "Erysipelotrichi"       "Erysipelotrichales" "Erysipelotrichaceae"   NA    NA
 plot(posterior, par="Lambda", focus.coord = focus, focus.cov = rownames(X)[2])
-#> Scale for 'colour' is already present. Adding another scale for 'colour', which will replace the existing scale.
 ```
-
-![](figure/unnamed-chunk-14-1.png)
 
 
 # More Technical Details 

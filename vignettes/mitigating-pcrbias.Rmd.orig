@@ -7,7 +7,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+options(rmarkdown.html_vignette.check_title = FALSE) 
+```
 
 
 If you have no already done so, I would read through our manuscript
@@ -34,26 +40,9 @@ is we want to estimate the composition when the number of PCR cycles is equal to
 Here I will show an example of how such data (including calibration samples can be modeled). 
 This is the mock community data we analyzed in the manuscript.
 
-
-```r
+```{r setup}
 library(fido)
-#> 
-#> Attaching package: 'fido'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     coef, predict
-#> The following objects are masked from 'package:base':
-#> 
-#>     as.list, print, summary
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 library(tidyr)
 library(ggplot2)
 library(driver)
@@ -68,24 +57,10 @@ Lets first take a brief look at the data. There are two objects `Y` (a count tab
 that I already preprocessed just as in our manuscript) and `metadata` which contains the 
 covariates we need (including the number of PCR cycles each sample has undergone). 
 
-
-```r
+```{r}
 Y[1:5,1:5]
-#>               cycle13.1 cycle13.2 cycle13.3 cycle14.1 cycle14.2
-#> B.longum             27        28        22        37        44
-#> B.subtilis          320       299       272       513       650
-#> C.aerofaciens        35        32        39        43        84
-#> C.hathewayi          61        52        59        93       117
-#> C.innocuum          121        91       112       197       208
 
 head(metadata)
-#>   sample_name  sample_num cycle_num machine
-#> 1   cycle13.1 Calibration        13       3
-#> 2   cycle13.2 Calibration        13       3
-#> 3   cycle13.3 Calibration        13       3
-#> 4   cycle14.1 Calibration        14       4
-#> 5   cycle14.2 Calibration        14       4
-#> 6   cycle14.3 Calibration        14       4
 ```
 The only non-obvious variable here is probably `machine` which just is a categorical variable
 denoting which of 4 different PCR machines used to amplify a given sample. When writing the paper, 
@@ -93,26 +68,9 @@ we thought this might be a source of bias so we included this as a term in our m
 
 As *fido* doesn't yet have a formula interface (I will write that eventually), you just need to use the 
 formula interface provided by base-R's `model.matrix` function. 
-
-```r
+```{r}
 X <- t(model.matrix(~ cycle_num + sample_num + machine  -1, data = metadata))
 X[,1:5]
-#>                        1  2  3  4  5
-#> cycle_num             13 13 13 14 14
-#> sample_numCalibration  1  1  1  1  1
-#> sample_numMock1        0  0  0  0  0
-#> sample_numMock10       0  0  0  0  0
-#> sample_numMock2        0  0  0  0  0
-#> sample_numMock3        0  0  0  0  0
-#> sample_numMock4        0  0  0  0  0
-#> sample_numMock5        0  0  0  0  0
-#> sample_numMock6        0  0  0  0  0
-#> sample_numMock7        0  0  0  0  0
-#> sample_numMock8        0  0  0  0  0
-#> sample_numMock9        0  0  0  0  0
-#> machine2               0  0  0  0  0
-#> machine3               1  1  1  0  0
-#> machine4               0  0  0  1  1
 ```
 You can see that in doing this we have created a design matrix which has encoded the PCR machine 
 using a series of 3 dummy variables. We also have a series of dummy variables denoting 
@@ -123,14 +81,12 @@ the dummy encoding used for the PCR machines).
 Next we are going to specify our model priors and fit the model. A detailed description of the general 
 thought process I like to follow when creating priors in *fido* is provided in the vignette *Tips for Specifying Priors*. Here I am just going to a simple prior where I just change `Gamma` from its
 default values. If you are wondering, in the manuscript I choose the multiplier 10 based on maximum marginal likelihood. At the end of this vignette I will show an example of how this can be done.  
-
-```r
+```{r}
 fit <- pibble(Y = Y, X=X, Gamma = 10*diag(nrow(X)))
 ```
 
 Next we are going to transform the results into CLR coordinates and interpret them in that space. 
-
-```r
+```{r}
 fit <- to_clr(fit)
 ```
 
@@ -138,8 +94,7 @@ That's about it. Now its just interpreting the model results. Lets say you want 
 investigate the estimated unbiased composition, then you just have to look at the inferred
 random intercepts for the corresponding `sample_num` variable. We can plot the results 
 simply enough:
-
-```r
+```{r}
 # pull out indices for random intercepts corresponding to `sample_num`
 focus.covariate <- rownames(X)[which(grepl("sample_num", rownames(X)))]
 
@@ -151,27 +106,19 @@ focus.coord <- paste0("clr_", c("S.gallolyticus", "R.intestinalis", "L.ruminis")
 plot(fit, par="Lambda", focus.cov=focus.covariate, focus.coord=focus.coord) +
   theme(strip.text.y=element_text(angle=0, hjust=1)) +
   facet_grid(.data$covariate~.)
-#> Scale for 'colour' is already present. Adding another scale for 'colour', which will replace the existing scale.
 ```
-
-![](figure/unnamed-chunk-6-1.png)
 
 The compositional bias introduced at each cycle can also be visualized. 
-
-```r
+```{r}
 # Also to make the plot fit nicely, I just flip the orientation of the plot 
 plot(fit, par="Lambda", focus.cov="cycle_num")
-#> Scale for 'colour' is already present. Adding another scale for 'colour', which will replace the existing scale.
 ```
-
-![](figure/unnamed-chunk-7-1.png)
 
 The *fido* package has a bunch of tools for working with such fitted models depending on what you ultimately want to do. See the main `pibble` vignette for a fuller description of what you can do with such fitted models. 
 
 One plot I find particularly useful, is visualizing the calibration data and the fitted
 bias model. This can be done as follows:
-
-```r
+```{r fig.height=8, fig.width=6}
 
 # First transform the data into CLR coordinates (requires pseudo-count to deal with
 # zeros). Then will convert to tidy format for ggplot 
@@ -194,22 +141,6 @@ rownames(X.tmp) <- rownames(X)
 X.tmp["cycle_num",2] <- 35
 X.tmp["sample_numCalibration",] <- 1
 X.tmp # simple, just going to predict the composition for each of these two samples
-#>                       [,1] [,2]
-#> cycle_num                0   35
-#> sample_numCalibration    1    1
-#> sample_numMock1          0    0
-#> sample_numMock10         0    0
-#> sample_numMock2          0    0
-#> sample_numMock3          0    0
-#> sample_numMock4          0    0
-#> sample_numMock5          0    0
-#> sample_numMock6          0    0
-#> sample_numMock7          0    0
-#> sample_numMock8          0    0
-#> sample_numMock9          0    0
-#> machine2                 0    0
-#> machine3                 0    0
-#> machine4                 0    0
       # for the plot
 
 # Now predict the fitted regression line for cycle_num using X.tmp
@@ -227,8 +158,6 @@ predicted %>%
   theme(strip.text.y=element_text(angle=0)) +
   ylab("CLR Coordinates")
 ```
-
-![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png)
 There are two things I look for in these plots. First, the data should look linear
 in this space. If the data does not look linear then there are a few options: (a)
 something went wrong in your calibration experiment, (b) something is wrong with your 
@@ -253,8 +182,7 @@ to explain the variation between technical replicates. This happens occasionally
 We also see that the log marginal likelihood pretty much assemptotes around 10. So rather than
 picking 100000, I just settled for 10 as this would be both more numerically stable
 and just seemed more reasonable. The model basically just says: "don't choose a value less than 10". 
-
-```r
+```{r}
 sigma <- c(1, 2, 3, 10, 100, 1000) # candidate values
 
 lml <- rep(NA, length(sigma)) # log marginal likelihood
@@ -264,8 +192,6 @@ for (i in seq_along(sigma)){
 }
 base::plot(sigma, lml)
 ```
-
-![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png)
 
 
  

@@ -8,9 +8,10 @@ citEntry(
   "Zachary C Holmes",
   "Lawrence A David",
   "Sayan Mukherjee"),
-  year = 2019,
-  journal = "arXiv e-prints",
-  url = "https://arxiv.org/abs/1903.11695",
+  year = 2022,
+  volume = 23,
+  journal = "Journal of Machine Learning Research",
+  url = "https://www.jmlr.org/papers/v23/19-882.html",
 
-  textVersion = "Silverman, JD, Roche, K, Holmes, ZC, David, LA, and Mukherjee, S. Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes. 2019, arXiv e-prints, arXiv:1903.11695"
+  textVersion = "Silverman, JD, Roche, K, Holmes, ZC, David, LA, and Mukherjee, S. Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes. 2022, Journal of Machine Learning Research."
 )

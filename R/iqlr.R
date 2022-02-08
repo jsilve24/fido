@@ -28,11 +28,13 @@
 #' @return array of dimension (D, Q, iter) where D is number of taxa, Q is number
 #' of covariates, and iter is number of posterior samples. 
 #' 
-#' @examples 
+#' @examples
+#' \dontrun{ 
 #' sim <- pibble_sim()
 #' fit <- pibble(sim$Y, sim$X)
 #' # Use first two covariates to define iqlr, just show first 5 samples
 #' lambda_to_iqlr(fit, 1:2)[,,1:5] 
+#' }
 #' 
 #' @references Jia R. Wu, Jean M. Macklaim, Briana L. Genge, Gregory B. Gloor (2017)
 #'   Finding the center: corrections for asymmetry in high-throughput sequencing

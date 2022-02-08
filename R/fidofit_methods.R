@@ -73,10 +73,12 @@ pibble_tidy_samples<- function(m, use_names=FALSE, as_factor=FALSE){
 #' @export
 #' @return tibble
 #' @examples 
+#' \dontrun{
 #' sim <- orthus_sim()
 #' fit <- orthus(sim$Y, sim$Z, sim$X)
 #' fit_tidy <- orthus_tidy_samples(fit, use_names=TRUE)
 #' head(fit_tidy)
+#' }
 orthus_tidy_samples<- function(m, use_names=FALSE, as_factor=FALSE){
   l <- list()
   if (!is.null(m$Eta)) l$Eta <- driver::gather_array(m$Eta, .data$val, 
