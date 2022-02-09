@@ -29,8 +29,7 @@ Suggests:
     phyloseq,
     ape,
     numDeriv,
-    MCMCpack, 
-    MicrobeDS, 
+    MCMCpack,  
     tidyr
 VignetteBuilder: knitr
 LazyData: true
