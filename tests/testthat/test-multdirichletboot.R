@@ -1,10 +1,9 @@
 context("test-multdirichletboot")
-library(driver)
-
+library(fido)
 test_that("alr_default and alrInv_default is correct", {
   x <- miniclo_array(matrix(1:10, 5, 2), parts=1)
   x.alr <- alr_default_test(x)
-  expect_equal(alr_array(x, parts=1), x.alr)
+  expect_equal(fido:::alr_array(x, parts=1), x.alr)
   expect_equal(x, alrInv_default_test(x.alr))
 })
 
@@ -20,7 +19,7 @@ rDirichlet <- function(n_samples, alpha){
 test_that("MultDirichletBoot is correct", {
   n_samples <- 50000
   pi <- miniclo_array(matrix(1:5, 5, 1), parts=1)
-  eta <- alr_array(pi, parts=1)
+  eta <- fido:::alr_array(pi, parts=1)
   depth <- 10
   Y <- matrix(rep(depth, 5), 5, 1)
   s <- MultDirichletBoot_test(n_samples, eta, Y, 0.05)

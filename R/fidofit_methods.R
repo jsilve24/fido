@@ -9,7 +9,6 @@
 #'   dimension names if provided in data used to fit pibble model.  
 #' @param as_factor if use_names should names be returned as factor?
 #' 
-#' @importFrom driver gather_array
 #' @importFrom dplyr bind_rows group_by 
 #' @export
 #' @return tibble
@@ -20,15 +19,15 @@
 #' head(fit_tidy)
 pibble_tidy_samples<- function(m, use_names=FALSE, as_factor=FALSE){
   l <- list()
-  if (!is.null(m$Eta)) l$Eta <- driver::gather_array(m$Eta, .data$val, 
+  if (!is.null(m$Eta)) l$Eta <- gather_array(m$Eta, .data$val, 
                                                      .data$coord, 
                                                      .data$sample, 
                                                      .data$iter)
-  if (!is.null(m$Lambda)) l$Lambda <- driver::gather_array(m$Lambda, .data$val, 
+  if (!is.null(m$Lambda)) l$Lambda <- gather_array(m$Lambda, .data$val, 
                                                            .data$coord, 
                                                            .data$covariate, 
                                                            .data$iter)
-  if (!is.null(m$Sigma)) l$Sigma <- driver::gather_array(m$Sigma, .data$val, 
+  if (!is.null(m$Sigma)) l$Sigma <- gather_array(m$Sigma, .data$val, 
                                                          .data$coord, 
                                                          .data$coord2, 
                                                          .data$iter) 
@@ -68,7 +67,6 @@ pibble_tidy_samples<- function(m, use_names=FALSE, as_factor=FALSE){
 #'   dimension names if provided in data used to fit pibble model.  
 #' @param as_factor if use_names should names be returned as factor?
 #' 
-#' @importFrom driver gather_array
 #' @importFrom dplyr bind_rows group_by 
 #' @export
 #' @return tibble
@@ -81,13 +79,13 @@ pibble_tidy_samples<- function(m, use_names=FALSE, as_factor=FALSE){
 #' }
 orthus_tidy_samples<- function(m, use_names=FALSE, as_factor=FALSE){
   l <- list()
-  if (!is.null(m$Eta)) l$Eta <- driver::gather_array(m$Eta, .data$val, 
+  if (!is.null(m$Eta)) l$Eta <- gather_array(m$Eta, .data$val, 
                                                      .data$coord, .data$sample, 
                                                      .data$iter)
-  if (!is.null(m$Lambda)) l$Lambda <- driver::gather_array(m$Lambda, .data$val, 
+  if (!is.null(m$Lambda)) l$Lambda <- gather_array(m$Lambda, .data$val, 
                                                            .data$coord, .data$covariate, 
                                                            .data$iter)
-  if (!is.null(m$Sigma)) l$Sigma <- driver::gather_array(m$Sigma, .data$val, 
+  if (!is.null(m$Sigma)) l$Sigma <- gather_array(m$Sigma, .data$val, 
                                                          .data$coord, .data$coord2, 
                                                          .data$iter) 
   
@@ -152,7 +150,6 @@ summary <- function(object, ...){
 #' @param ... other expressions to pass to summarise (using name 'val' unquoted is 
 #'   probably what you want)
 #' @import dplyr
-#' @importFrom driver summarise_posterior
 #' @importFrom purrr map
 #' @importFrom tidybayes mean_qi
 #' @importFrom dplyr group_by select ungroup
@@ -202,7 +199,7 @@ summary.pibblefit <- function(object, pars=NULL, use_names=TRUE, as_factor=FALSE
     # }
     if (!gather_prob){
       mtidy <- mtidy %>% 
-        driver::summarise_posterior(.data$val, ...) %>%
+        summarise_posterior(.data$val, ...) %>%
         dplyr::ungroup() %>%
         split(.$Parameter) %>% 
         purrr::map(~dplyr::select_if(.x, ~!all(is.na(.x))))  
@@ -235,7 +232,6 @@ summary.pibblefit <- function(object, pars=NULL, use_names=TRUE, as_factor=FALSE
 #' @param ... other expressions to pass to summarise (using name 'val' unquoted is 
 #'   probably what you want)
 #' @import dplyr
-#' @importFrom driver summarise_posterior
 #' @importFrom purrr map
 #' @importFrom tidybayes mean_qi
 #' @importFrom dplyr group_by select ungroup
@@ -285,7 +281,7 @@ summary.orthusfit <- function(object, pars=NULL, use_names=TRUE, as_factor=FALSE
     # }
     if (!gather_prob){
       mtidy <- mtidy %>% 
-        driver::summarise_posterior(.data$val, ...) %>%
+        summarise_posterior(.data$val, ...) %>%
         dplyr::ungroup() %>%
         split(.$Parameter) %>% 
         purrr::map(~dplyr::select_if(.x, ~!all(is.na(.x))))  

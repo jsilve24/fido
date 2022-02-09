@@ -8,7 +8,6 @@
 #'   simulated value
 #' @return list
 #' @export
-#' @importFrom driver alrInv
 #' @importFrom stats rnorm rmultinom
 #' @examples 
 #' sim <- pibble_sim()
@@ -23,7 +22,7 @@ pibble_sim <- function(D=10, N=30, Q=2, use_names=TRUE, true_priors=FALSE){
   X <- matrix(rnorm(N*(Q-1)), Q-1, N)
   X <- rbind(1, X)
   Eta <- Phi%*%X + t(chol(Sigma))%*%matrix(rnorm(N*(D-1)), nrow=D-1)
-  Pi <- t(driver::alrInv(t(Eta)))
+  Pi <- t(alrInv(t(Eta)))
   Y <- matrix(0, D, N)
   for (i in 1:N) Y[,i] <- rmultinom(1, sample(5000:10000), prob = Pi[,i])
   if (use_names){

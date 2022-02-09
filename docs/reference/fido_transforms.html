@@ -149,7 +149,7 @@ or <code><a href="orthus_fit.html">orthus</a></code>)</p></dd>
 <dd><p>(integer) multinomial category to take as new alr reference</p></dd>
 <dt>V</dt>
 <dd><p>(matrix) contrast matrix for ILR basis to transform into to (defaults to 
-<code>driver::create_default_ilr_base(D)</code>)</p></dd>
+<code>create_default_ilr_base(D)</code>)</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -171,7 +171,7 @@ or prior Xi and instead just removes them from the pibblefit object returned.</p
 <span class="r-in"><span class="va">m.prop</span> <span class="op">&lt;-</span> <span class="fu">to_proportions</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
 <span class="r-in"><span class="co"># convert back to default coordinates (alr with D-th part as reference)</span></span>
 <span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">to_alr</span><span class="op">(</span><span class="va">m.prop</span>, <span class="fu"><a href="access_dims.html">ncategories</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">V</span> <span class="op">&lt;-</span> <span class="fu">driver</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/driver/man/base_lr_transforms.html" class="external-link">create_default_ilr_base</a></span><span class="op">(</span><span class="fu"><a href="access_dims.html">ncategories</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">V</span> <span class="op">&lt;-</span> <span class="fu">create_default_ilr_base</span><span class="op">(</span><span class="fu"><a href="access_dims.html">ncategories</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">m.ilr</span> <span class="op">&lt;-</span> <span class="fu">to_ilr</span><span class="op">(</span><span class="va">m</span>, <span class="va">V</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">m.clr</span> <span class="op">&lt;-</span> <span class="fu">to_clr</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>

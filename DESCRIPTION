@@ -17,8 +17,8 @@ Description: Provides methods for fitting and inspection of Bayesian Multinomial
 License: GPL-3 + file LICENSE
 URL: https://jsilve24.github.io/fido/
 Depends: R (>= 4.1.0)
-Imports: Rcpp (>= 0.12.17), driver, dplyr, ggplot2, 
-  purrr, tidybayes, rlang
+Imports: Rcpp (>= 0.12.17), dplyr, ggplot2, 
+  purrr, tidybayes, rlang, tidyr
 LinkingTo: Rcpp, RcppEigen, RcppNumerical, RcppZiggurat, BH
 RoxygenNote: 7.1.2
 Additional_repositories: https://michellepistner.github.io/fidoRepo

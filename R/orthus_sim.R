@@ -9,7 +9,6 @@
 #'   simulated value
 #' @return list
 #' @export
-#' @importFrom driver alrInv
 #' @importFrom stats rnorm rmultinom
 #' @examples 
 #' sim <- orthus_sim()
@@ -26,7 +25,7 @@ orthus_sim <- function(D=10, P=10, N=30, Q=2, use_names=TRUE, true_priors=FALSE)
   Eta <- Phi%*%X + t(chol(Sigma))%*%matrix(rnorm(N*(D-1+P)), nrow=D-1+P)
   Z <- Eta[D:(D-1+P),]
   Eta <- Eta[1:(D-1),]
-  Pi <- t(driver::alrInv(t(Eta)))
+  Pi <- t(alrInv(t(Eta)))
   Y <- matrix(0, D, N)
   for (i in 1:N) Y[,i] <- rmultinom(1, sample(5000:10000), prob = Pi[,i])
   if (use_names){

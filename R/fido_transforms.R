@@ -10,7 +10,7 @@
 #'   or \code{\link{orthus}})
 #' @param d (integer) multinomial category to take as new alr reference
 #' @param V (matrix) contrast matrix for ILR basis to transform into to (defaults to 
-#'   \code{driver::create_default_ilr_base(D)})
+#'   \code{create_default_ilr_base(D)})
 #'
 #' @details Note: that there is a degeneracy of representations for a covariance 
 #' matrix represented in terms of proportions. As such the function 
@@ -19,14 +19,13 @@
 #' 
 #' @return object
 #' @name fido_transforms
-#' @import driver 
 #' @examples
 #' \dontrun{
 #' m <- pibble(Y, X)
 #' m.prop <- to_proportions(m)
 #' # convert back to default coordinates (alr with D-th part as reference)
 #' m <- to_alr(m.prop, ncategories(m))
-#' V <- driver::create_default_ilr_base(ncategories(m))
+#' V <- create_default_ilr_base(ncategories(m))
 #' m.ilr <- to_ilr(m, V)
 #' m.clr <- to_clr(m)
 #' }
@@ -268,7 +267,7 @@ to_ilr.pibblefit <- function(m, V=NULL){
   if (m$coord_system=="ilr"){
     if (all.equal(m$ilr_base, V)) return(m)
   }
-  if (is.null(V)) V <- driver::create_default_ilr_base(m$D)
+  if (is.null(V)) V <- create_default_ilr_base(m$D)
   m <- to_proportions(m)
   
   if (!is.null(m$Eta)) m$Eta <- ilr_array(m$Eta, V, 1)
@@ -304,7 +303,7 @@ to_ilr.orthusfit <- function(m, V=NULL){
   if (m$coord_system=="ilr"){
     if (all.equal(m$ilr_base, V)) return(m)
   }
-  if (is.null(V)) V <- driver::create_default_ilr_base(m$D)
+  if (is.null(V)) V <- create_default_ilr_base(m$D)
   m <- to_proportions(m)
   
   if (!is.null(m$Eta)) m$Eta <- ilr_array(m$Eta, V, 1)
