@@ -50,7 +50,7 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
           extra-packages: rcmdcheck
-          dependencies: '"hard"'
+          dependencies: '"needs"'
 
       - uses: r-lib/actions/check-r-package@v1
 
