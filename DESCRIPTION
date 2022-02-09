@@ -21,7 +21,6 @@ Imports: Rcpp (>= 0.12.17), driver, dplyr, ggplot2,
   purrr, tidybayes, rlang
 LinkingTo: Rcpp, RcppEigen, RcppNumerical, RcppZiggurat, BH
 RoxygenNote: 7.1.2
-Additional_repositories: https://michellepistner.github.io/fidoRepo
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
@@ -32,6 +31,9 @@ Suggests:
     MCMCpack, 
     MicrobeDS, 
     tidyr
+Remotes:
+    jsilve24/driver,
+    twbattaglia/MicrobeDS
 VignetteBuilder: knitr
 LazyData: true
 BugReports: https://github.com/jsilve24/fido/issues
