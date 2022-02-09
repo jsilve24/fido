@@ -311,7 +311,7 @@ array_apply_1D_function <- function(a, dimno, f, dimname=NULL){
   
   # Actual Computation
   ga <- a %>%
-    gather_array(var) %>%
+    gather_array() %>%
     spread(!!sdim, var)
   
   indicies <- ga %>%
