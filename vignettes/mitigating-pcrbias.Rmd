@@ -37,26 +37,9 @@ This is the mock community data we analyzed in the manuscript.
 
 ```r
 library(fido)
-#> 
-#> Attaching package: 'fido'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     coef, predict
-#> The following objects are masked from 'package:base':
-#> 
-#>     as.list, print, summary
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 library(tidyr)
 library(ggplot2)
-library(driver)
 
 set.seed(5903)
 # First load the data
@@ -151,7 +134,8 @@ focus.coord <- paste0("clr_", c("S.gallolyticus", "R.intestinalis", "L.ruminis")
 plot(fit, par="Lambda", focus.cov=focus.covariate, focus.coord=focus.coord) +
   theme(strip.text.y=element_text(angle=0, hjust=1)) +
   facet_grid(.data$covariate~.)
-#> Scale for 'colour' is already present. Adding another scale for 'colour', which will replace the existing scale.
+#> Scale for 'colour' is already present. Adding another scale for 'colour', which will
+#> replace the existing scale.
 ```
 
 ![](unnamed-chunk-6-1.png)
@@ -161,7 +145,8 @@ The compositional bias introduced at each cycle can also be visualized.
 ```r
 # Also to make the plot fit nicely, I just flip the orientation of the plot 
 plot(fit, par="Lambda", focus.cov="cycle_num")
-#> Scale for 'colour' is already present. Adding another scale for 'colour', which will replace the existing scale.
+#> Scale for 'colour' is already present. Adding another scale for 'colour', which will
+#> replace the existing scale.
 ```
 
 ![](unnamed-chunk-7-1.png)
@@ -175,7 +160,7 @@ bias model. This can be done as follows:
 
 # First transform the data into CLR coordinates (requires pseudo-count to deal with
 # zeros). Then will convert to tidy format for ggplot 
-tidy_calibration <- driver::clr_array(Y+0.5, 1) %>% # transform to CLR
+tidy_calibration <- clr_array(Y+0.5, 1) %>% # transform to CLR
   as.data.frame() %>% 
   select(starts_with("cycle")) %>%  # select only samples from the calibration
   t() %>% 

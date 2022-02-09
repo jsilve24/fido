@@ -28,7 +28,7 @@
 #' @md
 #' @examples
 #' sim <- pibble_sim()
-#' eta.hat <- t(driver::alr(t(sim$Y+0.65)))
+#' eta.hat <- t(fido:::alr(t(sim$Y+0.65)))
 #' fit <- conjugateLinearModel(eta.hat, sim$X, sim$Theta, sim$Gamma, 
 #'                             sim$Xi, sim$upsilon, n_samples=2000)
 conjugateLinearModel <- function(Y, X, Theta, Gamma, Xi, upsilon, n_samples = 2000L) {
@@ -192,7 +192,7 @@ optimMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, init, ellinit,
 #' X <- matrix(rnorm(N*(Q-1)), Q-1, N)
 #' X <- rbind(1, X)
 #' Eta <- Phi%*%X + t(chol(Sigma))%*%matrix(rnorm(N*(D-1)), nrow=D-1)
-#' Pi <- t(driver::alrInv(t(Eta)))
+#' Pi <- t(fido:::alrInv(t(Eta)))
 #' Y <- matrix(0, D, N)
 #' for (i in 1:N) Y[,i] <- rmultinom(1, sample(5000:10000), prob = Pi[,i])
 #'

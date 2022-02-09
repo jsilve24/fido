@@ -47,7 +47,7 @@ or \code{\link{orthus}})}
 \item{d}{(integer) multinomial category to take as new alr reference}
 
 \item{V}{(matrix) contrast matrix for ILR basis to transform into to (defaults to 
-\code{driver::create_default_ilr_base(D)})}
+\code{create_default_ilr_base(D)})}
 }
 \value{
 object
@@ -71,7 +71,7 @@ m <- pibble(Y, X)
 m.prop <- to_proportions(m)
 # convert back to default coordinates (alr with D-th part as reference)
 m <- to_alr(m.prop, ncategories(m))
-V <- driver::create_default_ilr_base(ncategories(m))
+V <- create_default_ilr_base(ncategories(m))
 m.ilr <- to_ilr(m, V)
 m.clr <- to_clr(m)
 }

@@ -20,7 +20,6 @@ bibliography: bibliography.bib
 library(fido)
 library(phyloseq)
 library(dplyr)
-library(driver)
 
 set.seed(48482)
 ```
@@ -191,6 +190,7 @@ to.analyze <- gather_array(xcor.mean, cov, taxa, metabolite) %>%
   arrange(-abs(cov)) %>% 
   .[1:1000,] %>% 
   mutate(tm =paste0(taxa, "_", metabolite))
+#> Error in gather_array(xcor.mean, cov, taxa, metabolite): could not find function "gather_array"
 
 # Subset Covariance to those we are interested in and calculate posterior 
 # confidence intervals. 
@@ -202,27 +202,14 @@ xcor.summary <- gather_array(xcor, cov, taxa, metabolite, iter) %>%
   summarise_posterior(cov) %>% 
   arrange(mean) %>% 
   filter(taxa != 'other') # we don't care about these
+#> Error in summarise_posterior(., cov): could not find function "summarise_posterior"
 
 # Select those covariances where the model has high certainty (95%) that
 # the true covariance is not zero. 
 xcor.summary %>% 
   filter(sign(p2.5)==sign(p97.5)) %>% 
   filter(abs(mean) > 2)
-#> # A tibble: 218 x 8
-#> # Groups:   taxa [17]
-#>    taxa  metabolite   p2.5   p25   p50  mean   p75  p97.5
-#>    <chr> <chr>       <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl>
-#>  1 722   206.0445922 -6.55 -3.96 -3.08 -3.33 -2.32 -1.51 
-#>  2 7816  206.0445922 -5.63 -3.23 -2.45 -2.65 -1.85 -1.05 
-#>  3 722   290.9298419 -5.18 -3.09 -2.42 -2.62 -1.85 -1.23 
-#>  4 18182 380.1846197 -5.20 -3.07 -2.38 -2.55 -1.83 -1.03 
-#>  5 722   181.4504354 -5.19 -3.04 -2.36 -2.55 -1.80 -1.13 
-#>  6 722   177.0565368 -4.98 -3.01 -2.30 -2.50 -1.78 -1.08 
-#>  7 722   180.072273  -5.03 -3.06 -2.30 -2.49 -1.71 -0.986
-#>  8 19517 380.1846197 -5.15 -3.06 -2.33 -2.49 -1.71 -0.952
-#>  9 2943  380.1846197 -4.89 -2.97 -2.34 -2.49 -1.83 -1.03 
-#> 10 722   176.0343919 -4.93 -2.95 -2.25 -2.48 -1.79 -1.09 
-#> # ... with 208 more rows
+#> Error in filter(., sign(p2.5) == sign(p97.5)): object 'xcor.summary' not found
 ```
 
 So it looks there there are a few hundred covariances that 

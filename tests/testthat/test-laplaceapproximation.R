@@ -1,5 +1,4 @@
 context("test-laplaceapproximation")
-library(driver)
 
 test_that("eigen_lap gets correct answer", {
   n_samples <- 100000

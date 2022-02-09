@@ -356,7 +356,7 @@ ppc(posterior, from_scratch=TRUE) +ggplot2::coord_cartesian(ylim=c(0, 30000))
 
 ```r
 ppc_summary(posterior, from_scratch=TRUE)
-#> Proportions of Observations within 95% Credible Interval: 0.9722449
+#> Proportions of Observations within 95% Credible Interval: 0.9721633
 ```
 
 Now we are going to finally look at the posterior distribution of our regression
@@ -389,21 +389,20 @@ focus <- posterior_summary[sign(posterior_summary$p2.5) == sign(posterior_summar
 focus <- unique(focus$coord)
 
 tax_table(dat)[taxa_names(dat)[which(names_coords(posterior) %in% focus)]]
-#> Taxonomy Table:     [13 taxa by 7 taxonomic ranks]:
-#>         Kingdom    Phylum           Class                   Order               
-#> 74305   "Bacteria" "Proteobacteria" "Epsilonproteobacteria" "Campylobacterales" 
-#> 4449236 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"   
-#> 1105919 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"   
-#> 4477696 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Pasteurellales"    
-#> 4448331 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Enterobacteriales" 
-#> 4154872 "Bacteria" "Bacteroidetes"  "Flavobacteriia"        "Flavobacteriales"  
-#> 4452538 "Bacteria" "Fusobacteria"   "Fusobacteriia"         "Fusobacteriales"   
-#> 341322  "Bacteria" "Firmicutes"     "Bacilli"               "Turicibacterales"  
-#> 1015143 "Bacteria" "Firmicutes"     "Bacilli"               "Gemellales"        
-#> 176318  "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     
-#> 1788466 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     
-#> 1896700 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     
-#> 191718  "Bacteria" "Firmicutes"     "Erysipelotrichi"       "Erysipelotrichales"
+#> Taxonomy Table:     [12 taxa by 7 taxonomic ranks]:
+#>         Kingdom    Phylum           Class                   Order              
+#> 74305   "Bacteria" "Proteobacteria" "Epsilonproteobacteria" "Campylobacterales"
+#> 4449236 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"  
+#> 1105919 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"  
+#> 4477696 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Pasteurellales"   
+#> 4448331 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Enterobacteriales"
+#> 4154872 "Bacteria" "Bacteroidetes"  "Flavobacteriia"        "Flavobacteriales" 
+#> 4452538 "Bacteria" "Fusobacteria"   "Fusobacteriia"         "Fusobacteriales"  
+#> 341322  "Bacteria" "Firmicutes"     "Bacilli"               "Turicibacterales" 
+#> 1015143 "Bacteria" "Firmicutes"     "Bacilli"               "Gemellales"       
+#> 176318  "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"    
+#> 1788466 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"    
+#> 1896700 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"    
 #>         Family                  Genus Species
 #> 74305   "Helicobacteraceae"     NA    NA     
 #> 4449236 "Alcaligenaceae"        NA    NA     
@@ -416,8 +415,7 @@ tax_table(dat)[taxa_names(dat)[which(names_coords(posterior) %in% focus)]]
 #> 1015143 "Gemellaceae"           NA    NA     
 #> 176318  "Christensenellaceae"   NA    NA     
 #> 1788466 "Lachnospiraceae"       NA    NA     
-#> 1896700 "Peptostreptococcaceae" NA    NA     
-#> 191718  "Erysipelotrichaceae"   NA    NA
+#> 1896700 "Peptostreptococcaceae" NA    NA
 plot(posterior, par="Lambda", focus.coord = focus, focus.cov = rownames(X)[2])
 #> Scale for 'colour' is already present. Adding another scale for 'colour', which will
 #> replace the existing scale.

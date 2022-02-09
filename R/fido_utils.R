@@ -10,7 +10,6 @@
 #' @param Y matrix (D x N) of counts
 #'
 #' @return (D-1) x N matrix 
-#' @importFrom driver alr
 #' @export
 #'
 #' @examples
@@ -19,7 +18,7 @@
 random_pibble_init <- function(Y){
   N <- ncol(Y)
   D <- nrow(Y)
-  t(driver::alr(t(Y)+runif(N*D)))
+  t(alr(t(Y)+runif(N*D)))
 }
 
 

@@ -1,5 +1,4 @@
 context("test-pibble.R")
-library(driver)
 set.seed(4)
 
 

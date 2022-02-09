@@ -17,10 +17,11 @@ Description: Provides methods for fitting and inspection of Bayesian Multinomial
 License: GPL-3 + file LICENSE
 URL: https://jsilve24.github.io/fido/
 Depends: R (>= 4.1.0)
-Imports: Rcpp (>= 0.12.17), driver, dplyr, ggplot2, 
-  purrr, tidybayes, rlang
+Imports: Rcpp (>= 0.12.17), dplyr, ggplot2, 
+  purrr, tidybayes, rlang, tidyr
 LinkingTo: Rcpp, RcppEigen, RcppNumerical, RcppZiggurat, BH
 RoxygenNote: 7.1.2
+Additional_repositories: https://michellepistner.github.io/fidoRepo
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
@@ -28,13 +29,11 @@ Suggests:
     phyloseq,
     ape,
     numDeriv,
-    MCMCpack, 
-    MicrobeDS, 
-    tidyr
-Remotes:
-    jsilve24/driver,
-    twbattaglia/MicrobeDS
+    MCMCpack,  
+    MicrobeDS
 VignetteBuilder: knitr
 LazyData: true
 BugReports: https://github.com/jsilve24/fido/issues
 Encoding: UTF-8
+Remotes:
+    twbattaglia/MicrobeDS

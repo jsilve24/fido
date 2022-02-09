@@ -45,7 +45,6 @@ library(fido)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-library(driver)
 
 set.seed(5903)
 # First load the data
@@ -122,7 +121,7 @@ bias model. This can be done as follows:
 
 # First transform the data into CLR coordinates (requires pseudo-count to deal with
 # zeros). Then will convert to tidy format for ggplot 
-tidy_calibration <- driver::clr_array(Y+0.5, 1) %>% # transform to CLR
+tidy_calibration <- clr_array(Y+0.5, 1) %>% # transform to CLR
   as.data.frame() %>% 
   select(starts_with("cycle")) %>%  # select only samples from the calibration
   t() %>% 

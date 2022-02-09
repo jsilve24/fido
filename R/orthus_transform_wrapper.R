@@ -192,7 +192,7 @@ oalrvar2clrvar <- function(Sigma, s, d1){
   d <- dim(Sigma)
   d[1] <- d[2] <- d[1]+1
   O <- array(0, dim=d)
-  G1 <- driver::create_alr_base(s+1, d1, inv=TRUE) - 1/(s+1)
+  G1 <- create_alr_base(s+1, d1, inv=TRUE) - 1/(s+1)
   for (i in 1:dim(Sigma)[3]){
     one <- 1:s; two <- (s+1):dim(Sigma)[1]
     O[1:(s+1), 1:(s+1), i] <- G1 %*% Sigma[one,one,i] %*% t(G1)
@@ -212,7 +212,7 @@ oclrvar2alrvar <- function(Sigma, s, d2){
   d <- dim(Sigma)
   d[1] <- d[2] <- d[1]-1
   O <- array(0, dim=d)
-  G1 <- driver::create_alr_base(s, d2, inv=FALSE)
+  G1 <- create_alr_base(s, d2, inv=FALSE)
   for (i in 1:dim(Sigma)[3]){
     one <- 1:s; two <- (s+1):dim(Sigma)[1]
     O[1:(s-1), 1:(s-1), i] <- t(G1) %*% Sigma[one,one,i] %*% G1

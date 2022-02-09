@@ -120,7 +120,6 @@ plot_mf_sigma <- function(m, focus.coord=NULL, use_names=TRUE){
 #' @param ... other options passed to ppc (see details)
 #' @return ggplot object
 #' @import ggplot2
-#' @importFrom driver gather_array
 #' @importFrom stats quantile
 #' @export
 #' @details ppc.pibblefit accepts the following additional arguments:
@@ -179,7 +178,7 @@ ppc.pibblefit <- function(m, ...){
        geom_point(color="lightgrey", size=1) +
        geom_line(data=tr, aes(y=.data$val), color="green", alpha=0.6)
   } else if (type == "lines"){
-    pp <- driver::gather_array(pp, .data$val) 
+    pp <- gather_array(pp, .data$val) 
     p <- ggplot(pp, aes(x = .data$dim_1, y = .data$val)) +
       geom_line(aes(group=.data$dim_2), color="black", alpha=0.4) +
       geom_line(data=tr, color="green", alpha=0.6)

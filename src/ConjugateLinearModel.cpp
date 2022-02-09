@@ -38,7 +38,7 @@ using Eigen::Lower;
 //' @md
 //' @examples
 //' sim <- pibble_sim()
-//' eta.hat <- t(driver::alr(t(sim$Y+0.65)))
+//' eta.hat <- t(fido:::alr(t(sim$Y+0.65)))
 //' fit <- conjugateLinearModel(eta.hat, sim$X, sim$Theta, sim$Gamma, 
 //'                             sim$Xi, sim$upsilon, n_samples=2000)
 // [[Rcpp::export]]

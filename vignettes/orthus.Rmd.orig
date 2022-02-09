@@ -24,7 +24,6 @@ knitr::opts_chunk$set(
 library(fido)
 library(phyloseq)
 library(dplyr)
-library(driver)
 
 set.seed(48482)
 ```

@@ -1,7 +1,7 @@
 D <- 6
 P <- 4
 A.prop <- array(abs(rnorm(10*6*5)), dim=c(10, 6, 5))
-A.prop[1:D,,] <- driver::miniclo_array(A.prop[1:D,,], parts=1)
+A.prop[1:D,,] <- miniclo_array(A.prop[1:D,,], parts=1)
 
 test_that("orthus data transform correctness", {
   # TEST ilr and ilrinv

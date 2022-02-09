@@ -2,7 +2,7 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
-    branches: [main, master, parallel-fixes]
+    branches: [main, master, parallel-fixes, remote-repo-fixes]
   pull_request:
     branches: [main, master]
 
@@ -50,6 +50,7 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
           extra-packages: rcmdcheck
+          dependencies: '"needs"'
 
       - uses: r-lib/actions/check-r-package@v1
 
