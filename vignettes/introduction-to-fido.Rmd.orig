@@ -26,7 +26,7 @@ In particular the development of
 *fido* stems from the need for fast inference for time-invariant MALLARD models[@silverman2018]. 
 *fido* is very fast! It uses closed form solutions for model gradients and Hessians written
 in C++ to preform [MAP estimation](https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation)
-in combination with parameter uncertainty estimation using a [Laplace Approximation](http://www.sumsar.net/blog/2013/11/easy-laplace-approximation/).
+in combination with parameter uncertainty estimation using a [Laplace Approximation](https://www.sumsar.net/blog/2013/11/easy-laplace-approximation/).
 One of the main models in *fido* is the function *pibble* which fits a Multinomial
 Logistic-Normal **Linear Regression** model. 
 

@@ -21,7 +21,7 @@ In particular the development of
 *fido* stems from the need for fast inference for time-invariant MALLARD models[@silverman2018]. 
 *fido* is very fast! It uses closed form solutions for model gradients and Hessians written
 in C++ to preform [MAP estimation](https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation)
-in combination with parameter uncertainty estimation using a [Laplace Approximation](http://www.sumsar.net/blog/2013/11/easy-laplace-approximation/).
+in combination with parameter uncertainty estimation using a [Laplace Approximation](https://www.sumsar.net/blog/2013/11/easy-laplace-approximation/).
 One of the main models in *fido* is the function *pibble* which fits a Multinomial
 Logistic-Normal **Linear Regression** model. 
 
@@ -141,11 +141,16 @@ Y <- otu_table(dat)
 
 # Investigate X and Y look like
 X[,1:5]
-#>                      1939.SKBTI.0175 1939.SKBTI047 1939.SKBTI051 1939.SKBTI063 1939.SKBTI072
-#> (Intercept)                  1.00000       1.00000          1.00       1.00000          1.00
-#> diagnosisCD                  1.00000       1.00000          1.00       1.00000          1.00
-#> disease_statinflamed         0.00000       1.00000          1.00       1.00000          1.00
-#> age                         15.16667      14.33333         15.75      13.58333         15.75
+#>                      1939.SKBTI.0175 1939.SKBTI047 1939.SKBTI051 1939.SKBTI063
+#> (Intercept)                  1.00000       1.00000          1.00       1.00000
+#> diagnosisCD                  1.00000       1.00000          1.00       1.00000
+#> disease_statinflamed         0.00000       1.00000          1.00       1.00000
+#> age                         15.16667      14.33333         15.75      13.58333
+#>                      1939.SKBTI072
+#> (Intercept)                   1.00
+#> diagnosisCD                   1.00
+#> disease_statinflamed          1.00
+#> age                          15.75
 Y[1:5,1:5]
 #> OTU Table:          [5 taxa and 5 samples]
 #>                      taxa are rows
@@ -269,11 +274,12 @@ to provide some more specific names for the covariates (helpful when we then plo
 ```r
 names_covariates(priors) <- rownames(X)
 p <- plot(priors, par="Lambda") 
-#> Scale for 'colour' is already present. Adding another scale for 'colour', which will replace the existing scale.
+#> Scale for 'colour' is already present. Adding another scale for 'colour', which will
+#> replace the existing scale.
 p + ggplot2::xlim(c(-10, 10))  
 ```
 
-![](figure/unnamed-chunk-7-1.png)
+![](unnamed-chunk-7-1.png)
 
 This looks fairly reasonable to me. So I am going to go ahead and 
 fit the model with data. `fido` provides a helper method called `refit` 
@@ -315,7 +321,7 @@ object as in our `priors` object].
 ppc(posterior) + ggplot2::coord_cartesian(ylim=c(0, 30000))
 ```
 
-![](figure/unnamed-chunk-10-1.png)
+![](unnamed-chunk-10-1.png)
 
 There are a few things to note about this plot. First, when zoomed out like this
 it looks it is hard to make much of it. This is a fairly large dataset we are 
@@ -326,7 +332,7 @@ the median and 95% confidence interval in grey and black and the observed counts
 
 ```r
 ppc_summary(posterior)
-#> Proportions of Observations within 95% Credible Interval: 0.9902857
+#> Proportions of Observations within 95% Credible Interval: 0.9898776
 ```
 
 Here we see that the model appears to be fitting well (at least based on the posterior
@@ -346,7 +352,7 @@ than the other.
 ppc(posterior, from_scratch=TRUE) +ggplot2::coord_cartesian(ylim=c(0, 30000))
 ```
 
-![](figure/unnamed-chunk-12-1.png)
+![](unnamed-chunk-12-1.png)
 
 ```r
 ppc_summary(posterior, from_scratch=TRUE)
@@ -365,10 +371,11 @@ posterior_summary <- summary(posterior, pars="Lambda")$Lambda
 focus <- posterior_summary[sign(posterior_summary$p2.5) == sign(posterior_summary$p97.5),]
 focus <- unique(focus$coord)
 plot(posterior, par="Lambda", focus.coord = focus, focus.cov = rownames(X)[2:4])
-#> Scale for 'colour' is already present. Adding another scale for 'colour', which will replace the existing scale.
+#> Scale for 'colour' is already present. Adding another scale for 'colour', which will
+#> replace the existing scale.
 ```
 
-![](figure/unnamed-chunk-13-1.png)
+![](unnamed-chunk-13-1.png)
 
 The first, and most obvious ting to notice is that the covariate `age` has pretty 
 much no effect at all, whatever effect it may have is incredibly weak. So 
@@ -383,25 +390,40 @@ focus <- unique(focus$coord)
 
 tax_table(dat)[taxa_names(dat)[which(names_coords(posterior) %in% focus)]]
 #> Taxonomy Table:     [13 taxa by 7 taxonomic ranks]:
-#>         Kingdom    Phylum           Class                   Order                Family                  Genus Species
-#> 74305   "Bacteria" "Proteobacteria" "Epsilonproteobacteria" "Campylobacterales"  "Helicobacteraceae"     NA    NA     
-#> 4449236 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"    "Alcaligenaceae"        NA    NA     
-#> 1105919 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"    "Oxalobacteraceae"      NA    NA     
-#> 4477696 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Pasteurellales"     "Pasteurellaceae"       NA    NA     
-#> 4448331 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Enterobacteriales"  "Enterobacteriaceae"    NA    NA     
-#> 4154872 "Bacteria" "Bacteroidetes"  "Flavobacteriia"        "Flavobacteriales"   "[Weeksellaceae]"       NA    NA     
-#> 4452538 "Bacteria" "Fusobacteria"   "Fusobacteriia"         "Fusobacteriales"    "Fusobacteriaceae"      NA    NA     
-#> 341322  "Bacteria" "Firmicutes"     "Bacilli"               "Turicibacterales"   "Turicibacteraceae"     NA    NA     
-#> 1015143 "Bacteria" "Firmicutes"     "Bacilli"               "Gemellales"         "Gemellaceae"           NA    NA     
-#> 176318  "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"      "Christensenellaceae"   NA    NA     
-#> 1788466 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"      "Lachnospiraceae"       NA    NA     
-#> 1896700 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"      "Peptostreptococcaceae" NA    NA     
-#> 191718  "Bacteria" "Firmicutes"     "Erysipelotrichi"       "Erysipelotrichales" "Erysipelotrichaceae"   NA    NA
+#>         Kingdom    Phylum           Class                   Order               
+#> 74305   "Bacteria" "Proteobacteria" "Epsilonproteobacteria" "Campylobacterales" 
+#> 4449236 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"   
+#> 1105919 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"   
+#> 4477696 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Pasteurellales"    
+#> 4448331 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Enterobacteriales" 
+#> 4154872 "Bacteria" "Bacteroidetes"  "Flavobacteriia"        "Flavobacteriales"  
+#> 4452538 "Bacteria" "Fusobacteria"   "Fusobacteriia"         "Fusobacteriales"   
+#> 341322  "Bacteria" "Firmicutes"     "Bacilli"               "Turicibacterales"  
+#> 1015143 "Bacteria" "Firmicutes"     "Bacilli"               "Gemellales"        
+#> 176318  "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     
+#> 1788466 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     
+#> 1896700 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     
+#> 191718  "Bacteria" "Firmicutes"     "Erysipelotrichi"       "Erysipelotrichales"
+#>         Family                  Genus Species
+#> 74305   "Helicobacteraceae"     NA    NA     
+#> 4449236 "Alcaligenaceae"        NA    NA     
+#> 1105919 "Oxalobacteraceae"      NA    NA     
+#> 4477696 "Pasteurellaceae"       NA    NA     
+#> 4448331 "Enterobacteriaceae"    NA    NA     
+#> 4154872 "[Weeksellaceae]"       NA    NA     
+#> 4452538 "Fusobacteriaceae"      NA    NA     
+#> 341322  "Turicibacteraceae"     NA    NA     
+#> 1015143 "Gemellaceae"           NA    NA     
+#> 176318  "Christensenellaceae"   NA    NA     
+#> 1788466 "Lachnospiraceae"       NA    NA     
+#> 1896700 "Peptostreptococcaceae" NA    NA     
+#> 191718  "Erysipelotrichaceae"   NA    NA
 plot(posterior, par="Lambda", focus.coord = focus, focus.cov = rownames(X)[2])
-#> Scale for 'colour' is already present. Adding another scale for 'colour', which will replace the existing scale.
+#> Scale for 'colour' is already present. Adding another scale for 'colour', which will
+#> replace the existing scale.
 ```
 
-![](figure/unnamed-chunk-14-1.png)
+![](unnamed-chunk-14-1.png)
 
 
 # More Technical Details 

@@ -125,7 +125,7 @@ Xi <- Xi * (upsilon-D-P) # this scales Xi to have the proper mean we wanted
 image(Xi)
 ```
 
-![](figure/unnamed-chunk-5-1.png)
+![](unnamed-chunk-5-1.png)
 
 Note the structure of this prior, everything is independent but there is a moderate positive covariance
 between the log-ratios based on their shared definition in terms of the $D$-th taxa. 

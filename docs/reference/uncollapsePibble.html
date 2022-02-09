@@ -21,7 +21,7 @@ the parameter n_samples in the function optimPibbleCollapsed)"><!-- mathjax --><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -98,7 +98,7 @@ the parameter n_samples in the function optimPibbleCollapsed)"><!-- mathjax --><
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Uncollapse output from optimPibbleCollapsed to full pibble Model</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/jsilve24/fido/blob/HEAD/R/RcppExports.R" class="external-link"><code>R/RcppExports.R</code></a></small>
     <div class="hidden name"><code>uncollapsePibble.Rd</code></div>
     </div>
 
@@ -154,6 +154,7 @@ uses default from OpenMP typically to use all available cores.</p></dd>
     <h2>Value</h2>
     <p>List with components</p><ol><li><p>Lambda Array of dimension (D-1) x Q x iter (posterior samples)</p></li>
 <li><p>Sigma Array of dimension (D-1) x (D-1) x iter (posterior samples)</p></li>
+<li><p>The number of cores used</p></li>
 <li><p>Timer</p></li>
 </ol></div>
     <div id="details">
@@ -190,15 +191,18 @@ Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T P
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in chol.default(Sigma):</span> the leading minor of order 3 is not positive definite</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Fit model for eta</span></span>
 <span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="optimPibbleCollapsed.html">optimPibbleCollapsed</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">upsilon</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Theta</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">sim</span><span class="op">$</span><span class="va">X</span>, <span class="va">sim</span><span class="op">$</span><span class="va">KInv</span>, </span>
 <span class="r-in">                             <span class="va">sim</span><span class="op">$</span><span class="va">AInv</span>, <span class="fu"><a href="random_pibble_init.html">random_pibble_init</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span>  </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in optimPibbleCollapsed(sim$Y, sim$upsilon, sim$Theta %*% sim$X,     sim$KInv, sim$AInv, random_pibble_init(sim$Y)):</span> object 'sim' not found</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Finally obtain samples from Lambda and Sigma</span></span>
 <span class="r-in"><span class="va">fit2</span> <span class="op">&lt;-</span> <span class="fu">uncollapsePibble</span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">Samples</span>, <span class="va">sim</span><span class="op">$</span><span class="va">X</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Theta</span>, </span>
 <span class="r-in">                                   <span class="va">sim</span><span class="op">$</span><span class="va">Gamma</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Xi</span>, <span class="va">sim</span><span class="op">$</span><span class="va">upsilon</span>, </span>
 <span class="r-in">                                   seed<span class="op">=</span><span class="fl">2849</span><span class="op">)</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in uncollapsePibble(fit$Samples, sim$X, sim$Theta, sim$Gamma, sim$Xi,     sim$upsilon, seed = 2849):</span> object 'fit' not found</span>
 </code></pre></div>
     </div>
   </div>
@@ -209,7 +213,7 @@ Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T P
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Justin Silverman.</p>
+  <p></p><p>Developed by Justin Silverman, Michelle Nixon.</p>
 </div>
 
 <div class="pkgdown">

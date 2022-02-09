@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Predict response from new data</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/jsilve24/fido/blob/HEAD/R/fidofit_methods.R" class="external-link"><code>R/fidofit_methods.R</code></a></small>
     <div class="hidden name"><code>predict.pibblefit.Rd</code></div>
     </div>
 
@@ -162,119 +162,109 @@ tibble with calculated posterior summaries</p>
 <span class="r-in"><span class="fu"><a href="predict.html">predict</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">[</span>,,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="co"># just show 2 samples</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     s1        s2         s3         s4         s5         s6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10)  1.5851530 -2.566587  0.1085145  0.5505849  0.8893789  0.9997148</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10) -1.1023540 -4.348626 -2.2569471 -1.9112894 -1.6463842 -1.5601118</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  2.8182258  2.212074  2.6026372  2.6671793  2.7166431  2.7327521</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10) -1.0272309  1.484045 -0.1340521 -0.4014486 -0.6063759 -0.6731151</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -4.0803216  2.121927 -1.8743840 -2.5347892 -3.0409107 -3.2057405</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  4.7896053 -8.187742  0.1739862  1.5557927  2.6147819  2.9596656</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  0.2493988  3.615942  1.4467685  1.0883045  0.8135848  0.7241161</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  2.4429598 10.469327  5.2976770  4.4430426  3.7880677  3.5747604</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  3.9171739  9.630361  5.9491681  5.3408374  4.8746248  4.7227921</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     s1         s2          s3         s4          s5         s6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10) -1.2074849 -1.2866954 -0.87475325 -0.7452220 -0.87438257 -4.9101179</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10)  2.2250304  2.2670983  2.04832010  1.9795274  2.04812324  4.1914599</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  0.7296990  0.9000598  0.01408094 -0.2645066  0.01328371  8.6930849</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10)  7.0300522  7.0935187  6.76345451  6.6596690  6.76315751  9.9967467</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10)  0.9977310  0.7919978  1.86193410  2.1983653  1.86289685 -8.6191075</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  1.3966347  1.4067124  1.35430212  1.3378222  1.35425496  1.8677105</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  8.3542077  8.1502441  9.21097713  9.5445144  9.21193160 -1.1799093</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  0.3715309  0.3657812  0.39568335  0.4050858  0.39571026  0.1027633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  1.5841794  1.4980376  1.94602646  2.0868922  1.94642957 -2.4424490</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     s7         s8         s9        s10        s11        s12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10)  2.4845897  1.0681934  1.5209413  1.3312062  0.9870117  1.3774965</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10) -0.3990787 -1.5065680 -1.1525615 -1.3009166 -1.5700444 -1.2647220</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  2.9495432  2.7427499  2.8088509  2.7811497  2.7308974  2.7879080</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10) -1.5712758 -0.7145359 -0.9883909 -0.8736253 -0.6654314 -0.9016250</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -5.4239823 -3.3080400 -3.9843962 -3.7009526 -3.1867635 -3.7701052</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  7.6010294  3.1737131  4.5888948  3.9958282  2.9199587  4.1405206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10) -0.4799322  0.6685886  0.3014665  0.4553180  0.7344168  0.4177824</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  0.7041202  3.4423740  2.5670973  2.9339035  3.5993187  2.8444126</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  2.6794639  4.6285592  4.0055353  4.2666287  4.7402728  4.2029289</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    s13        s14        s15        s16         s17        s18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10)  0.5849769  1.7111174  0.6637714  1.3436076  1.98409613  2.2265055</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10) -1.8843980 -1.0038616 -1.8227882 -1.2912198 -0.79041779 -0.6008764</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  2.6722005  2.8366166  2.6837045  2.7829603  2.87647134  2.9118630</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10) -0.4222514 -1.1034233 -0.4699120 -0.8811266 -1.26854079 -1.4151677</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -2.5861671 -4.2684987 -2.7038775 -3.7194790 -4.67629929 -5.0384325</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  1.6632940  5.1833398  1.9095866  4.0345923  6.03660619  6.7943199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  1.0604169  0.1472574  0.9965244  0.4452620 -0.07409436 -0.2706581</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  4.3765541  2.1994387  4.2242244  2.9099283  1.67170139  1.2030626</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  5.2935107  3.7438350  5.1850821  4.2495631  3.36819039  3.0346122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10) -1.9665677 -1.0823516 -2.5313527 -1.0897166 -1.8927197 -1.7097687</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10)  2.6281713  2.1585734  2.9281227  2.1624849  2.5889514  2.4917880</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  2.3622856  0.4605702  3.5769890  0.4764103  2.2034580  1.8099787</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10)  7.6382591  6.9297904  8.0907869  6.9356915  7.5790891  7.4325016</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -0.9738327  1.3227395 -2.4407471  1.3036104 -0.7820274 -0.3068492</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  1.4932107  1.3807143  1.5650667  1.3816513  1.4838152  1.4605388</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  6.3996028  8.6764205  4.9453064  8.6574560  6.5897583  7.0608491</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  0.3164304  0.3806141  0.2754337  0.3800795  0.3217909  0.3350710</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  0.7586738  1.7202624  0.1444678  1.7122530  0.8389838  1.0379438</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    s13        s14        s15        s16        s17         s18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10) -2.4479096 -0.1330144  0.5332048 -0.2732752 -0.5089015  0.05491419</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10)  2.8838069  1.6543904  1.3005684  1.7288814  1.8540200  1.55458348</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  3.3975250 -1.5812035 -3.0140650 -1.2795395 -0.7727697 -1.98538826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10)  8.0239290  6.1691443  5.6353434  6.2815268  6.4703197  6.01856855</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -2.2240207  3.7884504  5.5188196  3.4241513  2.8121600  4.27655679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  1.5544505  1.2599327  1.1751715  1.2777777  1.3077558  1.23602309</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  5.1601686 11.1209221 12.8364071 10.7597566 10.1530294 11.60482988</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  0.2814907  0.4495249  0.4978846  0.4393436  0.4222399  0.46316629</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  0.2352125  2.7526705  3.4771865  2.6001362  2.3438918  2.95704357</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    s19        s20        s21        s22        s23        s24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10)  2.1274082  1.2263281  2.6632322  2.4317766  1.3449893 -1.0662664</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10) -0.6783612 -1.3829214 -0.2593969 -0.4403736 -1.2901395 -3.1755158</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  2.8973948  2.7658375  2.9756249  2.9418325  2.7831620  2.4311197</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10) -1.3552264 -0.8101874 -1.6793319 -1.5393306 -0.8819623  0.5765411</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -4.8903920 -3.5442762 -5.6908549 -5.3450853 -3.7215431 -0.1193889</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  6.4845655  3.6680045  8.1594233  7.4359483  4.0389110 -3.4980980</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10) -0.1903026  0.5403610 -0.6247891 -0.4371074  0.4441416  2.3993694</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  1.3946428  3.1366594  0.3587588  0.8062214  2.9072572  7.5688268</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  3.1709794  4.4109508  2.4336349  2.7521397  4.2476618  7.5657777</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      s25        s26        s27        s28         s29</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10) -0.127361982  1.7556760  2.1463766  1.2607666  0.08398491</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10) -2.441380389 -0.9690209 -0.6635296 -1.3559937 -2.27612690</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  2.568199361  2.8431221  2.9001642  2.7708655  2.59905592</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10)  0.008623191 -1.1303756 -1.3666999 -0.8310183 -0.11921484</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -1.522010177 -4.3350644 -4.9187287 -3.5957236 -1.83773948</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10) -0.563307179  5.3226195  6.5438562  3.7756511  0.09731269</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  1.638034935  0.1111259 -0.2056836  0.5124357  1.46665895</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  5.753686101  2.1132955  1.3579720  3.0700810  5.34509889</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  6.273756439  3.6825181  3.1448771  4.3635602  5.98292313</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    s30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10)  0.3711916</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10) -2.0515581</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  2.6409880</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10) -0.2929384</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -2.2667951</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  0.9950522</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  1.2337701</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  4.7898554</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  5.5876995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10) -3.0637324 -2.3490342 -1.9597503 -3.0257952 -0.2861852 -1.7197426</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10)  3.2108639  2.8312953  2.6245506  3.1907159  1.7357378  2.4970851</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  4.7219970  3.1848701  2.3476231  4.6404043 -1.2517735  1.8314298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10)  8.5173503  7.9447062  7.6327967  8.4869536  6.2918707  7.4404930</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -3.8234953 -1.9672118 -0.9561258 -3.7249614  3.3906202 -0.3327543</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  1.6327999  1.5418708  1.4923433  1.6279733  1.2794202  1.4618078</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  3.5744522  5.4147685  6.4171574  3.6721386 10.7265139  7.0351668</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  0.2367892  0.2886679  0.3169253  0.2395430  0.4384065  0.3343470</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10) -0.4344972  0.3427399  0.7660877 -0.3932404  2.5860966  1.0270971</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    s25        s26        s27        s28        s29        s30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10) -3.3856606 -3.2441721  0.5603346 -1.9704275 -2.9260967 -2.4285687</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10)  3.3818366  3.3066936  1.2861600  2.6302212  3.1377671  2.8735352</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  5.4143797  5.1100753 -3.0724141  2.3705869  4.4259790  3.3559278</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10)  8.7752918  8.6619257  5.6136059  7.6413516  8.4070712  8.0084323</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -4.6596387 -4.2921510  5.5892839 -0.9838576 -3.4660145 -2.1737866</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  1.6737580  1.6557568  1.1717198  1.4937017  1.6152889  1.5519898</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  2.7455011  3.1098278 12.9062652  6.3896642  3.9288581  5.2099707</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  0.2134210  0.2236914  0.4998539  0.3161503  0.2467799  0.2828946</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10) -0.7845955 -0.6307262  3.5066903  0.7544763 -0.2848178  0.2562458</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      s1          s2         s3         s4         s5         s6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10)  1.57381394  -0.1180356  0.9720782  1.1522236  1.2902834  1.3352457</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10) -0.96412494  -2.1852177 -1.3984278 -1.2684079 -1.1687632 -1.1363116</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  2.79931640   0.5485122  1.9987787  2.2384407  2.4221128  2.4819298</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10) -1.07605504   1.5173769 -0.1536559 -0.4298002 -0.6414318 -0.7103544</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -3.64917136   2.9403618 -1.3054893 -2.0071319 -2.5448570 -2.7199792</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  3.73912865 -10.3263040 -1.2634871  0.2341770  1.3819572  1.7557576</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  0.02482697   5.0771662  1.8217793  1.2838145  0.8715290  0.7372589</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  2.69812851   6.4244863  4.0234725  3.6266960  3.3226144  3.2235834</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  3.37015205   7.9058798  4.9833625  4.5004057  4.1302771  4.0097364</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     s7         s8         s9        s10        s11        s12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10)  1.9403378  1.3631510  1.5476474  1.4703296  1.3300691  1.4891931</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10) -0.6995863 -1.1161710 -0.9830106 -1.0388147 -1.1400478 -1.0252000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  3.2869327  2.5190544  2.7645050  2.6616429  2.4750430  2.6867385</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10) -1.6378985 -0.7531303 -1.0359445 -0.9174242 -0.7024193 -0.9463400</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -5.0767338 -2.8286665 -3.5472562 -3.2461136 -2.6998172 -3.3195843</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  6.7862767  1.9877519  3.5215896  2.8787973  1.7127215  3.0356214</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10) -1.0697164  0.6539260  0.1029676  0.3338602  0.7527176  0.2775286</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  1.8908470  3.1621211  2.7557612  2.9260563  3.2349849  2.8845088</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  2.3875279  3.9349245  3.4403026  3.6475860  4.0236144  3.5970144</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    s13        s14        s15        s16        s17        s18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10)  1.1662384  1.6251449  1.1983475  1.4753833  1.7363848  1.8351675</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10) -1.2582926 -0.9270768 -1.2351179 -1.0351673 -0.8467894 -0.7754930</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  2.2570858  2.8676061  2.2998030  2.6683662  3.0155975  3.1470161</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10) -0.4512836 -1.1547401 -0.5005035 -0.9251710 -1.3252594 -1.4766832</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -2.0617180 -3.8490987 -2.1867785 -3.2657969 -4.2823635 -4.6671092</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  0.3506916  4.1658758  0.6176347  2.9208115  5.0906843  5.9119285</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  1.2419622 -0.1284617  1.1460755  0.3187686 -0.4606553 -0.7556483</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  3.5958278  2.5850703  3.5251065  2.9149254  2.3400606  2.1224882</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  4.4628328  3.2325374  4.3767508  3.6340376  2.9343113  2.6694819</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    s19        s20        s21        s22        s23        s24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10)  1.7947850  1.4275915  2.0131353  1.9188162  1.4759463  0.4933506</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10) -0.8046391 -1.0696610 -0.6470447 -0.7151195 -1.0347609 -1.7439496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  3.0932920  2.6047848  3.3837811  3.2583008  2.6691152  1.3618887</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10) -1.4147810 -0.8519110 -1.7494896 -1.6049082 -0.9260340  0.5801845</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -4.5098246 -3.0796539 -5.3602705 -4.9929102 -3.2679898  0.5590922</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  5.5762028  2.5234872  7.3914891  6.6073543  2.9254924 -5.2434573</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10) -0.6350547  0.4614885 -1.2871102 -1.0054470  0.3170872  3.2513947</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  2.2114321  3.0201886  1.7305080  1.9382489  2.9136853  5.0778867</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  2.7777445  3.7621641  2.1923630  2.4452256  3.6325281  6.2667970</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      s25        s26        s27        s28        s29        s30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10)  0.875957676  1.6433027  1.8025147  1.4416253  0.9620823  1.0791201</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10) -1.467802829 -0.9139714 -0.7990602 -1.0595321 -1.4056423 -1.3211703</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  1.870901812  2.8917629  3.1035755  2.6234551  1.9854804  2.1411852</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10) -0.006312932 -1.1825742 -1.4266298 -0.8734234 -0.1383332 -0.3177402</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -0.931112339 -3.9198210 -4.5399308 -3.1343138 -1.2665566 -1.7224036</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10) -2.062598889  4.3168334  5.6404647  2.6401594 -1.3465893 -0.3735788</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  2.108822279 -0.1826860 -0.6581378  0.4195795  1.8516298  1.5021220</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  4.235181296  2.5450771  2.1944072  2.9892786  4.0454887  3.7877089</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  5.241054785  3.1838576  2.7570218  3.7245404  5.0101608  4.6963908</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     s1         s2         s3         s4         s5          s6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10) -1.9129800 -1.9224031 -1.8733970 -1.8579874 -1.8733529 -2.35345909</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10)  2.1380467  2.2359713  1.7267045  1.5665705  1.7262462  6.71545597</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10) -1.4669885 -1.2322488 -2.4530362 -2.8369010 -2.4541347  9.50573414</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10)  6.3929163  6.5102197  5.9001713  5.7083475  5.8996224 11.87617452</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10)  0.4138725  0.2972690  0.9036774  1.0943566  0.9042230 -5.03666811</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  1.1881454  1.2324908  1.0018682  0.9293511  1.0016607  3.26103575</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  7.4233070  7.3654305  7.6664231  7.7610674  7.6666940  4.71791501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  0.1691234  0.1665583  0.1798983  0.1840930  0.1799103  0.04922046</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10)  0.8824662  0.7787931  1.3179555  1.4874899  1.3184406 -3.96365186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     s7         s8         s9        s10        s11         s12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10) -2.0032833 -1.8980936 -2.0704722 -1.8989698 -1.9944981 -1.97273352</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10)  3.0764688  1.9833496  3.7746887  1.9924546  2.9851736  2.75899892</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  0.7825472 -1.8378201  2.4562829 -1.8159941  0.5636991  0.02152527</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10)  7.5170480  6.2076053  8.3534425  6.2185122  7.4076858  7.13675221</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -0.7035517  0.5980777 -1.5349556  0.5872360 -0.5948421 -0.32552508</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  1.6131120  1.1180905  1.9293025  1.1222137  1.5717688  1.46934509</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  6.8686702  7.5147379  6.4560004  7.5093565  6.9226286  7.05630485</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  0.1445419  0.1731756  0.1262524  0.1729371  0.1469334  0.15285790</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10) -0.1110444  1.0462445 -0.8502520  1.0366050 -0.0143898  0.22506203</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    s13        s14         s15        s16        s17        s18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10) -2.0605455 -1.7851569 -1.70590098 -1.8018429 -1.8298738 -1.7628002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10)  3.6715315  0.8097239 -0.01389476  0.9831225  1.2744173  0.5773958</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  2.2090000 -4.6511732 -6.62550830 -4.2355114 -3.5372350 -5.2080980</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10)  8.2298710  4.8017244  3.81511521  5.0094378  5.3583785  4.5234195</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -1.4121214  1.9955700  2.97629231  1.7890960  1.4422374  2.2722143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  1.8825876  0.5866114  0.21363382  0.6651354  0.7970489  0.4814011</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  6.5169695  8.2083873  8.69517172  8.1059033  7.9337390  8.3457005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  0.1289546  0.2039182  0.22549248  0.1993761  0.1917458  0.2100039</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10) -0.7410392  2.2887658  3.16073354  2.1051881  1.7967934  2.5347324</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    s19        s20        s21        s22        s23         s24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10) -2.1338061 -2.0487830 -2.0024723 -2.1292930 -1.8033787 -1.97392005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10)  4.4328472  3.5492960  3.0680407  4.3859472  0.9990826  2.77132921</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  4.0339856  1.9159835  0.7623438  3.9215592 -4.1972527  0.05108278</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10)  9.1418477  8.0834456  7.5069520  9.0856663  5.0285563  7.15152261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -2.3186565 -1.2665697 -0.6935159 -2.2628103  1.7700916 -0.34020735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  2.2273511  1.8272329  1.6092954  2.2061123  0.6723629  1.47492889</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  6.0670082  6.5892146  6.8736515  6.0947276  8.0964704  7.04901726</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  0.1090123  0.1321565  0.1447627  0.1102408  0.1989580  0.15253491</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10) -1.5470466 -0.6116281 -0.1021215 -1.4973933  2.0882911  0.21200791</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     s25        s26         s27        s28        s29        s30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c1/c10) -2.17210392 -2.1552719 -1.70267351 -2.0037425 -2.1174325 -2.0582447</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c2/c10)  4.83083358  4.6559173 -0.04743423  3.0812404  4.2626940  3.6476212</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c3/c10)  4.98801736  4.5687173 -6.70590733  0.7939855  3.6261033  2.1516833</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c4/c10)  9.61859374  9.4090623  3.77493842  7.5227639  8.9380219  8.2012288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c5/c10) -2.79255790 -2.5842767  3.01622937 -0.7092335 -2.1160469 -1.3836502</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c6/c10)  2.40758017  2.3283689  0.19844539  1.6152729  2.1502969  1.8717597</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c7/c10)  5.83178578  5.9351668  8.71499460  6.8658500  6.1675740  6.5311013</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c8/c10)  0.09858721  0.1031691  0.22637103  0.1444169  0.1134693  0.1295809</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(c9/c10) -1.96839603 -1.7832116  3.19624189 -0.1160961 -1.3669048 -0.7157252</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
@@ -286,7 +276,7 @@ tibble with calculated posterior summaries</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Justin Silverman.</p>
+  <p></p><p>Developed by Justin Silverman, Michelle Nixon.</p>
 </div>
 
 <div class="pkgdown">

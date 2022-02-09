@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -124,7 +124,7 @@
                         <h4 data-toc-skip class="author">Justin Silverman</h4>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/jsilve24/fido/blob/HEAD/vignettes/orthus.Rmd" class="external-link"><code>vignettes/orthus.Rmd</code></a></small>
       <div class="hidden name"><code>orthus.Rmd</code></div>
 
     </div>
@@ -205,7 +205,7 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 <span class="va">Xi</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">GG</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">D</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/transpose-methods.html" class="external-link">t</a></span><span class="op">(</span><span class="va">GG</span><span class="op">)</span>
 <span class="va">Xi</span> <span class="op">&lt;-</span> <span class="va">Xi</span> <span class="op">*</span> <span class="op">(</span><span class="va">upsilon</span><span class="op">-</span><span class="va">D</span><span class="op">-</span><span class="va">P</span><span class="op">)</span> <span class="co"># this scales Xi to have the proper mean we wanted</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">Xi</span><span class="op">)</span></code></pre></div>
-<p><img src="orthus_files/figure-html/unnamed-chunk-5-1.png" width="480"></p>
+<p><img src="unnamed-chunk-5-1.png"></p>
 <p>Note the structure of this prior, everything is independent but there is a moderate positive covariance between the log-ratios based on their shared definition in terms of the <span class="math inline">\(D\)</span>-th taxa.</p>
 <p>The other parts of the prior are less interesting. We are going to state that our mean for <span class="math inline">\(\Lambda\)</span> is centered about <span class="math inline">\(\mathbf{0}\)</span> and that the signal-to-noise ratio in the data is approximately 1 (this later part is specified by <span class="math inline">\(\Gamma=I\)</span>).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -238,23 +238,23 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 <span class="va">xcor</span> <span class="op">&lt;-</span> <span class="va">fit</span><span class="op">$</span><span class="va">Sigma</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">D</span>, <span class="va">D</span><span class="op">:</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">+</span><span class="va">P</span><span class="op">)</span>,<span class="op">]</span>
 
 <span class="co"># Initial preprocessing to speed up computation of posterior intervals</span>
-<span class="co"># As there are alot of cross-covariance terms we are going to first </span>
+<span class="co"># As there are a lot of cross-covariance terms we are going to first </span>
 <span class="co"># weed down the list of things we have to look at by first pass </span>
 <span class="co"># selecting only those taxa that have a large posterior mean for the covariance</span>
 <span class="va">xcor.mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">xcor</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">mean</span><span class="op">)</span>
-<span class="va">to.analyze</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://jsilve24.github.io/driver/reference/gather_array.html" class="external-link">gather_array</a></span><span class="op">(</span><span class="va">xcor.mean</span>, <span class="va">cov</span>, <span class="va">taxa</span>, <span class="va">metabolite</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+<span class="va">to.analyze</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/driver/man/gather_array.html" class="external-link">gather_array</a></span><span class="op">(</span><span class="va">xcor.mean</span>, <span class="va">cov</span>, <span class="va">taxa</span>, <span class="va">metabolite</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">cov</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="va">.</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>,<span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>tm <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">taxa</span>, <span class="st">"_"</span>, <span class="va">metabolite</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Subset Covariance to those we are interested in and calculate posterior </span>
 <span class="co"># confidence intervals. </span>
-<span class="va">xcor.summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://jsilve24.github.io/driver/reference/gather_array.html" class="external-link">gather_array</a></span><span class="op">(</span><span class="va">xcor</span>, <span class="va">cov</span>, <span class="va">taxa</span>, <span class="va">metabolite</span>, <span class="va">iter</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+<span class="va">xcor.summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/driver/man/gather_array.html" class="external-link">gather_array</a></span><span class="op">(</span><span class="va">xcor</span>, <span class="va">cov</span>, <span class="va">taxa</span>, <span class="va">metabolite</span>, <span class="va">iter</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>tm<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">taxa</span>, <span class="st">"_"</span>, <span class="va">metabolite</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">tm</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">to.analyze</span><span class="op">$</span><span class="va">tm</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>taxa <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">[</span><span class="va">taxa</span><span class="op">]</span>, metabolite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">Z</span><span class="op">)</span><span class="op">[</span><span class="va">metabolite</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">taxa</span>, <span class="va">metabolite</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://jsilve24.github.io/driver/reference/summarise_posterior.html" class="external-link">summarise_posterior</a></span><span class="op">(</span><span class="va">cov</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/driver/man/summarise_posterior.html" class="external-link">summarise_posterior</a></span><span class="op">(</span><span class="va">cov</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">mean</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">taxa</span> <span class="op">!=</span> <span class="st">'other'</span><span class="op">)</span> <span class="co"># we don't care about these</span>
 
@@ -263,21 +263,21 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 <span class="va">xcor.summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">p2.5</span><span class="op">)</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">p97.5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">mean</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 218 x 8</span></span>
-<span class="co">#&gt; <span style="color: #949494;"># Groups:   taxa [17]</span></span>
+<span class="co">#&gt; # A tibble: 218 x 8</span>
+<span class="co">#&gt; # Groups:   taxa [17]</span>
 <span class="co">#&gt;    taxa  metabolite   p2.5   p25   p50  mean   p75  p97.5</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 722   206.0445922 -<span style="color: #BB0000;">6.55</span> -<span style="color: #BB0000;">3.96</span> -<span style="color: #BB0000;">3.08</span> -<span style="color: #BB0000;">3.33</span> -<span style="color: #BB0000;">2.32</span> -<span style="color: #BB0000;">1.51</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 7816  206.0445922 -<span style="color: #BB0000;">5.63</span> -<span style="color: #BB0000;">3.23</span> -<span style="color: #BB0000;">2.45</span> -<span style="color: #BB0000;">2.65</span> -<span style="color: #BB0000;">1.85</span> -<span style="color: #BB0000;">1.05</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 722   290.9298419 -<span style="color: #BB0000;">5.18</span> -<span style="color: #BB0000;">3.09</span> -<span style="color: #BB0000;">2.42</span> -<span style="color: #BB0000;">2.62</span> -<span style="color: #BB0000;">1.85</span> -<span style="color: #BB0000;">1.23</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 18182 380.1846197 -<span style="color: #BB0000;">5.20</span> -<span style="color: #BB0000;">3.07</span> -<span style="color: #BB0000;">2.38</span> -<span style="color: #BB0000;">2.55</span> -<span style="color: #BB0000;">1.83</span> -<span style="color: #BB0000;">1.03</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 722   181.4504354 -<span style="color: #BB0000;">5.19</span> -<span style="color: #BB0000;">3.04</span> -<span style="color: #BB0000;">2.36</span> -<span style="color: #BB0000;">2.55</span> -<span style="color: #BB0000;">1.80</span> -<span style="color: #BB0000;">1.13</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 722   177.0565368 -<span style="color: #BB0000;">4.98</span> -<span style="color: #BB0000;">3.01</span> -<span style="color: #BB0000;">2.30</span> -<span style="color: #BB0000;">2.50</span> -<span style="color: #BB0000;">1.78</span> -<span style="color: #BB0000;">1.08</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 722   180.072273  -<span style="color: #BB0000;">5.03</span> -<span style="color: #BB0000;">3.06</span> -<span style="color: #BB0000;">2.30</span> -<span style="color: #BB0000;">2.49</span> -<span style="color: #BB0000;">1.71</span> -<span style="color: #BB0000;">0.986</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 19517 380.1846197 -<span style="color: #BB0000;">5.15</span> -<span style="color: #BB0000;">3.06</span> -<span style="color: #BB0000;">2.33</span> -<span style="color: #BB0000;">2.49</span> -<span style="color: #BB0000;">1.71</span> -<span style="color: #BB0000;">0.952</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2943  380.1846197 -<span style="color: #BB0000;">4.89</span> -<span style="color: #BB0000;">2.97</span> -<span style="color: #BB0000;">2.34</span> -<span style="color: #BB0000;">2.49</span> -<span style="color: #BB0000;">1.83</span> -<span style="color: #BB0000;">1.03</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 722   176.0343919 -<span style="color: #BB0000;">4.93</span> -<span style="color: #BB0000;">2.95</span> -<span style="color: #BB0000;">2.25</span> -<span style="color: #BB0000;">2.48</span> -<span style="color: #BB0000;">1.79</span> -<span style="color: #BB0000;">1.09</span> </span>
-<span class="co">#&gt; <span style="color: #949494;"># ... with 208 more rows</span></span></code></pre></div>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 722   206.0445922 -6.55 -3.96 -3.08 -3.33 -2.32 -1.51 </span>
+<span class="co">#&gt;  2 7816  206.0445922 -5.63 -3.23 -2.45 -2.65 -1.85 -1.05 </span>
+<span class="co">#&gt;  3 722   290.9298419 -5.18 -3.09 -2.42 -2.62 -1.85 -1.23 </span>
+<span class="co">#&gt;  4 18182 380.1846197 -5.20 -3.07 -2.38 -2.55 -1.83 -1.03 </span>
+<span class="co">#&gt;  5 722   181.4504354 -5.19 -3.04 -2.36 -2.55 -1.80 -1.13 </span>
+<span class="co">#&gt;  6 722   177.0565368 -4.98 -3.01 -2.30 -2.50 -1.78 -1.08 </span>
+<span class="co">#&gt;  7 722   180.072273  -5.03 -3.06 -2.30 -2.49 -1.71 -0.986</span>
+<span class="co">#&gt;  8 19517 380.1846197 -5.15 -3.06 -2.33 -2.49 -1.71 -0.952</span>
+<span class="co">#&gt;  9 2943  380.1846197 -4.89 -2.97 -2.34 -2.49 -1.83 -1.03 </span>
+<span class="co">#&gt; 10 722   176.0343919 -4.93 -2.95 -2.25 -2.48 -1.79 -1.09 </span>
+<span class="co">#&gt; # ... with 208 more rows</span></code></pre></div>
 <p>So it looks there there are a few hundred covariances that we can be fairly confident about.</p>
 </div>
 <div class="section level2">
@@ -314,7 +314,7 @@ Kashyap, Purna C, Angela Marcobal, Luke K Ursell, Samuel A Smits, Erica D Sonnen
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Justin Silverman.</p>
+<p>Developed by Justin Silverman, Michelle Nixon.</p>
 </div>
 
 <div class="pkgdown">

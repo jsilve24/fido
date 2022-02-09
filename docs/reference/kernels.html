@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Multivariate RBF Kernel</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/jsilve24/fido/blob/HEAD/R/kernels.R" class="external-link"><code>R/kernels.R</code></a></small>
     <div class="hidden name"><code>kernels.Rd</code></div>
     </div>
 
@@ -138,19 +138,15 @@ $$G = \sigma^2*(X-c)'(X-c)$$</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in">  <span class="co"># Create Partial for use with basset</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in">  <span class="co"># Create Partial for use with basset</span></span>
 <span class="r-in">  <span class="va">K</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span><span class="op">)</span> <span class="fu">SE</span><span class="op">(</span><span class="va">X</span>, <span class="fl">2</span>, <span class="fl">.2</span><span class="op">)</span></span>
 <span class="r-in">  </span>
 <span class="r-in">  <span class="co"># Example use</span></span>
 <span class="r-in">  <span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span class="r-in">  <span class="va">G</span> <span class="op">&lt;-</span> <span class="fu">K</span><span class="op">(</span><span class="va">X</span><span class="op">)</span></span>
 <span class="r-in">  <span class="va">G</span> <span class="co"># this is the gram matrix (the kernel evaluated on a finite set of points)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              1            2            3            4            5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 4.000000e+00 7.565330e-06 1.434320e-26 1.109499e-07 1.711255e-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 7.565330e-06 4.000000e+00 1.089029e-07 1.545331e-01 9.228968e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 1.434320e-26 1.089029e-07 4.000000e+00 1.749234e-08 1.546055e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1.109499e-07 1.545331e-01 1.749234e-08 4.000000e+00 2.148303e-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 1.711255e-14 9.228968e-03 1.546055e-03 2.148303e-06 4.000000e+00</span>
+<span class="r-in">  <span class="op">}</span></span>
 </code></pre></div>
     </div>
   </div>
@@ -161,7 +157,7 @@ $$G = \sigma^2*(X-c)'(X-c)$$</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Justin Silverman.</p>
+  <p></p><p>Developed by Justin Silverman, Michelle Nixon.</p>
 </div>
 
 <div class="pkgdown">

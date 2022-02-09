@@ -1,3 +1,11 @@
+# fido 1.0.0
+
+More changes to make the final push for CRAN! Changes include:
+
+* Updating the description file to match CRAN's standards
+* Linking the two remotes package (driver + MicrobeDS) to a separate CRAN-like Github repo using the "drat" package. This is to match CRAN's policy against no use of "Remotes".
+* Precomputing the longer running vignettes, cutting R CMD check times in half. The original vignettes can be found in the vignettes folder with a ".orig" extension for reproducibility.
+
 # fido 0.1.14
 
 * More changes to prepare for version 0.2 (and CRAN soon), including:

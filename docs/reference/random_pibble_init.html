@@ -19,7 +19,7 @@ plus random pseudocounts uniformily distributed between
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -96,7 +96,7 @@ plus random pseudocounts uniformily distributed between
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Provide random initialization for pibble model</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/jsilve24/fido/blob/HEAD/R/fido_utils.R" class="external-link"><code>R/fido_utils.R</code></a></small>
     <div class="hidden name"><code>random_pibble_init.Rd</code></div>
     </div>
 
@@ -129,26 +129,26 @@ plus random pseudocounts uniformily distributed between
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span>, <span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">random_pibble_init</span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]        [,2]       [,3]        [,4]       [,5]      [,6]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 3.0902137 -0.03777503  0.6469273 -0.20945578 -2.3428291 1.4065048</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] 2.8576554 -0.60198450  0.5076632 -0.03177581 -2.5778620 0.5781131</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] 3.8515198  0.33796091  0.3263868 -1.06138469 -0.7370009 1.0113351</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] 3.9131891 -1.55994335 -1.2503263 -0.54247226 -0.4372750 1.5187596</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] 0.6336341  0.07599477  0.3062141 -0.17732931  0.3630054 1.4929786</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] 2.7637961 -0.28597495 -1.3444678 -0.67861381 -1.2851143 0.6967902</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 3.8977533 -0.90990968 -1.5480211 -0.07555305 -2.0696451 1.0642952</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 3.5506538 -1.54134887  0.7393279 -0.66115520 -0.9570645 1.3746556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 0.1420021 -1.24163356  0.5885159 -1.16412669 -1.0954214 0.5011682</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,7]        [,8]        [,9]       [,10]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  1.2505314  0.59671862 -0.06841876  0.81129446</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.5811263  0.52406628 -0.14727878 -1.05035081</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -0.6356646 -0.63338797 -1.04562631  0.99267243</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  0.9513191 -1.25072241  0.36803844 -0.03227908</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  1.7243380 -0.97482840  0.16899641  1.11664835</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  1.0119515  0.65553767  0.04417951  0.96632274</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  1.1849297  0.02266733  0.37951915  0.91927557</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  1.6162853  0.12257753  0.58684263  1.19654637</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  1.8303033  0.72768435 -0.49117020  0.85910583</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]       [,2]       [,3]       [,4]        [,5]        [,6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.48184501 -1.1512379 -1.6743095  3.2597422 -0.06178952  0.71477691</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.60449279 -0.2781032  0.3025288  3.3628533 -3.84005222 -0.31867851</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  0.72657015 -2.6950694 -0.7035808  3.1070975  0.04210371  1.46406529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  0.07959015 -1.8544047 -0.4954855 -0.2891117  0.20489029  0.39840176</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] -1.19601910 -0.6214062  0.3449052  3.2635169 -0.09586154  1.01395644</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  0.59321948 -0.9087480  0.4721827  1.4966606  0.18276383 -0.46738601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  0.24572054 -0.7125731 -0.1706042  2.9981875 -0.25804078  0.63320409</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  0.74064611  0.2088646 -2.4306735  2.7767105 -0.04443093  0.05249657</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  0.63885758 -0.5841221 -0.9857492  2.0709182  0.10199313  1.31793619</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,7]        [,8]      [,9]       [,10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  1.23396603 -0.43549571 1.7279824  0.03344978</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  1.20712859  0.47656601 1.5589525 -1.22492271</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  1.14605630 -2.01708879 0.4758807 -1.46685269</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  0.97941377  0.26859282 1.7830523 -0.53959374</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  1.26197779 -0.01740323 2.3057458 -2.24199313</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  0.09580698  0.44205980 2.4578203 -1.57125826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] -0.34799129 -0.38623430 2.3759005 -1.42861686</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  0.86909255 -0.11803584 2.0654541 -0.55130733</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  0.10291214  0.05799732 0.4146906 -0.86054188</span>
 </code></pre></div>
     </div>
   </div>
@@ -159,7 +159,7 @@ plus random pseudocounts uniformily distributed between
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Justin Silverman.</p>
+  <p></p><p>Developed by Justin Silverman, Michelle Nixon.</p>
 </div>
 
 <div class="pkgdown">

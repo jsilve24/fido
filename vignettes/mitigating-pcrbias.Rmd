@@ -154,7 +154,7 @@ plot(fit, par="Lambda", focus.cov=focus.covariate, focus.coord=focus.coord) +
 #> Scale for 'colour' is already present. Adding another scale for 'colour', which will replace the existing scale.
 ```
 
-![](figure/unnamed-chunk-6-1.png)
+![](unnamed-chunk-6-1.png)
 
 The compositional bias introduced at each cycle can also be visualized. 
 
@@ -164,7 +164,7 @@ plot(fit, par="Lambda", focus.cov="cycle_num")
 #> Scale for 'colour' is already present. Adding another scale for 'colour', which will replace the existing scale.
 ```
 
-![](figure/unnamed-chunk-7-1.png)
+![](unnamed-chunk-7-1.png)
 
 The *fido* package has a bunch of tools for working with such fitted models depending on what you ultimately want to do. See the main `pibble` vignette for a fuller description of what you can do with such fitted models. 
 
@@ -228,7 +228,7 @@ predicted %>%
   ylab("CLR Coordinates")
 ```
 
-![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png)
+![](unnamed-chunk-8-1.png)
 There are two things I look for in these plots. First, the data should look linear
 in this space. If the data does not look linear then there are a few options: (a)
 something went wrong in your calibration experiment, (b) something is wrong with your 
@@ -265,7 +265,7 @@ for (i in seq_along(sigma)){
 base::plot(sigma, lml)
 ```
 
-![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png)
+![](unnamed-chunk-9-1.png)
 
 
  

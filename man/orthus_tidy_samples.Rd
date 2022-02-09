@@ -23,8 +23,10 @@ column headers. Primarily designed to be used by
 \code{\link{summary.orthusfit}}.
 }
 \examples{
+\dontrun{
 sim <- orthus_sim()
 fit <- orthus(sim$Y, sim$Z, sim$X)
 fit_tidy <- orthus_tidy_samples(fit, use_names=TRUE)
 head(fit_tidy)
+}
 }

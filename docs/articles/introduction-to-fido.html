@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -124,7 +124,7 @@
                         <h4 data-toc-skip class="author">Justin Silverman</h4>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/jsilve24/fido/blob/HEAD/vignettes/introduction-to-fido.Rmd" class="external-link"><code>vignettes/introduction-to-fido.Rmd</code></a></small>
       <div class="hidden name"><code>introduction-to-fido.Rmd</code></div>
 
     </div>
@@ -134,9 +134,9 @@
 <div class="section level2">
 <h2 id="an-introduction-to-fido">An introduction to <em>fido</em><a class="anchor" aria-label="anchor" href="#an-introduction-to-fido"></a>
 </h2>
-<p><em>fido</em> <span class="citation">(Justin D. Silverman et al. 2019)</span> is a loose acronym for <strong>“(Bayesian) Multinomial Logistic-Normal Models”</strong>. In particular the development of <em>fido</em> stems from the need for fast inference for time-invariant MALLARD models<span class="citation">(Justin D. Silverman et al. 2018)</span>. <em>fido</em> is very fast! It uses closed form solutions for model gradients and Hessians written in C++ to preform <a href="https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation" class="external-link">MAP estimation</a> in combination with parameter uncertainty estimation using a <a href="http://www.sumsar.net/blog/2013/11/easy-laplace-approximation/" class="external-link">Laplace Approximation</a>. One of the main models in <em>fido</em> is the function <em>pibble</em> which fits a Multinomial Logistic-Normal <strong>Linear Regerssion</strong> model.</p>
+<p><em>fido</em> <span class="citation">(Justin D. Silverman et al. 2019)</span> is a loose acronym for <strong>“(Bayesian) Multinomial Logistic-Normal Models”</strong>. In particular the development of <em>fido</em> stems from the need for fast inference for time-invariant MALLARD models<span class="citation">(Justin D. Silverman et al. 2018)</span>. <em>fido</em> is very fast! It uses closed form solutions for model gradients and Hessians written in C++ to preform <a href="https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation" class="external-link">MAP estimation</a> in combination with parameter uncertainty estimation using a <a href="https://www.sumsar.net/blog/2013/11/easy-laplace-approximation/" class="external-link">Laplace Approximation</a>. One of the main models in <em>fido</em> is the function <em>pibble</em> which fits a Multinomial Logistic-Normal <strong>Linear Regression</strong> model.</p>
 <p><strong>So what is a <em>fido</em> model exactly?</strong> First let me give the broad description from 10,000ft up: Basically its a model for multinomial count data (e.g., each sample contains the counts of <span class="math inline">\(D\)</span> “types of things”). Importantly, unlike the more common Poisson count models, the multinomial models a “competition to be counted” (i.e., cases in which counting more of one type of thing means that I have less resources available to count other types of things).</p>
-<p>This may seem vague so let me give an example. Pretend there is a ball pit with red, green, and blue balls. Pretend that the ball pit is very large and I don’t know the total number of balls in the ball pit, yet I want to say something about the relative number of red, blue, and green balls in the pit. One way I may choose to measure the ball pit is by grabbing an armful of balls and counting the number of balls of each color (e.g., in one armful I may collect 5 red, 3 blue, and 6 green). My arms can only contain so many balls (in this example about 14) and so if I were to have (randomly) gotten another green ball in my armful (making 7 total) I would likely not have been able to measure one of the red or blue balls; hence the “competition to be counted.” It turns out that this type of sampling occurs all the time in many situations (Wikipedia has an example with <a href="https://en.wikipedia.org/wiki/Multinomial_distribution#Example" class="external-link">political polling</a>). Perhaps one of the most notable examples of this type of count data occurs with modern high-throughput sequencing studies such as 16S rRNA studies to profile microbial communities or bulk/single-cell RNA-seq studies to study expression profiles of cells. In all cases, transcripts are sequenced and the number of different types of transcripts are counted. The important part is that sequencing only samples a small portion of the total genetic material available and leads to similar competition to be counted.</p>
+<p>This may seem vague so let me give an example. Pretend there is a ball pit with red, green, and blue balls. Pretend that the ball pit is very large and I don’t know the total number of balls in the ball pit, yet I want to say something about the relative number of red, blue, and green balls in the pit. One way I may choose to measure the ball pit is by grabbing an armful of balls and counting the number of balls of each color (e.g., in one armful I may collect 5 red, 3 blue, and 6 green). My arms can only contain so many balls (in this example about 14) and so if I were to have (randomly) gotten another green ball in my armful (making 7 total) I would likely not have been able to measure one of the red or blue balls; hence the “competition to be counted.” It turns out that this type of sampling occurs all the time in many situations (Wikipedia has an example with <a href="https://en.Wikipedia.org/wiki/Multinomial_distribution#Example" class="external-link">political polling</a>). Perhaps one of the most notable examples of this type of count data occurs with modern high-throughput sequencing studies such as 16S rRNA studies to profile microbial communities or bulk/single-cell RNA-seq studies to study expression profiles of cells. In all cases, transcripts are sequenced and the number of different types of transcripts are counted. The important part is that sequencing only samples a small portion of the total genetic material available and leads to similar competition to be counted.</p>
 <div class="section level3">
 <h3 id="the-pibble-model">The <em>pibble</em> model<a class="anchor" aria-label="anchor" href="#the-pibble-model"></a>
 </h3>
@@ -236,28 +236,28 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 <code class="sourceCode R"><span class="va">priors</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fido_transforms.html">to_clr</a></span><span class="op">(</span><span class="va">priors</span><span class="op">)</span>  
 <span class="fu"><a href="../reference/summary.html">summary</a></span><span class="op">(</span><span class="va">priors</span>, pars<span class="op">=</span><span class="st">"Lambda"</span>, gather_prob<span class="op">=</span><span class="cn">TRUE</span>, as_factor<span class="op">=</span><span class="cn">TRUE</span>, use_names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>  
 <span class="co">#&gt; $Lambda</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 784 x 9</span></span>
+<span class="co">#&gt; # A tibble: 784 x 9</span>
 <span class="co">#&gt;    Parameter coord covariate         val .lower .upper .width .point .interval</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Lambda        1         1  0.050<span style="text-decoration: underline;">9</span>     -<span style="color: #BB0000;">0.528</span>  0.596    0.5 mean   qi       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Lambda        1         2  0.001<span style="text-decoration: underline;">99</span>    -<span style="color: #BB0000;">0.567</span>  0.575    0.5 mean   qi       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Lambda        1         3 -<span style="color: #BB0000;">0.037</span><span style="color: #BB0000; text-decoration: underline;">3</span>     -<span style="color: #BB0000;">0.620</span>  0.532    0.5 mean   qi       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Lambda        1         4 -<span style="color: #BB0000;">0.002</span><span style="color: #BB0000; text-decoration: underline;">05</span>    -<span style="color: #BB0000;">0.554</span>  0.549    0.5 mean   qi       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Lambda        2         1  0.009<span style="text-decoration: underline;">91</span>    -<span style="color: #BB0000;">0.564</span>  0.535    0.5 mean   qi       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Lambda        2         2 -<span style="color: #BB0000;">0.000</span><span style="color: #BB0000; text-decoration: underline;">007</span><span style="color: #BB0000;">82</span> -<span style="color: #BB0000;">0.572</span>  0.580    0.5 mean   qi       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Lambda        2         3 -<span style="color: #BB0000;">0.024</span><span style="color: #BB0000; text-decoration: underline;">7</span>     -<span style="color: #BB0000;">0.570</span>  0.518    0.5 mean   qi       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Lambda        2         4  0.016<span style="text-decoration: underline;">5</span>     -<span style="color: #BB0000;">0.536</span>  0.589    0.5 mean   qi       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Lambda        3         1  0.013<span style="text-decoration: underline;">8</span>     -<span style="color: #BB0000;">0.584</span>  0.620    0.5 mean   qi       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Lambda        3         2 -<span style="color: #BB0000;">0.005</span><span style="color: #BB0000; text-decoration: underline;">02</span>    -<span style="color: #BB0000;">0.542</span>  0.581    0.5 mean   qi       </span>
-<span class="co">#&gt; <span style="color: #949494;"># ... with 774 more rows</span></span></code></pre></div>
+<span class="co">#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    </span>
+<span class="co">#&gt;  1 Lambda        1         1  0.0509     -0.528  0.596    0.5 mean   qi       </span>
+<span class="co">#&gt;  2 Lambda        1         2  0.00199    -0.567  0.575    0.5 mean   qi       </span>
+<span class="co">#&gt;  3 Lambda        1         3 -0.0373     -0.620  0.532    0.5 mean   qi       </span>
+<span class="co">#&gt;  4 Lambda        1         4 -0.00205    -0.554  0.549    0.5 mean   qi       </span>
+<span class="co">#&gt;  5 Lambda        2         1  0.00991    -0.564  0.535    0.5 mean   qi       </span>
+<span class="co">#&gt;  6 Lambda        2         2 -0.00000782 -0.572  0.580    0.5 mean   qi       </span>
+<span class="co">#&gt;  7 Lambda        2         3 -0.0247     -0.570  0.518    0.5 mean   qi       </span>
+<span class="co">#&gt;  8 Lambda        2         4  0.0165     -0.536  0.589    0.5 mean   qi       </span>
+<span class="co">#&gt;  9 Lambda        3         1  0.0138     -0.584  0.620    0.5 mean   qi       </span>
+<span class="co">#&gt; 10 Lambda        3         2 -0.00502    -0.542  0.581    0.5 mean   qi       </span>
+<span class="co">#&gt; # ... with 774 more rows</span></code></pre></div>
 <p>By default the <code>summary</code> function returns a list (with possible elements <code>Lambda</code>, <code>Sigma</code>, and <code>Eta</code>) summarizing each posterior parameter based on quantiles and mean (e.g., p2.5 is the 0.025 percentile of the posterior distribution). As this type of table may be hard to take in due to how large it is, <code>pibblefit</code> objects also come with a default plotting option for each of the parameters. Also the returned plot objects are <code>ggplot</code> objects so normal <code>ggplot2</code> commands work on them. Before doing that though we are going to use one of the <code>names</code> functions for <code>pibblefit</code> objects to provide some more specific names for the covariates (helpful when we then plot).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/name_dims.html">names_covariates</a></span><span class="op">(</span><span class="va">priors</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>
 <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">priors</span>, par<span class="op">=</span><span class="st">"Lambda"</span><span class="op">)</span> 
-<span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour',</span>
-<span class="co">#&gt; which will replace the existing scale.</span>
-<span class="va">p</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>  </code></pre></div>
-<p><img src="introduction-to-fido_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
+<span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour', which will</span>
+<span class="co">#&gt; replace the existing scale.</span>
+<span class="va">p</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>  </code></pre></div>
+<p><img src="unnamed-chunk-7-1.png"></p>
 <p>This looks fairly reasonable to me. So I am going to go ahead and fit the model with data. <code>fido</code> provides a helper method called <code>refit</code> that we will use to avoid passing prior parameters again.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">priors</span><span class="op">$</span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="va">Y</span> <span class="co"># remember pibblefit objects are just lists</span>
@@ -270,8 +270,8 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 <span class="fu"><a href="../reference/name_dims.html">names_categories</a></span><span class="op">(</span><span class="va">posterior</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">tax</span></code></pre></div>
 <p>Before doing anything else lets look at the posterior predictive distribution to assess model fit. This can be accessed through the method <code>ppc</code><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ppc.html">ppc</a></span><span class="op">(</span><span class="va">posterior</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30000</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction-to-fido_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/ppc.html">ppc</a></span><span class="op">(</span><span class="va">posterior</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30000</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="unnamed-chunk-10-1.png"></p>
 <p>There are a few things to note about this plot. First, when zoomed out like this it looks it is hard to make much of it. This is a fairly large dataset we are analyzing and its hard to view an uncertainty interval; in this case its plotting the median and 95% confidence interval in grey and black and the observed counts in green. <em>fido</em> also has a simpler function that summarizes the posterior predictive check.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ppc_summary.html">ppc_summary</a></span><span class="op">(</span><span class="va">posterior</span><span class="op">)</span>
@@ -279,8 +279,8 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 <p>Here we see that the model appears to be fitting well (at least based on the posterior predictive check) and that only about 1.5% of observations fall outside of the 95% posterior predictive density (this is good).</p>
 <p>Some readers will look at the above <code>ppc</code> plots and think “looks like over-fitting.” However, note that there are two ways of using <code>ppc</code>. One is to predict the counts based on the samples of <span class="math inline">\(\eta\)</span> (Eta; as we did above); the other is to predict “from scratch” that is to predict starting form the posterior samples of <span class="math inline">\(\Lambda\)</span> (Lambda) then sampling <span class="math inline">\(\eta\)</span> and only then sampling <span class="math inline">\(Y\)</span>. This later functionality can be accessed by also passing the parameters <code>from_scratch=TRUE</code> to the <code>ppc</code> function. Note: these two posterior predictive checks have different meanings, one is not better than the other.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ppc.html">ppc</a></span><span class="op">(</span><span class="va">posterior</span>, from_scratch<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30000</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction-to-fido_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/ppc.html">ppc</a></span><span class="op">(</span><span class="va">posterior</span>, from_scratch<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30000</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="unnamed-chunk-12-1.png"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ppc_summary.html">ppc_summary</a></span><span class="op">(</span><span class="va">posterior</span>, from_scratch<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; Proportions of Observations within 95% Credible Interval: 0.9722449</span></code></pre></div>
@@ -290,9 +290,9 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 <span class="va">focus</span> <span class="op">&lt;-</span> <span class="va">posterior_summary</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">posterior_summary</span><span class="op">$</span><span class="va">p2.5</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">posterior_summary</span><span class="op">$</span><span class="va">p97.5</span><span class="op">)</span>,<span class="op">]</span>
 <span class="va">focus</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">focus</span><span class="op">$</span><span class="va">coord</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">posterior</span>, par<span class="op">=</span><span class="st">"Lambda"</span>, focus.coord <span class="op">=</span> <span class="va">focus</span>, focus.cov <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour',</span>
-<span class="co">#&gt; which will replace the existing scale.</span></code></pre></div>
-<p><img src="introduction-to-fido_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
+<span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour', which will</span>
+<span class="co">#&gt; replace the existing scale.</span></code></pre></div>
+<p><img src="unnamed-chunk-13-1.png"></p>
 <p>The first, and most obvious ting to notice is that the covariate <code>age</code> has pretty much no effect at all, whatever effect it may have is incredibly weak. So we are going to remove age from the plot and just look at those coordinates with non-zero effect for diagnosis CD</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">posterior_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">posterior_summary</span>, <span class="va">covariate</span><span class="op">==</span><span class="st">"diagnosisCD"</span><span class="op">)</span> 
@@ -301,38 +301,38 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 
 <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/tax_table-methods.html" class="external-link">tax_table</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/taxa_names-methods.html" class="external-link">taxa_names</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="../reference/name_dims.html">names_coords</a></span><span class="op">(</span><span class="va">posterior</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">focus</span><span class="op">)</span><span class="op">]</span><span class="op">]</span>
 <span class="co">#&gt; Taxonomy Table:     [13 taxa by 7 taxonomic ranks]:</span>
-<span class="co">#&gt;         Kingdom    Phylum           Class                  </span>
-<span class="co">#&gt; 74305   "Bacteria" "Proteobacteria" "Epsilonproteobacteria"</span>
-<span class="co">#&gt; 4449236 "Bacteria" "Proteobacteria" "Betaproteobacteria"   </span>
-<span class="co">#&gt; 1105919 "Bacteria" "Proteobacteria" "Betaproteobacteria"   </span>
-<span class="co">#&gt; 4477696 "Bacteria" "Proteobacteria" "Gammaproteobacteria"  </span>
-<span class="co">#&gt; 4448331 "Bacteria" "Proteobacteria" "Gammaproteobacteria"  </span>
-<span class="co">#&gt; 4154872 "Bacteria" "Bacteroidetes"  "Flavobacteriia"       </span>
-<span class="co">#&gt; 4452538 "Bacteria" "Fusobacteria"   "Fusobacteriia"        </span>
-<span class="co">#&gt; 341322  "Bacteria" "Firmicutes"     "Bacilli"              </span>
-<span class="co">#&gt; 1015143 "Bacteria" "Firmicutes"     "Bacilli"              </span>
-<span class="co">#&gt; 176318  "Bacteria" "Firmicutes"     "Clostridia"           </span>
-<span class="co">#&gt; 1788466 "Bacteria" "Firmicutes"     "Clostridia"           </span>
-<span class="co">#&gt; 1896700 "Bacteria" "Firmicutes"     "Clostridia"           </span>
-<span class="co">#&gt; 191718  "Bacteria" "Firmicutes"     "Erysipelotrichi"      </span>
-<span class="co">#&gt;         Order                Family                  Genus Species</span>
-<span class="co">#&gt; 74305   "Campylobacterales"  "Helicobacteraceae"     NA    NA     </span>
-<span class="co">#&gt; 4449236 "Burkholderiales"    "Alcaligenaceae"        NA    NA     </span>
-<span class="co">#&gt; 1105919 "Burkholderiales"    "Oxalobacteraceae"      NA    NA     </span>
-<span class="co">#&gt; 4477696 "Pasteurellales"     "Pasteurellaceae"       NA    NA     </span>
-<span class="co">#&gt; 4448331 "Enterobacteriales"  "Enterobacteriaceae"    NA    NA     </span>
-<span class="co">#&gt; 4154872 "Flavobacteriales"   "[Weeksellaceae]"       NA    NA     </span>
-<span class="co">#&gt; 4452538 "Fusobacteriales"    "Fusobacteriaceae"      NA    NA     </span>
-<span class="co">#&gt; 341322  "Turicibacterales"   "Turicibacteraceae"     NA    NA     </span>
-<span class="co">#&gt; 1015143 "Gemellales"         "Gemellaceae"           NA    NA     </span>
-<span class="co">#&gt; 176318  "Clostridiales"      "Christensenellaceae"   NA    NA     </span>
-<span class="co">#&gt; 1788466 "Clostridiales"      "Lachnospiraceae"       NA    NA     </span>
-<span class="co">#&gt; 1896700 "Clostridiales"      "Peptostreptococcaceae" NA    NA     </span>
-<span class="co">#&gt; 191718  "Erysipelotrichales" "Erysipelotrichaceae"   NA    NA</span>
+<span class="co">#&gt;         Kingdom    Phylum           Class                   Order               </span>
+<span class="co">#&gt; 74305   "Bacteria" "Proteobacteria" "Epsilonproteobacteria" "Campylobacterales" </span>
+<span class="co">#&gt; 4449236 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"   </span>
+<span class="co">#&gt; 1105919 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"   </span>
+<span class="co">#&gt; 4477696 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Pasteurellales"    </span>
+<span class="co">#&gt; 4448331 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Enterobacteriales" </span>
+<span class="co">#&gt; 4154872 "Bacteria" "Bacteroidetes"  "Flavobacteriia"        "Flavobacteriales"  </span>
+<span class="co">#&gt; 4452538 "Bacteria" "Fusobacteria"   "Fusobacteriia"         "Fusobacteriales"   </span>
+<span class="co">#&gt; 341322  "Bacteria" "Firmicutes"     "Bacilli"               "Turicibacterales"  </span>
+<span class="co">#&gt; 1015143 "Bacteria" "Firmicutes"     "Bacilli"               "Gemellales"        </span>
+<span class="co">#&gt; 176318  "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     </span>
+<span class="co">#&gt; 1788466 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     </span>
+<span class="co">#&gt; 1896700 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     </span>
+<span class="co">#&gt; 191718  "Bacteria" "Firmicutes"     "Erysipelotrichi"       "Erysipelotrichales"</span>
+<span class="co">#&gt;         Family                  Genus Species</span>
+<span class="co">#&gt; 74305   "Helicobacteraceae"     NA    NA     </span>
+<span class="co">#&gt; 4449236 "Alcaligenaceae"        NA    NA     </span>
+<span class="co">#&gt; 1105919 "Oxalobacteraceae"      NA    NA     </span>
+<span class="co">#&gt; 4477696 "Pasteurellaceae"       NA    NA     </span>
+<span class="co">#&gt; 4448331 "Enterobacteriaceae"    NA    NA     </span>
+<span class="co">#&gt; 4154872 "[Weeksellaceae]"       NA    NA     </span>
+<span class="co">#&gt; 4452538 "Fusobacteriaceae"      NA    NA     </span>
+<span class="co">#&gt; 341322  "Turicibacteraceae"     NA    NA     </span>
+<span class="co">#&gt; 1015143 "Gemellaceae"           NA    NA     </span>
+<span class="co">#&gt; 176318  "Christensenellaceae"   NA    NA     </span>
+<span class="co">#&gt; 1788466 "Lachnospiraceae"       NA    NA     </span>
+<span class="co">#&gt; 1896700 "Peptostreptococcaceae" NA    NA     </span>
+<span class="co">#&gt; 191718  "Erysipelotrichaceae"   NA    NA</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">posterior</span>, par<span class="op">=</span><span class="st">"Lambda"</span>, focus.coord <span class="op">=</span> <span class="va">focus</span>, focus.cov <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour',</span>
-<span class="co">#&gt; which will replace the existing scale.</span></code></pre></div>
-<p><img src="introduction-to-fido_files/figure-html/unnamed-chunk-14-1.png" width="672"></p>
+<span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour', which will</span>
+<span class="co">#&gt; replace the existing scale.</span></code></pre></div>
+<p><img src="unnamed-chunk-14-1.png"></p>
 </div>
 <div class="section level2">
 <h2 id="more-technical-details">More Technical Details<a class="anchor" aria-label="anchor" href="#more-technical-details"></a>
@@ -402,7 +402,7 @@ Silverman, Justin D., Kimberly Roche, Zachary C. Holmes, Lawrence A. David, and 
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Justin Silverman.</p>
+<p>Developed by Justin Silverman, Michelle Nixon.</p>
 </div>
 
 <div class="pkgdown">

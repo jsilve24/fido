@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Transform Lambda into IQLR (Inter-Quantile Log-Ratio)</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/jsilve24/fido/blob/HEAD/R/iqlr.R" class="external-link"><code>R/iqlr.R</code></a></small>
     <div class="hidden name"><code>lambda_to_iqlr.Rd</code></div>
     </div>
 
@@ -162,80 +162,12 @@ assumption that only small group of categories (e.g., taxa / genes) are changing
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> </span>
+<span class="r-in"><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_fit.html">pibble</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span>
 <span class="r-in"><span class="co"># Use first two covariates to define iqlr, just show first 5 samples</span></span>
 <span class="r-in"><span class="fu">lambda_to_iqlr</span><span class="op">(</span><span class="va">fit</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">[</span>,,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> , , 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]       [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] -0.34085542 -3.8262724</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.65521311 -0.2299913</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -1.51236759 -0.1912854</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -0.86328821  0.8835713</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  1.07546659  0.6130085</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.02391106 -0.9111939</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  0.02558444 -0.6607594</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  1.04127226 -2.7342931</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -0.21831211 -0.1917318</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  0.13770210 -1.0905034</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> , , 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.2959011 -2.1346172</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  1.1899143  0.6998470</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -1.2812598 -0.2148892</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -0.1196611  0.8513105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  1.4678420  0.7628609</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  0.7123818 -0.1768804</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  0.2110066 -1.3362684</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  0.5862688 -2.4576502</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -0.2073753 -0.1258611</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  0.2974382 -0.4660956</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> , , 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]       [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] -0.02466292 -0.8301030</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.42313072  1.1722792</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -1.49002294  0.7205505</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -0.53122312  0.8252696</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  2.02374284  2.2710727</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  0.53821319  0.1589072</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  0.31345736 -1.8299493</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  0.87325832 -1.0819832</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -0.31737227  1.0868167</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  0.31042048  0.2414192</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> , , 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.5631708 -2.3529008</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.6242278  0.6506882</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -0.6288636 -1.1270223</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -0.3395693  0.1216993</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  2.4901385  1.1177993</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  1.3378316 -1.0991444</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  1.2153586 -1.8559977</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  1.4943762 -3.0222119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  0.3442051  0.3546348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  0.8997580 -0.7753309</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> , , 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]        [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] -0.20592240 -2.47387682</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] -0.05849949  0.51183939</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -1.76336681  1.45214493</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -0.98134747 -0.30049209</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  1.12006698  1.04871811</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  0.30040662 -0.09324360</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] -0.08022002 -1.26006542</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  0.63166239 -2.19331763</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -0.84046256 -0.02652284</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] -0.16444434 -0.37527374</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -247,7 +179,7 @@ assumption that only small group of categories (e.g., taxa / genes) are changing
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Justin Silverman.</p>
+  <p></p><p>Developed by Justin Silverman, Michelle Nixon.</p>
 </div>
 
 <div class="pkgdown">
