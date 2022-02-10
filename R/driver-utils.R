@@ -299,6 +299,7 @@ vec_to_mat <- function(x){
   x
 }
 
+#' @importFrom rlang :=
 array_apply_1D_function <- function(a, dimno, f, dimname=NULL){
   
   d <- dim(a)
@@ -310,8 +311,9 @@ array_apply_1D_function <- function(a, dimno, f, dimname=NULL){
   dn <- dimnames(a)
   
   # Actual Computation
+  var <- "var"
   ga <- a %>%
-    gather_array() %>%
+    gather_array(!!var) %>%
     spread(!!sdim, var)
   
   indicies <- ga %>%
