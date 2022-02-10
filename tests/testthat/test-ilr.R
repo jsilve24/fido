@@ -1,5 +1,4 @@
 test_that("ilr plus summary works", {
-  library(MicrobeDS)
   library(phyloseq)
   library(dplyr)
   
@@ -10,7 +9,6 @@ test_that("ilr plus summary works", {
 })
 
 test_that("clr plus summary works", {
-  library(MicrobeDS)
   library(phyloseq)
   library(dplyr)
   
