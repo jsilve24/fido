@@ -14,7 +14,7 @@ Maintainer: Michelle Nixon
 Description: Provides methods for fitting and inspection of Bayesian Multinomial Logistic Normal Models using MAP estimation 
  and Laplace Approximation as developed in Silverman et. Al. (2022) <https://www.jmlr.org/papers/v23/19-882.html>. Key functionality is implemented in C++ for 
  scalability. fido replaces the previous package stray.
-License: GPL-3 + file LICENSE
+License: GPL-3
 URL: https://jsilve24.github.io/fido/
 Depends: R (>= 4.1.0)
 Imports: Rcpp (>= 0.12.17), dplyr, ggplot2, 
@@ -36,3 +36,4 @@ BugReports: https://github.com/jsilve24/fido/issues
 Encoding: UTF-8
 Remotes:
     twbattaglia/MicrobeDS
+
