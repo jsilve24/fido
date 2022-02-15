@@ -22,7 +22,13 @@ using Eigen::VectorXd;
 //' @param eta matrix (D-1)xN of parameter values at which to calculate quantities
 //' @param sylv (default:false) if true and if N < D-1 will use sylvester determinant
 //'   identity to speed computation
-//' @param ell P-vector of scale factors for each variance component (aka VCScale) 
+//' @param ell P-vector of scale factors for each variance component (aka VCScale)
+//' //' @return see below
+//'   \itemize{
+//'     \item loglikMaltipooCollapsed - double
+//'     \item gradMaltipooCollapsed - vector
+//'     \item hessMaltipooCollapsed- matrix
+//'   } 
 //' @name loglikMaltipooCollapsed
 //' @export
 // [[Rcpp::export]]

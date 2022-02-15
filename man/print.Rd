@@ -11,12 +11,15 @@ print(x, ...)
 
 \item{...}{other arguments to pass to summary function}
 }
+\value{
+No direct value, but a print out
+}
 \description{
 Print dimensions and coordinate system information for an orthusfit or pibblefit object.
 }
 \examples{
-\dontrun{
-fit <- pibble(Y, X)
+sim <- pibble_sim()
+fit <- pibble(sim$Y, sim$X)
 print(fit)
-}
+
 }

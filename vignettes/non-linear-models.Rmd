@@ -144,7 +144,7 @@ Now I am going to create a visual that shows the observed data in CLR coordinate
 (to do that I will need to add a pseudo-count) along with the smoothed estimates. 
 ```{r fig.height=5, fig.width=7}
 family_names <- as(tax_table(mallard_family)[,"Family"], "vector")
-Y_clr_tidy <- fido:::clr_array(Y+0.65, parts = 1) %>% 
+Y_clr_tidy <- clr_array(Y+0.65, parts = 1) %>% 
   gather_array(mean, coord, sample) %>% 
   mutate(time = X[1,sample], 
          coord = paste0("CLR(", family_names[coord],")"))

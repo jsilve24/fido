@@ -170,6 +170,7 @@ new_orthusfit <- function(D, N, Q, P, coord_system, iter=NULL,
 
 #' convert list to pibblefit
 #' @param object list object
+#' @return A pibblefit object
 as.pibblefit <- function(object){
   class(object) <- "pibblefit"
   verify(object)
@@ -178,6 +179,7 @@ as.pibblefit <- function(object){
 
 #' convert list to orthusfit
 #' @param object list object
+#' @return An orthusfit object
 as.orthusfit <- function(object){
   class(object) <- "orthusfit"
   verify(object)
@@ -276,6 +278,7 @@ verify.orthusfit <- function(m,...){
 
 #' require elements to be non-null in pibblefit or throw error
 #' @inheritParams req
+#' @return Nothing, throws an error if NULL
 #' @export 
 req.pibblefit<- function(m, r){
   present <- sapply(m[r], is.null)
@@ -286,6 +289,7 @@ req.pibblefit<- function(m, r){
 
 #' require elements to be non-null in orthusfit or throw error
 #' @inheritParams req
+#' @return None, throws an error if NULL
 #' @export 
 req.orthusfit<- function(m, r){
   req.pibblefit(m,r) # this works here

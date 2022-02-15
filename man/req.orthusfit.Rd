@@ -11,6 +11,9 @@
 
 \item{r}{vector of elements to test for}
 }
+\value{
+None, throws an error if NULL
+}
 \description{
 require elements to be non-null in orthusfit or throw error
 }

@@ -11,12 +11,9 @@
 
 \item{...}{currently unused}
 }
+\value{
+A list of the converted orthusfit object
+}
 \description{
 Convert object of class orthusfit to a list
-}
-\examples{
-\dontrun{
-fit <- orthus(Y, Z, X)
-as.list(fit)
-}
 }

@@ -9,6 +9,9 @@ as.orthusfit(object)
 \arguments{
 \item{object}{list object}
 }
+\value{
+An orthusfit object
+}
 \description{
 convert list to orthusfit
 }

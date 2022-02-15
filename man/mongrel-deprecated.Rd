@@ -43,6 +43,9 @@ essentially iid on "base scale" using Aitchison terminology)}
 \item{...}{arguments passed to \code{\link{optimPibbleCollapsed}} and
 \code{\link{uncollapsePibble}}}
 }
+\value{
+An object of class pibblefit
+}
 \description{
 This function is deprecated, please use \code{pibble} 
 instead.

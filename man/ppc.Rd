@@ -11,6 +11,9 @@ ppc(m, ...)
 
 \item{...}{other arguments passed that control visualization}
 }
+\value{
+A plot
+}
 \description{
 Generic method for visualizing posterior predictive checks
 }

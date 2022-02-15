@@ -71,12 +71,10 @@ pibble_tidy_samples<- function(m, use_names=FALSE, as_factor=FALSE){
 #' @export
 #' @return tibble
 #' @examples 
-#' \dontrun{
 #' sim <- orthus_sim()
 #' fit <- orthus(sim$Y, sim$Z, sim$X)
 #' fit_tidy <- orthus_tidy_samples(fit, use_names=TRUE)
 #' head(fit_tidy)
-#' }
 orthus_tidy_samples<- function(m, use_names=FALSE, as_factor=FALSE){
   l <- list()
   if (!is.null(m$Eta)) l$Eta <- gather_array(m$Eta, .data$val, 
@@ -129,6 +127,7 @@ summary_check_precomputed <- function(m, pars){
 #' 
 #' @param object an object of class pibblefit or orthusfit
 #' @param ... other objects to be passed to `summary.pibblefit` or `summary.orthusfit`
+#' @return A list if class is `pibblefit` or `orthusfit`
 #' @export 
 summary <- function(object, ...){
   UseMethod("summary")
@@ -154,15 +153,8 @@ summary <- function(object, ...){
 #' @importFrom tidybayes mean_qi
 #' @importFrom dplyr group_by select ungroup
 #' @importFrom rlang syms
+#' @return A list
 #' @export
-#' @examples 
-#' \dontrun{
-#' fit <- pibble(Y, X)
-#' summary(fit, pars="Eta", median = median(val))
-#' 
-#' # Some later functions make use of precomputation
-#' fit$summary <- summary(fit)
-#' }
 summary.pibblefit <- function(object, pars=NULL, use_names=TRUE, as_factor=FALSE, 
                                gather_prob=FALSE, ...){
   if (is.null(pars)) {
@@ -236,15 +228,8 @@ summary.pibblefit <- function(object, pars=NULL, use_names=TRUE, as_factor=FALSE
 #' @importFrom tidybayes mean_qi
 #' @importFrom dplyr group_by select ungroup
 #' @importFrom rlang syms
+#' @return A list
 #' @export
-#' @examples 
-#' \dontrun{
-#' fit <- orthus(Y, Z, X)
-#' summary(fit, pars="Eta", median = median(val))
-#' 
-#' # Some later functions make use of precomputation
-#' fit$summary <- summary(fit)
-#' }
 summary.orthusfit <- function(object, pars=NULL, use_names=TRUE, as_factor=FALSE, 
                               gather_prob=FALSE, ...){
   if (is.null(pars)) {
@@ -304,12 +289,13 @@ summary.orthusfit <- function(object, pars=NULL, use_names=TRUE, as_factor=FALSE
 #'
 #' @param x an object of class pibblefit or orthusfit
 #' @param ... other arguments to pass to summary function
+#' @return No direct value, but a print out
 #' @export
 #' @examples 
-#' \dontrun{
-#' fit <- pibble(Y, X)
+#' sim <- pibble_sim()
+#' fit <- pibble(sim$Y, sim$X)
 #' print(fit)
-#' }
+#' 
 print <- function(x, ...){
   UseMethod("print")
 }
@@ -320,12 +306,13 @@ print <- function(x, ...){
 #' @param x an object of class pibblefit
 #' @param summary if true also calculates and prints summary
 #' @param ... other arguments to pass to summary function
+#' @return No direct return, prints out summary
 #' @export
 #' @examples 
-#' \dontrun{
-#' fit <- pibble(Y, X)
+#' sim <- pibble_sim()
+#' fit <- pibble(sim$Y, sim$X)
 #' print(fit)
-#' }
+#'
 #' @seealso \code{\link{summary.pibblefit}} summarizes posterior intervals 
 print.pibblefit <- function(x, summary=FALSE, ...){
   if (is.null(x$Y)) {
@@ -370,12 +357,12 @@ print.pibblefit <- function(x, summary=FALSE, ...){
 #' @param x an object of class orthusfit
 #' @param summary if true also calculates and prints summary
 #' @param ... other arguments to pass to summary function
+#' @return No direct return, prints out summary
 #' @export
 #' @examples 
-#' \dontrun{
-#' fit <- orthus(Y, Z, X)
+#' sim <- orthus_sim()
+#' fit <- orthus(sim$Y, sim$Z, sim$X)
 #' print(fit)
-#' }
 #' @seealso \code{\link{summary.orthusfit}} summarizes posterior intervals 
 print.orthusfit <- function(x, summary=FALSE, ...){
   if (is.null(x$Y)) {
@@ -425,10 +412,10 @@ print.orthusfit <- function(x, summary=FALSE, ...){
 #'
 #' @export
 #' @examples 
-#' \dontrun{
-#' fit <- pibble(Y, X)
+#' sim <- pibble_sim()
+#' fit <- pibble(sim$Y, sim$X)
 #' coef(fit)
-#' } 
+#' 
 coef <- function(object, ...){
   UseMethod("coef")
 }
@@ -451,12 +438,6 @@ coef <- function(object, ...){
 #' }
 #' 
 #' @export
-#' 
-#' @examples 
-#' \dontrun{
-#' fit <- pibble(Y, X)
-#' coef(fit)
-#' }
 coef.pibblefit <- function(object, ...){
   args <- list(...)
   use_names <- args_null("use_names", args, TRUE)
@@ -484,12 +465,6 @@ coef.pibblefit <- function(object, ...){
 #' }
 #' 
 #' @export
-#' 
-#' @examples 
-#' \dontrun{
-#' fit <- orthus(Y, Z, X)
-#' coef(fit)
-#' }
 coef.orthusfit <- function(object, ...){
   args <- list(...)
   use_names <- args_null("use_names", args, TRUE)
@@ -517,13 +492,9 @@ as.list <- function(x, ...){
 #' 
 #' @param x an object of class pibblefit
 #' @param ... currently unused
+#' @return A list from the converted pibblefit object.
 #' 
 #' @export
-#' @examples 
-#' \dontrun{
-#' fit <- pibble(Y, X)
-#' as.list(fit)
-#' }
 as.list.pibblefit <- function(x,...){
   attr(x, "class") <- "list"
   return(x)
@@ -535,13 +506,9 @@ as.list.pibblefit <- function(x,...){
 #' 
 #' @param x an object of class orthusfit
 #' @param ... currently unused
+#' @return A list of the converted orthusfit object
 #' 
 #' @export
-#' @examples 
-#' \dontrun{
-#' fit <- orthus(Y, Z, X)
-#' as.list(fit)
-#' }
 as.list.orthusfit <- function(x,...){
   attr(x, "class") <- "list"
   return(x)
@@ -838,6 +805,7 @@ names_coords.pibblefit <- function(m){
 #' @param ... currently ignored
 #' @export
 #' @importFrom stats rWishart
+#' @return A pibblefit object
 #' 
 #' @details Could be greatly speed up in the future if needed by sampling
 #' directly from cholesky form of inverse wishart (currently implemented as 

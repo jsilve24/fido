@@ -23,6 +23,9 @@
 
 \item{...}{currently ignored}
 }
+\value{
+A pibblefit object
+}
 \description{
 Note this can be used to sample from prior and then predict can
 be called to get counts or LambdaX (\code{\link{predict.pibblefit}})

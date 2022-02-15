@@ -61,6 +61,7 @@ verify.maltipoofit <- function(m,...){
 
 #' require elements to be non-null in pibblefit or throw error
 #' @inheritParams req
+#' @return Throws an error if null
 #' @export 
 req.maltipoofit <- function(m, r){
   present <- sapply(m[r], is.null)

@@ -19,16 +19,6 @@
 #' 
 #' @return object
 #' @name fido_transforms
-#' @examples
-#' \dontrun{
-#' m <- pibble(Y, X)
-#' m.prop <- to_proportions(m)
-#' # convert back to default coordinates (alr with D-th part as reference)
-#' m <- to_alr(m.prop, ncategories(m))
-#' V <- create_default_ilr_base(ncategories(m))
-#' m.ilr <- to_ilr(m, V)
-#' m.clr <- to_clr(m)
-#' }
 NULL
 
 

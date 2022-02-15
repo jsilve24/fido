@@ -18,8 +18,8 @@ Array of dimension (D-1) x Q x iter
 Return regression coefficients of pibblefit or orthusfit object
 }
 \examples{
-\dontrun{
-fit <- pibble(Y, X)
+sim <- pibble_sim()
+fit <- pibble(sim$Y, sim$X)
 coef(fit)
-} 
+
 }

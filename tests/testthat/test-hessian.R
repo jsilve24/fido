@@ -20,7 +20,7 @@ mult_nll <- function(eta, Y, X, upsilon, Theta, Xi, Gamma){
   N <- ncol(Y)
   nll <- 0
   eta <- matrix(eta, D-1, N)
-  pi <- t(fido:::alrInv(t(eta)))
+  pi <- t(alrInv(t(eta)))
   for (i in 1:N){
     nll <- nll - dmultinom(Y[,i], prob=pi[,i], log=TRUE) # NEGATIVE!
   }

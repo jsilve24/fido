@@ -13,14 +13,16 @@
 
 \item{...}{other arguments to pass to summary function}
 }
+\value{
+No direct return, prints out summary
+}
 \description{
 Print dimensions and coordinate system information for orthusfit object.
 }
 \examples{
-\dontrun{
-fit <- orthus(Y, Z, X)
+sim <- orthus_sim()
+fit <- orthus(sim$Y, sim$Z, sim$X)
 print(fit)
-}
 }
 \seealso{
 \code{\link{summary.orthusfit}} summarizes posterior intervals

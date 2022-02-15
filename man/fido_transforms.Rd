@@ -65,14 +65,3 @@ matrix represented in terms of proportions. As such the function
 \code{to_proportions} does not attempt to transform parameters Sigma
 or prior Xi and instead just removes them from the pibblefit object returned.
 }
-\examples{
-\dontrun{
-m <- pibble(Y, X)
-m.prop <- to_proportions(m)
-# convert back to default coordinates (alr with D-th part as reference)
-m <- to_alr(m.prop, ncategories(m))
-V <- create_default_ilr_base(ncategories(m))
-m.ilr <- to_ilr(m, V)
-m.clr <- to_clr(m)
-}
-}

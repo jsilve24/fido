@@ -56,11 +56,3 @@ An alternative approach to accessing these dimensions is to
 * \code{nsamples} is equivalent to \code{m$N}
 * \code{ncovariates} is equivalent to \code{m$Q}
 }
-\examples{
-\dontrun{
-m <- pibble(Y, X)
-ncategories(m)
-nsamples(m)
-ncovariates(m)
-}
-}

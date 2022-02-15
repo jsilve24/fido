@@ -132,10 +132,10 @@ plot_mf_sigma <- function(m, focus.coord=NULL, use_names=TRUE){
 #'   predictions of Eta from posterior of Lambda? (default: false)
 #' }
 #' @examples 
-#' \dontrun{
-#' fit <- pibble(Y, X)
+#' sim <- pibble_sim()
+#' fit <- pibble(sim$Y, sim$X)
 #' ppc(fit)
-#' }
+#' 
 ppc.pibblefit <- function(m, ...){
   args <- list(...)
   type <- args_null("type", args, "bounds")

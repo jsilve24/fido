@@ -41,6 +41,9 @@ matrix.}
 
 \item{y}{orthus data array (e.g., first s rows are multinomial parameters or log-ratios)}
 }
+\value{
+A matrix
+}
 \description{
 Log-Ratio transforms for orthus objects
 }

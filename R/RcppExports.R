@@ -28,7 +28,7 @@
 #' @md
 #' @examples
 #' sim <- pibble_sim()
-#' eta.hat <- t(fido:::alr(t(sim$Y+0.65)))
+#' eta.hat <- t(alr(t(sim$Y+0.65)))
 #' fit <- conjugateLinearModel(eta.hat, sim$X, sim$Theta, sim$Gamma, 
 #'                             sim$Xi, sim$upsilon, n_samples=2000)
 conjugateLinearModel <- function(Y, X, Theta, Gamma, Xi, upsilon, n_samples = 2000L) {
@@ -49,7 +49,13 @@ conjugateLinearModel <- function(Y, X, Theta, Gamma, Xi, upsilon, n_samples = 20
 #' @param eta matrix (D-1)xN of parameter values at which to calculate quantities
 #' @param sylv (default:false) if true and if N < D-1 will use sylvester determinant
 #'   identity to speed computation
-#' @param ell P-vector of scale factors for each variance component (aka VCScale) 
+#' @param ell P-vector of scale factors for each variance component (aka VCScale)
+#' //' @return see below
+#'   \itemize{
+#'     \item loglikMaltipooCollapsed - double
+#'     \item gradMaltipooCollapsed - vector
+#'     \item hessMaltipooCollapsed- matrix
+#'   } 
 #' @name loglikMaltipooCollapsed
 #' @export
 loglikMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv = FALSE) {
@@ -192,7 +198,7 @@ optimMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, init, ellinit,
 #' X <- matrix(rnorm(N*(Q-1)), Q-1, N)
 #' X <- rbind(1, X)
 #' Eta <- Phi%*%X + t(chol(Sigma))%*%matrix(rnorm(N*(D-1)), nrow=D-1)
-#' Pi <- t(fido:::alrInv(t(Eta)))
+#' Pi <- t(alrInv(t(Eta)))
 #' Y <- matrix(0, D, N)
 #' for (i in 1:N) Y[,i] <- rmultinom(1, sample(5000:10000), prob = Pi[,i])
 #'
@@ -420,6 +426,7 @@ rMatUnitNormal_test2 <- function(n) {
 #' Log of Multivarate Gamma Function - Gamma_p(a)
 #' @param a defined by Gamma_p(a)
 #' @param p defined by Gamma_p(a)
+#' @return Numeric
 #' @references https://en.wikipedia.org/wiki/Multivariate_gamma_function
 lmvgamma <- function(a, p) {
     .Call('_fido_lmvgamma', PACKAGE = 'fido', a, p)
@@ -428,6 +435,7 @@ lmvgamma <- function(a, p) {
 #' Derivative of Log of Multivariate Gamma Function - Gamma_p(a)
 #' @param a defined by Gamma_p(a)
 #' @param p defined by Gamma_p(a)
+#' @return Numeric
 #' @references https://en.wikipedia.org/wiki/Multivariate_gamma_function
 lmvgamma_deriv <- function(a, p) {
     .Call('_fido_lmvgamma_deriv', PACKAGE = 'fido', a, p)

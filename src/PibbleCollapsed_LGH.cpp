@@ -49,7 +49,7 @@ using Eigen::VectorXd;
 //' X <- matrix(rnorm(N*(Q-1)), Q-1, N)
 //' X <- rbind(1, X)
 //' Eta <- Phi%*%X + t(chol(Sigma))%*%matrix(rnorm(N*(D-1)), nrow=D-1)
-//' Pi <- t(fido:::alrInv(t(Eta)))
+//' Pi <- t(alrInv(t(Eta)))
 //' Y <- matrix(0, D, N)
 //' for (i in 1:N) Y[,i] <- rmultinom(1, sample(5000:10000), prob = Pi[,i])
 //'

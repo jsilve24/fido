@@ -11,6 +11,9 @@
 
 \item{r}{vector of elements to test for}
 }
+\value{
+Throws an error if null
+}
 \description{
 require elements to be non-null in pibblefit or throw error
 }

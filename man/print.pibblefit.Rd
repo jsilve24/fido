@@ -13,14 +13,17 @@
 
 \item{...}{other arguments to pass to summary function}
 }
+\value{
+No direct return, prints out summary
+}
 \description{
 Print dimensions and coordinate system information for pibblefit object.
 }
 \examples{
-\dontrun{
-fit <- pibble(Y, X)
+sim <- pibble_sim()
+fit <- pibble(sim$Y, sim$X)
 print(fit)
-}
+
 }
 \seealso{
 \code{\link{summary.pibblefit}} summarizes posterior intervals

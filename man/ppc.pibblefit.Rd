@@ -29,8 +29,8 @@ ppc.pibblefit accepts the following additional arguments:
 }
 }
 \examples{
-\dontrun{
-fit <- pibble(Y, X)
+sim <- pibble_sim()
+fit <- pibble(sim$Y, sim$X)
 ppc(fit)
-}
+
 }

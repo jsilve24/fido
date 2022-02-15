@@ -66,6 +66,7 @@ refit <- function(m, ...){
 #' Generic method for visualizing posterior predictive checks
 #' @param m object
 #' @param ... other arguments passed that control visualization
+#' @return A plot
 #' @export
 ppc <- function(m, ...){
   UseMethod("ppc", m)
@@ -82,13 +83,6 @@ ppc <- function(m, ...){
 #' * \code{ncovariates} is equivalent to \code{m$Q}
 #' @return integer 
 #' @name access_dims
-#' @examples 
-#' \dontrun{
-#' m <- pibble(Y, X)
-#' ncategories(m)
-#' nsamples(m)
-#' ncovariates(m)
-#' }
 NULL
 
 #' @rdname access_dims
@@ -120,6 +114,7 @@ niter <- function(m){
 #' 
 #' @param m object
 #' @param value character vector (or NULL)
+#' @return A vector of names
 #' @name name_dims
 #' 
 #' @details \code{names_coords} is different than \code{names_categories}. 

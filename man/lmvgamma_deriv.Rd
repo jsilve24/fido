@@ -11,6 +11,9 @@ lmvgamma_deriv(a, p)
 
 \item{p}{defined by Gamma_p(a)}
 }
+\value{
+Numeric
+}
 \description{
 Derivative of Log of Multivariate Gamma Function - Gamma_p(a)
 }

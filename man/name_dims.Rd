@@ -51,6 +51,9 @@ names_categories(m) <- value
 
 \item{value}{character vector (or NULL)}
 }
+\value{
+A vector of names
+}
 \description{
 Generic method for getting and setting dimension names of fit object
 }

@@ -30,15 +30,9 @@ wide (useful for some plotting functions)}
 \item{...}{other expressions to pass to summarise (using name 'val' unquoted is 
 probably what you want)}
 }
+\value{
+A list
+}
 \description{
 Default calculates median, mean, 50\% and 95\% credible interval
-}
-\examples{
-\dontrun{
-fit <- pibble(Y, X)
-summary(fit, pars="Eta", median = median(val))
-
-# Some later functions make use of precomputation
-fit$summary <- summary(fit)
-}
 }

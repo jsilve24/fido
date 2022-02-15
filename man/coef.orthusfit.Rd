@@ -26,9 +26,3 @@ call to \code{\link{pibble}}, should these names be applied to output
 array. 
 }
 }
-\examples{
-\dontrun{
-fit <- orthus(Y, Z, X)
-coef(fit)
-}
-}

@@ -11,12 +11,9 @@
 
 \item{...}{currently unused}
 }
+\value{
+A list from the converted pibblefit object.
+}
 \description{
 Convert object of class pibblefit to a list
-}
-\examples{
-\dontrun{
-fit <- pibble(Y, X)
-as.list(fit)
-}
 }

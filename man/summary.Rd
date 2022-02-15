@@ -11,6 +11,9 @@ summary(object, ...)
 
 \item{...}{other objects to be passed to `summary.pibblefit` or `summary.orthusfit`}
 }
+\value{
+A list if class is `pibblefit` or `orthusfit`
+}
 \description{
 Default calculates median, mean, 50\% and 95\% credible interval
 }

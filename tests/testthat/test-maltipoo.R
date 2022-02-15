@@ -19,7 +19,7 @@ test_that("maltipoo wrapper correctness", {
   B <- Theta + t(chol(Sigma))%*%Z%*%chol(Gamma)
   Z <- matrix(rnorm(Q*(D-1)), D-1, N)
   Eta <- B%*%X + t(chol(Sigma))%*%Z
-  Pi <- fido:::alrInv_array(Eta, coords=1)
+  Pi <- alrInv_array(Eta, coords=1)
   Y <- matrix(0, D, N)
   for (i in 1:N){
     Y[,i] <- rmultinom(1, 10000, prob=Pi[,i])

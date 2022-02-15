@@ -40,12 +40,12 @@ Primarily intended for doing differential expression analysis under
 assumption that only small group of categories (e.g., taxa / genes) are changing
 }
 \examples{
-\dontrun{ 
+
 sim <- pibble_sim()
 fit <- pibble(sim$Y, sim$X)
 # Use first two covariates to define iqlr, just show first 5 samples
 lambda_to_iqlr(fit, 1:2)[,,1:5] 
-}
+
 
 }
 \references{

@@ -20,16 +20,6 @@
 #' @return Gram Matrix (N x N) (e.g., the Kernel evaluated at 
 #' each pair of points)
 #' @name kernels
-#' @examples
-#' \dontrun{
-#'   # Create Partial for use with basset
-#'   K <- function(X) SE(X, 2, .2)
-#'   
-#'   # Example use
-#'   X <- matrix(rnorm(10), 2, 5)
-#'   G <- K(X)
-#'   G # this is the gram matrix (the kernel evaluated on a finite set of points)
-#'   }
 NULL
 
 #' @rdname kernels

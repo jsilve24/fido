@@ -14,6 +14,7 @@ matrix_maintain_dim <- function(x){
 #' matrix.
 # @param inv for ALR and CLR, transformation matrix is different forward and inverse
 # @param D the number of parts (e.g., number of columns in untransformed data)
+#' @return A matrix
 #' @name orthus_lr_transforms
 NULL
 

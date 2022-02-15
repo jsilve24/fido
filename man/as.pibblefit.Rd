@@ -9,6 +9,9 @@ as.pibblefit(object)
 \arguments{
 \item{object}{list object}
 }
+\value{
+A pibblefit object
+}
 \description{
 convert list to pibblefit
 }

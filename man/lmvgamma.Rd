@@ -11,6 +11,9 @@ lmvgamma(a, p)
 
 \item{p}{defined by Gamma_p(a)}
 }
+\value{
+Numeric
+}
 \description{
 Log of Multivarate Gamma Function - Gamma_p(a)
 }

@@ -1,10 +1,20 @@
 ###Logratio functions
 
-
+#' Create a default ILR base
+#' @param D	the number of parts (e.g., number of columns in untransformed data)
+#' @return A matrix
+#' @export
 create_default_ilr_base <- function(D){
   qr.Q(qr(create_alr_base(D, D)))
 }
 
+#' Compute the ALR of a matrix
+#'
+#' @param x A matrix where the rows are the samples
+#' @param d Index of column used as a reference. Defaults to last column
+#'
+#' @return matrix
+#' @export
 alr <- function(x, d=NULL){
   x <- vec_to_mat(x)
   if (is.null(d)) d <- ncol(x)
@@ -12,7 +22,13 @@ alr <- function(x, d=NULL){
   glr(x, B)
 }
 
-
+#' Compute the inverse ALR of a matrix
+#'
+#' @param y An ALR transformed matrix
+#' @param d Index of column used as a reference. Defaults to last column
+#'
+#' @return matrix
+#' @export
 alrInv <- function(y, d=NULL){
   y <- vec_to_mat(y)
   if (is.null(d)) d <- ncol(y)+1
@@ -63,6 +79,13 @@ glr_array <- function(x, V, parts, dimname = colnames(V)){
   }
 }
 
+#' Compute the CLR of an array
+#'
+#' @param x multidimensional array in index
+#' @param parts index of dimension of `x` that represents parts
+#'
+#' @return array
+#' @export
 clr_array <- function(x, parts){
   n.parts <- dim(x)[parts]
   V <- create_clr_base(n.parts)
@@ -126,11 +149,27 @@ ilrInv_array <- function(y, V=NULL, coords){
   glrInv_array(y, V, coords)
 }
 
+#' Compute the ALR of an array
+#'
+#' @param x multidimensional array in simplex
+#' @param d Index of column used as a reference. Defaults to last column
+#' @param parts index of dimension of `x` that represents parts
+#'
+#' @return array
+#' @export
 alr_array <- function(x, d=dim(x)[parts], parts){
   B <- create_alr_base(dim(x)[parts], d, inv=FALSE)
   glr_array(x, B, parts)
 }
 
+#' Compute the ALR of an array
+#'
+#' @param y multidimensional ALR transformed array
+#' @param d Index of column used as a reference. Defaults to last column
+#' @param coords index of dimension of `x` that represents coordinates
+#'
+#' @return array
+#' @export
 alrInv_array <- function(y, d=dim(y)[coords]+1, coords){
   B <- create_alr_base(dim(y)[coords]+1, d, inv=TRUE)
   glrInv_array(y, B, coords)

@@ -246,6 +246,7 @@ pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL
 #' @inheritParams pibble
 #' @description This function is deprecated, please use \code{pibble} 
 #' instead. 
+#' @return An object of class pibblefit
 #' @name mongrel-deprecated
 mongrel <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL,
                     init=NULL, 
