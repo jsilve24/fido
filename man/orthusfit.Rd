@@ -89,7 +89,7 @@ base D (used if coord_system=="proportions")}
 \item{names_covariates}{character vector}
 }
 \value{
-object of class pibblefit
+object of class orthusfit
 }
 \description{
 Create orthusfit object

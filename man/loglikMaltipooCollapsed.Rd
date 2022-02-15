@@ -27,16 +27,18 @@ hessMaltipooCollapsed(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv = FALSE)
 
 \item{eta}{matrix (D-1)xN of parameter values at which to calculate quantities}
 
-\item{ell}{P-vector of scale factors for each variance component (aka VCScale)
-//' @return see below
+\item{ell}{P-vector of scale factors for each variance component (aka VCScale)}
+
+\item{sylv}{(default:false) if true and if N < D-1 will use sylvester determinant
+identity to speed computation}
+}
+\value{
+see below
   \itemize{
     \item loglikMaltipooCollapsed - double
     \item gradMaltipooCollapsed - vector
     \item hessMaltipooCollapsed- matrix
-  }}
-
-\item{sylv}{(default:false) if true and if N < D-1 will use sylvester determinant
-identity to speed computation}
+  }
 }
 \description{
 Functions providing access to the Log Likelihood, Gradient, and Hessian

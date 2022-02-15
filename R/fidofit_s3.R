@@ -112,7 +112,7 @@ new_pibblefit <- function(D, N, Q, coord_system, iter=NULL,
 #' @param names_covariates character vector
 #' @param names_Zdimensions character vector
 #'
-#' @return object of class pibblefit
+#' @return object of class orthusfit
 #'
 #' @export 
 #' @seealso \code{\link{pibble}}

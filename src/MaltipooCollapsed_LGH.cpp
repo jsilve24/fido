@@ -23,7 +23,7 @@ using Eigen::VectorXd;
 //' @param sylv (default:false) if true and if N < D-1 will use sylvester determinant
 //'   identity to speed computation
 //' @param ell P-vector of scale factors for each variance component (aka VCScale)
-//' //' @return see below
+//' @return see below
 //'   \itemize{
 //'     \item loglikMaltipooCollapsed - double
 //'     \item gradMaltipooCollapsed - vector
