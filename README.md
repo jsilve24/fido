@@ -10,7 +10,7 @@ Multinomial Logistic-Normal Models (really fast) <br>
 *its a little **tar**-ball of joy*
 
 ## Citation ##
-Silverman, JD, Roche, K, Holmes, ZC, David, LA, and Mukherjee, S. Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes. 2019, arXiv e-prints, arXiv:1903.11695
+Silverman, JD, Roche, K, Holmes, ZC, David, LA, and Mukherjee, S. *Journal of Machine Learning Research*. 23(7), 2022:1−42.
 
 ## License ##
 All source code freely availale under [GPL-3 License](https://www.gnu.org/licenses/gpl-3.0.en.html). 
@@ -18,9 +18,9 @@ All source code freely availale under [GPL-3 License](https://www.gnu.org/licens
 ## Installation ##
 
 ``` r
-devtools::install_github("jsilve24/fido")
+install.packages("fido")
 ```
-Or to download the development version
+Or to download the development version from GitHub:
 
 ``` r
 devtools::install_github("jsilve24/fido", ref="develop")
@@ -28,6 +28,7 @@ devtools::install_github("jsilve24/fido", ref="develop")
 
 A few notes:
 
+* As of version 1.0.0, *fido* is now on [CRAN](https://cran.r-project.org/web/packages/fido/index.html). 
 * There are a few installation options that can greatly speed fido up (often by as much as 10-50 fold). For a more detailed description of installation, take a look at [the installation page](https://github.com/jsilve24/fido/wiki/Installation-Details). 
 * Vignettes are prebuilt on the [*fido* webpage](https://jsilve24.github.io/fido/). If you 
 want vignettes to build locally during package installation you must also pass the `build=TRUE` and `build_opts = c("--no-resave-data", "--no-manual")` options to `install_github`. 
