@@ -15,3 +15,5 @@ inst/doc
 /doc/
 /Meta/
 docs
+/configure~
+inst/include/fido.h
