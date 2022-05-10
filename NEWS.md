@@ -1,8 +1,9 @@
 # fido 1.0.1
 
-Minor bug fix 
+bug fixes 
 
 * Changing phyloseq from imports to depends, was causing issues installing from CRAN. 
+* Fixing bug in configure.ac that was causing openmp parallelization to not work on some machines. 
 
 # fido 1.0.0
 
