@@ -173,19 +173,19 @@ xcor <- fit$Sigma[1:D, D:(D-1+P),]
 # weed down the list of things we have to look at by first pass 
 # selecting only those taxa that have a large posterior mean for the covariance
 xcor.mean <- apply(xcor, c(1,2), mean)
-to.analyze <- gather_array(xcor.mean, cov, taxa, metabolite) %>% 
+to.analyze <- fido:::gather_array(xcor.mean, cov, taxa, metabolite) %>% 
   arrange(-abs(cov)) %>% 
   .[1:1000,] %>% 
   mutate(tm =paste0(taxa, "_", metabolite))
 
 # Subset Covariance to those we are interested in and calculate posterior 
 # confidence intervals. 
-xcor.summary <- gather_array(xcor, cov, taxa, metabolite, iter) %>%
+xcor.summary <- fido:::gather_array(xcor, cov, taxa, metabolite, iter) %>%
   mutate(tm=paste0(taxa, "_", metabolite)) %>% 
   filter(tm %in% to.analyze$tm) %>% 
   mutate(taxa = rownames(Y)[taxa], metabolite = rownames(Z)[metabolite]) %>% 
   group_by(taxa, metabolite) %>% 
-  summarise_posterior(cov) %>% 
+  fido:::summarise_posterior(cov) %>% 
   arrange(mean) %>% 
   filter(taxa != 'other') # we don't care about these
 
