@@ -1,3 +1,9 @@
+# fido 1.0.1
+
+Minor bug fix 
+
+* Changing phyloseq from imports to depends, was causing issues installing from CRAN. 
+
 # fido 1.0.0
 
 More changes to make the final push for CRAN! Changes include:

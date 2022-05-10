@@ -1,5 +1,4 @@
 test_that("ilr plus summary works", {
-  library(phyloseq)
   library(dplyr)
   
   Y = pibble_sim()
