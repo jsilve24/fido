@@ -17,3 +17,4 @@ inst/doc
 docs
 /configure~
 inst/include/fido.h
+fido.h

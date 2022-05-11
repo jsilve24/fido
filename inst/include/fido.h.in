@@ -11,7 +11,7 @@
   #define EIGEN_USE_MKL_ALL
   // #define EIGEN_DONT_PARALLELIZE
 #else
-  #ifdef ARMA_HAVE_OPENMP
+  #ifdef ARMA_USE_OPENMP
     #define FIDO_USE_PARALLEL
     #include <omp.h>
   #endif
