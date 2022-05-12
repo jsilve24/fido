@@ -202,5 +202,5 @@ fi
 AC_SUBST([ARMA_LAPACK],["${arma_lapack}"])
 AC_SUBST([ARMA_HAVE_OPENMP], ["${arma_have_openmp}"])
 AC_SUBST([OPENMP_FLAG], ["${openmp_flag}"])
-AC_CONFIG_FILES([inst/include/fido.h src/Makevars])
+AC_CONFIG_FILES([inst/include/fidoGenerated.h src/Makevars])
 AC_OUTPUT

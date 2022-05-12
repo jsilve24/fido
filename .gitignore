@@ -16,5 +16,4 @@ inst/doc
 /Meta/
 docs
 /configure~
-inst/include/fido.h
-fido.h
+/inst/include/fidoGenerated.h
