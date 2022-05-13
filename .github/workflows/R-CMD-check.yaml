@@ -68,7 +68,7 @@ jobs:
 
       - name: print path
         if: failure()
-        run: ls
+        run: ls src
 
       - name: check makevars
         if: failure()
