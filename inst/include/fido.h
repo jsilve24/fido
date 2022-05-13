@@ -29,7 +29,7 @@
 #endif 
 // [[Rcpp::depends(RcppEigen)]]
 // [[Rcpp::depends(BH)]]
-
+// [[Rcpp::plugins(openmp)]]
 
 #include "MatrixAlgebra.h"
 #include "MatDist_thread.h"
