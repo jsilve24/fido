@@ -3236,6 +3236,67 @@ fi
 cd "${owd}"
 rm -rf "${BUILDDIR}"
 
+
+## additional reporting/diagnostics for mac
+RSysinfoName=$("${R_HOME}/bin/Rscript" --vanilla -e 'cat(Sys.info()["sysname"])')
+if test x"${RSysinfoName}" = x"Darwin"; then
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for macOS configuration reporting" >&5
+printf %s "checking for macOS configuration reporting... " >&6; }
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: found" >&5
+printf "%s\n" "found" >&6; }
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for macOS Apple compiler" >&5
+printf %s "checking for macOS Apple compiler... " >&6; }
+
+    apple_compiler=$($CXX --version 2>&1 | grep -i -c -e 'apple llvm')
+
+    if test x"${apple_compiler}" = x"1"; then
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: found" >&5
+printf "%s\n" "found" >&6; }
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: OpenMP unavailable and turned off." >&5
+printf "%s\n" "$as_me: WARNING: OpenMP unavailable and turned off." >&2;}
+	can_use_openmp="no"
+    else
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: not found" >&5
+printf "%s\n" "not found" >&6; }
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for clang compiler" >&5
+printf %s "checking for clang compiler... " >&6; }
+	clang_compiler=$($CXX --version 2>&1 | grep -i -c -e 'clang ')
+
+	if test x"${clang_compiler}" = x"1"; then
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: found" >&5
+printf "%s\n" "found" >&6; }
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for OpenMP compatible version of clang" >&5
+printf %s "checking for OpenMP compatible version of clang... " >&6; }
+	    clang_version=$(${CXX} -v 2>&1 | awk '/^.*clang version/ {print $3}')
+
+	    case ${clang_version} in
+		4.*|5.*|6.*|7.*|8.*|9.*|10.*|11.*)
+		    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: found and suitable" >&5
+printf "%s\n" "found and suitable" >&6; }
+		    can_use_openmp="yes"
+		;;
+		*)
+		    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: not found" >&5
+printf "%s\n" "not found" >&6; }
+		    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: OpenMP unavailable and turned off." >&5
+printf "%s\n" "$as_me: WARNING: OpenMP unavailable and turned off." >&2;}
+		    can_use_openmp="no"
+		;;
+	    esac
+	else
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: not found" >&5
+printf "%s\n" "not found" >&6; }
+	    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: unsupported macOS build detected; if anything breaks, you keep the pieces." >&5
+printf "%s\n" "$as_me: WARNING: unsupported macOS build detected; if anything breaks, you keep the pieces." >&2;}
+	fi
+    fi
+else
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+fi
+
+
+
 ## If the above checks failed, then perform other heuristics
 ## based on the compiler version, etc.
 if test x"${openmp_already_works}" = x"no"; then
