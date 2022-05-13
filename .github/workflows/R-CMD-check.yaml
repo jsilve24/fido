@@ -65,3 +65,7 @@ jobs:
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
+
+      - name: check makevars
+        if: failure()
+        run: cat src/Makevars
