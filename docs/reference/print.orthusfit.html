@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -116,6 +116,10 @@
 <dt>...</dt>
 <dd><p>other arguments to pass to summary function</p></dd>
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    <p>No direct return, prints out summary</p>
+    </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p><code><a href="summary.orthusfit.html">summary.orthusfit</a></code> summarizes posterior intervals</p></div>
@@ -123,10 +127,17 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="orthus_fit.html">orthus</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">Z</span>, <span class="va">X</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="orthus_sim.html">orthus_sim</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="orthus_fit.html">orthus</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Z</span>, <span class="va">sim</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> orthusfit Object: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Number of Samples:		 30 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Number of Categories:		 10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Number of Zdimensions:	 10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Number of Covariates:		 2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Number of Posterior Samples:	 2000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Contains Samples of Parameters:Eta  Lambda  Sigma</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Coordinate System:		 alr, reference category: 10 [c10] </span>
 </code></pre></div>
     </div>
   </div>
@@ -141,7 +152,8 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer></div>

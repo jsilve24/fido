@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -133,17 +133,45 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>Picking priors is both an important and difficult part of Bayesian statistics. This vignette is not intended to be an introduction to Bayesian statistics, here I assume readers are already know what a prior/posterior is. Just to review, a prior is a probability distribution representing an analysts belief in model parameters prior to seeing the data. The posterior is the (in some sense optimal) probability distribution representing what you should belief having seen the data (given your prior beliefs).</p>
-<p>Since priors represent an analysts belief prior to seeing the data, it makes sense that priors will often be specific for a given study. For example, we don’t necessarily believe the parameters learned for an RNA-seq data analysis will be the same as for someone studying microbial communities or political gerrymandering. What’s more, we probably have different prior beliefs depending on what microbial community we are studying or how a study is set up.</p>
-<p>There are (at least) two important reasons to think carefully about priors. First, the meaning of the posterior is conditioned on your prior accurately reflecting your beliefs. The posterior represents an optimal belief given data and <em>given prior beliefs</em>. If a specified prior does not reflect your beliefs well then the prior won’t have the right meaning. Of course all priors are imperfect but we do the best we can. Second, on a practical note, some really weird priors can lead to numerical issues during optimization and uncertainty quantification in <em>fido</em>. This later problem can appear as failure to reach the MAP estimate or an error when trying to invert the Hessian.</p>
-<p>Overall, a prior is a single function (a probability distribution) specified jointly on parameters of interest. Still, it can be confusing to think about the prior in the joint form. Here I will instead try to simplify this and break the prior down into distinct components. While there are numerous models in <em>fido</em>, here I will focus on the prior for the <em>pibble</em> model as it is, in my opinion, the heart of <em>fido</em>.</p>
+<p>Picking priors is both an important and difficult part of Bayesian
+statistics. This vignette is not intended to be an introduction to
+Bayesian statistics, here I assume readers are already know what a
+prior/posterior is. Just to review, a prior is a probability
+distribution representing an analysts belief in model parameters prior
+to seeing the data. The posterior is the (in some sense optimal)
+probability distribution representing what you should belief having seen
+the data (given your prior beliefs).</p>
+<p>Since priors represent an analysts belief prior to seeing the data,
+it makes sense that priors will often be specific for a given study. For
+example, we don’t necessarily believe the parameters learned for an
+RNA-seq data analysis will be the same as for someone studying microbial
+communities or political gerrymandering. What’s more, we probably have
+different prior beliefs depending on what microbial community we are
+studying or how a study is set up.</p>
+<p>There are (at least) two important reasons to think carefully about
+priors. First, the meaning of the posterior is conditioned on your prior
+accurately reflecting your beliefs. The posterior represents an optimal
+belief given data and <em>given prior beliefs</em>. If a specified prior
+does not reflect your beliefs well then the prior won’t have the right
+meaning. Of course all priors are imperfect but we do the best we can.
+Second, on a practical note, some really weird priors can lead to
+numerical issues during optimization and uncertainty quantification in
+<em>fido</em>. This later problem can appear as failure to reach the MAP
+estimate or an error when trying to invert the Hessian.</p>
+<p>Overall, a prior is a single function (a probability distribution)
+specified jointly on parameters of interest. Still, it can be confusing
+to think about the prior in the joint form. Here I will instead try to
+simplify this and break the prior down into distinct components. While
+there are numerous models in <em>fido</em>, here I will focus on the
+prior for the <em>pibble</em> model as it is, in my opinion, the heart
+of <em>fido</em>.</p>
 <p>Just to review, the pibble model is given by: <span class="math display">\[
 \begin{align}
 Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 \pi_j &amp; = \phi^{-1}(\eta_j) \\
 \eta_j &amp;\sim N(\Lambda X_j, \Sigma) \\
 \Lambda &amp;\sim  N(\Theta, \Sigma, \Gamma) \\
-\Sigma &amp;\sim W^{-1}(\Xi, \upsilon). 
+\Sigma &amp;\sim W^{-1}(\Xi, \upsilon).
 \end{align}
 \]</span></p>
 </div>
@@ -166,7 +194,8 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer>
