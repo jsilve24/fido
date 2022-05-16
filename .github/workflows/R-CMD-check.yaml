@@ -66,10 +66,10 @@ jobs:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
 
-      # - name: print path
-        # if: failure()
-        # run: ls src
+      - name: print path
+        if: failure()
+        run: ls src
 
-      # - name: check makevars
-        # if: failure()
-        # run: cat src/Makevars
+      - name: check makevars
+        if: failure()
+        run: cat src/Makevars
