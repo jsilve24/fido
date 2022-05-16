@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -136,19 +136,6 @@ $$G = \sigma^2 * exp(-[(X-c)'(X-c)]/(s*\rho^2))$$</p>
 $$G = \sigma^2*(X-c)'(X-c)$$</p>
     </div>
 
-    <div id="ref-examples">
-    <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="co"># Create Partial for use with basset</span></span>
-<span class="r-in">  <span class="va">K</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span><span class="op">)</span> <span class="fu">SE</span><span class="op">(</span><span class="va">X</span>, <span class="fl">2</span>, <span class="fl">.2</span><span class="op">)</span></span>
-<span class="r-in">  </span>
-<span class="r-in">  <span class="co"># Example use</span></span>
-<span class="r-in">  <span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">G</span> <span class="op">&lt;-</span> <span class="fu">K</span><span class="op">(</span><span class="va">X</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">G</span> <span class="co"># this is the gram matrix (the kernel evaluated on a finite set of points)</span></span>
-<span class="r-in">  <span class="op">}</span></span>
-</code></pre></div>
-    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
@@ -161,7 +148,8 @@ $$G = \sigma^2*(X-c)'(X-c)$$</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer></div>

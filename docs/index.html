@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -127,40 +127,56 @@
 <div class="section level1">
 <div class="page-header"><h1 id="fido-formerly-stray">fido (formerly stray)<a class="anchor" aria-label="anchor" href="#fido-formerly-stray"></a>
 </h1></div>
-<p>Multinomial Logistic-Normal Models (really fast) <br><em>its a little <strong>tar</strong>-ball of joy</em></p>
+<p>Multinomial Logistic-Normal Models (really fast) <br><em>its a
+little <strong>tar</strong>-ball of joy</em></p>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
-<p>Silverman, JD, Roche, K, Holmes, ZC, David, LA, and Mukherjee, S. Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes. 2019, arXiv e-prints, arXiv:1903.11695</p>
+<p>Silverman, JD, Roche, K, Holmes, ZC, David, LA, and Mukherjee, S.
+<em>Journal of Machine Learning Research</em>. 23(7), 2022:1−42.</p>
 </div>
 <div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
 </h2>
-<p>All source code freely availale under <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" class="external-link">GPL-3 License</a>.</p>
+<p>All source code freely availale under <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" class="external-link">GPL-3
+License</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"jsilve24/fido"</span><span class="op">)</span></code></pre></div>
-<p>Or to download the development version</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"fido"</span><span class="op">)</span></code></pre></div>
+<p>Or to download the development version from GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"jsilve24/fido"</span>, ref<span class="op">=</span><span class="st">"develop"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"jsilve24/fido"</span>, ref<span class="op">=</span><span class="st">"develop"</span><span class="op">)</span></code></pre></div>
 <p>A few notes:</p>
 <ul>
-<li>There are a few installation options that can greatly speed fido up (often by as much as 10-50 fold). For a more detailed description of installation, take a look at <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">the installation page</a>.</li>
-<li>Vignettes are prebuilt on the <a href="https://jsilve24.github.io/fido/" class="external-link"><em>fido</em> webpage</a>. If you want vignettes to build locally during package installation you must also pass the <code>build=TRUE</code> and <code>build_opts = c("--no-resave-data", "--no-manual")</code> options to <code>install_github</code>.</li>
+<li>As of version 1.0.0, <em>fido</em> is now on <a href="https://cran.r-project.org/web/packages/fido/index.html" class="external-link">CRAN</a>.</li>
+<li>There are a few installation options that can greatly speed fido up
+(often by as much as 10-50 fold). For a more detailed description of
+installation, take a look at <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">the
+installation page</a>.</li>
+<li>Vignettes are prebuilt on the <a href="https://jsilve24.github.io/fido/" class="external-link"><em>fido</em> webpage</a>. If
+you want vignettes to build locally during package installation you must
+also pass the <code>build=TRUE</code> and
+<code>build_opts = c("--no-resave-data", "--no-manual")</code> options
+to <code>install_github</code>.</li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="vignettes">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes"></a>
 </h2>
 <ul>
-<li><a href="https://jsilve24.github.io/fido/articles/introduction-to-fido.html" class="external-link">Introduction to fido::Pibble</a></li>
-<li><a href="https://jsilve24.github.io/fido/articles/non-linear-models.html" class="external-link">Non-linear models with fido::basset</a></li>
-<li><a href="https://jsilve24.github.io/fido/articles/orthus.html" class="external-link">Joint Modeling (e.g., Multinomics) with fido::Orthus</a></li>
-<li><a href="https://jsilve24.github.io/fido/articles/picking_priors.html" class="external-link">Tips for Specifying Priors</a></li>
-<li><a href="https://jsilve24.github.io/fido/articles/mitigating-pcrbias.html" class="external-link">Mitigating PCR bias</a></li>
+<li><a href="https://jsilve24.github.io/fido/articles/introduction-to-fido.html" class="external-link">Introduction
+to fido::Pibble</a></li>
+<li><a href="https://jsilve24.github.io/fido/articles/non-linear-models.html" class="external-link">Non-linear
+models with fido::basset</a></li>
+<li><a href="https://jsilve24.github.io/fido/articles/orthus.html" class="external-link">Joint
+Modeling (e.g., Multinomics) with fido::Orthus</a></li>
+<li><a href="https://jsilve24.github.io/fido/articles/picking_priors.html" class="external-link">Tips
+for Specifying Priors</a></li>
+<li><a href="https://jsilve24.github.io/fido/articles/mitigating-pcrbias.html" class="external-link">Mitigating
+PCR bias</a></li>
 </ul>
 </div>
 <div class="section level2">
@@ -168,17 +184,27 @@
 <a class="anchor" aria-label="anchor" href="#research-using-fido"></a>
 </h2>
 <ul>
-<li><a href="https://arxiv.org/abs/1903.11695" class="external-link">Silverman et al., Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes</a></li>
-<li><a href="https://www.biorxiv.org/content/10.1101/604025v1.abstract" class="external-link">Silverman et al., Measuring and Mitigating PCR Bias in Microbiome Data</a></li>
-<li><a href="https://mbio.asm.org/content/11/4/e00914-20.abstract" class="external-link">Holmes et al., Short-Chain Fatty Acid Production by Gut Microbiota from Children with Obesity Differs According to Prebiotic Choice and Bacterial Community Composition</a></li>
-<li><a href="https://stm.sciencemag.org/content/12/554/eabc1126" class="external-link">Silverman et al., Using Influenza surveillance ntworks to estimate state-specific prevalance of SARS-CoV-2 in the United States</a></li>
+<li><a href="https://arxiv.org/abs/1903.11695" class="external-link">Silverman et al.,
+Bayesian Multinomial Logistic Normal Models through Marginally Latent
+Matrix-T Processes</a></li>
+<li><a href="https://www.biorxiv.org/content/10.1101/604025v1.abstract" class="external-link">Silverman
+et al., Measuring and Mitigating PCR Bias in Microbiome Data</a></li>
+<li><a href="https://mbio.asm.org/content/11/4/e00914-20.abstract" class="external-link">Holmes et
+al., Short-Chain Fatty Acid Production by Gut Microbiota from Children
+with Obesity Differs According to Prebiotic Choice and Bacterial
+Community Composition</a></li>
+<li><a href="https://stm.sciencemag.org/content/12/554/eabc1126" class="external-link">Silverman et
+al., Using Influenza surveillance ntworks to estimate state-specific
+prevalance of SARS-CoV-2 in the United States</a></li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="bugsfeature-requests">Bugs/Feature requests<a class="anchor" aria-label="anchor" href="#bugsfeature-requests"></a>
 </h2>
-<p>Have you checked out <a href="https://github.com/jsilve24/fido/wiki/Frequently-Asked-Questions" class="external-link">our FAQ</a>?</p>
-<p>I appreciate bug reports and feature requests. Please post to the github issue tracker <a href="https://github.com/jsilve24/fido/issues" class="external-link">here</a>.</p>
+<p>Have you checked out <a href="https://github.com/jsilve24/fido/wiki/Frequently-Asked-Questions" class="external-link">our
+FAQ</a>?</p>
+<p>I appreciate bug reports and feature requests. Please post to the
+github issue tracker <a href="https://github.com/jsilve24/fido/issues" class="external-link">here</a>.</p>
 </div>
 </div>
 
@@ -188,6 +214,7 @@
     <div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=fido" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/jsilve24/fido/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/jsilve24/fido/issues" class="external-link">Report a bug</a></li>
 </ul>
@@ -196,9 +223,7 @@
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
 
@@ -232,7 +257,8 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer>
