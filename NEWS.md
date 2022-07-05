@@ -1,3 +1,9 @@
+# fido 1.0.2
+
+bug fixes
+
+* Removing a timing test because it is irrelevant and can fail under certain set-ups.
+
 # fido 1.0.1
 
 bug fixes 
