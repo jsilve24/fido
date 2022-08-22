@@ -57,40 +57,64 @@ reference:
     desc: "Methods for working with model objects"
     contents: 
       - access_dims
-      - as.list.pibblefit
-      - coef.pibblefit
-      - name
+      - starts_with("as.list")
+      - as.orthusfit
+      - as.pibblefit
+      - starts_with("coef")
+      - maltipoofit
+      - starts_with("name")
       - name_dims
       - refit
+      - orthusfit
+      - pibblefit
       - ppc
+      - ppc.pibblefit
       - ppc_summary
-      - print.pibblefit
-      - predict.pibblefit
+      - starts_with("predict")
       - plot.pibblefit
-      - sample_prior
+      - print
+      - print.pibblefit
+      - print.orthusfit
+      - starts_with("sample_prior")
       - fido_transforms
-      - req
-      - verify
+      - starts_with("req")
+      - summary
       - summary.pibblefit
       - summary.orthusfit
+      - starts_with("verify")
   - title: "Helpful Utility Methods"
     desc: "Just that, mostly support other package functions"
     contents:
-      - random_pibble_init
-      - lambda_to_iqlr
-      - pibble_sim
-      - orthus_sim
-      - pibble_tidy_samples
-      - orthus_tidy_samples
-      - store_coord
+      - starts_with("alr")
       - check_dims
+      - starts_with("clr")
+      - create_default_ilr_base
+      - gather_array
+      - lambda_to_iqlr
+      - starts_with("miniclo")
+      - orthus_sim
+      - orthus_tidy_samples
+      - pibble_sim
+      - pibble_tidy_samples
+      - random_pibble_init
+      - store_coord
+      - summarise_posterior
   - title: "Utility Math Functions"
     desc: "Fast, C++, mostly for internal use"
     contents:
+      - convert_orthus_covariance
       - lmvgamma
       - lmvgamma_deriv
+      - orthus_lr_transforms
   - title: "Datasets"
     desc: "Example Datasets"
     contents: 
       - mallard
       - mallard_family
+      - metadata
+      - pcrbias_mock
+  - title: internal
+    contents: 
+      - "Y"
+      - mongrel-deprecated
+      - fido_package

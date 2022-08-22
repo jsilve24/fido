@@ -19,7 +19,7 @@ ILR bases, CLR coordinates, ALR coordinates, and proportions."><!-- mathjax --><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -28,7 +28,7 @@ ILR bases, CLR coordinates, ALR coordinates, and proportions."><!-- mathjax --><
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -56,7 +56,7 @@ ILR bases, CLR coordinates, ALR coordinates, and proportions."><!-- mathjax --><
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -107,37 +107,37 @@ ILR bases, CLR coordinates, ALR coordinates, and proportions.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">to_proportions</span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
-
-<span class="fu">to_alr</span><span class="op">(</span><span class="va">m</span>, <span class="va">d</span><span class="op">)</span>
-
-<span class="fu">to_ilr</span><span class="op">(</span><span class="va">m</span>, V <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="fu">to_clr</span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
-
-<span class="co"># S3 method for pibblefit</span>
-<span class="fu">to_proportions</span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
-
-<span class="co"># S3 method for orthusfit</span>
-<span class="fu">to_proportions</span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
-
-<span class="co"># S3 method for pibblefit</span>
-<span class="fu">to_alr</span><span class="op">(</span><span class="va">m</span>, <span class="va">d</span><span class="op">)</span>
-
-<span class="co"># S3 method for orthusfit</span>
-<span class="fu">to_alr</span><span class="op">(</span><span class="va">m</span>, <span class="va">d</span><span class="op">)</span>
-
-<span class="co"># S3 method for pibblefit</span>
-<span class="fu">to_ilr</span><span class="op">(</span><span class="va">m</span>, V <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="co"># S3 method for orthusfit</span>
-<span class="fu">to_ilr</span><span class="op">(</span><span class="va">m</span>, V <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="co"># S3 method for pibblefit</span>
-<span class="fu">to_clr</span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
-
-<span class="co"># S3 method for orthusfit</span>
-<span class="fu">to_clr</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">to_proportions</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_alr</span><span class="op">(</span><span class="va">m</span>, <span class="va">d</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_ilr</span><span class="op">(</span><span class="va">m</span>, V <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_clr</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for pibblefit</span></span>
+<span><span class="fu">to_proportions</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for orthusfit</span></span>
+<span><span class="fu">to_proportions</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for pibblefit</span></span>
+<span><span class="fu">to_alr</span><span class="op">(</span><span class="va">m</span>, <span class="va">d</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for orthusfit</span></span>
+<span><span class="fu">to_alr</span><span class="op">(</span><span class="va">m</span>, <span class="va">d</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for pibblefit</span></span>
+<span><span class="fu">to_ilr</span><span class="op">(</span><span class="va">m</span>, V <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for orthusfit</span></span>
+<span><span class="fu">to_ilr</span><span class="op">(</span><span class="va">m</span>, V <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for pibblefit</span></span>
+<span><span class="fu">to_clr</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for orthusfit</span></span>
+<span><span class="fu">to_clr</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -145,15 +145,22 @@ ILR bases, CLR coordinates, ALR coordinates, and proportions.</p>
     <dl><dt>m</dt>
 <dd><p>object of class pibblefit or orthusfit (e.g., output of <code><a href="pibble_fit.html">pibble</a></code>
 or <code><a href="orthus_fit.html">orthus</a></code>)</p></dd>
+
+
 <dt>d</dt>
 <dd><p>(integer) multinomial category to take as new alr reference</p></dd>
+
+
 <dt>V</dt>
 <dd><p>(matrix) contrast matrix for ILR basis to transform into to (defaults to 
 <code>create_default_ilr_base(D)</code>)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>object</p>
+    
+
+<p>object</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -176,8 +183,7 @@ or prior Xi and instead just removes them from the pibblefit object returned.</p
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

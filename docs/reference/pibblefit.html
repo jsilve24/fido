@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -26,7 +26,7 @@
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -54,7 +54,7 @@
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -103,87 +103,132 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pibblefit</span><span class="op">(</span>
-  <span class="va">D</span>,
-  <span class="va">N</span>,
-  <span class="va">Q</span>,
-  <span class="va">coord_system</span>,
-  iter <span class="op">=</span> <span class="cn">NULL</span>,
-  alr_base <span class="op">=</span> <span class="cn">NULL</span>,
-  ilr_base <span class="op">=</span> <span class="cn">NULL</span>,
-  Eta <span class="op">=</span> <span class="cn">NULL</span>,
-  Lambda <span class="op">=</span> <span class="cn">NULL</span>,
-  Sigma <span class="op">=</span> <span class="cn">NULL</span>,
-  Sigma_default <span class="op">=</span> <span class="cn">NULL</span>,
-  Y <span class="op">=</span> <span class="cn">NULL</span>,
-  X <span class="op">=</span> <span class="cn">NULL</span>,
-  upsilon <span class="op">=</span> <span class="cn">NULL</span>,
-  Theta <span class="op">=</span> <span class="cn">NULL</span>,
-  Xi <span class="op">=</span> <span class="cn">NULL</span>,
-  Xi_default <span class="op">=</span> <span class="cn">NULL</span>,
-  Gamma <span class="op">=</span> <span class="cn">NULL</span>,
-  init <span class="op">=</span> <span class="cn">NULL</span>,
-  names_categories <span class="op">=</span> <span class="cn">NULL</span>,
-  names_samples <span class="op">=</span> <span class="cn">NULL</span>,
-  names_covariates <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pibblefit</span><span class="op">(</span></span>
+<span>  <span class="va">D</span>,</span>
+<span>  <span class="va">N</span>,</span>
+<span>  <span class="va">Q</span>,</span>
+<span>  <span class="va">coord_system</span>,</span>
+<span>  iter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  alr_base <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ilr_base <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Eta <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Lambda <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Sigma <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Sigma_default <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  X <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  upsilon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Theta <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Xi <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Xi_default <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Gamma <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  init <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  names_categories <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  names_samples <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  names_covariates <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>D</dt>
 <dd><p>number of multinomial categories</p></dd>
+
+
 <dt>N</dt>
 <dd><p>number of samples</p></dd>
+
+
 <dt>Q</dt>
 <dd><p>number of covariates</p></dd>
+
+
 <dt>coord_system</dt>
 <dd><p>coordinate system objects are represented in (options 
 include "alr", "clr", "ilr", and "proportions")</p></dd>
+
+
 <dt>iter</dt>
 <dd><p>number of posterior samples</p></dd>
+
+
 <dt>alr_base</dt>
 <dd><p>integer category used as reference 
 (required if coord_system=="alr")</p></dd>
+
+
 <dt>ilr_base</dt>
 <dd><p>(D x D-1) contrast matrix (required if coord_system=="ilr")</p></dd>
+
+
 <dt>Eta</dt>
 <dd><p>Array of samples of Eta</p></dd>
+
+
 <dt>Lambda</dt>
 <dd><p>Array of samples of Lambda</p></dd>
+
+
 <dt>Sigma</dt>
 <dd><p>Array of samples of Sigma (null if coord_system=="proportions")</p></dd>
+
+
 <dt>Sigma_default</dt>
 <dd><p>Array of samples of Sigma in alr base D, used if 
 coord_system=="proportions"</p></dd>
+
+
 <dt>Y</dt>
 <dd><p>DxN matrix of observed counts</p></dd>
+
+
 <dt>X</dt>
 <dd><p>QxN design matrix</p></dd>
+
+
 <dt>upsilon</dt>
 <dd><p>scalar prior dof of inverse wishart prior</p></dd>
+
+
 <dt>Theta</dt>
 <dd><p>prior mean of Lambda</p></dd>
+
+
 <dt>Xi</dt>
 <dd><p>Matrix of prior covariance for inverse wishart 
 (null if coord_system=="proportions")</p></dd>
+
+
 <dt>Xi_default</dt>
 <dd><p>Matrix of prior covariance for inverse wishart in alr 
 base D (used if coord_system=="proportions")</p></dd>
+
+
 <dt>Gamma</dt>
 <dd><p>QxQ covariance matrix prior for Lambda</p></dd>
+
+
 <dt>init</dt>
 <dd><p>matrix initial guess for Lambda used for optimization</p></dd>
+
+
 <dt>names_categories</dt>
 <dd><p>character vector</p></dd>
+
+
 <dt>names_samples</dt>
 <dd><p>character vector</p></dd>
+
+
 <dt>names_covariates</dt>
 <dd><p>character vector</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>object of class pibblefit</p>
+    
+
+<p>object of class pibblefit</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -202,8 +247,7 @@ base D (used if coord_system=="proportions")</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

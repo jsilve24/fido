@@ -1,3 +1,9 @@
+# fido 1.0.3
+
+bug fixes
+
+* Updating documentation under the newest version of R (4.2.1)
+
 # fido 1.0.2
 
 bug fixes

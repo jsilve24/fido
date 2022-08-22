@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -26,7 +26,7 @@
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -54,7 +54,7 @@
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -103,21 +103,21 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">oilrvar2ilrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">V1</span>, <span class="va">V2</span><span class="op">)</span>
-
-<span class="fu">oilrvar2clrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">V</span><span class="op">)</span>
-
-<span class="fu">oclrvar2ilrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">V</span><span class="op">)</span>
-
-<span class="fu">oalrvar2clrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">d1</span><span class="op">)</span>
-
-<span class="fu">oclrvar2alrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">d2</span><span class="op">)</span>
-
-<span class="fu">oalrvar2alrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">d1</span>, <span class="va">d2</span><span class="op">)</span>
-
-<span class="fu">oalrvar2ilrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">d1</span>, <span class="va">V2</span><span class="op">)</span>
-
-<span class="fu">oilrvar2alrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">V1</span>, <span class="va">d2</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">oilrvar2ilrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">V1</span>, <span class="va">V2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">oilrvar2clrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">V</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">oclrvar2ilrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">V</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">oalrvar2clrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">d1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">oclrvar2alrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">d2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">oalrvar2alrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">d1</span>, <span class="va">d2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">oalrvar2ilrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">d1</span>, <span class="va">V2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">oilrvar2alrvar</span><span class="op">(</span><span class="va">Sigma</span>, <span class="va">s</span>, <span class="va">V1</span>, <span class="va">d2</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -125,22 +125,37 @@
     <dl><dt>Sigma</dt>
 <dd><p>covariance matrix arrat in specified transformed space 
 (dim(Sigma)[3]=iter)</p></dd>
+
+
 <dt>s</dt>
 <dd><p>first s rows and colums of Sigma are transformed</p></dd>
+
+
 <dt>V1</dt>
 <dd><p>ILR contrast matrix of basis Sigma is already in</p></dd>
+
+
 <dt>V2</dt>
 <dd><p>ILR contrast matrix of basis Sigma is desired in</p></dd>
+
+
 <dt>V</dt>
 <dd><p>ILR contrast matrix (i.e., transformation matrix of ILR)</p></dd>
+
+
 <dt>d1</dt>
 <dd><p>alr reference element Sigma is already expressed with respec to</p></dd>
+
+
 <dt>d2</dt>
 <dd><p>alr reference element Sigma is to be expressed with respect to</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>matrix</p>
+    
+
+<p>matrix</p>
     </div>
 
   </div>
@@ -155,8 +170,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

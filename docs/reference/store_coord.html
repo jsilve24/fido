@@ -21,7 +21,7 @@ returned object from computations in the same coordinate system as the input.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -30,7 +30,7 @@ returned object from computations in the same coordinate system as the input.
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -58,7 +58,7 @@ returned object from computations in the same coordinate system as the input.
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -111,21 +111,26 @@ returned object from computations in the same coordinate system as the input.
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">store_coord</span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
-
-<span class="fu">reapply_coord</span><span class="op">(</span><span class="va">m</span>, <span class="va">l</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">store_coord</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">reapply_coord</span><span class="op">(</span><span class="va">m</span>, <span class="va">l</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>m</dt>
 <dd><p>object of class pibblefit</p></dd>
+
+
 <dt>l</dt>
 <dd><p>object returned by function <code>store_coord</code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>store_coord</code> list with important information to identify c
+    
+
+<p><code>store_coord</code> list with important information to identify c
  coordinate system of pibblefit object. <code>reapply_coord</code> pibblefit object
  in coordinate system previously stored.</p>
     </div>
@@ -142,8 +147,7 @@ returned object from computations in the same coordinate system as the input.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

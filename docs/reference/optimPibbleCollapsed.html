@@ -20,7 +20,7 @@ of covariates."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@ of covariates."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -57,7 +57,7 @@ of covariates."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -109,101 +109,152 @@ of covariates.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">optimPibbleCollapsed</span><span class="op">(</span>
-  <span class="va">Y</span>,
-  <span class="va">upsilon</span>,
-  <span class="va">ThetaX</span>,
-  <span class="va">KInv</span>,
-  <span class="va">AInv</span>,
-  <span class="va">init</span>,
-  n_samples <span class="op">=</span> <span class="fl">2000L</span>,
-  calcGradHess <span class="op">=</span> <span class="cn">TRUE</span>,
-  b1 <span class="op">=</span> <span class="fl">0.9</span>,
-  b2 <span class="op">=</span> <span class="fl">0.99</span>,
-  step_size <span class="op">=</span> <span class="fl">0.003</span>,
-  epsilon <span class="op">=</span> <span class="fl">1e-06</span>,
-  eps_f <span class="op">=</span> <span class="fl">1e-10</span>,
-  eps_g <span class="op">=</span> <span class="fl">1e-04</span>,
-  max_iter <span class="op">=</span> <span class="fl">10000L</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>,
-  verbose_rate <span class="op">=</span> <span class="fl">10L</span>,
-  decomp_method <span class="op">=</span> <span class="st">"cholesky"</span>,
-  optim_method <span class="op">=</span> <span class="st">"adam"</span>,
-  eigvalthresh <span class="op">=</span> <span class="fl">0</span>,
-  jitter <span class="op">=</span> <span class="fl">0</span>,
-  multDirichletBoot <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,
-  useSylv <span class="op">=</span> <span class="cn">TRUE</span>,
-  ncores <span class="op">=</span> <span class="op">-</span><span class="fl">1L</span>,
-  seed <span class="op">=</span> <span class="op">-</span><span class="fl">1L</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">optimPibbleCollapsed</span><span class="op">(</span></span>
+<span>  <span class="va">Y</span>,</span>
+<span>  <span class="va">upsilon</span>,</span>
+<span>  <span class="va">ThetaX</span>,</span>
+<span>  <span class="va">KInv</span>,</span>
+<span>  <span class="va">AInv</span>,</span>
+<span>  <span class="va">init</span>,</span>
+<span>  n_samples <span class="op">=</span> <span class="fl">2000L</span>,</span>
+<span>  calcGradHess <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  b1 <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>  b2 <span class="op">=</span> <span class="fl">0.99</span>,</span>
+<span>  step_size <span class="op">=</span> <span class="fl">0.003</span>,</span>
+<span>  epsilon <span class="op">=</span> <span class="fl">1e-06</span>,</span>
+<span>  eps_f <span class="op">=</span> <span class="fl">1e-10</span>,</span>
+<span>  eps_g <span class="op">=</span> <span class="fl">1e-04</span>,</span>
+<span>  max_iter <span class="op">=</span> <span class="fl">10000L</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  verbose_rate <span class="op">=</span> <span class="fl">10L</span>,</span>
+<span>  decomp_method <span class="op">=</span> <span class="st">"cholesky"</span>,</span>
+<span>  optim_method <span class="op">=</span> <span class="st">"adam"</span>,</span>
+<span>  eigvalthresh <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  jitter <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  multDirichletBoot <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
+<span>  useSylv <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  ncores <span class="op">=</span> <span class="op">-</span><span class="fl">1L</span>,</span>
+<span>  seed <span class="op">=</span> <span class="op">-</span><span class="fl">1L</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>Y</dt>
 <dd><p>D x N matrix of counts</p></dd>
+
+
 <dt>upsilon</dt>
 <dd><p>(must be &gt; D)</p></dd>
+
+
 <dt>ThetaX</dt>
 <dd><p>D-1 x N matrix formed by Theta*X (Theta is Prior mean
 for regression coefficients)</p></dd>
+
+
 <dt>KInv</dt>
 <dd><p>D-1 x D-1 precision matrix (inverse of Xi)</p></dd>
+
+
 <dt>AInv</dt>
 <dd><p>N x N precision matrix given by (I_N + X'<em>Gamma</em>X)^-1</p></dd>
+
+
 <dt>init</dt>
 <dd><p>D-1 x N matrix of initial guess for eta used for optimization</p></dd>
+
+
 <dt>n_samples</dt>
 <dd><p>number of samples for Laplace Approximation (=0 very fast
 as no inversion or decomposition of Hessian is required)</p></dd>
+
+
 <dt>calcGradHess</dt>
 <dd><p>if n_samples=0 should Gradient and Hessian
 still be calculated using closed form solutions?</p></dd>
+
+
 <dt>b1</dt>
 <dd><p>(ADAM) 1st moment decay parameter (recommend 0.9) "aka momentum"</p></dd>
+
+
 <dt>b2</dt>
 <dd><p>(ADAM) 2nd moment decay parameter (recommend 0.99 or 0.999)</p></dd>
+
+
 <dt>step_size</dt>
 <dd><p>(ADAM) step size for descent (recommend 0.001-0.003)</p></dd>
+
+
 <dt>epsilon</dt>
 <dd><p>(ADAM) parameter to avoid divide by zero</p></dd>
+
+
 <dt>eps_f</dt>
 <dd><p>(ADAM) normalized function improvement stopping criteria</p></dd>
+
+
 <dt>eps_g</dt>
 <dd><p>(ADAM) normalized gradient magnitude stopping criteria</p></dd>
+
+
 <dt>max_iter</dt>
 <dd><p>(ADAM) maximum number of iterations before stopping</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>(ADAM) if true will print stats for stopping criteria and
 iteration number</p></dd>
+
+
 <dt>verbose_rate</dt>
 <dd><p>(ADAM) rate to print verbose stats to screen</p></dd>
+
+
 <dt>decomp_method</dt>
 <dd><p>decomposition of hessian for Laplace approximation
 'eigen' (more stable-slightly, slower) or 'cholesky' (less stable, faster, default)</p></dd>
+
+
 <dt>optim_method</dt>
 <dd><p>(default:"adam") or "lbfgs"</p></dd>
+
+
 <dt>eigvalthresh</dt>
 <dd><p>threshold for negative eigenvalues in
 decomposition of negative inverse hessian (should be &lt;=0)</p></dd>
+
+
 <dt>jitter</dt>
 <dd><p>(default: 0) if &gt;=0 then adds that factor to diagonal of Hessian
 before decomposition (to improve matrix conditioning)</p></dd>
+
+
 <dt>multDirichletBoot</dt>
 <dd><p>if &gt;0 (overrides laplace approximation) and samples
 eta efficiently at MAP estimate from pseudo Multinomial-Dirichlet posterior.</p></dd>
+
+
 <dt>useSylv</dt>
 <dd><p>(default: true) if N&lt;D-1 uses Sylvester Determinant Identity
 to speed up calculation of log-likelihood and gradients.</p></dd>
+
+
 <dt>ncores</dt>
 <dd><p>(default:-1) number of cores to use, if ncores==-1 then
 uses default from OpenMP typically to use all available cores.</p></dd>
+
+
 <dt>seed</dt>
 <dd><p>(random seed for Laplace approximation -- integer)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>List containing (all with respect to found optima)</p><ol><li><p>LogLik - Log Likelihood of collapsed model (up to proportionality constant)</p></li>
+    
+
+<p>List containing (all with respect to found optima)</p><ol><li><p>LogLik - Log Likelihood of collapsed model (up to proportionality constant)</p></li>
 <li><p>Gradient - (if <code>calcGradHess</code>=true)</p></li>
 <li><p>Hessian - (if <code>calcGradHess</code>=true) of the POSITIVE LOG POSTERIOR</p></li>
 <li><p>Pars - Parameter value of eta at optima</p></li>
@@ -256,11 +307,11 @@ optimization algorithms</em>. arXiv 1609.04747</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Fit model for eta</span></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">optimPibbleCollapsed</span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">upsilon</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Theta</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">sim</span><span class="op">$</span><span class="va">X</span>, <span class="va">sim</span><span class="op">$</span><span class="va">KInv</span>, </span>
-<span class="r-in">                             <span class="va">sim</span><span class="op">$</span><span class="va">AInv</span>, <span class="fu"><a href="random_pibble_init.html">random_pibble_init</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span>  </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Fit model for eta</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">optimPibbleCollapsed</span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">upsilon</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Theta</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">sim</span><span class="op">$</span><span class="va">X</span>, <span class="va">sim</span><span class="op">$</span><span class="va">KInv</span>, </span></span>
+<span class="r-in"><span>                             <span class="va">sim</span><span class="op">$</span><span class="va">AInv</span>, <span class="fu"><a href="random_pibble_init.html">random_pibble_init</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span>  </span></span>
 </code></pre></div>
     </div>
   </div>
@@ -275,8 +326,7 @@ optimization algorithms</em>. arXiv 1609.04747</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

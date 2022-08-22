@@ -114,14 +114,14 @@ hessMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv 
 #' Model:
 #'    \deqn{Y_j \sim Multinomial(Pi_j)}
 #'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-#'    \deqn{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
+#'    \deqn{Eta \sim T_{D-1, N}(upsilon, Theta\\*X, K, A)}
 #'    
-#'  Where A = (I_N + e^{ell_1}*X*U_1*X' + ... + e^{ell_P}*X*U_P*X' ),
+#'  Where A = (I_N + e^{ell_1}\\*X\\*U_1\\*X' + ... + e^{ell_P}\\*X\\*U_P\\*X' ),
 #'  K is a D-1xD-1 covariance and Phi is ALRInv_D transform. 
 #' 
 #' Gradient and Hessian calculations are fast as they are computed using closed
 #' form solutions. That said, the Hessian matrix can be quite large 
-#' \[N*(D-1) x N*(D-1)\] and storage may be an issue. 
+#' \[N\\*(D-1) x N\\*(D-1)\] and storage may be an issue. 
 #' 
 #' Note: Warnings about large negative eigenvalues can either signal 
 #' that the optimizer did not reach an optima or (more commonly in my experience)

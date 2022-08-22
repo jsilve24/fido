@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -26,7 +26,7 @@
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -54,7 +54,7 @@
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -103,22 +103,29 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for pibblefit</span>
-<span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">x</span>, summary <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for pibblefit</span></span>
+<span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">x</span>, summary <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>an object of class pibblefit</p></dd>
+
+
 <dt>summary</dt>
 <dd><p>if true also calculates and prints summary</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other arguments to pass to summary function</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>No direct return, prints out summary</p>
+    
+
+<p>No direct return, prints out summary</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -127,9 +134,9 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_fit.html">pibble</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_fit.html">pibble</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> pibblefit Object: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Number of Samples:		 30 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Number of Categories:		 10 </span>
@@ -137,8 +144,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Number of Posterior Samples:	 2000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Contains Samples of Parameters:Eta  Lambda  Sigma</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Coordinate System:		 alr, reference category: 10 [c10] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Log Marginal Likelihood:	 -275352.295 </span>
-<span class="r-in"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Log Marginal Likelihood:	 -168675.028 </span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -153,8 +160,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

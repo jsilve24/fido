@@ -19,7 +19,7 @@ of covariates."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -28,7 +28,7 @@ of covariates."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -56,7 +56,7 @@ of covariates."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -107,29 +107,44 @@ of covariates.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">conjugateLinearModel</span><span class="op">(</span><span class="va">Y</span>, <span class="va">X</span>, <span class="va">Theta</span>, <span class="va">Gamma</span>, <span class="va">Xi</span>, <span class="va">upsilon</span>, n_samples <span class="op">=</span> <span class="fl">2000L</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">conjugateLinearModel</span><span class="op">(</span><span class="va">Y</span>, <span class="va">X</span>, <span class="va">Theta</span>, <span class="va">Gamma</span>, <span class="va">Xi</span>, <span class="va">upsilon</span>, n_samples <span class="op">=</span> <span class="fl">2000L</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>Y</dt>
 <dd><p>matrix of dimension D x N</p></dd>
+
+
 <dt>X</dt>
 <dd><p>matrix of covariates of dimension Q x N</p></dd>
+
+
 <dt>Theta</dt>
 <dd><p>matrix of prior mean of dimension D x Q</p></dd>
+
+
 <dt>Gamma</dt>
 <dd><p>covariance matrix of dimension Q x Q</p></dd>
+
+
 <dt>Xi</dt>
 <dd><p>covariance matrix of dimension D x D</p></dd>
+
+
 <dt>upsilon</dt>
 <dd><p>scalar (must be &gt; D-1) degrees of freedom for InvWishart prior</p></dd>
+
+
 <dt>n_samples</dt>
 <dd><p>number of samples to draw (default: 2000)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>List with components</p><ol><li><p>Lambda Array of dimension (D-1) x Q x n_samples (posterior samples)</p></li>
+    
+
+<p>List with components</p><ol><li><p>Lambda Array of dimension (D-1) x Q x n_samples (posterior samples)</p></li>
 <li><p>Sigma Array of dimension (D-1) x (D-1) x n_samples (posterior samples)</p></li>
 </ol></div>
     <div id="details">
@@ -143,10 +158,10 @@ This function provides a means of sampling from the posterior distribution of
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">eta.hat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="alr.html">alr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span><span class="op">+</span><span class="fl">0.65</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">conjugateLinearModel</span><span class="op">(</span><span class="va">eta.hat</span>, <span class="va">sim</span><span class="op">$</span><span class="va">X</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Theta</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Gamma</span>, </span>
-<span class="r-in">                            <span class="va">sim</span><span class="op">$</span><span class="va">Xi</span>, <span class="va">sim</span><span class="op">$</span><span class="va">upsilon</span>, n_samples<span class="op">=</span><span class="fl">2000</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">eta.hat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="alr.html">alr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span><span class="op">+</span><span class="fl">0.65</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">conjugateLinearModel</span><span class="op">(</span><span class="va">eta.hat</span>, <span class="va">sim</span><span class="op">$</span><span class="va">X</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Theta</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Gamma</span>, </span></span>
+<span class="r-in"><span>                            <span class="va">sim</span><span class="op">$</span><span class="va">Xi</span>, <span class="va">sim</span><span class="op">$</span><span class="va">upsilon</span>, n_samples<span class="op">=</span><span class="fl">2000</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -161,8 +176,7 @@ This function provides a means of sampling from the posterior distribution of
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

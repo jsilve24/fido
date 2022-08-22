@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -43,7 +43,7 @@
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -73,7 +73,7 @@
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -134,11 +134,11 @@ Silverman</h4>
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jsilve24.github.io/fido/" class="external-link">fido</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">phyloseq</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">48482</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jsilve24.github.io/fido/" class="external-link">fido</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">phyloseq</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">48482</span><span class="op">)</span></span></code></pre></div>
 <p>If you have not already done so, I would read through the
 <em>pibble</em> vignette before this one.</p>
 <div class="section level2">
@@ -193,42 +193,42 @@ just don’t drop taxa but instead amalgamate those that don’t pass
 filtering to a category called “other”. I do this to maintain the proper
 variance in the multinomial model.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">metab_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/Kashyap2013"</span>, <span class="st">"metabolites.csv"</span>, package<span class="op">=</span><span class="st">"fido"</span><span class="op">)</span>
-<span class="va">microbe_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/Kashyap2013"</span>, <span class="st">"microbe.rda"</span>, package<span class="op">=</span><span class="st">"fido"</span><span class="op">)</span>
-<span class="va">metab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">metab_path</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="va">metab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">metab</span><span class="op">)</span>
-<span class="va">microbe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html" class="external-link">get</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="va">microbe_path</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co">## Preprocessing ##</span>
-<span class="co"># Metabolite Preprocessing</span>
-<span class="va">keep_ix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">metab</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">3</span>
-<span class="va">metab</span> <span class="op">&lt;-</span> <span class="va">metab</span><span class="op">[</span><span class="va">keep_ix</span>, <span class="op">]</span>
-
-<span class="co"># 16S Preprocesing - plus some weirdness to rename amalgamated category to "other"</span>
-<span class="va">keep_ix</span> <span class="op">&lt;-</span> <span class="fu">taxa_sums</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">4</span>
-<span class="va">keep_ix</span> <span class="op">&lt;-</span> <span class="va">keep_ix</span> <span class="op">&amp;</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="fu">otu_table</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span><span class="op">&gt;</span><span class="fl">2</span><span class="op">)</span><span class="op">&gt;</span><span class="fl">3</span><span class="op">)</span>
-<span class="va">microbe</span> <span class="op">&lt;-</span> <span class="fu">merge_taxa</span><span class="op">(</span><span class="va">microbe</span>, <span class="fu">taxa_names</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span><span class="op">[</span><span class="op">!</span><span class="va">keep_ix</span><span class="op">]</span><span class="op">)</span>
-<span class="va">nms</span> <span class="op">&lt;-</span> <span class="fu">taxa_names</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span>
-<span class="va">rnm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu">taxa_names</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span><span class="op">==</span><span class="fu">taxa_names</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span><span class="op">[</span><span class="op">!</span><span class="va">keep_ix</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-<span class="va">nms</span><span class="op">[</span><span class="va">rnm</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"other"</span>
-<span class="fu">taxa_names</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">nms</span>
-<span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">nms</span>, <span class="va">rnm</span><span class="op">)</span>
-
-<span class="co"># bit of preprocessing </span>
-<span class="va">metab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="va">metab</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">metab_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/Kashyap2013"</span>, <span class="st">"metabolites.csv"</span>, package<span class="op">=</span><span class="st">"fido"</span><span class="op">)</span></span>
+<span><span class="va">microbe_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/Kashyap2013"</span>, <span class="st">"microbe.rda"</span>, package<span class="op">=</span><span class="st">"fido"</span><span class="op">)</span></span>
+<span><span class="va">metab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">metab_path</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">metab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">metab</span><span class="op">)</span></span>
+<span><span class="va">microbe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html" class="external-link">get</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="va">microbe_path</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Preprocessing ##</span></span>
+<span><span class="co"># Metabolite Preprocessing</span></span>
+<span><span class="va">keep_ix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">metab</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">3</span></span>
+<span><span class="va">metab</span> <span class="op">&lt;-</span> <span class="va">metab</span><span class="op">[</span><span class="va">keep_ix</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="co"># 16S Preprocesing - plus some weirdness to rename amalgamated category to "other"</span></span>
+<span><span class="va">keep_ix</span> <span class="op">&lt;-</span> <span class="fu">taxa_sums</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">4</span></span>
+<span><span class="va">keep_ix</span> <span class="op">&lt;-</span> <span class="va">keep_ix</span> <span class="op">&amp;</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="fu">otu_table</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span><span class="op">&gt;</span><span class="fl">2</span><span class="op">)</span><span class="op">&gt;</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">microbe</span> <span class="op">&lt;-</span> <span class="fu">merge_taxa</span><span class="op">(</span><span class="va">microbe</span>, <span class="fu">taxa_names</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span><span class="op">[</span><span class="op">!</span><span class="va">keep_ix</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">nms</span> <span class="op">&lt;-</span> <span class="fu">taxa_names</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span></span>
+<span><span class="va">rnm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu">taxa_names</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span><span class="op">==</span><span class="fu">taxa_names</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span><span class="op">[</span><span class="op">!</span><span class="va">keep_ix</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">nms</span><span class="op">[</span><span class="va">rnm</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"other"</span></span>
+<span><span class="fu">taxa_names</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">nms</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">nms</span>, <span class="va">rnm</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># bit of preprocessing </span></span>
+<span><span class="va">metab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="va">metab</span><span class="op">)</span></span></code></pre></div>
 <p>Now I am going to do just a bit of processing to get data into a
 format for orthus. Note I have no extra metadata so we are just going to
 use an intercept in our model at this time.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu">otu_table</span><span class="op">(</span><span class="va">microbe</span>, taxa_are_rows<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">Z</span> <span class="op">&lt;-</span> <span class="va">metab</span> <span class="co">#(metabolites are rows)</span>
-<span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fu">phyloseq</span><span class="fu">::</span><span class="fu">nsamples</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># save dims for easy reference</span>
-<span class="va">N</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span>
-<span class="va">P</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">Z</span><span class="op">)</span>
-<span class="va">Q</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>
-<span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu">otu_table</span><span class="op">(</span><span class="va">microbe</span>, taxa_are_rows<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">Z</span> <span class="op">&lt;-</span> <span class="va">metab</span> <span class="co">#(metabolites are rows)</span></span>
+<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fu">phyloseq</span><span class="fu">::</span><span class="fu">nsamples</span><span class="op">(</span><span class="va">microbe</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># save dims for easy reference</span></span>
+<span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></span>
+<span><span class="va">P</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">Z</span><span class="op">)</span></span>
+<span><span class="va">Q</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span></span>
+<span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></span></code></pre></div>
 <p>Now I am going to set up the priors. My priors are going to be
 similar to that of <em>pibble</em> but now we need to think about a
 prior for the covariance among the metabolites and between the
@@ -246,12 +246,12 @@ believe that there is likely no substantial covariance between the taxa
 and the metabolites and I assume the metabolites are likely
 independent.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">upsilon</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">+</span><span class="va">P</span><span class="op">)</span><span class="op">+</span><span class="fl">10</span> <span class="co"># weak-ish prior on covariance over joint taxa and metabolites</span>
-<span class="va">Xi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">+</span><span class="va">P</span><span class="op">)</span>
-<span class="va">GG</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>
-<span class="va">Xi</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">GG</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">D</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">GG</span><span class="op">)</span>
-<span class="va">Xi</span> <span class="op">&lt;-</span> <span class="va">Xi</span> <span class="op">*</span> <span class="op">(</span><span class="va">upsilon</span><span class="op">-</span><span class="va">D</span><span class="op">-</span><span class="va">P</span><span class="op">)</span> <span class="co"># this scales Xi to have the proper mean we wanted</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">Xi</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">upsilon</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">+</span><span class="va">P</span><span class="op">)</span><span class="op">+</span><span class="fl">10</span> <span class="co"># weak-ish prior on covariance over joint taxa and metabolites</span></span>
+<span><span class="va">Xi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">+</span><span class="va">P</span><span class="op">)</span></span>
+<span><span class="va">GG</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">Xi</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">GG</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">D</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">GG</span><span class="op">)</span></span>
+<span><span class="va">Xi</span> <span class="op">&lt;-</span> <span class="va">Xi</span> <span class="op">*</span> <span class="op">(</span><span class="va">upsilon</span><span class="op">-</span><span class="va">D</span><span class="op">-</span><span class="va">P</span><span class="op">)</span> <span class="co"># this scales Xi to have the proper mean we wanted</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">Xi</span><span class="op">)</span></span></code></pre></div>
 <p><img src="unnamed-chunk-5-1.png"></p>
 <p>Note the structure of this prior, everything is independent but there
 is a moderate positive covariance between the log-ratios based on their
@@ -262,11 +262,11 @@ centered about <span class="math inline">\(\mathbf{0}\)</span> and that
 the signal-to-noise ratio in the data is approximately 1 (this later
 part is specified by <span class="math inline">\(\Gamma=I\)</span>).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">Gamma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">Q</span><span class="op">)</span>
-<span class="va">Theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">+</span><span class="va">P</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">Gamma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">Q</span><span class="op">)</span></span>
+<span><span class="va">Theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">+</span><span class="va">P</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p>Finally I fit the model.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/orthus_fit.html">orthus</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">Z</span>, <span class="va">X</span>, Theta<span class="op">=</span><span class="va">Theta</span>, Gamma<span class="op">=</span><span class="va">Gamma</span>, Xi<span class="op">=</span><span class="va">Xi</span>, upsilon<span class="op">=</span><span class="va">upsilon</span>, n_samples<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/orthus_fit.html">orthus</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">Z</span>, <span class="va">X</span>, Theta<span class="op">=</span><span class="va">Theta</span>, Gamma<span class="op">=</span><span class="va">Gamma</span>, Xi<span class="op">=</span><span class="va">Xi</span>, upsilon<span class="op">=</span><span class="va">upsilon</span>, n_samples<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
 <p>Next we are going to transform the log-ratios from <span class="math inline">\(ALR_D\)</span> to the <span class="math inline">\(CLR\)</span>. I have written all the
 transformation functions, <em>e.g.</em>, <code>to_clr</code> etc… to
 work on <code>orthusfit</code> objects in a similar manner to how they
@@ -275,16 +275,16 @@ objects they only transform the log-ratio components of parameters
 leaving the other parts of inferred model parameters (<em>i.e.</em>, the
 parts associated with the metabolites) untouched.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fido_transforms.html">to_clr</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>
-<span class="co">#&gt; orthusfit Object: </span>
-<span class="co">#&gt;   Number of Samples:      12 </span>
-<span class="co">#&gt;   Number of Categories:       114 </span>
-<span class="co">#&gt;   Number of Zdimensions:  405 </span>
-<span class="co">#&gt;   Number of Covariates:       1 </span>
-<span class="co">#&gt;   Number of Posterior Samples:    1000 </span>
-<span class="co">#&gt;   Contains Samples of Parameters:Eta  Lambda  Sigma</span>
-<span class="co">#&gt;   Coordinate System:      clr</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fido_transforms.html">to_clr</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+<span><span class="co">#&gt; orthusfit Object: </span></span>
+<span><span class="co">#&gt;   Number of Samples:      12 </span></span>
+<span><span class="co">#&gt;   Number of Categories:       114 </span></span>
+<span><span class="co">#&gt;   Number of Zdimensions:  405 </span></span>
+<span><span class="co">#&gt;   Number of Covariates:       1 </span></span>
+<span><span class="co">#&gt;   Number of Posterior Samples:    1000 </span></span>
+<span><span class="co">#&gt;   Contains Samples of Parameters:Eta  Lambda  Sigma</span></span>
+<span><span class="co">#&gt;   Coordinate System:      clr</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="investigate-model-results">Investigate Model Results<a class="anchor" aria-label="anchor" href="#investigate-model-results"></a>
@@ -299,52 +299,52 @@ simplicity I will do something much simpler. Here I am just going to
 find a list of taxa metabolite covariances that the model is very
 confident about.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># First just look ath the cross-covariances fit by the model</span>
-<span class="co"># (covariance between taxa in CLR coordinates and metabolites)</span>
-<span class="co"># This requires that we extract the corner of Sigma. </span>
-<span class="va">xcor</span> <span class="op">&lt;-</span> <span class="va">fit</span><span class="op">$</span><span class="va">Sigma</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">D</span>, <span class="va">D</span><span class="op">:</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">+</span><span class="va">P</span><span class="op">)</span>,<span class="op">]</span>
-
-<span class="co"># Initial preprocessing to speed up computation of posterior intervals</span>
-<span class="co"># As there are a lot of cross-covariance terms we are going to first </span>
-<span class="co"># weed down the list of things we have to look at by first pass </span>
-<span class="co"># selecting only those taxa that have a large posterior mean for the covariance</span>
-<span class="va">xcor.mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">xcor</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">mean</span><span class="op">)</span>
-<span class="va">to.analyze</span> <span class="op">&lt;-</span> <span class="fu">fido</span><span class="fu">::</span><span class="fu"><a href="../reference/gather_array.html">gather_array</a></span><span class="op">(</span><span class="va">xcor.mean</span>, <span class="va">cov</span>, <span class="va">taxa</span>, <span class="va">metabolite</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">cov</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="va">.</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>,<span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>tm <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">taxa</span>, <span class="st">"_"</span>, <span class="va">metabolite</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># Subset Covariance to those we are interested in and calculate posterior </span>
-<span class="co"># confidence intervals. </span>
-<span class="va">xcor.summary</span> <span class="op">&lt;-</span> <span class="fu">fido</span><span class="fu">::</span><span class="fu"><a href="../reference/gather_array.html">gather_array</a></span><span class="op">(</span><span class="va">xcor</span>, <span class="va">cov</span>, <span class="va">taxa</span>, <span class="va">metabolite</span>, <span class="va">iter</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>tm<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">taxa</span>, <span class="st">"_"</span>, <span class="va">metabolite</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">tm</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">to.analyze</span><span class="op">$</span><span class="va">tm</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>taxa <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">[</span><span class="va">taxa</span><span class="op">]</span>, metabolite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">Z</span><span class="op">)</span><span class="op">[</span><span class="va">metabolite</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">taxa</span>, <span class="va">metabolite</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu">fido</span><span class="fu">:::</span><span class="fu"><a href="../reference/summarise_posterior.html">summarise_posterior</a></span><span class="op">(</span><span class="va">cov</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">mean</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">taxa</span> <span class="op">!=</span> <span class="st">'other'</span><span class="op">)</span> <span class="co"># we don't care about these</span>
-
-<span class="co"># Select those covariances where the model has high certainty (95%) that</span>
-<span class="co"># the true covariance is not zero. </span>
-<span class="va">xcor.summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">p2.5</span><span class="op">)</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">p97.5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">mean</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 218 x 8</span>
-<span class="co">#&gt; # Groups:   taxa [17]</span>
-<span class="co">#&gt;    taxa  metabolite   p2.5   p25   p50  mean   p75  p97.5</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 722   206.0445922 -6.55 -3.96 -3.08 -3.33 -2.32 -1.51 </span>
-<span class="co">#&gt;  2 7816  206.0445922 -5.63 -3.23 -2.45 -2.65 -1.85 -1.05 </span>
-<span class="co">#&gt;  3 722   290.9298419 -5.18 -3.09 -2.42 -2.62 -1.85 -1.23 </span>
-<span class="co">#&gt;  4 18182 380.1846197 -5.20 -3.07 -2.38 -2.55 -1.83 -1.03 </span>
-<span class="co">#&gt;  5 722   181.4504354 -5.19 -3.04 -2.36 -2.55 -1.80 -1.13 </span>
-<span class="co">#&gt;  6 722   177.0565368 -4.98 -3.01 -2.30 -2.50 -1.78 -1.08 </span>
-<span class="co">#&gt;  7 722   180.072273  -5.03 -3.06 -2.30 -2.49 -1.71 -0.986</span>
-<span class="co">#&gt;  8 19517 380.1846197 -5.15 -3.06 -2.33 -2.49 -1.71 -0.952</span>
-<span class="co">#&gt;  9 2943  380.1846197 -4.89 -2.97 -2.34 -2.49 -1.83 -1.03 </span>
-<span class="co">#&gt; 10 722   176.0343919 -4.93 -2.95 -2.25 -2.48 -1.79 -1.09 </span>
-<span class="co">#&gt; # ... with 208 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># First just look ath the cross-covariances fit by the model</span></span>
+<span><span class="co"># (covariance between taxa in CLR coordinates and metabolites)</span></span>
+<span><span class="co"># This requires that we extract the corner of Sigma. </span></span>
+<span><span class="va">xcor</span> <span class="op">&lt;-</span> <span class="va">fit</span><span class="op">$</span><span class="va">Sigma</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">D</span>, <span class="va">D</span><span class="op">:</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">+</span><span class="va">P</span><span class="op">)</span>,<span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Initial preprocessing to speed up computation of posterior intervals</span></span>
+<span><span class="co"># As there are a lot of cross-covariance terms we are going to first </span></span>
+<span><span class="co"># weed down the list of things we have to look at by first pass </span></span>
+<span><span class="co"># selecting only those taxa that have a large posterior mean for the covariance</span></span>
+<span><span class="va">xcor.mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">xcor</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="va">to.analyze</span> <span class="op">&lt;-</span> <span class="fu">fido</span><span class="fu">::</span><span class="fu"><a href="../reference/gather_array.html">gather_array</a></span><span class="op">(</span><span class="va">xcor.mean</span>, <span class="va">cov</span>, <span class="va">taxa</span>, <span class="va">metabolite</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">cov</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="va">.</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>,<span class="op">]</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>tm <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">taxa</span>, <span class="st">"_"</span>, <span class="va">metabolite</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Subset Covariance to those we are interested in and calculate posterior </span></span>
+<span><span class="co"># confidence intervals. </span></span>
+<span><span class="va">xcor.summary</span> <span class="op">&lt;-</span> <span class="fu">fido</span><span class="fu">::</span><span class="fu"><a href="../reference/gather_array.html">gather_array</a></span><span class="op">(</span><span class="va">xcor</span>, <span class="va">cov</span>, <span class="va">taxa</span>, <span class="va">metabolite</span>, <span class="va">iter</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>tm<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">taxa</span>, <span class="st">"_"</span>, <span class="va">metabolite</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">tm</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">to.analyze</span><span class="op">$</span><span class="va">tm</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>taxa <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">[</span><span class="va">taxa</span><span class="op">]</span>, metabolite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">Z</span><span class="op">)</span><span class="op">[</span><span class="va">metabolite</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">taxa</span>, <span class="va">metabolite</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu">fido</span><span class="fu">:::</span><span class="fu"><a href="../reference/summarise_posterior.html">summarise_posterior</a></span><span class="op">(</span><span class="va">cov</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">mean</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">taxa</span> <span class="op">!=</span> <span class="st">'other'</span><span class="op">)</span> <span class="co"># we don't care about these</span></span>
+<span></span>
+<span><span class="co"># Select those covariances where the model has high certainty (95%) that</span></span>
+<span><span class="co"># the true covariance is not zero. </span></span>
+<span><span class="va">xcor.summary</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">p2.5</span><span class="op">)</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">p97.5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">mean</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 218 x 8</span></span>
+<span><span class="co">#&gt; # Groups:   taxa [17]</span></span>
+<span><span class="co">#&gt;    taxa  metabolite   p2.5   p25   p50  mean   p75  p97.5</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 722   206.0445922 -6.55 -3.96 -3.08 -3.33 -2.32 -1.51 </span></span>
+<span><span class="co">#&gt;  2 7816  206.0445922 -5.63 -3.23 -2.45 -2.65 -1.85 -1.05 </span></span>
+<span><span class="co">#&gt;  3 722   290.9298419 -5.18 -3.09 -2.42 -2.62 -1.85 -1.23 </span></span>
+<span><span class="co">#&gt;  4 18182 380.1846197 -5.20 -3.07 -2.38 -2.55 -1.83 -1.03 </span></span>
+<span><span class="co">#&gt;  5 722   181.4504354 -5.19 -3.04 -2.36 -2.55 -1.80 -1.13 </span></span>
+<span><span class="co">#&gt;  6 722   177.0565368 -4.98 -3.01 -2.30 -2.50 -1.78 -1.08 </span></span>
+<span><span class="co">#&gt;  7 722   180.072273  -5.03 -3.06 -2.30 -2.49 -1.71 -0.986</span></span>
+<span><span class="co">#&gt;  8 19517 380.1846197 -5.15 -3.06 -2.33 -2.49 -1.71 -0.952</span></span>
+<span><span class="co">#&gt;  9 2943  380.1846197 -4.89 -2.97 -2.34 -2.49 -1.83 -1.03 </span></span>
+<span><span class="co">#&gt; 10 722   176.0343919 -4.93 -2.95 -2.25 -2.48 -1.79 -1.09 </span></span>
+<span><span class="co">#&gt; # ... with 208 more rows</span></span></code></pre></div>
 <p>So it looks there there are a few hundred covariances that we can be
 fairly confident about.</p>
 </div>
@@ -415,8 +415,7 @@ Exerts a Diet-Dependent Effect on the Gut Microbiota.”</span>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -26,7 +26,7 @@
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -54,7 +54,7 @@
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -157,13 +157,49 @@
         </td>
         <td><p>Generic method for accessing model fit dimensions</p></td>
       </tr><tr><td>
+          <p><code><a href="as.list.orthusfit.html">as.list(<i>&lt;orthusfit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Convert object of class orthusfit to a list</p></td>
+      </tr><tr><td>
           <p><code><a href="as.list.pibblefit.html">as.list(<i>&lt;pibblefit&gt;</i>)</a></code> </p>
         </td>
         <td><p>Convert object of class pibblefit to a list</p></td>
       </tr><tr><td>
+          <p><code><a href="as.list.html">as.list()</a></code> </p>
+        </td>
+        <td><p>Generic method to convert to list</p></td>
+      </tr><tr><td>
+          <p><code><a href="as.orthusfit.html">as.orthusfit()</a></code> </p>
+        </td>
+        <td><p>convert list to orthusfit</p></td>
+      </tr><tr><td>
+          <p><code><a href="as.pibblefit.html">as.pibblefit()</a></code> </p>
+        </td>
+        <td><p>convert list to pibblefit</p></td>
+      </tr><tr><td>
+          <p><code><a href="coef.orthusfit.html">coef(<i>&lt;orthusfit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Return regression coefficients of orthus object</p></td>
+      </tr><tr><td>
           <p><code><a href="coef.pibblefit.html">coef(<i>&lt;pibblefit&gt;</i>)</a></code> </p>
         </td>
         <td><p>Return regression coefficients of pibblefit object</p></td>
+      </tr><tr><td>
+          <p><code><a href="coef.html">coef()</a></code> </p>
+        </td>
+        <td><p>Return regression coefficients of pibblefit or orthusfit object</p></td>
+      </tr><tr><td>
+          <p><code><a href="maltipoofit.html">maltipoofit()</a></code> </p>
+        </td>
+        <td><p>Create maltipoofit object</p></td>
+      </tr><tr><td>
+          <p><code><a href="name.orthusfit.html">name(<i>&lt;orthusfit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>S3 for orthusfit apply names to orthusfit object</p></td>
+      </tr><tr><td>
+          <p><code><a href="name.pibblefit.html">name(<i>&lt;pibblefit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>S3 for pibblefit apply names to pibblefit object</p></td>
       </tr><tr><td>
           <p><code><a href="name.html">name()</a></code> </p>
         </td>
@@ -177,25 +213,57 @@
         </td>
         <td><p>Generic method for fitting model from passed model fit object</p></td>
       </tr><tr><td>
+          <p><code><a href="orthusfit.html">orthusfit()</a></code> </p>
+        </td>
+        <td><p>Create orthusfit object</p></td>
+      </tr><tr><td>
+          <p><code><a href="pibblefit.html">pibblefit()</a></code> </p>
+        </td>
+        <td><p>Create pibblefit object</p></td>
+      </tr><tr><td>
           <p><code><a href="ppc.html">ppc()</a></code> </p>
         </td>
         <td><p>Generic method for visualizing posterior predictive checks</p></td>
+      </tr><tr><td>
+          <p><code><a href="ppc.pibblefit.html">ppc(<i>&lt;pibblefit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Visualization of Posterior Predictive Check of fit model</p></td>
       </tr><tr><td>
           <p><code><a href="ppc_summary.html">ppc_summary()</a></code> </p>
         </td>
         <td><p>Generic Method to Plot Posterior Predictive Summaries</p></td>
       </tr><tr><td>
-          <p><code><a href="print.pibblefit.html">print(<i>&lt;pibblefit&gt;</i>)</a></code> </p>
+          <p><code><a href="predict.bassetfit.html">predict(<i>&lt;bassetfit&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Print dimensions and coordinate system information for pibblefit object.</p></td>
+        <td><p>Predict using basset</p></td>
       </tr><tr><td>
           <p><code><a href="predict.pibblefit.html">predict(<i>&lt;pibblefit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Predict response from new data</p></td>
+      </tr><tr><td>
+          <p><code><a href="predict.html">predict()</a></code> </p>
         </td>
         <td><p>Predict response from new data</p></td>
       </tr><tr><td>
           <p><code><a href="plot.pibblefit.html">plot(<i>&lt;pibblefit&gt;</i>)</a></code> </p>
         </td>
         <td><p>Plot Summaries of Posterior Distribution of pibblefit Parameters</p></td>
+      </tr><tr><td>
+          <p><code><a href="print.html">print()</a></code> </p>
+        </td>
+        <td><p>Print dimensions and coordinate system information for an orthusfit or pibblefit object.</p></td>
+      </tr><tr><td>
+          <p><code><a href="print.pibblefit.html">print(<i>&lt;pibblefit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Print dimensions and coordinate system information for pibblefit object.</p></td>
+      </tr><tr><td>
+          <p><code><a href="print.orthusfit.html">print(<i>&lt;orthusfit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Print dimensions and coordinate system information for orthusfit object.</p></td>
+      </tr><tr><td>
+          <p><code><a href="sample_prior.pibblefit.html">sample_prior(<i>&lt;pibblefit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Sample from the prior distribution of pibblefit object</p></td>
       </tr><tr><td>
           <p><code><a href="sample_prior.html">sample_prior()</a></code> </p>
         </td>
@@ -205,13 +273,25 @@
         </td>
         <td><p>Transform Fit fido Parameters to other representations</p></td>
       </tr><tr><td>
+          <p><code><a href="req.maltipoofit.html">req(<i>&lt;maltipoofit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>require elements to be non-null in pibblefit or throw error</p></td>
+      </tr><tr><td>
+          <p><code><a href="req.orthusfit.html">req(<i>&lt;orthusfit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>require elements to be non-null in orthusfit or throw error</p></td>
+      </tr><tr><td>
+          <p><code><a href="req.pibblefit.html">req(<i>&lt;pibblefit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>require elements to be non-null in pibblefit or throw error</p></td>
+      </tr><tr><td>
           <p><code><a href="req.html">req()</a></code> </p>
         </td>
         <td><p>Generic method for ensuring object contains required elements</p></td>
       </tr><tr><td>
-          <p><code><a href="verify.html">verify()</a></code> </p>
+          <p><code><a href="summary.html">summary()</a></code> </p>
         </td>
-        <td><p>Generic method for verifying new objects</p></td>
+        <td><p>Summarise pibblefit or orthusfit object and print posterior quantiles</p></td>
       </tr><tr><td>
           <p><code><a href="summary.pibblefit.html">summary(<i>&lt;pibblefit&gt;</i>)</a></code> </p>
         </td>
@@ -220,47 +300,111 @@
           <p><code><a href="summary.orthusfit.html">summary(<i>&lt;orthusfit&gt;</i>)</a></code> </p>
         </td>
         <td><p>Summarise orthusfit object and print posterior quantiles</p></td>
+      </tr><tr><td>
+          <p><code><a href="verify.bassetfit.html">verify(<i>&lt;bassetfit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Simple verification of passed bassetfit object</p></td>
+      </tr><tr><td>
+          <p><code><a href="verify.maltipoofit.html">verify(<i>&lt;maltipoofit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Simple verification of passed multipoo object</p></td>
+      </tr><tr><td>
+          <p><code><a href="verify.orthusfit.html">verify(<i>&lt;orthusfit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Simple verification of passed orthusfit object</p></td>
+      </tr><tr><td>
+          <p><code><a href="verify.pibblefit.html">verify(<i>&lt;pibblefit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Simple verification of passed pibblefit object</p></td>
+      </tr><tr><td>
+          <p><code><a href="verify.html">verify()</a></code> </p>
+        </td>
+        <td><p>Generic method for verifying new objects</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="helpful-utility-methods">Helpful Utility Methods <a href="#helpful-utility-methods" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Just that, mostly support other package functions</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="random_pibble_init.html">random_pibble_init()</a></code> </p>
+          <p><code><a href="alr.html">alr()</a></code> </p>
         </td>
-        <td><p>Provide random initialization for pibble model</p></td>
+        <td><p>Compute the ALR of a matrix</p></td>
+      </tr><tr><td>
+          <p><code><a href="alrInv.html">alrInv()</a></code> </p>
+        </td>
+        <td><p>Compute the inverse ALR of a matrix</p></td>
+      </tr><tr><td>
+          <p><code><a href="alrInv_array.html">alrInv_array()</a></code> </p>
+        </td>
+        <td><p>Compute the ALR of an array</p></td>
+      </tr><tr><td>
+          <p><code><a href="alr_array.html">alr_array()</a></code> </p>
+        </td>
+        <td><p>Compute the ALR of an array</p></td>
+      </tr><tr><td>
+          <p><code><a href="check_dims.html">check_dims()</a></code> </p>
+        </td>
+        <td><p>Check vector/matrix/data.frame for expected dimensions or throw error</p></td>
+      </tr><tr><td>
+          <p><code><a href="clr_array.html">clr_array()</a></code> </p>
+        </td>
+        <td><p>Compute the CLR of an array</p></td>
+      </tr><tr><td>
+          <p><code><a href="create_default_ilr_base.html">create_default_ilr_base()</a></code> </p>
+        </td>
+        <td><p>Create a default ILR base</p></td>
+      </tr><tr><td>
+          <p><code><a href="gather_array.html">gather_array()</a></code> </p>
+        </td>
+        <td><p>Gather Multidimensional Array to Tidy Tibble</p></td>
       </tr><tr><td>
           <p><code><a href="lambda_to_iqlr.html">lambda_to_iqlr()</a></code> </p>
         </td>
         <td><p>Transform Lambda into IQLR (Inter-Quantile Log-Ratio)</p></td>
       </tr><tr><td>
-          <p><code><a href="pibble_sim.html">pibble_sim()</a></code> </p>
+          <p><code><a href="miniclo.html">miniclo()</a></code> </p>
         </td>
-        <td><p>Simulate simple pibble dataset and priors (for testing)</p></td>
+        <td><p>Closure operator</p></td>
+      </tr><tr><td>
+          <p><code><a href="miniclo_array.html">miniclo_array()</a></code> </p>
+        </td>
+        <td><p>Closure Operation applied to array on margin</p></td>
       </tr><tr><td>
           <p><code><a href="orthus_sim.html">orthus_sim()</a></code> </p>
         </td>
         <td><p>Simulate simple orthus dataset and priors (for testing)</p></td>
       </tr><tr><td>
+          <p><code><a href="orthus_tidy_samples.html">orthus_tidy_samples()</a></code> </p>
+        </td>
+        <td><p>Convert orthus samples of Eta Lambda and Sigma to tidy format</p></td>
+      </tr><tr><td>
+          <p><code><a href="pibble_sim.html">pibble_sim()</a></code> </p>
+        </td>
+        <td><p>Simulate simple pibble dataset and priors (for testing)</p></td>
+      </tr><tr><td>
           <p><code><a href="pibble_tidy_samples.html">pibble_tidy_samples()</a></code> </p>
         </td>
         <td><p>Convert pibble samples of Eta Lambda and Sigma to tidy format</p></td>
       </tr><tr><td>
-          <p><code><a href="orthus_tidy_samples.html">orthus_tidy_samples()</a></code> </p>
+          <p><code><a href="random_pibble_init.html">random_pibble_init()</a></code> </p>
         </td>
-        <td><p>Convert orthus samples of Eta Lambda and Sigma to tidy format</p></td>
+        <td><p>Provide random initialization for pibble model</p></td>
       </tr><tr><td>
           <p><code><a href="store_coord.html">store_coord()</a></code> <code><a href="store_coord.html">reapply_coord()</a></code> </p>
         </td>
         <td><p>Holds information on coordinates system to later be reapplied</p></td>
       </tr><tr><td>
-          <p><code><a href="check_dims.html">check_dims()</a></code> </p>
+          <p><code><a href="summarise_posterior.html">summarise_posterior()</a></code> </p>
         </td>
-        <td><p>Check vector/matrix/data.frame for expected dimensions or throw error</p></td>
+        <td><p>Shortcut for summarize variable with quantiles and mean</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="utility-math-functions">Utility Math Functions <a href="#utility-math-functions" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Fast, C++, mostly for internal use</p>
         </th>
       </tr></tbody><tbody><tr><td>
+          <p><code><a href="convert_orthus_covariance.html">oilrvar2ilrvar()</a></code> <code><a href="convert_orthus_covariance.html">oilrvar2clrvar()</a></code> <code><a href="convert_orthus_covariance.html">oclrvar2ilrvar()</a></code> <code><a href="convert_orthus_covariance.html">oalrvar2clrvar()</a></code> <code><a href="convert_orthus_covariance.html">oclrvar2alrvar()</a></code> <code><a href="convert_orthus_covariance.html">oalrvar2alrvar()</a></code> <code><a href="convert_orthus_covariance.html">oalrvar2ilrvar()</a></code> <code><a href="convert_orthus_covariance.html">oilrvar2alrvar()</a></code> </p>
+        </td>
+        <td><p>Convert orthus covariance matricies between representations</p></td>
+      </tr><tr><td>
           <p><code><a href="lmvgamma.html">lmvgamma()</a></code> </p>
         </td>
         <td><p>Log of Multivarate Gamma Function - Gamma_p(a)</p></td>
@@ -268,6 +412,10 @@
           <p><code><a href="lmvgamma_deriv.html">lmvgamma_deriv()</a></code> </p>
         </td>
         <td><p>Derivative of Log of Multivariate Gamma Function - Gamma_p(a)</p></td>
+      </tr><tr><td>
+          <p><code><a href="orthus_lr_transforms.html">oglr()</a></code> <code><a href="orthus_lr_transforms.html">oglrInv()</a></code> <code><a href="orthus_lr_transforms.html">oalr()</a></code> <code><a href="orthus_lr_transforms.html">oalrInv()</a></code> <code><a href="orthus_lr_transforms.html">oilr()</a></code> <code><a href="orthus_lr_transforms.html">oilrInv()</a></code> <code><a href="orthus_lr_transforms.html">oclr()</a></code> <code><a href="orthus_lr_transforms.html">oclrInv()</a></code> </p>
+        </td>
+        <td><p>Log-Ratio transforms for orthus objects</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="datasets">Datasets <a href="#datasets" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Example Datasets</p>
@@ -280,6 +428,14 @@
           <p><code><a href="mallard_family.html">mallard_family</a></code> </p>
         </td>
         <td><p>Data from Silverman et al. (2018) Microbiome</p></td>
+      </tr><tr><td>
+          <p><code><a href="metadata.html">metadata</a></code> </p>
+        </td>
+        <td><p>Data from Silverman et al. (2019) bioRxiv</p></td>
+      </tr><tr><td>
+          <p><code><a href="pcrbias_mock.html">pcrbias_mock</a></code> </p>
+        </td>
+        <td><p>Data from Silverman et al. (2019) bioRxiv</p></td>
       </tr></tbody></table></div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -293,8 +449,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
