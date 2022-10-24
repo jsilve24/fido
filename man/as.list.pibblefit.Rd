@@ -2,7 +2,17 @@
 % Please edit documentation in R/fidofit_methods.R
 \name{as.list.pibblefit}
 \alias{as.list.pibblefit}
-\title{Convert object of class pibblefit to a list}
+\title{#' Generic method to convert to list
+#' 
+#' @param x An object of class pibblefit or orthusfit
+#' @param ... Other objects to pass
+#' 
+#' @return A list object
+#' @export
+as.list <- function(x, ...){
+  UseMethod("as.list")
+}
+Convert object of class pibblefit to a list}
 \usage{
 \method{as.list}{pibblefit}(x, ...)
 }
@@ -15,5 +25,15 @@
 A list from the converted pibblefit object.
 }
 \description{
+#' Generic method to convert to list
+#' 
+#' @param x An object of class pibblefit or orthusfit
+#' @param ... Other objects to pass
+#' 
+#' @return A list object
+#' @export
+as.list <- function(x, ...){
+  UseMethod("as.list")
+}
 Convert object of class pibblefit to a list
 }

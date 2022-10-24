@@ -121,17 +121,17 @@ summary_check_precomputed <- function(m, pars){
 }
 
 
-#' Summarise pibblefit or orthusfit object and print posterior quantiles
-#' 
-#' Default calculates median, mean, 50\% and 95\% credible interval
-#' 
-#' @param object an object of class pibblefit or orthusfit
-#' @param ... other objects to be passed to `summary.pibblefit` or `summary.orthusfit`
-#' @return A list if class is `pibblefit` or `orthusfit`
-#' @export 
-summary <- function(object, ...){
-  UseMethod("summary")
-}
+#' #' Summarise pibblefit or orthusfit object and print posterior quantiles
+#' #' 
+#' #' Default calculates median, mean, 50\% and 95\% credible interval
+#' #' 
+#' #' @param object an object of class pibblefit or orthusfit
+#' #' @param ... other objects to be passed to `summary.pibblefit` or `summary.orthusfit`
+#' #' @return A list if class is `pibblefit` or `orthusfit`
+#' #' @export 
+#' summary <- function(object, ...){
+#'   UseMethod("summary")
+#' }
 
 
 #' Summarise pibblefit object and print posterior quantiles
@@ -285,20 +285,20 @@ summary.orthusfit <- function(object, pars=NULL, use_names=TRUE, as_factor=FALSE
 }
 
 
-#' Print dimensions and coordinate system information for an orthusfit or pibblefit object. 
-#'
-#' @param x an object of class pibblefit or orthusfit
-#' @param ... other arguments to pass to summary function
-#' @return No direct value, but a print out
-#' @export
-#' @examples 
-#' sim <- pibble_sim()
-#' fit <- pibble(sim$Y, sim$X)
-#' print(fit)
-#' 
-print <- function(x, ...){
-  UseMethod("print")
-}
+#' #' Print dimensions and coordinate system information for an orthusfit or pibblefit object. 
+#' #'
+#' #' @param x an object of class pibblefit or orthusfit
+#' #' @param ... other arguments to pass to summary function
+#' #' @return No direct value, but a print out
+#' #' @export
+#' #' @examples 
+#' #' sim <- pibble_sim()
+#' #' fit <- pibble(sim$Y, sim$X)
+#' #' print(fit)
+#' #' 
+#' print <- function(x, ...){
+#'   UseMethod("print")
+#' }
 
 
 #' Print dimensions and coordinate system information for pibblefit object. 
@@ -403,22 +403,22 @@ print.orthusfit <- function(x, summary=FALSE, ...){
 }
 
 
-#' Return regression coefficients of pibblefit or orthusfit object
-
+#' #' Return regression coefficients of pibblefit or orthusfit object
 #' 
-#' @param object an object of class pibblefit or orthusfit
-#' @param ... other options passed to coef.pibblefit  or coef.orthusfit (see details)
-#' @return Array of dimension (D-1) x Q x iter
-#'
-#' @export
-#' @examples 
-#' sim <- pibble_sim()
-#' fit <- pibble(sim$Y, sim$X)
-#' coef(fit)
-#' 
-coef <- function(object, ...){
-  UseMethod("coef")
-}
+#' #' 
+#' #' @param object an object of class pibblefit or orthusfit
+#' #' @param ... other options passed to coef.pibblefit  or coef.orthusfit (see details)
+#' #' @return Array of dimension (D-1) x Q x iter
+#' #'
+#' #' @export
+#' #' @examples 
+#' #' sim <- pibble_sim()
+#' #' fit <- pibble(sim$Y, sim$X)
+#' #' coef(fit)
+#' #' 
+#' coef <- function(object, ...){
+#'   UseMethod("coef")
+#' }
 
 
 
@@ -476,16 +476,16 @@ coef.orthusfit <- function(object, ...){
 
 
 
-#' Generic method to convert to list
-#' 
-#' @param x An object of class pibblefit or orthusfit
-#' @param ... Other objects to pass
-#' 
-#' @return A list object
-#' @export
-as.list <- function(x, ...){
-  UseMethod("as.list")
-}
+#' #' Generic method to convert to list
+#' #' 
+#' #' @param x An object of class pibblefit or orthusfit
+#' #' @param ... Other objects to pass
+#' #' 
+#' #' @return A list object
+#' #' @export
+#' as.list <- function(x, ...){
+#'   UseMethod("as.list")
+#' }
 
 
 #' Convert object of class pibblefit to a list
@@ -516,24 +516,24 @@ as.list.orthusfit <- function(x,...){
 
 
 
-#' Predict response from new data
-#' 
-#' 
-#' @param object An object of class pibblefit
-#' @param ... Other objects to be passed to the `predict` function
-#' 
-#' @return (if summary==FALSE) array D x N x iter; (if summary==TRUE) 
-#' tibble with calculated posterior summaries 
-#' 
-#' @export
-#' @importFrom stats median predict runif
-#' @examples 
-#' sim <- pibble_sim()
-#' fit <- pibble(sim$Y, sim$X)
-#' predict(fit)[,,1:2] # just show 2 samples
-predict <- function(object, ...){
-  UseMethod("predict")
-}
+#' #' Predict response from new data
+#' #' 
+#' #' 
+#' #' @param object An object of class pibblefit
+#' #' @param ... Other objects to be passed to the `predict` function
+#' #' 
+#' #' @return (if summary==FALSE) array D x N x iter; (if summary==TRUE) 
+#' #' tibble with calculated posterior summaries 
+#' #' 
+#' #' @export
+#' #' @importFrom stats median predict runif
+#' #' @examples 
+#' #' sim <- pibble_sim()
+#' #' fit <- pibble(sim$Y, sim$X)
+#' #' predict(fit)[,,1:2] # just show 2 samples
+#' predict <- function(object, ...){
+#'   UseMethod("predict")
+#' }
 
 
 
@@ -644,6 +644,9 @@ predict.pibblefit <- function(object, newdata=NULL, response="LambdaX", size=NUL
   # Draw Eta
   Eta <- array(0, dim=dim(LambdaX))
   zEta <- array(rnorm((object$D-1)*nnew*iter), dim = dim(Eta))
+  if(is.null(object$Sigma)){
+    print("Sigma is needed to predict either Eta or Y.")
+  }
   for (i in 1:iter){
     Eta[,,i] <- LambdaX[,,i] + t(chol(object$Sigma[,,i]))%*%zEta[,,i]
   }
