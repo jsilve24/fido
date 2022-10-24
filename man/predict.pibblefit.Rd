@@ -2,7 +2,25 @@
 % Please edit documentation in R/fidofit_methods.R
 \name{predict.pibblefit}
 \alias{predict.pibblefit}
-\title{Predict response from new data}
+\title{#' Predict response from new data
+#' 
+#' 
+#' @param object An object of class pibblefit
+#' @param ... Other objects to be passed to the `predict` function
+#' 
+#' @return (if summary==FALSE) array D x N x iter; (if summary==TRUE) 
+#' tibble with calculated posterior summaries 
+#' 
+#' @export
+#' @importFrom stats median predict runif
+#' @examples 
+#' sim <- pibble_sim()
+#' fit <- pibble(sim$Y, sim$X)
+#' predict(fit)[,,1:2] # just show 2 samples
+predict <- function(object, ...){
+  UseMethod("predict")
+}
+Predict response from new data}
 \usage{
 \method{predict}{pibblefit}(
   object,
@@ -46,6 +64,24 @@ predictions of Eta from posterior of Lambda? (default: false)}
 tibble with calculated posterior summaries
 }
 \description{
+#' Predict response from new data
+#' 
+#' 
+#' @param object An object of class pibblefit
+#' @param ... Other objects to be passed to the `predict` function
+#' 
+#' @return (if summary==FALSE) array D x N x iter; (if summary==TRUE) 
+#' tibble with calculated posterior summaries 
+#' 
+#' @export
+#' @importFrom stats median predict runif
+#' @examples 
+#' sim <- pibble_sim()
+#' fit <- pibble(sim$Y, sim$X)
+#' predict(fit)[,,1:2] # just show 2 samples
+predict <- function(object, ...){
+  UseMethod("predict")
+}
 Predict response from new data
 }
 \details{
