@@ -62,10 +62,14 @@ verify.bassetfit <- function(m, ...){
 #' 
 #' @export
 #' @importFrom stats median predict runif
-predict.bassetfit <- function(object, newdata, response="Lambda", size=NULL, 
+predict.bassetfit <- function(object, newdata=NULL, response="Lambda", size=NULL, 
                               use_names=TRUE, summary=FALSE, iter=NULL,
                               from_scratch=FALSE, ...){
   req(object, c("Lambda", "Sigma"))
+  if (is.null(newdata)) {
+    req(object, c("X"))
+    newdata <- object$X
+  } 
   newdata <- vec_to_mat(newdata)
   
   l <- store_coord(object)
