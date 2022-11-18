@@ -27,18 +27,31 @@ r2_internal <- function(eta.hat, eta){
 
 
 ##' @rdname r2
-##' @details
-##'   Calculates Posterior over Linear Model R2 as:
-##'   \deqn{1-\frac{SS_{res}}{SS_{tot}}}
-##'   where \eqn{SS} is defined in terms of trace of variances
+##' @param covariates vector of indices for covariates to include in calculation of R2 (default:NULL
+##'   means include all covariates by default). When non-null, all covariates not specified are set
+##'   to zero for prediction.
+##' @details Calculates Posterior over Linear Model R2 as: \deqn{1-\frac{SS_{res}}{SS_{tot}}} where
+##'   \eqn{SS} is defined in terms of trace of variances
 ##' 
 ##'   Method of calculating R2 is multivariate version of the Bayesian R2 proposed
 ##'   by Gelman, Goodrich, Gabry, and Vehtari, 2019
 ##' @export
-r2.pibblefit <- function(m, ...){
+r2.pibblefit <- function(m, covariates=NULL, ...){
   req(m, c("Lambda", "Eta", "X"))
+  newdata <- m$X
+  if (!is.null(covariates)){
+    ## Defensive
+    covariates <- unique(covariates)
+    stopifnot("covariates must be integer valued" = all(round(covariates)==covariates))
+    stopifnot("some passed covariates outside of range 1:Q" = max(covariates)<=m$Q & min(covariates)>=1)
+    ## END DEFENSE
 
-  eta.hat <- predict(m, newdata=NULL, response="LambdaX")
+    ## set non-included covariates to zero
+
+    covariates.exclude <- setdiff(1:m$Q, covariates)
+    newdata[covariates.exclude,] <- 0
+  }
+  eta.hat <- predict(m, newdata=newdata, response="LambdaX")
   r2_internal(eta.hat, m$Eta)
 }
 
