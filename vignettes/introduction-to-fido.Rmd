@@ -288,7 +288,7 @@ that we will use to avoid passing prior parameters again.
 
 ```r
 priors$Y <- Y # remember pibblefit objects are just lists
-posterior <- refit(priors, optim_method="adam")
+posterior <- refit(priors, optim_method="lbfgs")
 ```
 
 Unlike the main *pibble* function, the `refit` method can be called
@@ -453,7 +453,7 @@ Y_j & \sim \text{Multinomial}\left(\pi_j, n_j\right)  \\
 $$
 where $A=(I_N + X^T \Gamma, X)^{-1}$ and $T_{(D-1)\times N}$ refers to the Matrix T-distribution the $(D-1)\times N$ matrix $\eta$ with log density given by 
 $$\log T_{(D-1)\times N}(\eta | \upsilon, \Theta X, \Xi, A) \propto -\frac{\upsilon+N-D-2}{2}\log | I_{D-1}+\Xi^{-1}(\eta-\Theta X)A(\eta-\Theta X)^T |.$$
-Rather than using MCMC to sample $\eta$ fido uses MAP estimation (using a custom C++ Eigen based implementation of the ADAM optimizer and closed form solutions for gradient and hessian of the collapsed model)^[Which we found preformed substantially better than L-BFGS, which we also tried.]. Additionally, *fido* allows quantification of uncertainty in MAP estimates using a Laplace approximation. We found that in practice this MAP based Laplace approximation produced 
+Rather than using MCMC to sample $\eta$ fido uses MAP estimation. Additionally, *fido* allows quantification of uncertainty in MAP estimates using a Laplace approximation. We found that in practice this MAP based Laplace approximation produced 
 comparable results to a full MCMC sampler but with tremendous improvements in compute time. 
 
 Once samples of $\eta$ are produced using the Laplace approximation closed form 

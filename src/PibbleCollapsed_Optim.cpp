@@ -42,7 +42,7 @@ using Eigen::VectorXd;
 //' @param verbose_rate (ADAM) rate to print verbose stats to screen
 //' @param decomp_method decomposition of hessian for Laplace approximation
 //'   'eigen' (more stable-slightly, slower) or 'cholesky' (less stable, faster, default)
-//' @param optim_method (default:"adam") or "lbfgs"
+//' @param optim_method (default:"lbfgs") or "adam"
 //' @param eigvalthresh threshold for negative eigenvalues in 
 //'   decomposition of negative inverse hessian (should be <=0)
 //' @param jitter (default: 0) if >=0 then adds that factor to diagonal of Hessian 
@@ -128,7 +128,7 @@ List optimPibbleCollapsed(const Eigen::ArrayXXd Y,
                bool verbose=false,      
                int verbose_rate=10,
                String decomp_method="cholesky",
-               String optim_method="adam",
+               String optim_method="lbfgs",
                double eigvalthresh=0, 
                double jitter=0,
                double multDirichletBoot = -1.0, 
