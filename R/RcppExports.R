@@ -261,7 +261,7 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #' @param verbose_rate (ADAM) rate to print verbose stats to screen
 #' @param decomp_method decomposition of hessian for Laplace approximation
 #'   'eigen' (more stable-slightly, slower) or 'cholesky' (less stable, faster, default)
-#' @param optim_method (default:"adam") or "lbfgs"
+#' @param optim_method (default:"lbfgs") or "adam"
 #' @param eigvalthresh threshold for negative eigenvalues in 
 #'   decomposition of negative inverse hessian (should be <=0)
 #' @param jitter (default: 0) if >=0 then adds that factor to diagonal of Hessian 
@@ -328,7 +328,7 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #' # Fit model for eta
 #' fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, sim$Theta%*%sim$X, sim$KInv, 
 #'                              sim$AInv, random_pibble_init(sim$Y))  
-optimPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, init, n_samples = 2000L, calcGradHess = TRUE, b1 = 0.9, b2 = 0.99, step_size = 0.003, epsilon = 10e-7, eps_f = 1e-10, eps_g = 1e-4, max_iter = 10000L, verbose = FALSE, verbose_rate = 10L, decomp_method = "cholesky", optim_method = "adam", eigvalthresh = 0, jitter = 0, multDirichletBoot = -1.0, useSylv = TRUE, ncores = -1L, seed = -1L) {
+optimPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, init, n_samples = 2000L, calcGradHess = TRUE, b1 = 0.9, b2 = 0.99, step_size = 0.003, epsilon = 10e-7, eps_f = 1e-10, eps_g = 1e-4, max_iter = 10000L, verbose = FALSE, verbose_rate = 10L, decomp_method = "cholesky", optim_method = "lbfgs", eigvalthresh = 0, jitter = 0, multDirichletBoot = -1.0, useSylv = TRUE, ncores = -1L, seed = -1L) {
     .Call('_fido_optimPibbleCollapsed', PACKAGE = 'fido', Y, upsilon, ThetaX, KInv, AInv, init, n_samples, calcGradHess, b1, b2, step_size, epsilon, eps_f, eps_g, max_iter, verbose, verbose_rate, decomp_method, optim_method, eigvalthresh, jitter, multDirichletBoot, useSylv, ncores, seed)
 }
 
