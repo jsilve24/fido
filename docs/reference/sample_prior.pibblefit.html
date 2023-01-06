@@ -18,7 +18,7 @@ be called to get counts or LambdaX (predict.pibblefit)"><!-- mathjax --><script 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -27,7 +27,7 @@ be called to get counts or LambdaX (predict.pibblefit)"><!-- mathjax --><script 
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -55,7 +55,7 @@ be called to get counts or LambdaX (predict.pibblefit)"><!-- mathjax --><script 
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -105,32 +105,43 @@ be called to get counts or LambdaX (<code><a href="predict.pibblefit.html">predi
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for pibblefit</span>
-<span class="fu"><a href="sample_prior.html">sample_prior</a></span><span class="op">(</span>
-  <span class="va">m</span>,
-  n_samples <span class="op">=</span> <span class="fl">2000L</span>,
-  pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Eta"</span>, <span class="st">"Lambda"</span>, <span class="st">"Sigma"</span><span class="op">)</span>,
-  use_names <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for pibblefit</span></span>
+<span><span class="fu"><a href="sample_prior.html">sample_prior</a></span><span class="op">(</span></span>
+<span>  <span class="va">m</span>,</span>
+<span>  n_samples <span class="op">=</span> <span class="fl">2000L</span>,</span>
+<span>  pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Eta"</span>, <span class="st">"Lambda"</span>, <span class="st">"Sigma"</span><span class="op">)</span>,</span>
+<span>  use_names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>m</dt>
 <dd><p>object of class pibblefit</p></dd>
+
+
 <dt>n_samples</dt>
 <dd><p>number of samples to produce</p></dd>
+
+
 <dt>pars</dt>
 <dd><p>parameters to sample</p></dd>
+
+
 <dt>use_names</dt>
 <dd><p>should names be used if available</p></dd>
+
+
 <dt>...</dt>
 <dd><p>currently ignored</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A pibblefit object</p>
+    
+
+<p>A pibblefit object</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -141,14 +152,14 @@ header in this library - see MatDist.h).</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Sample prior of already fitted  pibblefit object</span></span>
-<span class="r-in"><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/attach.html" class="external-link">attach</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Sample prior of already fitted  pibblefit object</span></span></span>
+<span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/attach.html" class="external-link">attach</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from package:fido:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     Y</span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_fit.html">pibble</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">X</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="sample_prior.html">sample_prior</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_fit.html">pibble</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">X</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="sample_prior.html">sample_prior</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $D</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -167,14 +178,14 @@ header in this library - see MatDist.h).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $alr_base</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Sample prior as part of model fitting</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibblefit.html">pibblefit</a></span><span class="op">(</span>N<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">N</span><span class="op">)</span>, D<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">D</span><span class="op">)</span>, Q<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Q</span><span class="op">)</span>, </span>
-<span class="r-in">                iter<span class="op">=</span><span class="fl">2000L</span>, upsilon<span class="op">=</span><span class="va">upsilon</span>, </span>
-<span class="r-in">                Xi<span class="op">=</span><span class="va">Xi</span>, Gamma<span class="op">=</span><span class="va">Gamma</span>, Theta<span class="op">=</span><span class="va">Theta</span>, X<span class="op">=</span><span class="va">X</span>, </span>
-<span class="r-in">                coord_system<span class="op">=</span><span class="st">"alr"</span>, alr_base<span class="op">=</span><span class="va">D</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="sample_prior.html">sample_prior</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="co"># plot prior distribution (defaults to parameter Lambda) </span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Sample prior as part of model fitting</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibblefit.html">pibblefit</a></span><span class="op">(</span>N<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">N</span><span class="op">)</span>, D<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">D</span><span class="op">)</span>, Q<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Q</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>                iter<span class="op">=</span><span class="fl">2000L</span>, upsilon<span class="op">=</span><span class="va">upsilon</span>, </span></span>
+<span class="r-in"><span>                Xi<span class="op">=</span><span class="va">Xi</span>, Gamma<span class="op">=</span><span class="va">Gamma</span>, Theta<span class="op">=</span><span class="va">Theta</span>, X<span class="op">=</span><span class="va">X</span>, </span></span>
+<span class="r-in"><span>                coord_system<span class="op">=</span><span class="st">"alr"</span>, alr_base<span class="op">=</span><span class="va">D</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="sample_prior.html">sample_prior</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="co"># plot prior distribution (defaults to parameter Lambda) </span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> which will replace the existing scale.</span>
 <span class="r-plt img"><img src="sample_prior.pibblefit-1.png" alt="" width="700" height="433"></span>
@@ -192,8 +203,7 @@ header in this library - see MatDist.h).</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

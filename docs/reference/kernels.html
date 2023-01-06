@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -26,7 +26,7 @@
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -54,7 +54,7 @@
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -103,28 +103,39 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SE</span><span class="op">(</span><span class="va">X</span>, sigma <span class="op">=</span> <span class="fl">1</span>, rho <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, jitter <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span>
-
-<span class="fu">LINEAR</span><span class="op">(</span><span class="va">X</span>, sigma <span class="op">=</span> <span class="fl">1</span>, c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SE</span><span class="op">(</span><span class="va">X</span>, sigma <span class="op">=</span> <span class="fl">1</span>, rho <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, jitter <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">LINEAR</span><span class="op">(</span><span class="va">X</span>, sigma <span class="op">=</span> <span class="fl">1</span>, c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>X</dt>
 <dd><p>covariate (dimension Q x N; i.e., covariates x samples)</p></dd>
+
+
 <dt>sigma</dt>
 <dd><p>scalar parameter</p></dd>
+
+
 <dt>rho</dt>
 <dd><p>scalar bandwidth parameter</p></dd>
+
+
 <dt>jitter</dt>
 <dd><p>small scalar to add to off-diagonal of gram matrix 
 (for numerical underflow issues)</p></dd>
+
+
 <dt>c</dt>
 <dd><p>vector parameter defining intercept for linear kernel</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Gram Matrix (N x N) (e.g., the Kernel evaluated at 
+    
+
+<p>Gram Matrix (N x N) (e.g., the Kernel evaluated at 
 each pair of points)</p>
     </div>
     <div id="details">
@@ -148,8 +159,7 @@ $$G = \sigma^2*(X-c)'(X-c)$$</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

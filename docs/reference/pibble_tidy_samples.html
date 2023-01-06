@@ -19,7 +19,7 @@ summary.pibblefit."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -28,7 +28,7 @@ summary.pibblefit."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aj
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -56,7 +56,7 @@ summary.pibblefit."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aj
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -107,37 +107,44 @@ column headers. Primarily designed to be used by
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pibble_tidy_samples</span><span class="op">(</span><span class="va">m</span>, use_names <span class="op">=</span> <span class="cn">FALSE</span>, as_factor <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pibble_tidy_samples</span><span class="op">(</span><span class="va">m</span>, use_names <span class="op">=</span> <span class="cn">FALSE</span>, as_factor <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>m</dt>
 <dd><p>an object of class pibblefit</p></dd>
+
+
 <dt>use_names</dt>
 <dd><p>should dimension indices be replaced by
 dimension names if provided in data used to fit pibble model.</p></dd>
+
+
 <dt>as_factor</dt>
 <dd><p>if use_names should names be returned as factor?</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>tibble</p>
+    
+
+<p>tibble</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_fit.html">pibble</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fit_tidy</span> <span class="op">&lt;-</span> <span class="fu">pibble_tidy_samples</span><span class="op">(</span><span class="va">fit</span>, use_names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">fit_tidy</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_fit.html">pibble</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit_tidy</span> <span class="op">&lt;-</span> <span class="fu">pibble_tidy_samples</span><span class="op">(</span><span class="va">fit</span>, use_names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">fit_tidy</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter       coord sample iter        val covariate coord2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       Eta log(c1/c10)     s1    1 -0.2949953      &lt;NA&gt;   &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       Eta log(c2/c10)     s1    1 -1.9256316      &lt;NA&gt;   &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       Eta log(c3/c10)     s1    1  1.5711098      &lt;NA&gt;   &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       Eta log(c4/c10)     s1    1 -2.6051758      &lt;NA&gt;   &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       Eta log(c5/c10)     s1    1 -3.3345099      &lt;NA&gt;   &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       Eta log(c6/c10)     s1    1  2.5254452      &lt;NA&gt;   &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       Eta log(c1/c10)     s1    1  5.7868713      &lt;NA&gt;   &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       Eta log(c2/c10)     s1    1  0.8630827      &lt;NA&gt;   &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       Eta log(c3/c10)     s1    1 -0.3804950      &lt;NA&gt;   &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       Eta log(c4/c10)     s1    1  6.9359200      &lt;NA&gt;   &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       Eta log(c5/c10)     s1    1 -1.0318220      &lt;NA&gt;   &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       Eta log(c6/c10)     s1    1  2.8544336      &lt;NA&gt;   &lt;NA&gt;</span>
 </code></pre></div>
     </div>
   </div>
@@ -152,8 +159,7 @@ dimension names if provided in data used to fit pibble model.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

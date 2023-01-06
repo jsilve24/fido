@@ -24,7 +24,7 @@ documentation"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/li
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -33,7 +33,7 @@ documentation"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/li
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -61,7 +61,7 @@ documentation"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/li
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -117,80 +117,95 @@ documentation</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">loglikPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">eta</span>, sylv <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">gradPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">eta</span>, sylv <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">hessPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">eta</span>, sylv <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">loglikPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">eta</span>, sylv <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gradPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">eta</span>, sylv <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">hessPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">eta</span>, sylv <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>Y</dt>
 <dd><p>D x N matrix of counts</p></dd>
+
+
 <dt>upsilon</dt>
 <dd><p>(must be &gt; D)</p></dd>
+
+
 <dt>ThetaX</dt>
 <dd><p>D-1 x N matrix formed by Theta*X (Theta is Prior mean
 for regression coefficients)</p></dd>
+
+
 <dt>KInv</dt>
 <dd><p>Inverse of K for LTP (for Pibble defined as KInv = solve(Xi))</p></dd>
+
+
 <dt>AInv</dt>
 <dd><p>Inverse of A for LTP (for Pibble defined as
 AInv = solve(diag(N)+ X'GammaX) )</p></dd>
+
+
 <dt>eta</dt>
 <dd><p>matrix (D-1)xN of parameter values at which to calculate quantities</p></dd>
+
+
 <dt>sylv</dt>
 <dd><p>(default:false) if true and if N &lt; D-1 will use sylvester determinant
 identity to speed computation</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>see below</p><ul><li><p>loglikPibbleCollapsed - double</p></li>
+    
+
+<p>see below</p><ul><li><p>loglikPibbleCollapsed - double</p></li>
 <li><p>gradPibbleCollapsed - vector</p></li>
 <li><p>hessPibbleCollapsed- matrix</p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">D</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
-<span class="r-in"><span class="va">Q</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
-<span class="r-in"><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">30</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Simulate Data</span></span>
-<span class="r-in"><span class="va">Sigma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, <span class="va">D</span><span class="op">-</span><span class="fl">1</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Sigma</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">Sigma</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span></span>
-<span class="r-in"><span class="va">Gamma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">Q</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">D</span><span class="op">-</span><span class="fl">1</span>, <span class="va">Q</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Phi</span> <span class="op">&lt;-</span>  <span class="va">Theta</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chol.html" class="external-link">chol</a></span><span class="op">(</span><span class="va">Sigma</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">Q</span><span class="op">*</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, nrow<span class="op">=</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="fu"><a href="https://rdrr.io/r/base/chol.html" class="external-link">chol</a></span><span class="op">(</span><span class="va">Gamma</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">*</span><span class="op">(</span><span class="va">Q</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="va">Q</span><span class="op">-</span><span class="fl">1</span>, <span class="va">N</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">X</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Eta</span> <span class="op">&lt;-</span> <span class="va">Phi</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">X</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chol.html" class="external-link">chol</a></span><span class="op">(</span><span class="va">Sigma</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">*</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, nrow<span class="op">=</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Pi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="alrInv.html">alrInv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">Eta</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">D</span>, <span class="va">N</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">N</span><span class="op">)</span> <span class="va">Y</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Multinom.html" class="external-link">rmultinom</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">5000</span><span class="op">:</span><span class="fl">10000</span><span class="op">)</span>, prob <span class="op">=</span> <span class="va">Pi</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Priors</span></span>
-<span class="r-in"><span class="va">upsilon</span> <span class="op">&lt;-</span> <span class="va">D</span><span class="op">+</span><span class="fl">10</span></span>
-<span class="r-in"><span class="va">Xi</span> <span class="op">&lt;-</span> <span class="va">Sigma</span><span class="op">*</span><span class="op">(</span><span class="va">upsilon</span><span class="op">-</span><span class="va">D</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Precompute</span></span>
-<span class="r-in"><span class="va">KInv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="va">Xi</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">AInv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span><span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">Gamma</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">X</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ThetaX</span> <span class="op">&lt;-</span> <span class="va">Theta</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">X</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">loglikPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -263716.4</span>
-<span class="r-in"><span class="fu">gradPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -6.217367  2.934519 -1.373822 -4.981077 12.790819</span>
-<span class="r-in"><span class="fu">hessPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]        [,2]        [,3]         [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -79.46321739  0.03223393 -0.03228203   0.14259931   76.915384</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]   0.03223393 -2.92133016 -0.09127286  -0.10552598    2.396291</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  -0.03228203 -0.09127286 -2.30325535   0.04835035    1.733915</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]   0.14259931 -0.10552598  0.04835035 -16.17780665   14.888685</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  76.91538360  2.39629142  1.73391473  14.88868512 -326.886860</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fl">10</span></span></span>
+<span class="r-in"><span><span class="va">Q</span> <span class="op">&lt;-</span> <span class="fl">2</span></span></span>
+<span class="r-in"><span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">30</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Simulate Data</span></span></span>
+<span class="r-in"><span><span class="va">Sigma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, <span class="va">D</span><span class="op">-</span><span class="fl">1</span>, replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Sigma</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">Sigma</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="va">Gamma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">Q</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">D</span><span class="op">-</span><span class="fl">1</span>, <span class="va">Q</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Phi</span> <span class="op">&lt;-</span>  <span class="va">Theta</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chol.html" class="external-link">chol</a></span><span class="op">(</span><span class="va">Sigma</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">Q</span><span class="op">*</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, nrow<span class="op">=</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="fu"><a href="https://rdrr.io/r/base/chol.html" class="external-link">chol</a></span><span class="op">(</span><span class="va">Gamma</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">*</span><span class="op">(</span><span class="va">Q</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="va">Q</span><span class="op">-</span><span class="fl">1</span>, <span class="va">N</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">X</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Eta</span> <span class="op">&lt;-</span> <span class="va">Phi</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">X</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chol.html" class="external-link">chol</a></span><span class="op">(</span><span class="va">Sigma</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">*</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, nrow<span class="op">=</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Pi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="alrInv.html">alrInv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">Eta</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">D</span>, <span class="va">N</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">N</span><span class="op">)</span> <span class="va">Y</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Multinom.html" class="external-link">rmultinom</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">5000</span><span class="op">:</span><span class="fl">10000</span><span class="op">)</span>, prob <span class="op">=</span> <span class="va">Pi</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Priors</span></span></span>
+<span class="r-in"><span><span class="va">upsilon</span> <span class="op">&lt;-</span> <span class="va">D</span><span class="op">+</span><span class="fl">10</span></span></span>
+<span class="r-in"><span><span class="va">Xi</span> <span class="op">&lt;-</span> <span class="va">Sigma</span><span class="op">*</span><span class="op">(</span><span class="va">upsilon</span><span class="op">-</span><span class="va">D</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Precompute</span></span></span>
+<span class="r-in"><span><span class="va">KInv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="va">Xi</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">AInv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span><span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">Gamma</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">X</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ThetaX</span> <span class="op">&lt;-</span> <span class="va">Theta</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">X</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">loglikPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -207760.1</span>
+<span class="r-in"><span><span class="fu">gradPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   2.4686422 -38.3177448  -0.1413568  -0.2359673  46.0270929</span>
+<span class="r-in"><span><span class="fu">hessPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]         [,3]        [,4]        [,5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -30.4443663    20.94770    0.5270288    2.557556    2.207218</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  20.9476963 -1365.63171   79.9657651  364.804188  328.651075</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   0.5270288    79.96577 -114.5432509    9.547134    8.588994</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]   2.5575559   364.80419    9.5471341 -484.705726   39.329323</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]   2.2072179   328.65108    8.5889936   39.329323 -440.727525</span>
 </code></pre></div>
     </div>
   </div>
@@ -205,8 +220,7 @@ identity to speed computation</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

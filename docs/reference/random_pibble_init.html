@@ -19,7 +19,7 @@ plus random pseudocounts uniformily distributed between
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -28,7 +28,7 @@ plus random pseudocounts uniformily distributed between
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -56,7 +56,7 @@ plus random pseudocounts uniformily distributed between
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -107,17 +107,20 @@ plus random pseudocounts uniformily distributed between
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">random_pibble_init</span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">random_pibble_init</span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>Y</dt>
 <dd><p>matrix (D x N) of counts</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>(D-1) x N matrix</p>
+    
+
+<p>(D-1) x N matrix</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -127,28 +130,28 @@ plus random pseudocounts uniformily distributed between
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span>, <span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">random_pibble_init</span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]        [,2]       [,3]        [,4]        [,5]       [,6]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.05988830  0.22200244 -1.4439121  0.80539493 -2.70084841  0.5072587</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.01672398 -1.35839796 -1.1614268  0.33551194 -0.90739775  0.5424467</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -1.09778885 -1.84265776 -1.0000079 -0.33851902 -0.26832977  0.2897846</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -2.29520750 -0.13245094  0.1212353  0.39332271 -1.13352399  0.6182419</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] -3.21000060 -2.28041530 -1.2620538 -0.48656269 -2.41421377 -0.3063738</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.42918128 -0.07894671 -0.8784495  0.41237694 -1.42169104 -1.2888813</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] -0.83625202 -1.52028213 -0.4071517  0.54743551  0.02062842  0.6633794</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -0.25345392  0.28567793  0.1945765 -0.19979189 -0.50650425  0.8244303</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -1.92039001 -3.07950895 -0.6219828  0.01372531 -0.02184874  0.7874963</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              [,7]       [,8]      [,9]     [,10]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] -1.54705683  0.8120087 0.9848125 1.4716509</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] -0.27638104 -3.6206569 0.3746930 0.1301129</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  0.01925536 -0.7510413 2.3270459 0.7554408</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -0.12966404  0.6003681 1.4067822 0.9723411</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] -1.01197444  0.9902941 2.2193658 0.8528919</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.90019375 -2.2282258 1.8514772 0.7125314</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] -0.47988395 -0.8652033 1.7423041 0.7370355</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -0.40337816  0.1342081 1.8039174 1.1817202</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  0.04039148  0.6778454 2.1271482 0.6892405</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span>, <span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">random_pibble_init</span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]        [,2]       [,3]        [,4]       [,5]     [,6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] -1.36433165  0.07135603  1.3608003  0.87543733  0.6287675 2.084703</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.08530188 -0.74008613  0.8433065  1.53376823  0.1790994 1.620020</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -2.27303589  0.01420400  1.4136940  0.50632166 -2.2923248 2.944876</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -0.23913660 -0.76769669  1.3866338  0.73079481 -0.8002513 3.037416</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] -0.76560549 -0.38795775 -0.6299860  1.84672323  0.7523287 2.984400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -3.53645395 -0.13916539  1.6021265  0.03646888 -0.2120000 2.278363</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  0.32975662 -0.60492830  1.5858000 -1.54454933  0.4958364 1.995850</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  0.18138328 -0.92497361  0.4026580  2.04512426 -0.9183943 2.625441</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  0.32171046  0.08715023 -0.3786447  1.47911436 -0.1097035 1.797878</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,7]        [,8]        [,9]       [,10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] -2.11568894 -0.59768503 -1.06938487 -0.77566187</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.29900924 -0.41215724 -0.83320278 -0.42391837</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -0.21141428  0.24313296 -0.73902412  0.24712247</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  0.25043014  0.07326004 -2.23772275  0.39875639</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  0.32205411 -0.03213435  0.40333847 -1.09245530</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.08037665 -0.14023747 -0.09392278 -0.26959568</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  0.33499486 -0.24987849 -0.27067099  0.46021254</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  0.28165527 -0.47751744  0.63095802  0.06182568</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -0.47951901  0.19978546 -1.59436066 -1.47232498</span>
 </code></pre></div>
     </div>
   </div>
@@ -163,8 +166,7 @@ plus random pseudocounts uniformily distributed between
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

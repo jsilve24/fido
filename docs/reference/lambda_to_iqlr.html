@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -67,7 +67,7 @@
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -129,23 +129,30 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">lambda_to_iqlr</span><span class="op">(</span><span class="va">m</span>, focus.cov <span class="op">=</span> <span class="cn">NULL</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">lambda_to_iqlr</span><span class="op">(</span><span class="va">m</span>, focus.cov <span class="op">=</span> <span class="cn">NULL</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>m</dt>
 <dd><p>object of class pibblefit (e.g., output of <code><a href="pibble_fit.html">pibble</a></code>)</p></dd>
+
+
 <dt>focus.cov</dt>
 <dd><p>vector of integers or characters specifying columns (covariates)
 of Lambda to include in calculating IQLR (if NULL, default, then uses all covariates)</p></dd>
+
+
 <dt>probs</dt>
 <dd><p>bounds for categories (i.e., features / genes / taxa) to include in 
 calculation of iqlr (smaller bounds means more stringent inclusion criteria)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>array of dimension (D, Q, iter) where D is number of taxa, Q is number
+    
+
+<p>array of dimension (D, Q, iter) where D is number of taxa, Q is number
 of covariates, and iter is number of posterior samples.</p>
     </div>
     <div id="details">
@@ -162,83 +169,83 @@ assumption that only small group of categories (e.g., taxa / genes) are changing
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_fit.html">pibble</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Use first two covariates to define iqlr, just show first 5 samples</span></span>
-<span class="r-in"><span class="fu">lambda_to_iqlr</span><span class="op">(</span><span class="va">fit</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">[</span>,,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_fit.html">pibble</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Use first two covariates to define iqlr, just show first 5 samples</span></span></span>
+<span class="r-in"><span><span class="fu">lambda_to_iqlr</span><span class="op">(</span><span class="va">fit</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">[</span>,,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  1.8062249  0.4930045</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  4.5849355 -0.9409845</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -1.8299148  0.2546707</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -3.4342416 -0.4092319</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  0.7406809  0.1916996</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.5040124 -0.2230627</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  5.6194328  0.9931755</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  0.5277023 -0.5246124</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  0.9213328 -0.3903243</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  1.5566414 -0.1111608</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] -1.6582053 -1.97409818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  1.1880242  0.84409495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -0.1100721 -0.03080317</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -1.1317677  0.30573796</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  2.2929395  1.48047790</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  2.4283381 -2.73739939</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  1.3016579 -0.18645095</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -1.3579144 -0.96338196</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -0.7184933 -0.02050144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] -0.9825242 -0.46121258</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  1.1281151  0.18877641</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  3.6503126 -1.77373712</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -0.8560897  0.53530187</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -3.5997348 -0.08074422</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  0.5420476  0.09407423</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.8189914 -0.14484513</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  5.3622822  1.35821860</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  0.3578394 -0.30248254</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  0.5474340 -0.31668059</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  1.3172418 -0.08797420</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] -1.7823121 -3.01155919</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.8944552  0.54566758</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  0.2718474  0.24810437</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -0.9376719  0.50177346</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  2.5133853  0.42072011</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  2.1427596 -4.05724390</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  1.1603406 -0.01792047</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -1.1171239 -1.02952058</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -0.6590238 -0.54729281</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] -0.7209884 -0.43665098</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  1.6725693  0.47243746</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  4.1835327 -1.30612322</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -0.9749128  0.59401141</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -3.5304851 -0.20102951</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  0.5215793 -0.28911437</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.9650807 -0.03652943</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  4.5668260 -0.24764316</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  0.2674242 -1.02991945</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  0.5649676 -0.77826587</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  1.4621122  0.07391906</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] -2.1324609 -4.3968511</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.6532620  0.2026475</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -0.4702733  0.2560441</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -1.3759636  0.2865573</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  1.2298815  0.6247519</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  1.3425012 -3.9851918</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  1.1929749 -0.7452488</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -1.3421019 -1.2326702</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -1.0673616 -0.3693492</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] -1.0758219 -0.8148950</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]       [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  1.67559184 -0.0652038</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  3.41452343 -2.7384259</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -0.77738294  0.8357812</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -3.14517046  0.2528478</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  0.48879580 -0.7448071</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.91419618 -0.4133223</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  5.10828857  0.5550353</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  0.01598728 -0.3572551</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  0.72913079 -1.1253272</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  1.21754267 -0.5309994</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] -2.0452997 -3.49176708</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.8486809  0.82824088</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -0.2281929 -0.67487679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -0.9482542  0.14385109</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  2.1193818  1.53393310</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  1.5262916 -3.17730306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  1.1320028  0.03078093</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -1.0324294 -1.00287289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -0.2746196 -0.18680345</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] -0.7395945 -0.58435819</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]        [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  1.59160200  0.25109268</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  3.94689399 -1.45614370</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -1.68078649  0.27780653</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -3.35216999 -0.59178361</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  0.61061181  0.41026611</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -1.31366774 -0.44359182</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  4.82365622  0.78969047</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  0.04234082 -0.50678385</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  0.66822400 -0.64964706</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  1.40285223 -0.08530739</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] -1.8578742 -2.57824143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.5931567  0.75110195</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  0.4133798 -0.22563372</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -0.9046675  0.02446591</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  2.6201182  1.22043992</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  0.9260900 -2.33448107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  1.5518506 -0.15196140</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -1.2403397 -0.62360646</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -0.6387271 -0.35485269</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] -0.7727770 -0.43333983</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -253,8 +260,7 @@ assumption that only small group of categories (e.g., taxa / genes) are changing
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -1,8 +1,8 @@
 Package: fido
 Type: Package
 Title: Bayesian Multinomial Logistic Normal Regression
-Version: 1.0.1
-Date: 2022-05-10
+Version: 1.0.4
+Date: 2022-08-22
 Authors@R: c(person("Justin", "Silverman", role=c("aut"),
                      email = "Justin.Silverman@psu.edu"), 
              person("Kim", "Roche", role=("ctb"), 
@@ -20,7 +20,7 @@ Depends: R (>= 4.1.0)
 Imports: Rcpp (>= 0.12.17), dplyr, ggplot2, 
   purrr, tidybayes, rlang, tidyr 
 LinkingTo: Rcpp, RcppEigen, RcppNumerical, RcppZiggurat, BH
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Additional_repositories: https://michellepistner.github.io/fidoRepo
 Suggests: 
     testthat (>= 2.1.0),

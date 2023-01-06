@@ -2,7 +2,18 @@
 % Please edit documentation in R/fidofit_methods.R
 \name{summary.pibblefit}
 \alias{summary.pibblefit}
-\title{Summarise pibblefit object and print posterior quantiles}
+\title{#' Summarise pibblefit or orthusfit object and print posterior quantiles
+#' 
+#' Default calculates median, mean, 50\% and 95\% credible interval
+#' 
+#' @param object an object of class pibblefit or orthusfit
+#' @param ... other objects to be passed to `summary.pibblefit` or `summary.orthusfit`
+#' @return A list if class is `pibblefit` or `orthusfit`
+#' @export 
+summary <- function(object, ...){
+  UseMethod("summary")
+}
+Summarise pibblefit object and print posterior quantiles}
 \usage{
 \method{summary}{pibblefit}(
   object,

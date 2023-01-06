@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -26,7 +26,7 @@
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -54,7 +54,7 @@
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -103,39 +103,52 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for pibblefit</span>
-<span class="fu"><a href="summary.html">summary</a></span><span class="op">(</span>
-  <span class="va">object</span>,
-  pars <span class="op">=</span> <span class="cn">NULL</span>,
-  use_names <span class="op">=</span> <span class="cn">TRUE</span>,
-  as_factor <span class="op">=</span> <span class="cn">FALSE</span>,
-  gather_prob <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for pibblefit</span></span>
+<span><span class="fu"><a href="summary.html">summary</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  pars <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  use_names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  as_factor <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  gather_prob <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p>an object of class pibblefit</p></dd>
+
+
 <dt>pars</dt>
 <dd><p>character vector (default: c("Eta", "Lambda", "Sigma"))</p></dd>
+
+
 <dt>use_names</dt>
 <dd><p>should summary replace dimension indices with pibblefit 
 names if names Y and X were named in call to <code><a href="pibble_fit.html">pibble</a></code></p></dd>
+
+
 <dt>as_factor</dt>
 <dd><p>if use_names and as_factor then returns names as factors 
 (useful for maintaining orderings when plotting)</p></dd>
+
+
 <dt>gather_prob</dt>
 <dd><p>if TRUE then prints quantiles in long format rather than 
 wide (useful for some plotting functions)</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other expressions to pass to summarise (using name 'val' unquoted is 
 probably what you want)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list</p>
+    
+
+<p>A list</p>
     </div>
 
   </div>
@@ -150,8 +163,7 @@ probably what you want)</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

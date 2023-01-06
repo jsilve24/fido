@@ -20,7 +20,7 @@ of covariates."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@ of covariates."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -57,7 +57,7 @@ of covariates."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -109,88 +109,133 @@ of covariates.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">optimMaltipooCollapsed</span><span class="op">(</span>
-  <span class="va">Y</span>,
-  <span class="va">upsilon</span>,
-  <span class="va">Theta</span>,
-  <span class="va">X</span>,
-  <span class="va">KInv</span>,
-  <span class="va">U</span>,
-  <span class="va">init</span>,
-  <span class="va">ellinit</span>,
-  n_samples <span class="op">=</span> <span class="fl">2000L</span>,
-  calcGradHess <span class="op">=</span> <span class="cn">TRUE</span>,
-  b1 <span class="op">=</span> <span class="fl">0.9</span>,
-  b2 <span class="op">=</span> <span class="fl">0.99</span>,
-  step_size <span class="op">=</span> <span class="fl">0.003</span>,
-  epsilon <span class="op">=</span> <span class="fl">1e-06</span>,
-  eps_f <span class="op">=</span> <span class="fl">1e-10</span>,
-  eps_g <span class="op">=</span> <span class="fl">1e-04</span>,
-  max_iter <span class="op">=</span> <span class="fl">10000L</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>,
-  verbose_rate <span class="op">=</span> <span class="fl">10L</span>,
-  decomp_method <span class="op">=</span> <span class="st">"cholesky"</span>,
-  eigvalthresh <span class="op">=</span> <span class="fl">0</span>,
-  jitter <span class="op">=</span> <span class="fl">0</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">optimMaltipooCollapsed</span><span class="op">(</span></span>
+<span>  <span class="va">Y</span>,</span>
+<span>  <span class="va">upsilon</span>,</span>
+<span>  <span class="va">Theta</span>,</span>
+<span>  <span class="va">X</span>,</span>
+<span>  <span class="va">KInv</span>,</span>
+<span>  <span class="va">U</span>,</span>
+<span>  <span class="va">init</span>,</span>
+<span>  <span class="va">ellinit</span>,</span>
+<span>  n_samples <span class="op">=</span> <span class="fl">2000L</span>,</span>
+<span>  calcGradHess <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  b1 <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>  b2 <span class="op">=</span> <span class="fl">0.99</span>,</span>
+<span>  step_size <span class="op">=</span> <span class="fl">0.003</span>,</span>
+<span>  epsilon <span class="op">=</span> <span class="fl">1e-06</span>,</span>
+<span>  eps_f <span class="op">=</span> <span class="fl">1e-10</span>,</span>
+<span>  eps_g <span class="op">=</span> <span class="fl">1e-04</span>,</span>
+<span>  max_iter <span class="op">=</span> <span class="fl">10000L</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  verbose_rate <span class="op">=</span> <span class="fl">10L</span>,</span>
+<span>  decomp_method <span class="op">=</span> <span class="st">"cholesky"</span>,</span>
+<span>  eigvalthresh <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  jitter <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>Y</dt>
 <dd><p>D x N matrix of counts</p></dd>
+
+
 <dt>upsilon</dt>
 <dd><p>(must be &gt; D)</p></dd>
+
+
 <dt>Theta</dt>
 <dd><p>D-1 x Q matrix the prior mean for regression coefficients</p></dd>
+
+
 <dt>X</dt>
 <dd><p>Q x N matrix of covariates</p></dd>
+
+
 <dt>KInv</dt>
 <dd><p>D-1 x D-1 symmetric positive-definite matrix</p></dd>
+
+
 <dt>U</dt>
 <dd><p>a PQxQ matrix of stacked variance components</p></dd>
+
+
 <dt>init</dt>
 <dd><p>D-1 x N matrix of initial guess for eta used for optimization</p></dd>
+
+
 <dt>ellinit</dt>
 <dd><p>P vector of initial guess for ell used for optimization</p></dd>
+
+
 <dt>n_samples</dt>
 <dd><p>number of samples for Laplace Approximation (=0 very fast
 as no inversion or decomposition of Hessian is required)</p></dd>
+
+
 <dt>calcGradHess</dt>
 <dd><p>if n_samples=0 should Gradient and Hessian
 still be calculated using closed form solutions?</p></dd>
+
+
 <dt>b1</dt>
 <dd><p>(ADAM) 1st moment decay parameter (recommend 0.9) "aka momentum"</p></dd>
+
+
 <dt>b2</dt>
 <dd><p>(ADAM) 2nd moment decay parameter (recommend 0.99 or 0.999)</p></dd>
+
+
 <dt>step_size</dt>
 <dd><p>(ADAM) step size for descent (recommend 0.001-0.003)</p></dd>
+
+
 <dt>epsilon</dt>
 <dd><p>(ADAM) parameter to avoid divide by zero</p></dd>
+
+
 <dt>eps_f</dt>
 <dd><p>(ADAM) normalized function improvement stopping criteria</p></dd>
+
+
 <dt>eps_g</dt>
 <dd><p>(ADAM) normalized gradient magnitude stopping criteria</p></dd>
+
+
 <dt>max_iter</dt>
 <dd><p>(ADAM) maximum number of iterations before stopping</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>(ADAM) if true will print stats for stopping criteria and
 iteration number</p></dd>
+
+
 <dt>verbose_rate</dt>
 <dd><p>(ADAM) rate to print verbose stats to screen</p></dd>
+
+
 <dt>decomp_method</dt>
 <dd><p>decomposition of hessian for Laplace approximation
 'eigen' (more stable-slightly, slower) or 'cholesky' (less stable, faster, default)</p></dd>
+
+
 <dt>eigvalthresh</dt>
 <dd><p>threshold for negative eigenvalues in
 decomposition of negative inverse hessian (should be &lt;=0)</p></dd>
+
+
 <dt>jitter</dt>
 <dd><p>(default: 0) if &gt;0 then adds that factor to diagonal of Hessian
 before decomposition (to improve matrix conditioning)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>List containing (all with respect to found optima)</p><ol><li><p>LogLik - Log Likelihood of collapsed model (up to proportionality constant)</p></li>
+    
+
+<p>List containing (all with respect to found optima)</p><ol><li><p>LogLik - Log Likelihood of collapsed model (up to proportionality constant)</p></li>
 <li><p>Gradient - (if <code>calcGradHess</code>=true)</p></li>
 <li><p>Hessian - (if <code>calcGradHess</code>=true) of the POSITIVE log posterior</p></li>
 <li><p>Pars - Parameter value of eta</p></li>
@@ -206,12 +251,12 @@ approximation, useful for calculating marginal likelihood</p></li>
 Model:
 $$Y_j \sim Multinomial(Pi_j)$$
 $$Pi_j = Phi^{-1}(Eta_j)$$
-$$Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)$$</p>
-<p>Where A = (I_N + e^ell_1<em>X</em>U_1<em>X' + ... + e^ell_P<em>X</em>U_P</em>X' ),
+$$Eta \sim T_{D-1, N}(upsilon, Theta\\*X, K, A)$$</p>
+<p>Where A = (I_N + e^ell_1\*X\*U_1\*X' + ... + e^ell_P\*X\*U_P\*X' ),
 K is a D-1xD-1 covariance and Phi is ALRInv_D transform.</p>
 <p>Gradient and Hessian calculations are fast as they are computed using closed
 form solutions. That said, the Hessian matrix can be quite large
-[N*(D-1) x N*(D-1)] and storage may be an issue.</p>
+[N\<em>(D-1) x N\</em>(D-1)] and storage may be an issue.</p>
 <p>Note: Warnings about large negative eigenvalues can either signal
 that the optimizer did not reach an optima or (more commonly in my experience)
 that the prior / degrees of freedom for the covariance (given by parameters
@@ -249,8 +294,7 @@ optimization algorithms</em>. arXiv 1609.04747</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

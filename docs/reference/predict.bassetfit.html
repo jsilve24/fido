@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -26,7 +26,7 @@
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -54,7 +54,7 @@
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -103,49 +103,68 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for bassetfit</span>
-<span class="fu"><a href="predict.html">predict</a></span><span class="op">(</span>
-  <span class="va">object</span>,
-  <span class="va">newdata</span>,
-  response <span class="op">=</span> <span class="st">"Lambda"</span>,
-  size <span class="op">=</span> <span class="cn">NULL</span>,
-  use_names <span class="op">=</span> <span class="cn">TRUE</span>,
-  summary <span class="op">=</span> <span class="cn">FALSE</span>,
-  iter <span class="op">=</span> <span class="cn">NULL</span>,
-  from_scratch <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for bassetfit</span></span>
+<span><span class="fu"><a href="predict.html">predict</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">newdata</span>,</span>
+<span>  response <span class="op">=</span> <span class="st">"Lambda"</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  use_names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  summary <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  iter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  from_scratch <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p>An object of class pibblefit</p></dd>
+
+
 <dt>newdata</dt>
 <dd><p>An optional matrix for which to evaluate prediction.</p></dd>
+
+
 <dt>response</dt>
 <dd><p>Options = "Lambda":Mean of regression, "Eta", "Y": counts</p></dd>
+
+
 <dt>size</dt>
 <dd><p>the number of counts per sample if response="Y" (as vector or matrix), 
 default if newdata=NULL and response="Y" is to use colsums of m$Y. Otherwise
 uses median colsums of object$Y as default. If passed as a matrix should have dimensions
 ncol(newdata) x iter.</p></dd>
+
+
 <dt>use_names</dt>
 <dd><p>if TRUE apply names to output</p></dd>
+
+
 <dt>summary</dt>
 <dd><p>if TRUE, posterior summary of predictions are returned rather
 than samples</p></dd>
+
+
 <dt>iter</dt>
 <dd><p>number of iterations to return if NULL uses object$iter</p></dd>
+
+
 <dt>from_scratch</dt>
 <dd><p>should predictions of Y come from fitted Eta or from 
 predictions of Eta from posterior of Lambda? (default: false)</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other arguments passed to summarise_posterior</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>(if summary==FALSE) array D x N x iter; (if summary==TRUE) 
+    
+
+<p>(if summary==FALSE) array D x N x iter; (if summary==TRUE) 
 tibble with calculated posterior summaries</p>
     </div>
     <div id="details">
@@ -166,8 +185,7 @@ tibble with calculated posterior summaries</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

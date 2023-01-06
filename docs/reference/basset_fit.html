@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -26,7 +26,7 @@
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -54,7 +54,7 @@
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -103,52 +103,73 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">basset</span><span class="op">(</span>
-  Y <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">X</span>,
-  upsilon <span class="op">=</span> <span class="cn">NULL</span>,
-  Theta <span class="op">=</span> <span class="cn">NULL</span>,
-  Gamma <span class="op">=</span> <span class="cn">NULL</span>,
-  Xi <span class="op">=</span> <span class="cn">NULL</span>,
-  init <span class="op">=</span> <span class="cn">NULL</span>,
-  pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Eta"</span>, <span class="st">"Lambda"</span>, <span class="st">"Sigma"</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for bassetfit</span>
-<span class="fu"><a href="refit.html">refit</a></span><span class="op">(</span><span class="va">m</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Eta"</span>, <span class="st">"Lambda"</span>, <span class="st">"Sigma"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">basset</span><span class="op">(</span></span>
+<span>  Y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">X</span>,</span>
+<span>  upsilon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Theta <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Gamma <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Xi <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  init <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Eta"</span>, <span class="st">"Lambda"</span>, <span class="st">"Sigma"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for bassetfit</span></span>
+<span><span class="fu"><a href="refit.html">refit</a></span><span class="op">(</span><span class="va">m</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Eta"</span>, <span class="st">"Lambda"</span>, <span class="st">"Sigma"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>Y</dt>
 <dd><p>D x N matrix of counts (if NULL uses priors only)</p></dd>
+
+
 <dt>X</dt>
 <dd><p>Q x N matrix of covariates (cannot be NULL)</p></dd>
+
+
 <dt>upsilon</dt>
 <dd><p>dof for inverse wishart prior (numeric must be &gt; D)
 (default: D+3)</p></dd>
+
+
 <dt>Theta</dt>
 <dd><p>A function from dimensions dim(X) -&gt; (D-1)xN (prior mean of gaussian process)</p></dd>
+
+
 <dt>Gamma</dt>
 <dd><p>A function from dimension dim(X) -&gt; NxN (kernel matrix of gaussian process)</p></dd>
+
+
 <dt>Xi</dt>
 <dd><p>(D-1)x(D-1) prior covariance matrix
 (default: ALR transform of diag(1)*(upsilon-D)/2 - this is
 essentially iid on "base scale" using Aitchison terminology)</p></dd>
+
+
 <dt>init</dt>
 <dd><p>(D-1) x Q initialization for Eta for optimization</p></dd>
+
+
 <dt>pars</dt>
 <dd><p>character vector of posterior parameters to return</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other arguments passed to <a href="pibble_fit.html">pibble</a> (which is used internally to
 fit the basset model)</p></dd>
+
+
 <dt>m</dt>
 <dd><p>object of class bassetfit</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>an object of class bassetfit</p>
+    
+
+<p>an object of class bassetfit</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -175,8 +196,7 @@ model if laplace approximation is not preformed.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -6,7 +6,7 @@
 \usage{
 \method{predict}{bassetfit}(
   object,
-  newdata,
+  newdata = NULL,
   response = "Lambda",
   size = NULL,
   use_names = TRUE,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fidofit_methods.R
 \name{coef.pibblefit}
 \alias{coef.pibblefit}
-\title{Return regression coefficients of pibblefit object}
+\title{#' Return regression coefficients of pibblefit or orthusfit object}
 \usage{
 \method{coef}{pibblefit}(object, ...)
 }
@@ -15,10 +15,26 @@
 Array of dimension (D-1) x Q x iter
 }
 \description{
-Pibble: Returned as array of dimension (D-1) x Q x iter (if in ALR or ILR) otherwise
-DxQxiter (if in proportions or clr).
+#' 
+#' @param object an object of class pibblefit or orthusfit
+#' @param ... other options passed to coef.pibblefit  or coef.orthusfit (see details)
+#' @return Array of dimension (D-1) x Q x iter
+#'
+#' @export
+#' @examples 
+#' sim <- pibble_sim()
+#' fit <- pibble(sim$Y, sim$X)
+#' coef(fit)
+#' 
+coef <- function(object, ...){
+  UseMethod("coef")
+}
+Return regression coefficients of pibblefit object
 }
 \details{
+Pibble: Returned as array of dimension (D-1) x Q x iter (if in ALR or ILR) otherwise
+DxQxiter (if in proportions or clr).
+
 Other arguments:
 \itemize{
 \item `use_names` if column and row names were passed for Y and X in 

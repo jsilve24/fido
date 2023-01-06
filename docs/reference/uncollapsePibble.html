@@ -21,7 +21,7 @@ the parameter n_samples in the function optimPibbleCollapsed)"><!-- mathjax --><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -30,7 +30,7 @@ the parameter n_samples in the function optimPibbleCollapsed)"><!-- mathjax --><
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -58,7 +58,7 @@ the parameter n_samples in the function optimPibbleCollapsed)"><!-- mathjax --><
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -111,17 +111,17 @@ the parameter <code>n_samples</code> in the function <code>optimPibbleCollapsed<
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">uncollapsePibble</span><span class="op">(</span>
-  <span class="va">eta</span>,
-  <span class="va">X</span>,
-  <span class="va">Theta</span>,
-  <span class="va">Gamma</span>,
-  <span class="va">Xi</span>,
-  <span class="va">upsilon</span>,
-  <span class="va">seed</span>,
-  ret_mean <span class="op">=</span> <span class="cn">FALSE</span>,
-  ncores <span class="op">=</span> <span class="op">-</span><span class="fl">1L</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">uncollapsePibble</span><span class="op">(</span></span>
+<span>  <span class="va">eta</span>,</span>
+<span>  <span class="va">X</span>,</span>
+<span>  <span class="va">Theta</span>,</span>
+<span>  <span class="va">Gamma</span>,</span>
+<span>  <span class="va">Xi</span>,</span>
+<span>  <span class="va">upsilon</span>,</span>
+<span>  <span class="va">seed</span>,</span>
+<span>  ret_mean <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ncores <span class="op">=</span> <span class="op">-</span><span class="fl">1L</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -129,30 +129,49 @@ the parameter <code>n_samples</code> in the function <code>optimPibbleCollapsed<
     <dl><dt>eta</dt>
 <dd><p>array of dimension (D-1) x N x iter (e.g., <code>Pars</code> output of
 function optimPibbleCollapsed)</p></dd>
+
+
 <dt>X</dt>
 <dd><p>matrix of covariates of dimension Q x N</p></dd>
+
+
 <dt>Theta</dt>
 <dd><p>matrix of prior mean of dimension (D-1) x Q</p></dd>
+
+
 <dt>Gamma</dt>
 <dd><p>covariance matrix of dimension Q x Q</p></dd>
+
+
 <dt>Xi</dt>
 <dd><p>covariance matrix of dimension (D-1) x (D-1)</p></dd>
+
+
 <dt>upsilon</dt>
 <dd><p>scalar (must be &gt; D) degrees of freedom for InvWishart prior</p></dd>
+
+
 <dt>seed</dt>
 <dd><p>seed to use for random number generation</p></dd>
+
+
 <dt>ret_mean</dt>
 <dd><p>if true then uses posterior mean of Lambda and Sigma
 corresponding to each sample of eta rather than sampling from
 posterior of Lambda and Sigma (useful if Laplace approximation
 is not used (or fails) in optimPibbleCollapsed)</p></dd>
+
+
 <dt>ncores</dt>
 <dd><p>(default:-1) number of cores to use, if ncores==-1 then
 uses default from OpenMP typically to use all available cores.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>List with components</p><ol><li><p>Lambda Array of dimension (D-1) x Q x iter (posterior samples)</p></li>
+    
+
+<p>List with components</p><ol><li><p>Lambda Array of dimension (D-1) x Q x iter (posterior samples)</p></li>
 <li><p>Sigma Array of dimension (D-1) x (D-1) x iter (posterior samples)</p></li>
 <li><p>The number of cores used</p></li>
 <li><p>Timer</p></li>
@@ -190,16 +209,16 @@ Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T P
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Fit model for eta</span></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="optimPibbleCollapsed.html">optimPibbleCollapsed</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">upsilon</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Theta</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">sim</span><span class="op">$</span><span class="va">X</span>, <span class="va">sim</span><span class="op">$</span><span class="va">KInv</span>, </span>
-<span class="r-in">                             <span class="va">sim</span><span class="op">$</span><span class="va">AInv</span>, <span class="fu"><a href="random_pibble_init.html">random_pibble_init</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span>  </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Finally obtain samples from Lambda and Sigma</span></span>
-<span class="r-in"><span class="va">fit2</span> <span class="op">&lt;-</span> <span class="fu">uncollapsePibble</span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">Samples</span>, <span class="va">sim</span><span class="op">$</span><span class="va">X</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Theta</span>, </span>
-<span class="r-in">                                   <span class="va">sim</span><span class="op">$</span><span class="va">Gamma</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Xi</span>, <span class="va">sim</span><span class="op">$</span><span class="va">upsilon</span>, </span>
-<span class="r-in">                                   seed<span class="op">=</span><span class="fl">2849</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Fit model for eta</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="optimPibbleCollapsed.html">optimPibbleCollapsed</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">upsilon</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Theta</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">sim</span><span class="op">$</span><span class="va">X</span>, <span class="va">sim</span><span class="op">$</span><span class="va">KInv</span>, </span></span>
+<span class="r-in"><span>                             <span class="va">sim</span><span class="op">$</span><span class="va">AInv</span>, <span class="fu"><a href="random_pibble_init.html">random_pibble_init</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span>  </span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Finally obtain samples from Lambda and Sigma</span></span></span>
+<span class="r-in"><span><span class="va">fit2</span> <span class="op">&lt;-</span> <span class="fu">uncollapsePibble</span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">Samples</span>, <span class="va">sim</span><span class="op">$</span><span class="va">X</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Theta</span>, </span></span>
+<span class="r-in"><span>                                   <span class="va">sim</span><span class="op">$</span><span class="va">Gamma</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Xi</span>, <span class="va">sim</span><span class="op">$</span><span class="va">upsilon</span>, </span></span>
+<span class="r-in"><span>                                   seed<span class="op">=</span><span class="fl">2849</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -214,8 +233,7 @@ Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T P
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

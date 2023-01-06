@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -26,7 +26,7 @@
   <a href="https://github.com/jsilve24/fido/wiki/Installation-Details" class="external-link">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -54,7 +54,7 @@
   <a href="../news/index.html">News</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other Packages
      
     <span class="caret"></span>
@@ -98,29 +98,32 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.0.1" id="fido-101">fido 1.0.1<a class="anchor" aria-label="anchor" href="#fido-101"></a></h2>
+<h2 class="page-header" data-toc-text="1.0.3" id="fido-103">fido 1.0.3<a class="anchor" aria-label="anchor" href="#fido-103"></a></h2>
 <p>bug fixes</p>
-<ul><li>Changing phyloseq from imports to depends, was causing issues
-installing from CRAN.</li>
-<li>Fixing bug in configure.ac that was causing openmp parallelization
-to not work on some machines.</li>
+<ul><li>Updating documentation under the newest version of R (4.2.1)</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.0.2" id="fido-102">fido 1.0.2<small>2022-07-06</small><a class="anchor" aria-label="anchor" href="#fido-102"></a></h2>
+<p>bug fixes</p>
+<ul><li>Removing a timing test because it is irrelevant and can fail under certain set-ups.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.0.1" id="fido-101">fido 1.0.1<small>2022-05-17</small><a class="anchor" aria-label="anchor" href="#fido-101"></a></h2>
+<p>bug fixes</p>
+<ul><li>Changing phyloseq from imports to depends, was causing issues installing from CRAN.</li>
+<li>Fixing bug in configure.ac that was causing openmp parallelization to not work on some machines.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.0" id="fido-100">fido 1.0.0<small>2022-02-16</small><a class="anchor" aria-label="anchor" href="#fido-100"></a></h2>
 <p>More changes to make the final push for CRAN! Changes include:</p>
 <ul><li>Updating the description file to match CRAN’s standards</li>
 <li>Removing the dependency to driver</li>
-<li>Linking the one remote package (MicrobeDS) to a separate CRAN-like
-Github repo using the “drat” package. This is to match CRAN’s policy
-against no use of “Remotes”.</li>
-<li>Precomputing the longer running vignettes, cutting R CMD check times
-in half. The original vignettes can be found in the vignettes folder
-with a “.orig” extension for reproducibility.</li>
+<li>Linking the one remote package (MicrobeDS) to a separate CRAN-like Github repo using the “drat” package. This is to match CRAN’s policy against no use of “Remotes”.</li>
+<li>Precomputing the longer running vignettes, cutting R CMD check times in half. The original vignettes can be found in the vignettes folder with a “.orig” extension for reproducibility.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.14" id="fido-0114">fido 0.1.14<a class="anchor" aria-label="anchor" href="#fido-0114"></a></h2>
-<ul><li>More changes to prepare for version 0.2 (and CRAN soon),
-including:</li>
+<ul><li>More changes to prepare for version 0.2 (and CRAN soon), including:</li>
 <li>Lots of cleaning of small warnings and notes</li>
 <li>Fixing erorrs with the base plot function</li>
 <li>Cleaning up some manual entries</li>
@@ -128,24 +131,16 @@ including:</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.13" id="fido-0113">fido 0.1.13<a class="anchor" aria-label="anchor" href="#fido-0113"></a></h2>
-<ul><li>tons of tiny changes to prepare for version 0.2 (and ultimately
-CRAN) featured changes include:</li>
-<li>plot and coef methods for *fit objects now abide by CRAN generic
-naming scheme - may cause some problems if prior code had positional
-arguments to these functions</li>
-<li>now being tested using travis integration (vignettes not tested
-there due to time constraints)</li>
-<li>merged Kim’s fixes to maltipoo code (will almost certainly change
-maltipoo results; there had been a bug in prior versions)</li>
-<li>Internally stored mallard and mallard_family data now import as
-<code>mallard</code> and <code>mallard_family</code> rather than both
-importing as <code>ps</code>. Solved a R CMD CHECK warning.</li>
+<ul><li>tons of tiny changes to prepare for version 0.2 (and ultimately CRAN) featured changes include:</li>
+<li>plot and coef methods for *fit objects now abide by CRAN generic naming scheme - may cause some problems if prior code had positional arguments to these functions</li>
+<li>now being tested using travis integration (vignettes not tested there due to time constraints)</li>
+<li>merged Kim’s fixes to maltipoo code (will almost certainly change maltipoo results; there had been a bug in prior versions)</li>
+<li>Internally stored mallard and mallard_family data now import as <code>mallard</code> and <code>mallard_family</code> rather than both importing as <code>ps</code>. Solved a R CMD CHECK warning.</li>
 <li>Lots of tiny updates to documentation</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.12" id="fido-0112">fido 0.1.12<a class="anchor" aria-label="anchor" href="#fido-0112"></a></h2>
-<ul><li>orthus added for jointly fitting multinomial and gaussian data
-(e.g., 16S microbiome and metabolomics data)</li>
+<ul><li>orthus added for jointly fitting multinomial and gaussian data (e.g., 16S microbiome and metabolomics data)</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.11" id="fido-0111">fido 0.1.11<a class="anchor" aria-label="anchor" href="#fido-0111"></a></h2>
@@ -154,15 +149,13 @@ importing as <code>ps</code>. Solved a R CMD CHECK warning.</li>
 <li>Fixed error when pars!=NULL in summary</li>
 <li>lambda_to_iqlr now had default behavior when focus.cov=NULL</li>
 <li>Fixed issue with Xi=NULL in pibblefit when trying to transform</li>
-<li>small changes to make pibble wrapper around c++ functions
-faster</li>
+<li>small changes to make pibble wrapper around c++ functions faster</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.10" id="fido-0110">fido 0.1.10<a class="anchor" aria-label="anchor" href="#fido-0110"></a></h2>
 <ul><li>basset added for fitting non-linear regression using fido</li>
 <li>numerous changes to make installation easier</li>
-<li>Added a <code>NEWS.md</code> file to track changes to the
-package.</li>
+<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
 </ul></div>
   </div>
 
@@ -178,8 +171,7 @@ package.</li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
