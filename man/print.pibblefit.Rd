@@ -2,21 +2,7 @@
 % Please edit documentation in R/fidofit_methods.R
 \name{print.pibblefit}
 \alias{print.pibblefit}
-\title{#' Print dimensions and coordinate system information for an orthusfit or pibblefit object. 
-#'
-#' @param x an object of class pibblefit or orthusfit
-#' @param ... other arguments to pass to summary function
-#' @return No direct value, but a print out
-#' @export
-#' @examples 
-#' sim <- pibble_sim()
-#' fit <- pibble(sim$Y, sim$X)
-#' print(fit)
-#' 
-print <- function(x, ...){
-  UseMethod("print")
-}
-Print dimensions and coordinate system information for pibblefit object.}
+\title{Print dimensions and coordinate system information for pibblefit object.}
 \usage{
 \method{print}{pibblefit}(x, summary = FALSE, ...)
 }
@@ -31,20 +17,6 @@ Print dimensions and coordinate system information for pibblefit object.}
 No direct return, prints out summary
 }
 \description{
-#' Print dimensions and coordinate system information for an orthusfit or pibblefit object. 
-#'
-#' @param x an object of class pibblefit or orthusfit
-#' @param ... other arguments to pass to summary function
-#' @return No direct value, but a print out
-#' @export
-#' @examples 
-#' sim <- pibble_sim()
-#' fit <- pibble(sim$Y, sim$X)
-#' print(fit)
-#' 
-print <- function(x, ...){
-  UseMethod("print")
-}
 Print dimensions and coordinate system information for pibblefit object.
 }
 \examples{

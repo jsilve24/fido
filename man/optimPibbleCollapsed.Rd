@@ -23,7 +23,7 @@ optimPibbleCollapsed(
   verbose = FALSE,
   verbose_rate = 10L,
   decomp_method = "cholesky",
-  optim_method = "adam",
+  optim_method = "lbfgs",
   eigvalthresh = 0,
   jitter = 0,
   multDirichletBoot = -1,
@@ -74,7 +74,7 @@ iteration number}
 \item{decomp_method}{decomposition of hessian for Laplace approximation
 'eigen' (more stable-slightly, slower) or 'cholesky' (less stable, faster, default)}
 
-\item{optim_method}{(default:"adam") or "lbfgs"}
+\item{optim_method}{(default:"lbfgs") or "adam"}
 
 \item{eigvalthresh}{threshold for negative eigenvalues in
 decomposition of negative inverse hessian (should be <=0)}
