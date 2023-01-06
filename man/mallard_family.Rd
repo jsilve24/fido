@@ -5,7 +5,7 @@
 \alias{mallard_family}
 \title{Data from Silverman et al. (2018) Microbiome}
 \format{
-An object of class phyloseq::phyloseq-class
+A list containing "otu_table", "sample_data", "tax_table", and "refseq".
 }
 \usage{
 data(mallard_family)

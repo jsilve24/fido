@@ -9,7 +9,7 @@
 #' @docType data
 #' @name mallard_family
 #' @usage data(mallard_family)
-#' @format An object of class phyloseq::phyloseq-class
+#' @format A list containing "otu_table", "sample_data", "tax_table", and "refseq".
 #' @references Silverman et al. "Dynamic linear models guide design and 
 #'   analysis of microbiota studies within artificial human guts". 
 #'   Microbiome 2018 6:202
