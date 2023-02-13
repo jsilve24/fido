@@ -17,14 +17,10 @@ r2_internal <- function(eta.hat, eta){
   ## variance / sum of squares being defined as total variation
   ## (trace of covariance matrix)
   var.res <- apply(resid, c(3), function(x) sum(diag(var(t(x)))))
-  var.tot <- apply(eta, c(3), function(x) sum(diag(var(t(x)))))
+  var.pred <- apply(eta.hat, c(3), function(x) sum(diag(var(t(x)))))
 
-  ## Note as we are doing this all in the latent space (under the multinomial)
-  ## it guarantees that 1-var.res/var.tot is equal to var_fit/(var_fit+var_res)
-  ## exactly as discussed in Gelman 2019
-  return(1-var.res/var.tot)
+  return(var.pred/(var.pred + var.res))
 }
-
 
 ##' @rdname r2
 ##' @param covariates vector of indices for covariates to include in calculation of R2 (default:NULL
