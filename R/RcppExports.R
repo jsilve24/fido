@@ -266,7 +266,7 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #'   decomposition of negative inverse hessian (should be <=0)
 #' @param jitter (default: 0) if >=0 then adds that factor to diagonal of Hessian 
 #' before decomposition (to improve matrix conditioning)
-#' @param multDirichletBoot if >0 (overrides laplace approximation) and samples
+#' @param multDirichletBoot if >0 then it overrides laplace approximation and samples
 #'  eta efficiently at MAP estimate from pseudo Multinomial-Dirichlet posterior.
 #' @param useSylv (default: true) if N<D-1 uses Sylvester Determinant Identity
 #'   to speed up calculation of log-likelihood and gradients. 

@@ -82,7 +82,7 @@ decomposition of negative inverse hessian (should be <=0)}
 \item{jitter}{(default: 0) if >=0 then adds that factor to diagonal of Hessian
 before decomposition (to improve matrix conditioning)}
 
-\item{multDirichletBoot}{if >0 (overrides laplace approximation) and samples
+\item{multDirichletBoot}{if >0 then it overrides laplace approximation and samples
 eta efficiently at MAP estimate from pseudo Multinomial-Dirichlet posterior.}
 
 \item{useSylv}{(default: true) if N<D-1 uses Sylvester Determinant Identity
