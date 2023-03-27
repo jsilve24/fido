@@ -1,4 +1,7 @@
-bibentry(bibtype = "article",
+citHeader("To cite fido in publications use:")
+
+citEntry(
+  entry = "article",
   title = "Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes",
   author = c("Justin D Silverman",
   "Kim Roche",
@@ -8,4 +11,7 @@ bibentry(bibtype = "article",
   year = 2022,
   volume = 23,
   journal = "Journal of Machine Learning Research",
-  url = "https://www.jmlr.org/papers/v23/19-882.html")
+  url = "https://www.jmlr.org/papers/v23/19-882.html",
+
+  textVersion = "Silverman, JD, Roche, K, Holmes, ZC, David, LA, and Mukherjee, S. Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes. 2022, Journal of Machine Learning Research."
+)

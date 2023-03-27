@@ -1,9 +1,3 @@
-# fido 1.0.4
-
-bug fixes
-
-* Editing numCores test.
-
 # fido 1.0.3
 
 bug fixes
