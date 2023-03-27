@@ -1,3 +1,4 @@
+set.seed(1)
 D <- 6
 P <- 4
 A.prop <- array(abs(rnorm(10*6*5)), dim=c(10, 6, 5))

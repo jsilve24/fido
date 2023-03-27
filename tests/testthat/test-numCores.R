@@ -1,4 +1,5 @@
 library(fido)
+set.seed(1)
 sim <- pibble_sim()
 fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, sim$Theta%*%sim$X, sim$KInv, 
                             sim$AInv, random_pibble_init(sim$Y))  

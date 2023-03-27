@@ -1,8 +1,8 @@
 Package: fido
 Type: Package
 Title: Bayesian Multinomial Logistic Normal Regression
-Version: 1.0.3
-Date: 2022-08-22
+Version: 1.0.4
+Date: 2023-03-22
 Authors@R: c(person("Justin", "Silverman", role=c("aut"),
                      email = "Justin.Silverman@psu.edu"), 
              person("Kim", "Roche", role=("ctb"), 
@@ -35,5 +35,3 @@ VignetteBuilder: knitr
 LazyData: true
 BugReports: https://github.com/jsilve24/fido/issues
 Encoding: UTF-8
-Remotes:
-    twbattaglia/MicrobeDS
