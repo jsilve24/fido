@@ -31,6 +31,8 @@ function optimPibbleCollapsed)}
 
 \item{Xi}{covariance matrix of dimension (D-1) x (D-1)}
 
+\item{sigma}{known covariance matrix of dimension (D-1) x (D-1) x N}
+
 \item{upsilon}{scalar (must be > D) degrees of freedom for InvWishart prior}
 
 \item{seed}{seed to use for random number generation}
@@ -40,8 +42,12 @@ corresponding to each sample of eta rather than sampling from
 posterior of Lambda and Sigma (useful if Laplace approximation
 is not used (or fails) in optimPibbleCollapsed)}
 
+\item{linear}{Boolean. Is this for a linear parameter?}
+
 \item{ncores}{(default:-1) number of cores to use, if ncores==-1 then
 uses default from OpenMP typically to use all available cores.}
+
+\item{Gammacomb}{summed covariance matrix across additive components of dimension Q x Q.}
 }
 \value{
 List with components
@@ -78,18 +84,6 @@ The uncollapsed model (Full pibble model) is given by:
 This function provides a means of sampling from the posterior distribution of
 \code{Lambda} and \code{Sigma} given posterior samples of \code{Eta} from
 the collapsed model.
-}
-\examples{
-sim <- pibble_sim()
-
-# Fit model for eta
-fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, sim$Theta\%*\%sim$X, sim$KInv, 
-                             sim$AInv, random_pibble_init(sim$Y))  
-
-# Finally obtain samples from Lambda and Sigma
-fit2 <- uncollapsePibble(fit$Samples, sim$X, sim$Theta, 
-                                   sim$Gamma, sim$Xi, sim$upsilon, 
-                                   seed=2849)
 }
 \references{
 JD Silverman K Roche, ZC Holmes, LA David, S Mukherjee.

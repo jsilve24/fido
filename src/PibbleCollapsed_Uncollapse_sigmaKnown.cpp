@@ -29,13 +29,16 @@ using Eigen::Lower;
 //' @param X matrix of covariates of dimension Q x N
 //' @param Theta matrix of prior mean of dimension (D-1) x Q
 //' @param Gamma covariance matrix of dimension Q x Q
+//' @param Gammacomb summed covariance matrix across additive components of dimension Q x Q.
 //' @param Xi covariance matrix of dimension (D-1) x (D-1)
+//' @param sigma known covariance matrix of dimension (D-1) x (D-1) x N
 //' @param upsilon scalar (must be > D) degrees of freedom for InvWishart prior
 //' @param ret_mean if true then uses posterior mean of Lambda and Sigma 
 //'   corresponding to each sample of eta rather than sampling from 
 //'   posterior of Lambda and Sigma (useful if Laplace approximation
 //'   is not used (or fails) in optimPibbleCollapsed)
-//' @param seed seed to use for random number generation 
+//' @param seed seed to use for random number generation
+//' @param linear Boolean. Is this for a linear parameter? 
 //' @param ncores (default:-1) number of cores to use, if ncores==-1 then 
 //' uses default from OpenMP typically to use all available cores. 
 //'  
@@ -68,17 +71,6 @@ using Eigen::Lower;
 //' @references JD Silverman K Roche, ZC Holmes, LA David, S Mukherjee. 
 //'   Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes. 
 //'   2019, arXiv e-prints, arXiv:1903.11695
-//' @examples
-//' sim <- pibble_sim()
-//' 
-//' # Fit model for eta
-//' fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, sim$Theta%*%sim$X, sim$KInv, 
-//'                              sim$AInv, random_pibble_init(sim$Y))  
-//' 
-//' # Finally obtain samples from Lambda and Sigma
-//' fit2 <- uncollapsePibble(fit$Samples, sim$X, sim$Theta, 
-//'                                    sim$Gamma, sim$Xi, sim$upsilon, 
-//'                                    seed=2849)
 // [[Rcpp::export]]
 List uncollapsePibble_sigmaKnown(const Eigen::Map<Eigen::VectorXd> eta, // note this is essentially eta
                     const Eigen::Map<Eigen::MatrixXd> X, 

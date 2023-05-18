@@ -436,13 +436,16 @@ rMatUnitNormal_test2 <- function(n) {
 #' @param X matrix of covariates of dimension Q x N
 #' @param Theta matrix of prior mean of dimension (D-1) x Q
 #' @param Gamma covariance matrix of dimension Q x Q
+#' @param Gammacomb summed covariance matrix across additive components of dimension Q x Q.
 #' @param Xi covariance matrix of dimension (D-1) x (D-1)
+#' @param sigma known covariance matrix of dimension (D-1) x (D-1) x N
 #' @param upsilon scalar (must be > D) degrees of freedom for InvWishart prior
 #' @param ret_mean if true then uses posterior mean of Lambda and Sigma 
 #'   corresponding to each sample of eta rather than sampling from 
 #'   posterior of Lambda and Sigma (useful if Laplace approximation
 #'   is not used (or fails) in optimPibbleCollapsed)
-#' @param seed seed to use for random number generation 
+#' @param seed seed to use for random number generation
+#' @param linear Boolean. Is this for a linear parameter? 
 #' @param ncores (default:-1) number of cores to use, if ncores==-1 then 
 #' uses default from OpenMP typically to use all available cores. 
 #'  
@@ -475,17 +478,6 @@ rMatUnitNormal_test2 <- function(n) {
 #' @references JD Silverman K Roche, ZC Holmes, LA David, S Mukherjee. 
 #'   Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes. 
 #'   2019, arXiv e-prints, arXiv:1903.11695
-#' @examples
-#' sim <- pibble_sim()
-#' 
-#' # Fit model for eta
-#' fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, sim$Theta%*%sim$X, sim$KInv, 
-#'                              sim$AInv, random_pibble_init(sim$Y))  
-#' 
-#' # Finally obtain samples from Lambda and Sigma
-#' fit2 <- uncollapsePibble(fit$Samples, sim$X, sim$Theta, 
-#'                                    sim$Gamma, sim$Xi, sim$upsilon, 
-#'                                    seed=2849)
 uncollapsePibble_sigmaKnown <- function(eta, X, Theta, Gamma, GammaComb, Xi, sigma, upsilon, seed, ret_mean = FALSE, linear = FALSE, ncores = -1L) {
     .Call('_fido_uncollapsePibble_sigmaKnown', PACKAGE = 'fido', eta, X, Theta, Gamma, GammaComb, Xi, sigma, upsilon, seed, ret_mean, linear, ncores)
 }
