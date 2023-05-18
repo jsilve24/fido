@@ -22,7 +22,11 @@ verify.bassetfit <- function(m, ...){
                                  is.null(m$Sigma), is.null(m$Sigma_default))
   ifnotnull(m$iter, stopifnot(is.integer(m$iter)))
   ifnotnull(m$Eta,check_dims(m$Eta, c(Dm1, N, iter), "bassetfit param Eta"))
-  ifnotnull(m$Lambda,check_dims(m$Lambda, c(Dm1, N, iter), "bassetfit param Lambda"))
+  if(typeof(m$Theta) == "list"){
+    ifnotnull(m$Lambda,check_dims(m$Lambda, length(m$Theta), "bassetfit param Lambda"))
+  } else{
+    ifnotnull(m$Lambda,check_dims(m$Lambda, c(Dm1, N, iter), "bassetfit param Lambda"))
+  }  
   ifnotnull(m$Sigma,check_dims(m$Sigma, c(Dm1, Dm1, iter), "bassetfit param Sigma"))
   ifnotnull(m$Sigma_default,check_dims(m$Sigma_default, c(D-1, D-1, iter), "bassetfit param Sigma_default"))
   ifnotnull(m$Y,check_dims(m$Y, c(D, N), "bassetfit param Y"))
@@ -65,6 +69,9 @@ verify.bassetfit <- function(m, ...){
 predict.bassetfit <- function(object, newdata=NULL, response="Lambda", size=NULL, 
                               use_names=TRUE, summary=FALSE, iter=NULL,
                               from_scratch=FALSE, ...){
+  if(typeof(object$Theta) == "list"){
+    stop("Predict not implemented for additive basset model.")
+  }
   req(object, c("Lambda", "Sigma"))
   if (is.null(newdata)) {
     req(object, c("X"))

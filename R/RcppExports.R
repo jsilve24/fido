@@ -423,6 +423,73 @@ rMatUnitNormal_test2 <- function(n) {
     .Call('_fido_rMatUnitNormal_test2', PACKAGE = 'fido', n)
 }
 
+#' Uncollapse output from optimPibbleCollapsed to full pibble Model when Sigma is known
+#' 
+#' See details for model. Should likely be called following 
+#' \code{\link{optimPibbleCollapsed}}. Notation: \code{N} is number of samples,
+#' \code{D} is number of multinomial categories, \code{Q} is number
+#' of covariates, \code{iter} is the number of samples of \code{eta} (e.g., 
+#' the parameter \code{n_samples} in the function \code{optimPibbleCollapsed})
+#' 
+#' @param eta array of dimension (D-1) x N x iter (e.g., \code{Pars} output of 
+#'   function optimPibbleCollapsed)
+#' @param X matrix of covariates of dimension Q x N
+#' @param Theta matrix of prior mean of dimension (D-1) x Q
+#' @param Gamma covariance matrix of dimension Q x Q
+#' @param Xi covariance matrix of dimension (D-1) x (D-1)
+#' @param upsilon scalar (must be > D) degrees of freedom for InvWishart prior
+#' @param ret_mean if true then uses posterior mean of Lambda and Sigma 
+#'   corresponding to each sample of eta rather than sampling from 
+#'   posterior of Lambda and Sigma (useful if Laplace approximation
+#'   is not used (or fails) in optimPibbleCollapsed)
+#' @param seed seed to use for random number generation 
+#' @param ncores (default:-1) number of cores to use, if ncores==-1 then 
+#' uses default from OpenMP typically to use all available cores. 
+#'  
+#' @details Notation: Let Z_j denote the J-th row of a matrix Z.
+#' While the collapsed model is given by:
+#'    \deqn{Y_j ~ Multinomial(Pi_j)}
+#'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
+#'    \deqn{Eta ~ T_{D-1, N}(upsilon, Theta*X, K, A)}
+#' Where A = I_N + X * Gamma * X', K = Xi is a (D-1)x(D-1) covariance 
+#' matrix, Gamma is a Q x Q covariance matrix, and Phi^{-1} is ALRInv_D 
+#' transform. 
+#' 
+#' The uncollapsed model (Full pibble model) is given by:
+#'    \deqn{Y_j ~ Multinomial(Pi_j)}
+#'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
+#'    \deqn{Eta ~ MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
+#'    \deqn{Lambda ~ MN_{D-1 x Q}(Theta, Sigma, Gamma)}
+#'    \deqn{Sigma ~ InvWish(upsilon, Xi)}
+#' This function provides a means of sampling from the posterior distribution of 
+#' \code{Lambda} and \code{Sigma} given posterior samples of \code{Eta} from 
+#' the collapsed model. 
+#' @return List with components 
+#' 1. Lambda Array of dimension (D-1) x Q x iter (posterior samples)
+#' 2. Sigma Array of dimension (D-1) x (D-1) x iter (posterior samples)
+#' 3. The number of cores used
+#' 4. Timer
+#' @export
+#' @md
+#' @seealso \code{\link{optimPibbleCollapsed}}
+#' @references JD Silverman K Roche, ZC Holmes, LA David, S Mukherjee. 
+#'   Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes. 
+#'   2019, arXiv e-prints, arXiv:1903.11695
+#' @examples
+#' sim <- pibble_sim()
+#' 
+#' # Fit model for eta
+#' fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, sim$Theta%*%sim$X, sim$KInv, 
+#'                              sim$AInv, random_pibble_init(sim$Y))  
+#' 
+#' # Finally obtain samples from Lambda and Sigma
+#' fit2 <- uncollapsePibble(fit$Samples, sim$X, sim$Theta, 
+#'                                    sim$Gamma, sim$Xi, sim$upsilon, 
+#'                                    seed=2849)
+uncollapsePibble_sigmaKnown <- function(eta, X, Theta, Gamma, GammaComb, Xi, sigma, upsilon, seed, ret_mean = FALSE, linear = FALSE, ncores = -1L) {
+    .Call('_fido_uncollapsePibble_sigmaKnown', PACKAGE = 'fido', eta, X, Theta, Gamma, GammaComb, Xi, sigma, upsilon, seed, ret_mean, linear, ncores)
+}
+
 #' Log of Multivarate Gamma Function - Gamma_p(a)
 #' @param a defined by Gamma_p(a)
 #' @param p defined by Gamma_p(a)

@@ -23,10 +23,19 @@ pibble_tidy_samples<- function(m, use_names=FALSE, as_factor=FALSE){
                                                      .data$coord, 
                                                      .data$sample, 
                                                      .data$iter)
-  if (!is.null(m$Lambda)) l$Lambda <- gather_array(m$Lambda, .data$val, 
-                                                           .data$coord, 
-                                                           .data$covariate, 
-                                                           .data$iter)
+  if (!is.null(m$Lambda)){
+    if(typeof(m$Lambda) == "list"){
+      l$Lambda <- lapply(m$Lambda, FUN = function(x){gather_array(x, .data$val, 
+                                                                  .data$coord, 
+                                                                  .data$covariate, 
+                                                                  .data$iter)})
+    } else{
+      l$Lambda <- gather_array(m$Lambda, .data$val, 
+                               .data$coord, 
+                               .data$covariate, 
+                               .data$iter)
+    }
+  } 
   if (!is.null(m$Sigma)) l$Sigma <- gather_array(m$Sigma, .data$val, 
                                                          .data$coord, 
                                                          .data$coord2, 
@@ -394,6 +403,8 @@ coef.pibblefit <- function(object, ...){
   args <- list(...)
   use_names <- args_null("use_names", args, TRUE)
   
+  if(typeof(object$Lambda) == "list") stop("Not currently supported for additive basset model.")
+  
   if (is.null(object$Lambda)) stop("pibblefit object does not contain samples of Lambda")
   x <- object$Lambda
   if (use_names) return(name_array(x, object, list("cat", "cov", NULL)))
@@ -751,6 +762,7 @@ sample_prior.pibblefit <- function(m, n_samples=2000L,
                                     pars=c("Eta", "Lambda", "Sigma"), 
                                     use_names=TRUE, ...){
   req(m, c("upsilon", "Theta", "Gamma", "Xi"))
+  if(typeof(m$Theta) == "list") stop("Function not currently supported for additive basset model.")
   
   # Convert to default ALR for computation
   l <- store_coord(m)

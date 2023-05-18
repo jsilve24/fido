@@ -298,6 +298,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// uncollapsePibble_sigmaKnown
+List uncollapsePibble_sigmaKnown(const Eigen::Map<Eigen::VectorXd> eta, const Eigen::Map<Eigen::MatrixXd> X, const Eigen::Map<Eigen::MatrixXd> Theta, const Eigen::Map<Eigen::MatrixXd> Gamma, const Eigen::Map<Eigen::MatrixXd> GammaComb, const Eigen::Map<Eigen::MatrixXd> Xi, const Eigen::Map<Eigen::VectorXd> sigma, const double upsilon, long seed, bool ret_mean, bool linear, int ncores);
+RcppExport SEXP _fido_uncollapsePibble_sigmaKnown(SEXP etaSEXP, SEXP XSEXP, SEXP ThetaSEXP, SEXP GammaSEXP, SEXP GammaCombSEXP, SEXP XiSEXP, SEXP sigmaSEXP, SEXP upsilonSEXP, SEXP seedSEXP, SEXP ret_meanSEXP, SEXP linearSEXP, SEXP ncoresSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::Map<Eigen::VectorXd> >::type eta(etaSEXP);
+    Rcpp::traits::input_parameter< const Eigen::Map<Eigen::MatrixXd> >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const Eigen::Map<Eigen::MatrixXd> >::type Theta(ThetaSEXP);
+    Rcpp::traits::input_parameter< const Eigen::Map<Eigen::MatrixXd> >::type Gamma(GammaSEXP);
+    Rcpp::traits::input_parameter< const Eigen::Map<Eigen::MatrixXd> >::type GammaComb(GammaCombSEXP);
+    Rcpp::traits::input_parameter< const Eigen::Map<Eigen::MatrixXd> >::type Xi(XiSEXP);
+    Rcpp::traits::input_parameter< const Eigen::Map<Eigen::VectorXd> >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< const double >::type upsilon(upsilonSEXP);
+    Rcpp::traits::input_parameter< long >::type seed(seedSEXP);
+    Rcpp::traits::input_parameter< bool >::type ret_mean(ret_meanSEXP);
+    Rcpp::traits::input_parameter< bool >::type linear(linearSEXP);
+    Rcpp::traits::input_parameter< int >::type ncores(ncoresSEXP);
+    rcpp_result_gen = Rcpp::wrap(uncollapsePibble_sigmaKnown(eta, X, Theta, Gamma, GammaComb, Xi, sigma, upsilon, seed, ret_mean, linear, ncores));
+    return rcpp_result_gen;
+END_RCPP
+}
 // lmvgamma
 double lmvgamma(double a, int p);
 RcppExport SEXP _fido_lmvgamma(SEXP aSEXP, SEXP pSEXP) {
@@ -441,6 +463,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_fido_rInvWishRevCholesky_thread_inplace_test", (DL_FUNC) &_fido_rInvWishRevCholesky_thread_inplace_test, 3},
     {"_fido_rMatUnitNormal_test1", (DL_FUNC) &_fido_rMatUnitNormal_test1, 2},
     {"_fido_rMatUnitNormal_test2", (DL_FUNC) &_fido_rMatUnitNormal_test2, 1},
+    {"_fido_uncollapsePibble_sigmaKnown", (DL_FUNC) &_fido_uncollapsePibble_sigmaKnown, 12},
     {"_fido_lmvgamma", (DL_FUNC) &_fido_lmvgamma, 2},
     {"_fido_lmvgamma_deriv", (DL_FUNC) &_fido_lmvgamma_deriv, 2},
     {"_fido_eigen_lap_test", (DL_FUNC) &_fido_eigen_lap_test, 4},
