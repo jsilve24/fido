@@ -436,7 +436,7 @@ rMatUnitNormal_test2 <- function(n) {
 #' @param X matrix of covariates of dimension Q x N
 #' @param Theta matrix of prior mean of dimension (D-1) x Q
 #' @param Gamma covariance matrix of dimension Q x Q
-#' @param Gammacomb summed covariance matrix across additive components of dimension Q x Q.
+#' @param GammaComb summed covariance matrix across additive components of dimension Q x Q.
 #' @param Xi covariance matrix of dimension (D-1) x (D-1)
 #' @param sigma known covariance matrix of dimension (D-1) x (D-1) x N
 #' @param upsilon scalar (must be > D) degrees of freedom for InvWishart prior

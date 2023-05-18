@@ -3,6 +3,7 @@
 # EDIT: who are we kidding we didn't take inspiration from the above, we just shamelessly stole and minimally
 #       modified the RcppArmadillo configure.ac file that others have perfected.
 #       https://github.com/RcppCore/RcppArmadillo/blob/master/configure.ac
+#
 
 AC_PREREQ([2.69])
 AC_INIT(fido, m4_esyscmd_s([awk '/^Version:/ {print $2}' DESCRIPTION]))
@@ -64,6 +65,7 @@ fi
 ## Go back home.
 cd "${owd}"
 rm -rf "${BUILDDIR}"
+
 
 
 ## additional reporting/diagnostics for mac don't trust the above approach for mac

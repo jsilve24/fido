@@ -29,6 +29,8 @@ function optimPibbleCollapsed)}
 
 \item{Gamma}{covariance matrix of dimension Q x Q}
 
+\item{GammaComb}{summed covariance matrix across additive components of dimension Q x Q.}
+
 \item{Xi}{covariance matrix of dimension (D-1) x (D-1)}
 
 \item{sigma}{known covariance matrix of dimension (D-1) x (D-1) x N}
@@ -46,8 +48,6 @@ is not used (or fails) in optimPibbleCollapsed)}
 
 \item{ncores}{(default:-1) number of cores to use, if ncores==-1 then
 uses default from OpenMP typically to use all available cores.}
-
-\item{Gammacomb}{summed covariance matrix across additive components of dimension Q x Q.}
 }
 \value{
 List with components
