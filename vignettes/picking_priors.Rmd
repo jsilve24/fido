@@ -2,7 +2,7 @@
 title: "Picking Priors"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{picking_priors}
+  %\VignetteIndexEntry{Picking Priors}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

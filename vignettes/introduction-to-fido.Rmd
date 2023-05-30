@@ -8,8 +8,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   %\VignetteIndexEntry{Introduction to fido::Pibble}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
-  chunk_output_type: console
 bibliography: bibliography.bib
 ---
 
@@ -278,8 +276,10 @@ p <- plot(priors, par="Lambda")
 #> replace the existing scale.
 p + ggplot2::xlim(c(-10, 10))  
 ```
+```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
+knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/lambda-for-all.png')
+```
 
-![](unnamed-chunk-7-1.png)
 
 This looks fairly reasonable to me. So I am going to go ahead and 
 fit the model with data. `fido` provides a helper method called `refit` 
@@ -321,7 +321,10 @@ object as in our `priors` object].
 ppc(posterior) + ggplot2::coord_cartesian(ylim=c(0, 30000))
 ```
 
-![](unnamed-chunk-10-1.png)
+```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
+knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/fido-ppc.png')
+```
+
 
 There are a few things to note about this plot. First, when zoomed out like this
 it looks it is hard to make much of it. This is a fairly large dataset we are 
@@ -352,7 +355,10 @@ than the other.
 ppc(posterior, from_scratch=TRUE) +ggplot2::coord_cartesian(ylim=c(0, 30000))
 ```
 
-![](unnamed-chunk-12-1.png)
+```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
+knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/fido-ppc-scratch.png')
+```
+
 
 ```r
 ppc_summary(posterior, from_scratch=TRUE)
@@ -375,7 +381,10 @@ plot(posterior, par="Lambda", focus.coord = focus, focus.cov = rownames(X)[2:4])
 #> replace the existing scale.
 ```
 
-![](unnamed-chunk-13-1.png)
+```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
+knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/fido-lambda-res.png')
+```
+
 
 The first, and most obvious ting to notice is that the covariate `age` has pretty 
 much no effect at all, whatever effect it may have is incredibly weak. So 
@@ -421,7 +430,10 @@ plot(posterior, par="Lambda", focus.coord = focus, focus.cov = rownames(X)[2])
 #> replace the existing scale.
 ```
 
-![](unnamed-chunk-14-1.png)
+```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
+knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/fido-lambda-cd.png')
+```
+
 
 
 # More Technical Details 
