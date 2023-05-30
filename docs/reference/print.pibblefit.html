@@ -135,11 +135,16 @@
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in chol.default(Sigma):</span> the leading minor of order 3 is not positive definite</span>
 <span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_fit.html">pibble</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ncol(Y):</span> object 'sim' not found</span>
 <span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in print(fit):</span> object 'fit' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pibblefit Object: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Number of Samples:		 30 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Number of Categories:		 10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Number of Covariates:		 2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Number of Posterior Samples:	 2000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Contains Samples of Parameters:Eta  Lambda  Sigma</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Coordinate System:		 alr, reference category: 10 [c10] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Log Marginal Likelihood:	 -262120.893 </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

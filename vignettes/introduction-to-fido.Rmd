@@ -277,7 +277,7 @@ p <- plot(priors, par="Lambda")
 p + ggplot2::xlim(c(-10, 10))  
 ```
 ```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
-knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/lambda-for-all.png')
+knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/fido-lambda-all.png')
 ```
 
 
