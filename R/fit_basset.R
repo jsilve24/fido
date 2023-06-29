@@ -12,6 +12,7 @@
 #' @param Xi (D-1)x(D-1) prior covariance matrix
 #'   (default: ALR transform of diag(1)*(upsilon-D)/2 - this is 
 #'   essentially iid on "base scale" using Aitchison terminology)
+#' @param linear A vector denoting which rows of X should be used in a linear component. Default is all rows.
 #' @param init (D-1) x Q initialization for Eta for optimization 
 #' @param pars character vector of posterior parameters to return
 #' @param m object of class bassetfit 
@@ -47,7 +48,7 @@ NULL
 
 #' @rdname basset_fit
 #' @export
-basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, 
+basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, linear = NULL,
                    init=NULL, pars=c("Eta", "Lambda", "Sigma"), ...){
   
   args <- list(...)
@@ -68,6 +69,15 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL,
     Xi <- Xi*(upsilon-D) # make inverse wishart mean Xi as in previous lines 
   }
   
+  if(is.null(linear)){
+    message("No rows of X were specified. Using all rows...")
+    linear <- 1:nrow(X)
+  } else{
+    ## Check that linear doesn't contain values less than 1 or greater than nrow(X)
+    if(min(linear) < 1 | max(linear) > nrow(X)){
+      stop("Please verify that all values of 'linear' are between 1 and nrow(X).")
+    }
+  }
   
   ## adding functionality so that Theta and Gamma can be a list
   if(typeof(Theta) == "list" | typeof(Gamma) == "list"){
@@ -82,7 +92,9 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL,
     Theta_trans <- list()
     for(i in 1:length(Theta)){
       if(is.matrix(Theta[[i]])){
-        Theta_trans[[i]] <- Theta[[i]] %*% X
+        Q.red <- nrow(X[linear,])
+        if(ncol(Theta[[i]]) != Q.red) stop(paste("The dimension of Theta element", i, "is incorrect! Please ensure it matches the dimensions of the desired linear components."))
+        Theta_trans[[i]] <- Theta[[i]] %*% X[linear,]
       } else if(is.function(Theta[[i]])){
         Theta_trans[[i]] <- Theta[[i]](X)
       } else{
@@ -93,7 +105,9 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL,
     Gamma_trans <- list()
     for(i in 1:length(Gamma)){
       if(is.matrix(Gamma[[i]])){
-        Gamma_trans[[i]] <- t(X) %*% Gamma[[i]] %*% X
+        Q.red <- nrow(X[linear,])
+        if(ncol(Gamma[[i]]) != Q.red | nrow(Gamma[[i]]) != Q.red) stop(paste("The dimension of Gamma element", i, "is incorrect! Please ensure it matches the dimensions of the desired linear components."))
+        Gamma_trans[[i]] <- t(X[linear,]) %*% Gamma[[i]] %*% X[linear,]
       } else if(is.function(Gamma[[i]])){
         Gamma_trans[[i]] <- Gamma[[i]](X)
       } else{
@@ -109,13 +123,18 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL,
     ## fitting uncollapse using the joint samples
     
     Lambda <- list()
+    Lambda.out <- list()
     
     ## Sampling for each of the additive components
     l <- length(Theta_trans)
     for(i in 1:l){
       if(i == 1){
-        samp_mean <- Reduce("+", Theta_trans[-c((i+1):l)])
-        eta_samples <- sweep(collapse_samps$Lambda, c(1,2), samp_mean, FUN = "-")
+        if(l == 1){
+          eta_samples <- collapse_samps$Lambda
+        } else{
+          samp_mean <- Reduce("+", Theta_trans[-c((i+1):l)])
+          eta_samples <- sweep(collapse_samps$Lambda, c(1,2), samp_mean, FUN = "-")
+        }
       } else{
         red_lambda <- Reduce("+", Lambda)
         samp_mean <- array(NA, dim = dim(red_lambda))
@@ -126,23 +145,26 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL,
       }
       Gamma_comb_red <- Reduce('+', Gamma_trans[c(i:l)])
       
-      if(i != l){
+      if(i != l | (i == l & i == 1)){
         if(is.matrix(Theta[[i]])){
-          fitu <- uncollapsePibble_sigmaKnown(eta_samples, X, Theta[[i]], Gamma[[i]], Gamma_comb_red, Xi, collapse_samps$Sigma, upsilon, 
+          fitu <- uncollapsePibble_sigmaKnown(eta_samples, X[linear,], Theta[[i]], Gamma[[i]], Gamma_comb_red, Xi, collapse_samps$Sigma, upsilon, 
                                    ret_mean=ret_mean, linear = TRUE, ncores=ncores, seed=seed)
           LambdaX <- array(NA, dim = c(nrow(fitu$Lambda), ncol(X), n_samples))
           for(j in 1:n_samples){
-            LambdaX[,,j] <- fitu$Lambda[,,j] %*% X
+            LambdaX[,,j] <- fitu$Lambda[,,j] %*% X[linear,]
           }
           Lambda[[i]] <- LambdaX
+          Lambda.out[[i]] <- fitu$Lambda
         } else{
           fitu <- uncollapsePibble_sigmaKnown(eta_samples, diag(ncol(X)), Theta_trans[[i]], Gamma_trans[[i]], Gamma_comb_red, Xi, collapse_samps$Sigma, upsilon, 
                                                      ret_mean=ret_mean, linear = FALSE, ncores=ncores, seed=seed)
           Lambda[[i]] <- fitu$Lambda
+          Lambda.out[[i]] <- fitu$Lambda
         }
       } else{
         row.names(collapse_samps$Lambda) <- NULL
         Lambda[[i]] <- collapse_samps$Lambda - samp_mean
+        Lambda.out[[i]] <- Lambda[[i]]
       }
     }
     ## pretty output ##
@@ -151,7 +173,7 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL,
       out[["Eta"]] <- collapse_samps$Eta
     }
     if ("Lambda" %in% pars){
-      out[["Lambda"]] <- Lambda
+      out[["Lambda"]] <- Lambda.out
     }
     if ("Sigma" %in% pars){
       out[["Sigma"]] <- fitu$Sigma
@@ -169,6 +191,7 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL,
     out$Gamma <- Gamma
     out$init <- collapse_samps$init
     out$iter <- dim(collapse_samps$Eta)[3]
+    out$linear <- linear
     # for other methods
     out$names_categories <- rownames(Y)
     out$names_samples <- colnames(Y)
