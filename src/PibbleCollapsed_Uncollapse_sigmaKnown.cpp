@@ -103,11 +103,9 @@ List uncollapsePibble_sigmaKnown(const Eigen::Map<Eigen::VectorXd> eta, // note 
   int iter = eta.size()/(N*(D-1)); // assumes result is an integer !!!
   const MatrixXd Xt(X.transpose());
   const MatrixXd GammaInv(Gamma.lu().inverse());
-  MatrixXd GammaCombInv(GammaComb.lu().inverse());
-  if (linear){
-    GammaCombInv = X*GammaCombInv*Xt;
-  }
-  const MatrixXd GammaInvSum(GammaInv+GammaCombInv);
+  const MatrixXd GammaCombInv(GammaComb.lu().inverse());
+  const MatrixXd XGammaCombInvXt(X*GammaCombInv*Xt);
+  const MatrixXd GammaInvSum(GammaInv+XGammaCombInvXt);
   const MatrixXd GammaInvSumInv(GammaInvSum.lu().inverse());
   const MatrixXd LGammaInv(GammaInvSumInv.llt().matrixL());
   
@@ -136,12 +134,9 @@ List uncollapsePibble_sigmaKnown(const Eigen::Map<Eigen::VectorXd> eta, // note 
     const Map<const MatrixXd> Sigma(&sigma(i*(D-1)*(D-1)), D-1, D-1);
     const MatrixXd LSigma(Sigma.llt().matrixL());
     
-    if (linear){
-      LambdaN.noalias() = ((Eta*GammaCombInv*Xt + Theta*GammaInv)*GammaInvSumInv);
-    } else{
-      LambdaN.noalias() = ((Eta*GammaCombInv + Theta*GammaInv)*GammaInvSumInv);
-    }
-
+    
+    LambdaN.noalias() = (Eta*GammaCombInv*Xt*GammaInvSumInv + Theta*GammaInv*GammaInvSumInv);
+    
     if (ret_mean){
       Map<VectorXd> LambdaNVec(LambdaN.data(), LambdaN.size());
       LambdaDraw0.col(i) = LambdaNVec;

@@ -13,6 +13,7 @@ basset(
   Theta = NULL,
   Gamma = NULL,
   Xi = NULL,
+  linear = NULL,
   init = NULL,
   pars = c("Eta", "Lambda", "Sigma"),
   ...
@@ -35,6 +36,8 @@ basset(
 \item{Xi}{(D-1)x(D-1) prior covariance matrix
 (default: ALR transform of diag(1)*(upsilon-D)/2 - this is
 essentially iid on "base scale" using Aitchison terminology)}
+
+\item{linear}{A vector denoting which rows of X should be used in a linear component. Default is all rows.}
 
 \item{init}{(D-1) x Q initialization for Eta for optimization}
 

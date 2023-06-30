@@ -58,6 +58,8 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
   n_samples <- args_null("n_samples", args, 2000)
   
   D <- nrow(Y)
+  N <- ncol(Y)
+  if(ncol(X) != N) stop("The number of columns in X and Y must match.")
   if (is.null(upsilon)) upsilon <- D+3  # default is minimal information 
   # but with defined mean
   if (is.null(Xi)) {
@@ -130,10 +132,10 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
     for(i in 1:l){
       if(i == 1){
         if(l == 1){
-          eta_samples <- collapse_samps$Lambda
+          eta_samples <- collapse_samps$Eta
         } else{
           samp_mean <- Reduce("+", Theta_trans[-c((i+1):l)])
-          eta_samples <- sweep(collapse_samps$Lambda, c(1,2), samp_mean, FUN = "-")
+          eta_samples <- sweep(collapse_samps$Eta, c(1,2), samp_mean, FUN = "-")
         }
       } else{
         red_lambda <- Reduce("+", Lambda)
@@ -141,9 +143,13 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
         for(j in 1:dim(samp_mean)[3]){
           samp_mean[,,j] <- red_lambda[,,j] + Reduce("+", Theta_trans[-c((i+1):l)])
         }
-        eta_samples <- collapse_samps$Lambda - samp_mean
+        eta_samples <- collapse_samps$Eta - samp_mean
       }
-      Gamma_comb_red <- Reduce('+', Gamma_trans[c(i:l)])
+      if(i == 1 & l == 1){
+        Gamma_comb_red <- diag(N)
+      } else{
+        Gamma_comb_red <- diag(N) + Reduce('+', Gamma_trans[c(1:(i-1))])
+      }
       
       if(i != l | (i == l & i == 1)){
         if(is.matrix(Theta[[i]])){
@@ -162,8 +168,8 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
           Lambda.out[[i]] <- fitu$Lambda
         }
       } else{
-        row.names(collapse_samps$Lambda) <- NULL
-        Lambda[[i]] <- collapse_samps$Lambda - samp_mean
+        row.names(collapse_samps$Eta) <- NULL
+        Lambda[[i]] <- collapse_samps$Eta - samp_mean
         Lambda.out[[i]] <- Lambda[[i]]
       }
     }
@@ -176,7 +182,7 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
       out[["Lambda"]] <- Lambda.out
     }
     if ("Sigma" %in% pars){
-      out[["Sigma"]] <- fitu$Sigma
+      out[["Sigma"]] <- collapse_samps$Sigma
     }
     
     # By default just returns all other parameters

@@ -70,9 +70,10 @@ predict.bassetfit <- function(object, newdata=NULL, response="Lambda", size=NULL
                               use_names=TRUE, summary=FALSE, iter=NULL,
                               from_scratch=FALSE, ...){
   if(typeof(object$Theta) == "list"){
-    stop("Predict not implemented for additive basset model.")
+    req(object, c("Lambda", "Sigma", "linear"))
+  } else{
+    req(object, c("Lambda", "Sigma"))
   }
-  req(object, c("Lambda", "Sigma"))
   if (is.null(newdata)) {
     req(object, c("X"))
     newdata <- object$X
@@ -112,30 +113,73 @@ predict.bassetfit <- function(object, newdata=NULL, response="Lambda", size=NULL
   
   # Set up Function Evaluation
   obs <- c(rep(TRUE, ncol(object$X)), rep(FALSE, nnew)) 
-  Theta <- object$Theta(cbind(object$X, newdata))
-  Gamma <- object$Gamma(cbind(object$X, newdata))
   
-  # Predict Lambda
-  Gamma_oo <- Gamma[obs, obs, drop=F]
-  Gamma_ou <- Gamma[obs, !obs, drop=F]
-  Gamma_uu <- Gamma[!obs, !obs, drop=F]
-  Gamma_ooIou <- solve(Gamma_oo, Gamma_ou)
-  Gamma_schur <- Gamma_uu - t(Gamma_ou) %*% Gamma_ooIou 
-  U_Gamma_schur <- chol(Gamma_schur)
-  Theta_o <- Theta[,obs, drop=F]
-  Theta_u <- Theta[,!obs, drop=F]
-  
-  Lambda_u <- array(0, dim=c(object$D-1, nnew, object$iter))
-  
-  # function for prediction - sample one Lambda_u
-  lu <- function(Lambda_o, Sigma){
-    Z <- matrix(rnorm(nrow(Gamma_uu)*(object$D-1)), object$D-1, nrow(Gamma_uu))
-    Theta_u + (Lambda_o-Theta_o)%*%Gamma_ooIou + t(chol(Sigma))%*%Z%*%U_Gamma_schur
+  # Predict Lambda 
+  if(typeof(object$Theta) == "list"){
+    Lambda_u <- array(0, dim=c(object$D-1, nnew, object$iter))
+    Lambda_tmp <- list()
+    
+    for (k in 1:length(object$Theta)){
+      Lambda_tmp[[k]] <- array(0, dim=c(object$D-1, nnew, object$iter))
+
+      if(!is.function(object$Theta[[k]])){
+        for(i in 1:object$iter){
+          Lambda_tmp[[k]][,,i] <- object$Lambda[[k]][,,i] %*% cbind(newdata)[object$linear,]
+        }
+      } else{
+      Theta <- object$Theta[[k]](cbind(object$X, newdata))
+      Gamma <- object$Gamma[[k]](cbind(object$X, newdata))
+      
+      # Predict Lambda
+      Gamma_oo <- Gamma[obs, obs, drop=F]
+      Gamma_ou <- Gamma[obs, !obs, drop=F]
+      Gamma_uu <- Gamma[!obs, !obs, drop=F]
+      Gamma_ooIou <- solve(Gamma_oo, Gamma_ou)
+      Gamma_schur <- Gamma_uu - t(Gamma_ou) %*% Gamma_ooIou 
+      U_Gamma_schur <- chol(Gamma_schur)
+      Theta_o <- Theta[,obs, drop=F]
+      Theta_u <- Theta[,!obs, drop=F]
+      # function for prediction - sample one Lambda_u
+      lu <- function(Lambda_o, Sigma){
+        Z <- matrix(rnorm(nrow(Gamma_uu)*(object$D-1)), object$D-1, nrow(Gamma_uu))
+        Theta_u + (Lambda_o-Theta_o)%*%Gamma_ooIou + t(chol(Sigma))%*%Z%*%U_Gamma_schur
+      }
+      
+      # Fill in and predict
+      for (i in 1:object$iter){
+        Lambda_tmp[[k]][,,i] <- lu(object$Lambda[[k]][,,i], object$Sigma[,,i])
+      }
+    }
+      for(i in 1:object$iter){
+        Lambda_u[,,i] <- Lambda_u[,,i] + Lambda_tmp[[k]][,,i]
+      } 
   }
-  
-  # Fill in and predict
-  for (i in 1:object$iter){
-    Lambda_u[,,i] <- lu(object$Lambda[,,i], object$Sigma[,,i])
+  } else{
+    Theta <- object$Theta(cbind(object$X, newdata))
+    Gamma <- object$Gamma(cbind(object$X, newdata))
+    
+    # Predict Lambda
+    Gamma_oo <- Gamma[obs, obs, drop=F]
+    Gamma_ou <- Gamma[obs, !obs, drop=F]
+    Gamma_uu <- Gamma[!obs, !obs, drop=F]
+    Gamma_ooIou <- solve(Gamma_oo, Gamma_ou)
+    Gamma_schur <- Gamma_uu - t(Gamma_ou) %*% Gamma_ooIou 
+    U_Gamma_schur <- chol(Gamma_schur)
+    Theta_o <- Theta[,obs, drop=F]
+    Theta_u <- Theta[,!obs, drop=F]
+    
+    Lambda_u <- array(0, dim=c(object$D-1, nnew, object$iter))
+    
+    # function for prediction - sample one Lambda_u
+    lu <- function(Lambda_o, Sigma){
+      Z <- matrix(rnorm(nrow(Gamma_uu)*(object$D-1)), object$D-1, nrow(Gamma_uu))
+      Theta_u + (Lambda_o-Theta_o)%*%Gamma_ooIou + t(chol(Sigma))%*%Z%*%U_Gamma_schur
+    }
+    
+    # Fill in and predict
+    for (i in 1:object$iter){
+      Lambda_u[,,i] <- lu(object$Lambda[,,i], object$Sigma[,,i])
+    }
   }
   
   if (use_names) Lambda_u <- name_array(Lambda_u, object,
