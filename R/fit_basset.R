@@ -56,7 +56,7 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
   seed <- args_null("seed", args, sample(1:2^15, 1))
   ret_mean <- args_null("ret_mean", args, FALSE)
   n_samples <- args_null("n_samples", args, 2000)
-  
+
   D <- nrow(Y)
   N <- ncol(Y)
   if(ncol(X) != N) stop("The number of columns in X and Y must match.")
@@ -127,6 +127,11 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
     Lambda <- list()
     Lambda.out <- list()
     
+    ##Updating the number of samples... Useful if it returns the MAP estimate
+    if(dim(collapse_samps$Eta)[3] != n_samples){
+      warning("Using MAP estimates for uncollapsing...")
+    } 
+    
     ## Sampling for each of the additive components
     l <- length(Theta_trans)
     for(i in 1:l){
@@ -155,8 +160,8 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
         if(is.matrix(Theta[[i]])){
           fitu <- uncollapsePibble_sigmaKnown(eta_samples, X[linear,], Theta[[i]], Gamma[[i]], Gamma_comb_red, Xi, collapse_samps$Sigma, upsilon, 
                                    ret_mean=ret_mean, linear = TRUE, ncores=ncores, seed=seed)
-          LambdaX <- array(NA, dim = c(nrow(fitu$Lambda), ncol(X), n_samples))
-          for(j in 1:n_samples){
+          LambdaX <- array(NA, dim = c(nrow(fitu$Lambda), ncol(X), dim(fitu$Lambda)[3]))
+          for(j in 1:dim(fitu$Lambda)[3]){
             LambdaX[,,j] <- fitu$Lambda[,,j] %*% X[linear,]
           }
           Lambda[[i]] <- LambdaX
