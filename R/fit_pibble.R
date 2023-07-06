@@ -100,6 +100,7 @@ pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL
   check_dims(Theta, c(D-1, Q), "Theta")
   check_dims(Gamma, c(Q, Q), "Gamma")
   check_dims(Xi, c(D-1, D-1), "Xi")
+
   
   # set number of iterations 
   n_samples <- args_null("n_samples", args, 2000)
@@ -120,7 +121,11 @@ pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL
     return(out)
   } else {
     if (is.null(X)) stop("X must be given to fit model")
-    if(is.null(init)) init <- random_pibble_init(Y)   # initialize init 
+    if(is.null(init)) {
+      init <- random_pibble_init(Y)   # initialize init 
+    } else {
+     check_dims(init, c(D-1, Q), "init") 
+    }
   }
 
 
