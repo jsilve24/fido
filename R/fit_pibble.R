@@ -21,7 +21,7 @@
 #' @param Xi (D-1)x(D-1) prior covariance matrix
 #'   (default: ALR transform of diag(1)*(upsilon-D)/2 - this is 
 #'   essentially iid on "base scale" using Aitchison terminology)
-#' @param init (D-1) x Q initialization for Eta for optimization
+#' @param init (D-1) x N initialization for Eta for optimization
 #' @param pars character vector of posterior parameters to return
 #' @param m object of class pibblefit 
 #' @param ... arguments passed to \code{\link{optimPibbleCollapsed}} and 
@@ -124,7 +124,7 @@ pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL
     if(is.null(init)) {
       init <- random_pibble_init(Y)   # initialize init 
     } else {
-     check_dims(init, c(D-1, Q), "init") 
+     check_dims(init, c(D-1, N), "init") 
     }
   }
 
