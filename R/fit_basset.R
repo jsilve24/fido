@@ -90,40 +90,46 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
       stop("Theta and Gamma must be of the same length.")
     }
     
+    ## evaluating theta and gamma
     ## theta
-    Theta_trans <- list()
-    for(i in 1:length(Theta)){
-      if(is.matrix(Theta[[i]])){
+    theta_eval <- function(Theta, X, linear){
+      if(is.matrix(Theta)){
         Q.red <- nrow(X[linear,])
-        if(ncol(Theta[[i]]) != Q.red) stop(paste("The dimension of Theta element", i, "is incorrect! Please ensure it matches the dimensions of the desired linear components."))
-        Theta_trans[[i]] <- Theta[[i]] %*% X[linear,]
-      } else if(is.function(Theta[[i]])){
-        Theta_trans[[i]] <- Theta[[i]](X)
+        if(ncol(Theta) != Q.red) stop("The dimension of the linear Theta element is incorrect! Please ensure it matches the dimensions of the desired linear components.")
+        return(Theta %*% X[linear,])
+      } else if(is.function(Theta)){
+        return(Theta(X))
       } else{
-      stop(paste("Element ", i, "of Theta not supported!"))
-    }}
-    Theta_comb <- Reduce('+', Theta_trans)
-    ## gamma
-    Gamma_trans <- list()
-    for(i in 1:length(Gamma)){
-      if(is.matrix(Gamma[[i]])){
-        Q.red <- nrow(X[linear,])
-        if(ncol(Gamma[[i]]) != Q.red | nrow(Gamma[[i]]) != Q.red) stop(paste("The dimension of Gamma element", i, "is incorrect! Please ensure it matches the dimensions of the desired linear components."))
-        Gamma_trans[[i]] <- t(X[linear,]) %*% Gamma[[i]] %*% X[linear,]
-      } else if(is.function(Gamma[[i]])){
-        Gamma_trans[[i]] <- Gamma[[i]](X)
-      } else{
-        stop(paste("Element ", i, "of Gamma not supported!"))
+        stop("An element of Theta is not supported! All elements must be a matrix or list.")
       }
     }
     
+    ## gamma
+    gamma_eval <- function(Gamma, X, linear){
+      if(is.matrix(Gamma)){
+        Q.red <- nrow(X[linear,])
+        if(ncol(Gamma) != Q.red | nrow(Gamma) != Q.red) stop("The dimension of the linear component of Gamma element is incorrect! Please ensure it matches the dimensions of the desired linear components.")
+        return(t(X[linear,]) %*% Gamma %*% X[linear,])
+      } else if(is.function(Gamma)){
+        return(Gamma(X))
+      } else{
+        stop("An element of Gamma is not supported! All elements must be a matrix or list.")
+      }
+    }
+    Theta_trans <- list()
+    Gamma_trans <- list()
+    for(i in 1:length(Theta)){
+      Theta_trans[[i]] <- theta_eval(Theta[[i]], X, linear)
+      Gamma_trans[[i]] <- gamma_eval(Gamma[[i]], X, linear)
+    }
+    
+    Theta_comb <- Reduce('+', Theta_trans)
     Gamma_comb <- Reduce('+', Gamma_trans)
     
     ## fitting the joint model
     collapse_samps <- pibble(Y, X=diag(ncol(X)), upsilon, Theta_comb, Gamma_comb, Xi, init, pars, ...)
     
     ## fitting uncollapse using the joint samples
-    
     Lambda <- list()
     Lambda.out <- list()
     
@@ -133,51 +139,60 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
     } 
     
     ## Sampling for each of the additive components
-    l <- length(Theta_trans)
-    for(i in 1:l){
-      if(i == 1){
-        if(l == 1){
-          eta_samples <- collapse_samps$Eta
-        } else{
-          samp_mean <- Reduce("+", Theta_trans[-c((i+1):l)])
-          eta_samples <- sweep(collapse_samps$Eta, c(1,2), samp_mean, FUN = "-")
+    num.comp <- length(Theta_trans)
+    Lambda <- list()
+    Lambda.out <- list()
+    
+    add.uncollapse <- function(coll_samples, X, Theta, Gamma, Gamma_comb, Xi, Sigma, upsilon, ret_mean, ncores, seed, linear){
+      if(is.matrix(Theta)){
+        fitu <- uncollapsePibble_sigmaKnown(coll_samples, X[linear,], Theta, Gamma, Gamma_comb, Xi, Sigma, upsilon, 
+                                            ret_mean, ncores, seed)
+        LambdaX <- array(NA, dim = c(nrow(fitu$Lambda), ncol(X), dim(fitu$Lambda)[3]))
+        for(j in 1:dim(fitu$Lambda)[3]){
+          LambdaX[,,j] <- fitu$Lambda[,,j] %*% X[linear,]
         }
+        return(list(Lambda = LambdaX, Lambda.out = fitu$Lambda))
       } else{
-        red_lambda <- Reduce("+", Lambda)
-        samp_mean <- array(NA, dim = dim(red_lambda))
-        for(j in 1:dim(samp_mean)[3]){
-          samp_mean[,,j] <- red_lambda[,,j] + Reduce("+", Theta_trans[-c((i+1):l)])
-        }
-        eta_samples <- collapse_samps$Eta - samp_mean
+        fitu <- uncollapsePibble_sigmaKnown(coll_samples, diag(ncol(X)), Theta(X), Gamma(X), Gamma_comb, Xi, Sigma, upsilon, 
+                                            ret_mean, ncores, seed)
+        return(list(Lambda = fitu$Lambda, Lambda.out = fitu$Lambda))
       }
-      if(i == 1 & l == 1){
-        Gamma_comb_red <- diag(N)
-      } else{
-        Gamma_comb_red <- diag(N) + Reduce('+', Gamma_trans[c(1:(i-1))])
-      }
-      
-      if(i != l | (i == l & i == 1)){
+    } 
+    
+    for(i in 1:num.comp){
+      ## if num.comp == 1 --> return the samples from Lambda above
+      if(num.comp == 1){
+        ## return the pibble samples.
         if(is.matrix(Theta[[i]])){
-          fitu <- uncollapsePibble_sigmaKnown(eta_samples, X[linear,], Theta[[i]], Gamma[[i]], Gamma_comb_red, Xi, collapse_samps$Sigma, upsilon, 
-                                   ret_mean=ret_mean, linear = TRUE, ncores=ncores, seed=seed)
-          LambdaX <- array(NA, dim = c(nrow(fitu$Lambda), ncol(X), dim(fitu$Lambda)[3]))
-          for(j in 1:dim(fitu$Lambda)[3]){
-            LambdaX[,,j] <- fitu$Lambda[,,j] %*% X[linear,]
-          }
-          Lambda[[i]] <- LambdaX
+          fitu <- uncollapsePibble(collapse_samps$Eta, X[linear,], Theta[[i]], Gamma[[i]], Xi, upsilon, 
+                                              ret_mean=ret_mean, ncores=ncores, seed=seed)
           Lambda.out[[i]] <- fitu$Lambda
         } else{
-          fitu <- uncollapsePibble_sigmaKnown(eta_samples, diag(ncol(X)), Theta_trans[[i]], Gamma_trans[[i]], Gamma_comb_red, Xi, collapse_samps$Sigma, upsilon, 
-                                                     ret_mean=ret_mean, linear = FALSE, ncores=ncores, seed=seed)
-          Lambda[[i]] <- fitu$Lambda
-          Lambda.out[[i]] <- fitu$Lambda
+          Lambda.out[[i]] <- collapse_samps$Lambda
         }
-      } else{
-        row.names(collapse_samps$Eta) <- NULL
-        Lambda[[i]] <- collapse_samps$Eta - samp_mean
-        Lambda.out[[i]] <- Lambda[[i]]
+      } else {
+        if(i < num.comp){
+          Lambda_mean <- Reduce("+", Lambda)
+          Theta_mean <- Reduce("+", Theta_trans[c((i+1):num.comp)])
+          unc_samples <- if(is.null(Lambda_mean)){
+            sweep(collapse_samps$Lambda, c(1,2), Theta_mean, FUN = "-")
+          } else{
+            samp_mean <- sweep(Lambda_mean, c(1,2), Theta_mean, FUN = "+")
+            collapse_samps$Lambda - samp_mean
+          }
+          Gamma_comb_red <- Reduce('+', Gamma_trans[c(i:num.comp)])
+          fitu <- add.uncollapse(unc_samples, X, Theta[[i]], Gamma[[i]], Gamma_comb_red, Xi, collapse_samps$Sigma,
+                                 upsilon, ret_mean, ncores, seed)
+          Lambda[[i]] <- fitu$Lambda
+          Lambda.out[[i]] <- fitu$Lambda.out
+        } else {
+          samp_mean <- Reduce("+", Lambda)
+          Lambda[[i]] <- collapse_samps$Lambda - samp_mean
+          Lambda.out[[i]] <- Lambda[[i]]
+        }
       }
     }
+
     ## pretty output ##
     out <- list()
     if ("Eta" %in% pars){
