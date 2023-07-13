@@ -83,7 +83,14 @@ to_proportions.pibblefit <- function(m){
   }
   if (m$coord_system == "ilr"){
     if (!is.null(m$Eta)) m$Eta <- ilrInv_array(m$Eta, m$ilr_base, 1)
-    if (!is.null(m$Lambda)) m$Lambda <- ilrInv_array(m$Lambda, m$ilr_base, 1)
+    if(!is.null(m$Lambda)){
+      if(is.list(m$Lambda)){
+        for(i in 1:length(m$Lambda)) m$Lambda[[i]] <-  ilr_array(m$Lambda[[i]], V, 1)
+      }
+      else {
+        m$Lambda <-  ilr_array(m$Lambda, V, 1)
+      }
+    }
     if (!is.null(m$Sigma)){
       for (i in 1:m$iter){
         m$Sigma[,,i] <- ilrvar2alrvar(m$Sigma[,,i], m$ilr_base, m$D)
@@ -105,7 +112,14 @@ to_proportions.pibblefit <- function(m){
   }
   if (m$coord_system == "clr"){
     if (!is.null(m$Eta)) m$Eta <- clrInv_array(m$Eta, 1)
-    if (!is.null(m$Lambda)) m$Lambda <- clrInv_array(m$Lambda, 1)
+    if(!is.null(m$Lambda)){
+      if(is.list(m$Lambda)){
+        for(i in 1:length(m$Lambda)) m$Lambda[[i]] <- clr_array(m$Lambda[[i]], 1)
+      }
+      else {
+        m$Lambda <- clr_array(m$Lambda, 1)
+      }
+    }
     if (!is.null(m$Sigma)){
       Sigma_default <- array(0, dim=c(m$D-1, m$D-1, m$iter))
       for (i in 1:m$iter){
