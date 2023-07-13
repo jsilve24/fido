@@ -182,7 +182,7 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
           }
           Gamma_comb_red <- Reduce('+', Gamma_trans[c(i:num.comp)])
           fitu <- add.uncollapse(unc_samples, X, Theta[[i]], Gamma[[i]], Gamma_comb_red, Xi, collapse_samps$Sigma,
-                                 upsilon, ret_mean, ncores, seed)
+                                 upsilon, ret_mean, ncores, seed, linear)
           Lambda[[i]] <- fitu$Lambda
           Lambda.out[[i]] <- fitu$Lambda.out
         } else {
