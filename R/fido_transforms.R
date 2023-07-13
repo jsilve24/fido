@@ -51,7 +51,14 @@ to_clr <- function(m){
 to_proportions.pibblefit <- function(m){
   if (m$coord_system == "alr"){
     if (!is.null(m$Eta)) m$Eta <- alrInv_array(m$Eta, m$alr_base, 1)
-    if (!is.null(m$Lambda)) m$Lambda <- alrInv_array(m$Lambda, m$alr_base, 1)
+    if(!is.null(m$Lambda)){
+      if(is.list(m$Lambda)){
+        for(i in 1:length(m$Lambda)) m$Lambda[[i]] <-  alrInv_array(m$Lambda[[i]], m$alr_base, 1)
+      }
+      else {
+        m$Lambda <-  alrInv_array(m$Lambda, m$alr_base, 1)
+      }
+    }
     if (!is.null(m$Sigma)){
       if (m$alr_base != m$D){
         for (i in 1:m$iter){
@@ -199,7 +206,15 @@ to_alr.pibblefit <- function(m, d){
   m <- to_proportions(m)
   
   if (!is.null(m$Eta)) m$Eta <- alr_array(m$Eta, d, 1)
-  if (!is.null(m$Lambda)) m$Lambda <- alr_array(m$Lambda, d, 1)
+  
+  if(!is.null(m$Lambda)){
+    if(is.list(m$Lambda)){
+      for(i in 1:length(m$Lambda)) m$Lambda[[i]] <- alr_array(m$Lambda[[i]], d, 1)
+    }
+    else {
+      m$Lambda <- alr_array(m$Lambda, d, 1)
+    }
+  }
   if (!is.null(m$Sigma)){
     m$Sigma <- array(0, dim=dim(m$Sigma_default))
     for (i in 1:m$iter){
@@ -261,7 +276,14 @@ to_ilr.pibblefit <- function(m, V=NULL){
   m <- to_proportions(m)
   
   if (!is.null(m$Eta)) m$Eta <- ilr_array(m$Eta, V, 1)
-  if (!is.null(m$Lambda)) m$Lambda <- ilr_array(m$Lambda, V, 1)
+  if(!is.null(m$Lambda)){
+    if(is.list(m$Lambda)){
+      for(i in 1:length(m$Lambda)) m$Lambda[[i]] <-  ilr_array(m$Lambda[[i]], V, 1)
+    }
+    else {
+      m$Lambda <-  ilr_array(m$Lambda, V, 1)
+    }
+  }
   if (!is.null(m$Sigma)){
     m$Sigma <- array(0, dim=dim(m$Sigma_default))
     for (i in 1:m$iter){
@@ -325,7 +347,14 @@ to_clr.pibblefit <- function(m){
   m <- to_proportions(m)
 
   if (!is.null(m$Eta)) m$Eta <- clr_array(m$Eta, 1)
-  if (!is.null(m$Lambda)) m$Lambda <- clr_array(m$Lambda, 1)
+  if(!is.null(m$Lambda)){
+    if(is.list(m$Lambda)){
+      for(i in 1:length(m$Lambda)) m$Lambda[[i]] <- clr_array(m$Lambda[[i]], 1)
+      }
+    else {
+      m$Lambda <- clr_array(m$Lambda, 1)
+    }
+  }
   if (!is.null(m$Sigma)){
     m$Sigma <- array(0, dim=c(m$D, m$D, m$iter))
     for (i in 1:m$iter){

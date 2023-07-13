@@ -70,3 +70,15 @@ test_that("testing that predict works",{
   expect_true(TRUE)
   
 })
+
+
+test_that("transforms work with new basset", {
+  sim <- pibble_sim()
+  Gamma <- function(X) SE(X)
+  Theta <- function(X) matrix(0, nrow(sim$Y)-1, ncol(X))
+  fit.new <- basset(sim$Y, sim$X, Gamma = list(Gamma), Theta = list(Theta))
+  clr.fit <- to_clr(fit.new)
+  alr.fit <- to_alr(fit.new, 1)
+  ilr.fit <- to_ilr(fit.new)
+  expect_true(TRUE)
+})
