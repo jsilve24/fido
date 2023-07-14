@@ -85,10 +85,10 @@ to_proportions.pibblefit <- function(m){
     if (!is.null(m$Eta)) m$Eta <- ilrInv_array(m$Eta, m$ilr_base, 1)
     if(!is.null(m$Lambda)){
       if(is.list(m$Lambda)){
-        for(i in 1:length(m$Lambda)) m$Lambda[[i]] <-  ilr_array(m$Lambda[[i]], V, 1)
+        for(i in 1:length(m$Lambda)) m$Lambda[[i]] <-  ilrInv_array(m$Lambda[[i]], m$ilr_base, 1)
       }
       else {
-        m$Lambda <-  ilr_array(m$Lambda, V, 1)
+        m$Lambda <-  ilrInv_array(m$Lambda, m$ilr_base, 1)
       }
     }
     if (!is.null(m$Sigma)){
@@ -114,10 +114,10 @@ to_proportions.pibblefit <- function(m){
     if (!is.null(m$Eta)) m$Eta <- clrInv_array(m$Eta, 1)
     if(!is.null(m$Lambda)){
       if(is.list(m$Lambda)){
-        for(i in 1:length(m$Lambda)) m$Lambda[[i]] <- clr_array(m$Lambda[[i]], 1)
+        for(i in 1:length(m$Lambda)) m$Lambda[[i]] <- clrInv_array(m$Lambda[[i]], 1)
       }
       else {
-        m$Lambda <- clr_array(m$Lambda, 1)
+        m$Lambda <- clrInv_array(m$Lambda, 1)
       }
     }
     if (!is.null(m$Sigma)){
