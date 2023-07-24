@@ -36,7 +36,7 @@ be present to sample Eta)}
 (default: ALR transform of diag(1)*(upsilon-D)/2 - this is
 essentially iid on "base scale" using Aitchison terminology)}
 
-\item{init}{(D-1) x Q initialization for Eta for optimization}
+\item{init}{(D-1) x N initialization for Eta for optimization}
 
 \item{pars}{character vector of posterior parameters to return}
 
