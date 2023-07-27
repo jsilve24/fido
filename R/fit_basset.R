@@ -94,7 +94,7 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
     ## theta
     theta_eval <- function(Theta, X, linear){
       if(is.matrix(Theta)){
-        Q.red <- nrow(X[linear,])
+        Q.red <- length(linear)
         if(ncol(Theta) != Q.red) stop("The dimension of the linear Theta element is incorrect! Please ensure it matches the dimensions of the desired linear components.")
         return(Theta %*% X[linear,])
       } else if(is.function(Theta)){
@@ -107,7 +107,7 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
     ## gamma
     gamma_eval <- function(Gamma, X, linear){
       if(is.matrix(Gamma)){
-        Q.red <- nrow(X[linear,])
+        Q.red <- length(linear)
         if(ncol(Gamma) != Q.red | nrow(Gamma) != Q.red) stop("The dimension of the linear component of Gamma element is incorrect! Please ensure it matches the dimensions of the desired linear components.")
         return(t(X[linear,]) %*% Gamma %*% X[linear,])
       } else if(is.function(Gamma)){
