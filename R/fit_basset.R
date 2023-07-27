@@ -108,8 +108,13 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
     gamma_eval <- function(Gamma, X, linear){
       if(is.matrix(Gamma)){
         Q.red <- length(linear)
+        if(length(linear) == 1){
+          X.red <- matrix(X[linear,], nrow =1)
+        } else{
+          X.red <- X[linear,]
+        }
         if(ncol(Gamma) != Q.red | nrow(Gamma) != Q.red) stop("The dimension of the linear component of Gamma element is incorrect! Please ensure it matches the dimensions of the desired linear components.")
-        return(t(X[linear,]) %*% Gamma %*% X[linear,])
+        return(t(X.red) %*% Gamma %*% X.red)
       } else if(is.function(Gamma)){
         return(Gamma(X))
       } else{
