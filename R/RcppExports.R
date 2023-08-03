@@ -438,7 +438,7 @@ rMatUnitNormal_test2 <- function(n) {
 #' @param Gamma covariance matrix of dimension Q x Q
 #' @param GammaComb summed covariance matrix across additive components of dimension Q x Q.
 #' @param Xi covariance matrix of dimension (D-1) x (D-1)
-#' @param sigma known covariance matrix of dimension (D-1) x (D-1) x N
+#' @param sigma known covariance matrix of dimension (D-1) x (D-1) x iter
 #' @param upsilon scalar (must be > D) degrees of freedom for InvWishart prior
 #' @param ret_mean if true then uses posterior mean of Lambda and Sigma 
 #'   corresponding to each sample of eta rather than sampling from 

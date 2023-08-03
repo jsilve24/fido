@@ -150,11 +150,16 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
     
     add.uncollapse <- function(coll_samples, X, Theta, Gamma, Gamma_comb, Xi, Sigma, upsilon, ret_mean, ncores, seed, linear){
       if(is.matrix(Theta)){
-        fitu <- uncollapsePibble_sigmaKnown(coll_samples, X[linear,], Theta, Gamma, Gamma_comb, Xi, Sigma, upsilon, 
+        if(length(linear) == 1){
+          X.red <- matrix(X[linear,], nrow =1)
+        } else{
+          X.red <- X[linear,]
+        }
+        fitu <- uncollapsePibble_sigmaKnown(coll_samples, X.red, Theta, Gamma, Gamma_comb, Xi, Sigma, upsilon, 
                                             ret_mean, ncores, seed)
         LambdaX <- array(NA, dim = c(nrow(fitu$Lambda), ncol(X), dim(fitu$Lambda)[3]))
         for(j in 1:dim(fitu$Lambda)[3]){
-          LambdaX[,,j] <- fitu$Lambda[,,j] %*% X[linear,]
+          LambdaX[,,j] <- fitu$Lambda[,,j] %*% X.red
         }
         return(list(Lambda = LambdaX, Lambda.out = fitu$Lambda))
       } else{
