@@ -89,10 +89,12 @@ using Eigen::VectorXd;
 //' 3. Hessian - (if \code{calcGradHess}=true) of the POSITIVE LOG POSTERIOR
 //' 4. Pars - Parameter value of eta at optima
 //' 5. Samples - (D-1) x N x n_samples array containing posterior samples of eta 
-//'   based on Laplace approximation (if n_samples>0)
+//'    based on Laplace approximation (if n_samples>0)
 //' 6. Timer - Vector of Execution Times
 //' 7. logInvNegHessDet - the log determinant of the covariacne of the Laplace 
 //'    approximation, useful for calculating marginal likelihood 
+//' 8. logMarginalLikelihood - A calculation of the log marginal likelihood based on
+//'    the laplace approximation
 //' @md 
 //' @export
 //' @name optimPibbleCollapsed
@@ -101,7 +103,7 @@ using Eigen::VectorXd;
 //' 
 //' JD Silverman K Roche, ZC Holmes, LA David, S Mukherjee. 
 //'   \emph{Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes}. 
-//'   2019, arXiv e-prints, arXiv:1903.11695
+//'   2022, Journal of Machine Learning
 //' @seealso \code{\link{uncollapsePibble}}
 //' @examples
 //' sim <- pibble_sim()
@@ -146,9 +148,10 @@ List optimPibbleCollapsed(const Eigen::ArrayXXd Y,
   PibbleCollapsed cm(Y, upsilon, ThetaX, KInv, AInv, useSylv);
   Map<VectorXd> eta(init.data(), init.size()); // will rewrite by optim
   double nllopt; // NEGATIVE LogLik at optim
-  List out(7);
+  List out(8);
   out.names() = CharacterVector::create("LogLik", "Gradient", "Hessian",
-            "Pars", "Samples", "Timer", "logInvNegHessDet");
+					"Pars", "Samples", "Timer", "logInvNegHessDet",
+					"logMarginalLikelihood");
   
   // Pick optimizer (ADAM - without perturbation appears to be best)
   //   ADAM with perturbations not fully implemented
@@ -194,6 +197,8 @@ List optimPibbleCollapsed(const Eigen::ArrayXXd Y,
       timer.step("Overall_stop");
       NumericVector t(timer);
       out[5] = t;
+      out[6] = R_NilValue;
+      out[7] = R_NilValue;
       return out;
     }
     // "Multinomial-Dirchlet" option 
@@ -226,6 +231,9 @@ List optimPibbleCollapsed(const Eigen::ArrayXXd Y,
         return out;
       }
       out[6] = logInvNegHessDet;
+
+      // (log)marginallikelihood calculation
+      out[7] = -nllopt + (D-1)*N/2*log(2*3.1415) - 0.5*logInvNegHessDet;
       
       IntegerVector d = IntegerVector::create(D-1, N, n_samples);
       NumericVector samples = wrap(samp);

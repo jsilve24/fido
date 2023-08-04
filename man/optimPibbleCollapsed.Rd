@@ -105,6 +105,8 @@ based on Laplace approximation (if n_samples>0)
 \item Timer - Vector of Execution Times
 \item logInvNegHessDet - the log determinant of the covariacne of the Laplace
 approximation, useful for calculating marginal likelihood
+\item logMarginalLikelihood - A calculation of the log marginal likelihood based on
+the laplace approximation
 }
 }
 \description{
@@ -158,7 +160,7 @@ optimization algorithms}. arXiv 1609.04747
 
 JD Silverman K Roche, ZC Holmes, LA David, S Mukherjee.
 \emph{Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes}.
-2019, arXiv e-prints, arXiv:1903.11695
+2022, Journal of Machine Learning
 }
 \seealso{
 \code{\link{uncollapsePibble}}

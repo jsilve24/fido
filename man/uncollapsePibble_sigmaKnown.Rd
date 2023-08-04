@@ -33,7 +33,7 @@ function optimPibbleCollapsed)}
 
 \item{Xi}{covariance matrix of dimension (D-1) x (D-1)}
 
-\item{sigma}{known covariance matrix of dimension (D-1) x (D-1) x N}
+\item{sigma}{known covariance matrix of dimension (D-1) x (D-1) x iter}
 
 \item{upsilon}{scalar (must be > D) degrees of freedom for InvWishart prior}
 

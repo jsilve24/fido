@@ -308,10 +308,12 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #' 3. Hessian - (if \code{calcGradHess}=true) of the POSITIVE LOG POSTERIOR
 #' 4. Pars - Parameter value of eta at optima
 #' 5. Samples - (D-1) x N x n_samples array containing posterior samples of eta 
-#'   based on Laplace approximation (if n_samples>0)
+#'    based on Laplace approximation (if n_samples>0)
 #' 6. Timer - Vector of Execution Times
 #' 7. logInvNegHessDet - the log determinant of the covariacne of the Laplace 
 #'    approximation, useful for calculating marginal likelihood 
+#' 8. logMarginalLikelihood - A calculation of the log marginal likelihood based on
+#'    the laplace approximation
 #' @md 
 #' @export
 #' @name optimPibbleCollapsed
@@ -320,7 +322,7 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #' 
 #' JD Silverman K Roche, ZC Holmes, LA David, S Mukherjee. 
 #'   \emph{Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes}. 
-#'   2019, arXiv e-prints, arXiv:1903.11695
+#'   2022, Journal of Machine Learning
 #' @seealso \code{\link{uncollapsePibble}}
 #' @examples
 #' sim <- pibble_sim()
