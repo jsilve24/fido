@@ -86,20 +86,6 @@ test_that("transforms work with new basset", {
   expect_true(TRUE)
 })
 
-test_that("new collapse sampler matches old when inputs match",{
-  set.seed(1)
-  sim <- pibble_sim()
-  fit <- pibble(sim$Y, sim$X, Gamma = sim$Gamma, Theta = sim$Theta, Xi = sim$Xi, upsilon = sim$upsilon, seed = 1, n_samples = 2000)
-  Lambda.fit <- apply(fit$Lambda, c(1,2), mean)
-  fit.test <- fido:::uncollapsePibble_sigmaKnown(fit$Eta, sim$X, sim$Theta, sim$Gamma,
-                                     GammaComb = diag(sim$N), fit$Xi, sigma = fit$Sigma,
-                                     upsilon= sim$upsilon, seed = 1)
-  Lambda.fit.test <- apply(fit.test$Lambda, c(1,2), mean)
-  expect_equal(unname(Lambda.fit[,1]), unname(Lambda.fit.test[,1]), tol = 1e-2)
-  expect_equal(unname(Lambda.fit[,2]), unname(Lambda.fit.test[,2]), tol = 1e-2)
-})
-
-
 #' @param eta as an (D-1 x N x iter) array
 uncollapse <- function(eta, X, upsilon, Theta, Xi, Gamma, GammaComb, Sigma){
   d <- dim(eta)
@@ -108,7 +94,7 @@ uncollapse <- function(eta, X, upsilon, Theta, Xi, Gamma, GammaComb, Sigma){
   D <- as.integer(d[1] + 1)
   Q <- as.integer(nrow(Gamma))
   Lambda <- array(0, c(D-1, Q, iter))
-
+  
   GammaInv <- solve(Gamma)
   GammaCombInv <- solve(GammaComb)
   GammaN <- solve(X %*% GammaCombInv %*% t(X) + GammaInv)
@@ -123,17 +109,16 @@ uncollapse <- function(eta, X, upsilon, Theta, Xi, Gamma, GammaComb, Sigma){
 
 
 test_that("basset c++ matches R implementation", {
-  seed <- sample(1:2^15,1)
   sim <- pibble_sim()
   fit <- pibble(sim$Y, sim$X, Gamma = sim$Gamma, Theta = sim$Theta, Xi = sim$Xi, upsilon = sim$upsilon, seed = 1, n_samples = 10000)
   
   # Now check uncollapsing for Lambda with C++
   fit.test <- fido:::uncollapsePibble_sigmaKnown(fit$Eta, sim$X, sim$Theta, sim$Gamma,
                                                  GammaComb = diag(sim$N), fit$Xi, sigma = fit$Sigma,
-                                                 upsilon= sim$upsilon, seed = seed)
+                                                 upsilon= sim$upsilon, seed = 12345)
   
   r.fit <- uncollapse(fit$Eta, sim$X, sim$upsilon, sim$Theta, sim$Xi, 
-                                sim$Gamma, diag(sim$N), fit$Sigma)
+                      sim$Gamma, diag(sim$N), fit$Sigma)
   
   Lambda.fit <- apply(fit.test$Lambda, c(1,2), mean)
   Lambda.r <- apply(r.fit$Lambda, c(1,2), mean)
@@ -147,7 +132,7 @@ test_that("basset c++ matches R implementation", {
   diag(GammaComb) <- 1
   fit.test <- fido:::uncollapsePibble_sigmaKnown(fit$Eta, sim$X, sim$Theta, sim$Gamma,
                                                  GammaComb = GammaComb, fit$Xi, sigma = fit$Sigma,
-                                                 upsilon= sim$upsilon, seed = seed)
+                                                 upsilon= sim$upsilon, seed = 12345)
   
   r.fit <- uncollapse(fit$Eta, sim$X, sim$upsilon, sim$Theta, sim$Xi, 
                       sim$Gamma, GammaComb, fit$Sigma)
@@ -158,3 +143,18 @@ test_that("basset c++ matches R implementation", {
   expect_equal(unname(Lambda.fit[,1]), unname(Lambda.r[,1]), tol = 5e-2)
   expect_equal(unname(Lambda.fit[,2]), unname(Lambda.r[,2]), tol = 5e-2)
 })
+
+
+test_that("new collapse sampler matches old when inputs match",{
+  set.seed(1)
+  sim <- pibble_sim()
+  fit <- pibble(sim$Y, sim$X, Gamma = sim$Gamma, Theta = sim$Theta, Xi = sim$Xi, upsilon = sim$upsilon, seed = 1, n_samples = 2000)
+  Lambda.fit <- apply(fit$Lambda, c(1,2), mean)
+  fit.test <- fido:::uncollapsePibble_sigmaKnown(fit$Eta, sim$X, sim$Theta, sim$Gamma,
+                                     GammaComb = diag(sim$N), fit$Xi, sigma = fit$Sigma,
+                                     upsilon= sim$upsilon, seed = 1)
+  Lambda.fit.test <- apply(fit.test$Lambda, c(1,2), mean)
+  expect_equal(unname(Lambda.fit[,1]), unname(Lambda.fit.test[,1]), tol = 1e-2)
+  expect_equal(unname(Lambda.fit[,2]), unname(Lambda.fit.test[,2]), tol = 1e-2)
+})
+
