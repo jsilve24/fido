@@ -202,8 +202,9 @@ pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL
   
   
   # Marginal Likelihood Computation
-  d <- D^2 + N*D + D*Q
-  logMarginalLikelihood <- fitc$LogLik+d/2*log(2*pi)+.5*fitc$logInvNegHessDet-d/2*log(N)
+  ## d <- D^2 + N*D + D*Q
+  ## logMarginalLikelihood <- fitc$LogLik+d/2*log(2*pi)+.5*fitc$logInvNegHessDet-d/2*log(N)
+  logMarginalLikelihood <- fitc$logMarginalLikelihood
   
   
   
