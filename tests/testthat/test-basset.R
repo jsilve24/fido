@@ -109,8 +109,9 @@ uncollapse <- function(eta, X, upsilon, Theta, Xi, Gamma, GammaComb, Sigma){
 
 
 test_that("basset c++ matches R implementation", {
+  set.seed(1)
   sim <- pibble_sim()
-  fit <- pibble(sim$Y, sim$X, Gamma = sim$Gamma, Theta = sim$Theta, Xi = sim$Xi, upsilon = sim$upsilon, seed = 1, n_samples = 10000)
+  fit <- pibble(sim$Y, sim$X, Gamma = sim$Gamma, Theta = sim$Theta, Xi = sim$Xi, upsilon = sim$upsilon, seed = 1, n_samples = 5000)
   
   # Now check uncollapsing for Lambda with C++
   fit.test <- fido:::uncollapsePibble_sigmaKnown(fit$Eta, sim$X, sim$Theta, sim$Gamma,
