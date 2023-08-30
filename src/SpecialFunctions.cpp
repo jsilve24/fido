@@ -10,7 +10,7 @@ using namespace Rcpp;
 double lmvgamma(double a, int p){
   static const double pi = log(3.14159265); 
   double s=0;
-  double x = pi*(p*(p-1.0))/2.0;
+  double x = pi*(p*(p-1.0))/4.0;
   for (int i=1; i<=p; i++){
     s += lgamma(a+(1.0-i)/2);
   }
@@ -30,3 +30,4 @@ double lmvgamma_deriv(double a, int p){
   }
   return s*lmvgamma(a,p);
 }
+
