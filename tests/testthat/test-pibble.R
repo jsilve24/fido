@@ -143,6 +143,7 @@ test_that("uncollapse correctnesss against double programming", {
                                calcGradHess = FALSE)
   
   # Now check uncollapsing for Lambda
+  # ret_mean = TRUE
   fit2 <- uncollapsePibble(fit$Samples, sim$X, sim$Theta, sim$Gamma, 
                                      sim$Xi, sim$upsilon, ret_mean = TRUE, 2234)
   
@@ -151,6 +152,23 @@ test_that("uncollapse correctnesss against double programming", {
   
   expect_equal(fit2$Lambda, dpres$Lambda)
   expect_equal(fit2$Sigma, dpres$Sigma)
+  
+  # Now check when ret_mean == FALSE
+  fit3 <- uncollapsePibble(fit$Samples, sim$X, sim$Theta, sim$Gamma, 
+                           sim$Xi, sim$upsilon, 2234)
+  
+  uncol <- uncollapse(fit$Samples, sim$X, sim$upsilon, sim$Theta, sim$Xi, 
+                                sim$Gamma)
+  
+  Lambda_fit3 <- apply(fit3$Lambda, MARGIN = c(1,2), mean)
+  Lambda_uncol <- apply(uncol$Lambda, MARGIN = c(1,2), mean)
+  
+  expect_true(mean(abs(Lambda_fit3 - Lambda_uncol)) < 0.05)
+  
+  Sigma_fit3 <- apply(fit3$Sigma, MARGIN = c(1,2), mean)
+  Sigma_uncol <- apply(uncol$Sigma, MARGIN = c(1,2), mean)
+  
+  expect_true(mean(abs(Sigma_fit3 - Sigma_uncol)) < 0.05)
 })
 
 
