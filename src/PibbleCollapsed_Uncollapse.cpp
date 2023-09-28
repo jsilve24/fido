@@ -126,10 +126,9 @@ List uncollapsePibble(const Eigen::Map<Eigen::VectorXd> eta, // note this is ess
   #endif 
   #pragma omp parallel shared(D, N, Q, LambdaDraw0, SigmaDraw0)
   {
-  #ifdef FIDO_USE_PARALLEL
-    boost::random::mt19937 rng(omp_get_thread_num()+seed);
-  #else 
     boost::random::mt19937 rng(seed);
+  #ifdef FIDO_USE_PARALLEL
+    rng.discard(omp_get_thread_num()*iter);
   #endif 
   // storage for computation
   MatrixXd LambdaN(D-1, Q);
