@@ -25,6 +25,7 @@ There are (at least) two important reasons to think carefully about priors. Firs
 Overall, a prior is a single function (a probability distribution) specified jointly on parameters of interest. Still, it can be confusing to think about the prior in the joint form. Here I will instead try to simplify this and break the prior down into distinct components. While there are numerous models in *fido*, here I will focus on the prior for the *pibble* model as it is, in my opinion, the heart of *fido*. 
 
 Just to review, the pibble model is given by:
+$$
 \begin{align}
 Y_j & \sim \text{Multinomial}\left(\pi_j \right)  \\
 \pi_j & = \phi^{-1}(\eta_j) \\
@@ -32,8 +33,6 @@ Y_j & \sim \text{Multinomial}\left(\pi_j \right)  \\
 \Lambda &\sim  N(\Theta, \Sigma, \Gamma) \\
 \Sigma &\sim W^{-1}(\Xi, \upsilon). 
 \end{align}
-<<<<<<< HEAD
-=======
 $$
 
 
@@ -206,4 +205,3 @@ $$
 and we can see that the magnitude of $\Lambda$ is a factor of $\alpha$ times the noise level. If $\alpha<1$ we have that the the magnitude of $\Lambda$ is smaller than the magnitude of the noise. If $\alpha > 1$ we have that the magnitude of $\Lambda$ is greater than the magnitude of the noise. 
 
 The actual "signal" is the product $\Lambda X$ (so it depends on the scale of $X$) as well but hopefully the point is clear: **The magnitude of $\Sigma$ (which is specified by $\upsilon$ and $\Xi$) in comparision to the magnitude of $\Gamma$ sets the signal-to-noise ratio in our prior.**
->>>>>>> master
