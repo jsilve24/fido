@@ -3,6 +3,7 @@
 on:
   push:
     branches: [main, master, develop, bug-fixes, rng_update]
+
   pull_request:
     branches: [main, master, develop]
 
@@ -36,13 +37,10 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
-<<<<<<< HEAD
-=======
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-pandoc@v2
 
->>>>>>> master
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
@@ -55,8 +53,6 @@ jobs:
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
-<<<<<<< HEAD
-=======
 
       - name: Show testthat output
         if: always()
@@ -66,6 +62,13 @@ jobs:
       - name: Upload check results
         if: failure()
         uses: actions/upload-artifact@main
->>>>>>> master
         with:
           upload-snapshots: true
+
+      - name: print path
+        if: failure()
+        run: ls src
+
+      - name: check makevars
+        if: failure()
+        run: cat src/Makevars
