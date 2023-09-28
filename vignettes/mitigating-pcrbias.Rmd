@@ -2,7 +2,7 @@
 title: "Example of using Fido for measuring and mitigating PCR Bias"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{mitigating-pcrbias}
+  %\VignetteIndexEntry{Example of using Fido for measuring and mitigating PCR Bias}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,9 +18,10 @@ is the design of the PCR calibration curve which is detailed in the manuscript.
 # Overview
 PCR bias can be both measured and corrected by combining a specially designed calibration curve with statistical models. The below figure gives a brief overview of the calibration experiment. In brief, samples are pooled to create a "calibration sample". This calibration sample then contains DNA from every taxa in your study. The calibration sample is then split into multiple aliquots and amplified for a varying number of cycles. You then sequence the resulting samples along with the original samples. Then you turn to modeling (which is the focus of this vignette). 
 
-<div style="text-align:center">
-![](pcrbias_summary_graphic.png){width=50%}
-</div>
+```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
+knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/pcrbias_summary_graphic.png')
+```
+
 
 In the manuscript, we show that PCR bias is well approximated by a simple multiplicative process.
 When translated to sequence count data, this means that PCR bias represents a 
@@ -138,7 +139,10 @@ plot(fit, par="Lambda", focus.cov=focus.covariate, focus.coord=focus.coord) +
 #> replace the existing scale.
 ```
 
-![](unnamed-chunk-6-1.png)
+```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
+knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/pcr-model-results.png')
+```
+
 
 The compositional bias introduced at each cycle can also be visualized. 
 
@@ -149,7 +153,10 @@ plot(fit, par="Lambda", focus.cov="cycle_num")
 #> replace the existing scale.
 ```
 
-![](unnamed-chunk-7-1.png)
+```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
+knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/pcr-results-cycle-num.png')
+```
+
 
 The *fido* package has a bunch of tools for working with such fitted models depending on what you ultimately want to do. See the main `pibble` vignette for a fuller description of what you can do with such fitted models. 
 
@@ -213,7 +220,10 @@ predicted %>%
   ylab("CLR Coordinates")
 ```
 
-![](unnamed-chunk-8-1.png)
+```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
+knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/pcr-clr-cycle-num.png')
+```
+
 There are two things I look for in these plots. First, the data should look linear
 in this space. If the data does not look linear then there are a few options: (a)
 something went wrong in your calibration experiment, (b) something is wrong with your 
@@ -250,7 +260,10 @@ for (i in seq_along(sigma)){
 base::plot(sigma, lml)
 ```
 
-![](unnamed-chunk-9-1.png)
+```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
+knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/pcr-max-lik.png')
+```
+
 
 
  

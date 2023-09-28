@@ -2,7 +2,11 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
+<<<<<<< HEAD
     branches: [main, master, develop]
+=======
+    branches: [main, master, parallel-fixes, remote-repo-fixes, develop, documentation-fixes, bug-fixes]
+>>>>>>> master
   pull_request:
     branches: [main, master, develop]
 
@@ -36,6 +40,13 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
+<<<<<<< HEAD
+=======
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+>>>>>>> master
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
@@ -48,5 +59,17 @@ jobs:
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
+<<<<<<< HEAD
+=======
+
+      - name: Show testthat output
+        if: always()
+        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
+        shell: bash
+
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@main
+>>>>>>> master
         with:
           upload-snapshots: true

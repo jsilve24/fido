@@ -22,9 +22,27 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
+<<<<<<< HEAD
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">fido</a>
+=======
+    <div class="container template-article">
+      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">fido</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.4</span>
+      </span>
+    </div>
+>>>>>>> master
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.4</small>
 
@@ -102,9 +120,7 @@ is then split into multiple aliquots and amplified for a varying number
 of cycles. You then sequence the resulting samples along with the
 original samples. Then you turn to modeling (which is the focus of this
 vignette).</p>
-<div style="text-align:center">
-<p><img src="pcrbias_summary_graphic.png" style="width:50.0%"></p>
-</div>
+<p><img src="https://github.com/jsilve24/fido/raw/master/vignettes/pcrbias_summary_graphic.png" width="50%" style="display: block; margin: auto;"></p>
 <p>In the manuscript, we show that PCR bias is well approximated by a
 simple multiplicative process. When translated to sequence count data,
 this means that PCR bias represents a linear process in log-ratio space:
@@ -223,7 +239,7 @@ simply enough:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">covariate</span><span class="op">~</span><span class="va">.</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour', which will</span></span>
 <span><span class="co">#&gt; replace the existing scale.</span></span></code></pre></div>
-<p><img src="unnamed-chunk-6-1.png"></p>
+<p><img src="https://github.com/jsilve24/fido/raw/master/vignettes/pcr-model-results.png" width="50%" style="display: block; margin: auto;"></p>
 <p>The compositional bias introduced at each cycle can also be
 visualized.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -231,7 +247,7 @@ visualized.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, par<span class="op">=</span><span class="st">"Lambda"</span>, focus.cov<span class="op">=</span><span class="st">"cycle_num"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour', which will</span></span>
 <span><span class="co">#&gt; replace the existing scale.</span></span></code></pre></div>
-<p><img src="unnamed-chunk-7-1.png"></p>
+<p><img src="https://github.com/jsilve24/fido/raw/master/vignettes/pcr-results-cycle-num.png" width="50%" style="display: block; margin: auto;"></p>
 <p>The <em>fido</em> package has a bunch of tools for working with such
 fitted models depending on what you ultimately want to do. See the main
 <code>pibble</code> vignette for a fuller description of what you can do
@@ -280,7 +296,11 @@ data and the fitted bias model. This can be done as follows:</p>
 <span>      <span class="co"># for the plot</span></span>
 <span></span>
 <span><span class="co"># Now predict the fitted regression line for cycle_num using X.tmp</span></span>
+<<<<<<< HEAD
 <span><span class="va">predicted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">fit</span>, newdata<span class="op">=</span><span class="va">X.tmp</span>, summary<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+=======
+<span><span class="va">predicted</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict.html">predict</a></span><span class="op">(</span><span class="va">fit</span>, newdata<span class="op">=</span><span class="va">X.tmp</span>, summary<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+>>>>>>> master
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cycle_num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">35</span><span class="op">)</span><span class="op">[</span><span class="va">sample</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># now plot </span></span>
@@ -293,6 +313,7 @@ data and the fitted bias model. This can be done as follows:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>strip.text.y<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"CLR Coordinates"</span><span class="op">)</span></span></code></pre></div>
+<<<<<<< HEAD
 <p><img src="unnamed-chunk-8-1.png"> There are two things I look for
 in these plots. First, the data should look linear in this space. If the
 data does not look linear then there are a few options: (a) something
@@ -301,6 +322,17 @@ your code for plotting the calibration data, (c) our theory and prior
 experiments are wrong and PCR bias is not well approximated as log-ratio
 linear. Second, you should look to make sure your model is doing a good
 job fitting the data. Just remember the data here has a<br>
+=======
+<p><img src="https://github.com/jsilve24/fido/raw/master/vignettes/pcr-clr-cycle-num.png" width="50%" style="display: block; margin: auto;"></p>
+<p>There are two things I look for in these plots. First, the data
+should look linear in this space. If the data does not look linear then
+there are a few options: (a) something went wrong in your calibration
+experiment, (b) something is wrong with your code for plotting the
+calibration data, (c) our theory and prior experiments are wrong and PCR
+bias is not well approximated as log-ratio linear. Second, you should
+look to make sure your model is doing a good job fitting the data. Just
+remember the data here has a<br>
+>>>>>>> master
 few other sources of variation that the model is accounting for but not
 plotting. For example, there is batch variation (think about the PCR
 machine variable we included above). There are also zeros; here we just
@@ -334,7 +366,7 @@ value less than 10”.</p>
 <span>  <span class="va">lml</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">fit</span><span class="op">$</span><span class="va">logMarginalLikelihood</span> <span class="co"># this is calculated automatically by fido</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">base</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sigma</span>, <span class="va">lml</span><span class="op">)</span></span></code></pre></div>
-<p><img src="unnamed-chunk-9-1.png"></p>
+<p><img src="https://github.com/jsilve24/fido/raw/master/vignettes/pcr-max-lik.png" width="50%" style="display: block; margin: auto;"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
