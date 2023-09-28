@@ -124,7 +124,11 @@ pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL
     if(is.null(init)) {
       init <- random_pibble_init(Y)   # initialize init 
     } else {
+<<<<<<< HEAD
      check_dims(init, c(D-1, N), "init") 
+=======
+      check_dims(init, c(D-1, N), "init") 
+>>>>>>> master
     }
   }
 

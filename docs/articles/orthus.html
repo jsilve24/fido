@@ -22,9 +22,27 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
+<<<<<<< HEAD
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">fido</a>
+=======
+    <div class="container template-article">
+      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">fido</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.4</span>
+      </span>
+    </div>
+>>>>>>> master
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.4</small>
 
@@ -205,7 +223,7 @@ independent.</p>
 <span><span class="va">Xi</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">D</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">GG</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">D</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">GG</span><span class="op">)</span></span>
 <span><span class="va">Xi</span> <span class="op">&lt;-</span> <span class="va">Xi</span> <span class="op">*</span> <span class="op">(</span><span class="va">upsilon</span><span class="op">-</span><span class="va">D</span><span class="op">-</span><span class="va">P</span><span class="op">)</span> <span class="co"># this scales Xi to have the proper mean we wanted</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">Xi</span><span class="op">)</span></span></code></pre></div>
-<p><img src="unnamed-chunk-5-1.png"></p>
+<p><img src="https://github.com/jsilve24/fido/raw/master/vignettes/orthus-prior-structure.png" width="50%" style="display: block; margin: auto;"></p>
 <p>Note the structure of this prior, everything is independent but there
 is a moderate positive covariance between the log-ratios based on their
 shared definition in terms of the <span class="math inline">\(D\)</span>-th taxa.</p>

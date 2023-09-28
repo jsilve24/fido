@@ -10,6 +10,7 @@ plus random pseudocounts uniformily distributed between
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
+<<<<<<< HEAD
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">fido</a>
@@ -57,6 +58,22 @@ plus random pseudocounts uniformily distributed between
       <img src="" class="logo" alt=""><h1>Provide random initialization for pibble model</h1>
       <small class="dont-index">Source: <a href="https://github.com/jsilve24/fido/blob/HEAD/R/fido_utils.R" class="external-link"><code>R/fido_utils.R</code></a></small>
       <div class="d-none name"><code>random_pibble_init.Rd</code></div>
+=======
+    <div class="container template-reference-topic">
+      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">fido</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.4</span>
+      </span>
+>>>>>>> master
     </div>
 
     <div class="ref-description section level2">
@@ -92,6 +109,7 @@ plus random pseudocounts uniformily distributed between
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span>, <span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">random_pibble_init</span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></span></span>
+<<<<<<< HEAD
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]        [,3]       [,4]        [,5]        [,6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] -1.0668639 -1.87420699 -0.27536961  0.7097967  1.22400776 -0.90463373</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] -0.5255439 -0.17694117  0.57540001  0.1516420  1.13955934 -0.39169123</span>
@@ -112,6 +130,28 @@ plus random pseudocounts uniformily distributed between
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] -0.09448114  1.1691564  0.1406521 1.9708368</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -1.29215622  1.6302800 -3.9308819 0.8505534</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  0.17855523  0.5703536 -0.2811132 1.3992395</span>
+=======
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]        [,2]      [,3]       [,4]        [,5]        [,6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.23335018  0.52313414 0.9289976  0.2591024 -2.01033021  0.36550120</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] -1.26390928  0.44845581 0.1267756  1.1749439  0.06366321  0.24342540</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -0.35249827 -0.78047815 1.8215898  0.4483661  0.81638220  0.04101842</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  0.42293861  0.17502914 1.6258030 -0.7859999  0.73859223  0.27999364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] -0.63147246  0.07823502 0.3807474  1.1876572  0.46302673 -0.45210105</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.23665704 -1.66139024 1.4106729 -0.4500333  1.04072459 -0.73501844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] -0.06314497  0.54376563 1.7128631  0.4044740 -1.85861702  0.31746679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -1.48048188 -0.10328418 0.6038343  0.6994952  1.00550971  0.31520781</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  0.29243179 -0.21771396 1.9036338  0.6247671 -1.50111884  0.20376928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,7]       [,8]       [,9]       [,10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.2383502  0.5678267 -0.7627573 -0.29175856</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] -3.0406897  1.0224983 -0.1341829 -0.41113968</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  0.6363111 -1.4671745 -0.4635436 -0.12853328</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -1.1202700  0.3721943 -1.3831264 -0.09188346</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  0.7651000 -1.2287189 -1.4413219 -1.35413032</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.5519723  1.1010085 -0.2975555 -0.81176063</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  0.9364162  1.1838267 -1.4963886  0.03638191</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -0.4895502 -2.0330977 -0.4169160 -1.89374704</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -2.6393401  0.5258394 -0.8236054 -0.87415395</span>
+>>>>>>> master
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -122,7 +162,11 @@ plus random pseudocounts uniformily distributed between
   <p></p><p>Developed by Justin Silverman, Michelle Nixon.</p>
 </div>
 
+<<<<<<< HEAD
 <div class="pkgdown-footer-right">
+=======
+<div class="pkgdown">
+>>>>>>> master
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
