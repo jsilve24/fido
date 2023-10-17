@@ -9,6 +9,7 @@
 using namespace Rcpp;
 using Eigen::Map;
 using Eigen::MatrixXd;
+using Eigen::ArrayXd;
 using Eigen::ArrayXXd;
 using Eigen::VectorXd;
 
@@ -233,7 +234,30 @@ List optimPibbleCollapsed(const Eigen::ArrayXXd Y,
       out[6] = logInvNegHessDet;
 
       // (log)marginallikelihood calculation
-      out[7] = -nllopt + (D-1)*N/2*log(2*3.1415) - 0.5*logInvNegHessDet;
+      double normConstT; 
+      double normConstMult;
+      Eigen::LLT<MatrixXd> KInvSqrt; 
+      Eigen::LLT<MatrixXd> AInvSqrt; 
+      KInvSqrt.compute(KInv);
+      AInvSqrt.compute(AInv);
+      // // log |K|^(-(D-1)/2)
+      normConstT = N*0.5*KInvSqrt.matrixLLT().diagonal().array().log().sum();
+      // // log |A|^(-N/2)
+      normConstT = normConstT + (D-1)*0.5*AInvSqrt.matrixLLT().diagonal().array().log().sum();
+      // // TODO normConstT needs to account for the multivariate gamma terms...
+      ArrayXd numer = Y.colwise().sum();
+      numer += ArrayXd::Ones(N);
+      Eigen::ArrayXXd denom = Y;
+      denom += ArrayXXd::Ones(D, N);
+      for (int n=0; n<N; n++){
+	numer(n) = lmvgamma(numer(n), 1);
+	for (int d=0; d<D; d++){
+	  denom(d,n) = lmvgamma(denom(d,n), 1); 
+	}
+      }
+      normConstMult = numer.sum()-denom.sum(); 
+      // TODO Note I just commented out the final term as I can't see a case where we would need it and I was getting errors in compiling with that log, I think the syntax is off. Still, would be great to fix it to have that and the other todo term above fixed. 
+      out[7] = -nllopt - 0.5*logInvNegHessDet  - (D-1)*N/2*log(2*3.1415);  - normConstT- normConstMult; // ; + 0.5*Rcpp::log((D-1)*N)
       
       IntegerVector d = IntegerVector::create(D-1, N, n_samples);
       NumericVector samples = wrap(samp);
