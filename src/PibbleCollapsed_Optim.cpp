@@ -240,9 +240,9 @@ List optimPibbleCollapsed(const Eigen::ArrayXXd Y,
       Eigen::LLT<MatrixXd> AInvSqrt; 
       KInvSqrt.compute(KInv);
       AInvSqrt.compute(AInv);
-      // // log |K|^(-(D-1)/2)
+      // // log |K|^(-(D-1)/2) MPN: Comments are wrong, code is correct.
       normConstT = N*0.5*KInvSqrt.matrixLLT().diagonal().array().log().sum();
-      // // log |A|^(-N/2)
+      // // log |A|^(-N/2) MPN: Comments are wrong, code is correct.
       normConstT = normConstT + (D-1)*0.5*AInvSqrt.matrixLLT().diagonal().array().log().sum();
       // // TODO normConstT needs to account for the multivariate gamma terms...
       ArrayXd numer = Y.colwise().sum();
@@ -256,9 +256,7 @@ List optimPibbleCollapsed(const Eigen::ArrayXXd Y,
 	}
       }
       normConstMult = numer.sum()-denom.sum(); 
-      // TODO Note I just commented out the final term as I can't see a case where we would need it and I was getting errors in compiling with that log, I think the syntax is off. Still, would be great to fix it to have that and the other todo term above fixed. 
-      out[7] = -nllopt - 0.5*logInvNegHessDet  - (D-1)*N/2*log(2*3.1415);  - normConstT- normConstMult; // ; + 0.5*Rcpp::log((D-1)*N)
-      
+      out[7] = -nllopt + 0.5*logInvNegHessDet  + (D-1)*N/2*log(2*3.1415)  + normConstT + normConstMult - 0.5*log((D-1)*N);
       IntegerVector d = IntegerVector::create(D-1, N, n_samples);
       NumericVector samples = wrap(samp);
       samples.attr("dim") = d; // convert to 3d array for return to R
