@@ -83,7 +83,6 @@ using Eigen::VectorXd;
 //' 7. logInvNegHessDet - the log determinant of the covariacne of the Laplace 
 //'    approximation, useful for calculating marginal likelihood 
 //' @md 
-//' @export
 //' @name optimMaltipooCollapsed
 //' @references S. Ruder (2016) \emph{An overview of gradient descent 
 //' optimization algorithms}. arXiv 1609.04747

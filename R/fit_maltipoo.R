@@ -36,10 +36,6 @@
 #'  
 #' @name maltipoo_fit
 #' @return an object of class maltipoofit
-NULL
-
-#' @rdname maltipoo_fit
-#' @export
 maltipoo <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, U=NULL, 
                      Xi=NULL, init=NULL, ellinit=NULL, 
                      pars=c("Eta", "Lambda", "Sigma"), 

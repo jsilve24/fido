@@ -57,19 +57,16 @@ conjugateLinearModel <- function(Y, X, Theta, Gamma, Xi, upsilon, n_samples = 20
 #'     \item hessMaltipooCollapsed- matrix
 #'   } 
 #' @name loglikMaltipooCollapsed
-#' @export
 loglikMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv = FALSE) {
     .Call('_fido_loglikMaltipooCollapsed', PACKAGE = 'fido', Y, upsilon, Theta, X, KInv, U, eta, ell, sylv)
 }
 
 #' @rdname loglikMaltipooCollapsed
-#' @export
 gradMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv = FALSE) {
     .Call('_fido_gradMaltipooCollapsed', PACKAGE = 'fido', Y, upsilon, Theta, X, KInv, U, eta, ell, sylv)
 }
 
 #' @rdname loglikMaltipooCollapsed
-#' @export
 hessMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv = FALSE) {
     .Call('_fido_hessMaltipooCollapsed', PACKAGE = 'fido', Y, upsilon, Theta, X, KInv, U, eta, ell, sylv)
 }
@@ -149,7 +146,6 @@ hessMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv 
 #' 7. logInvNegHessDet - the log determinant of the covariacne of the Laplace 
 #'    approximation, useful for calculating marginal likelihood 
 #' @md 
-#' @export
 #' @name optimMaltipooCollapsed
 #' @references S. Ruder (2016) \emph{An overview of gradient descent 
 #' optimization algorithms}. arXiv 1609.04747
