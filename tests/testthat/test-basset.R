@@ -66,6 +66,18 @@ test_that("testing that predict works",{
   
 })
 
+test_that("testing that r2 works",{
+  sim <- pibble_sim()
+  
+  Theta <- list(matrix(0, nrow = sim$D-1, ncol = sim$Q), function(X) matrix(0, nrow = sim$D-1, ncol = ncol(X)))
+  Gamma <- list(diag(sim$Q), function(X) SE(X, sigma=5, rho=10))
+  
+  ##Running basset
+  mod <- basset(sim$Y, sim$X, sim$upsilon, Theta,Gamma, sim$Xi)
+  expect_equal(mean(r2.bassetfit(mod)),  mean(r2.bassetfit(mod, components = c(1,2))), tolerance = 1e-3)
+  expect_equal(mean(r2.bassetfit(mod, components = 1)), mean(r2.bassetfit(mod, components = 1, covariates = 1)) + mean(r2.bassetfit(mod, components = 1, covariates=2)), tolerance = 1e-3)
+})
+
 
 test_that("transforms work with new basset", {
   sim <- pibble_sim()

@@ -58,6 +58,13 @@ r2.pibblefit <- function(m, covariates = NULL, ...) {
 
 
 ##' @rdname r2
+##' @param covariates vector of indices for covariates to include in calculation of R2 (default:NULL
+##'   means include all covariates by default). When non-null, all covariates not specified are set
+##'   to zero for prediction.
+##' @param components vector of indices for components of the GP model to include in the calculation of R2, i.e. which
+##' elements in the list of Theta/Gamma should be used for calculating R2 (default:NULL
+##' means to include all components by default). When non-null, all components not specified are removed
+##' for prediction.
 ##' @details
 ##'   Calculates Posterior over Basset Model R2 as:
 ##'   \deqn{1-\frac{SS_{res}}{SS_tot}}
@@ -65,9 +72,36 @@ r2.pibblefit <- function(m, covariates = NULL, ...) {
 ##'   Method of calculating R2 is multivariate version of the Bayesian R2 proposed
 ##'   by Gelman, Goodrich, Gabry, and Vehtari, 2019
 ##' @export
-r2.bassetfit <- function(m, ...) {
-        req(m, c("Lambda", "Eta"))
-
-        eta.hat <- predict(m, newdata = NULL, response = "Lambda")
-        r2_internal(eta.hat, m$Eta)
+r2.bassetfit <- function(m, covariates = NULL, components = NULL, ...) {
+    req(m, c("Lambda", "Eta"))
+    newdata <- m$X
+    m.used <- m
+    if (!is.null(covariates)) {
+      ## Defensive
+      covariates <- unique(covariates)
+      stopifnot("covariates must be integer valued" = all(round(covariates) == covariates))
+      stopifnot("some passed covariates outside of range 1:Q" = max(covariates) <= m$Q & min(covariates) >= 1)
+      ## END DEFENSE
+      
+      ## set non-included covariates to zero
+      
+      covariates.exclude <- setdiff(1:m$Q, covariates)
+      newdata[covariates.exclude, ] <- 0
+    }
+    
+    if(!is.null(components)){
+      components <- unique(components)
+      stopifnot("components must be integer valued" = all(round(components) == components))
+      stopifnot("some passed components outside of range 1:length(m$Lambda)" = max(components) <= length(m$Lambda) & min(components) >= 1)
+      ## END DEFENSE
+      # components.exclude <- setdiff(1:length(m$Lambda), components)
+      # for(i in components.exclude){
+      #   m.used$Lambda[[i]] <- array(0, dim(m$Lambda[[i]]))
+      # }
+      m.used$Lambda <- m$Lambda[components]
+      m.used$Gamma <- m$Gamma[components]
+      m.used$Theta <- m$Theta[components]
+    }
+    eta.hat <- predict(m.used, newdata = newdata, response = "Lambda")
+    r2_internal(eta.hat, m$Eta)
 }

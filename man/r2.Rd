@@ -10,7 +10,7 @@ r2(m, ...)
 
 \method{r2}{pibblefit}(m, covariates = NULL, ...)
 
-\method{r2}{bassetfit}(m, ...)
+\method{r2}{bassetfit}(m, covariates = NULL, components = NULL, ...)
 }
 \arguments{
 \item{m}{model object}
@@ -20,6 +20,11 @@ r2(m, ...)
 \item{covariates}{vector of indices for covariates to include in calculation of R2 (default:NULL
 means include all covariates by default). When non-null, all covariates not specified are set
 to zero for prediction.}
+
+\item{components}{vector of indices for components of the GP model to include in the calculation of R2, i.e. which
+elements in the list of Theta/Gamma should be used for calculating R2 (default:NULL
+means to include all components by default). When non-null, all components not specified are removed
+for prediction.}
 }
 \value{
 vector
