@@ -243,8 +243,6 @@ pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL
   out$logMarginalLikelihood <- logMarginalLikelihood
   out$logLik <- fitc$LogLik
   out$logInvNegHessDet <- fitc$logInvNegHessDet
-  print(fitc$LogLik)
-  print(fitc$logInvNegHessDet)
   attr(out, "class") <- c("pibblefit")
   # add names if present 
   if (use_names) out <- name(out)
