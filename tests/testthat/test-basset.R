@@ -25,6 +25,14 @@ test_that("basset matches old if list is used as input",{
   expect_true(mean(abs(fit.lam-fit.new.lam)) < .05)
 })
 
+test_that("basset can have multiple GP components",{
+  sim <- pibble_sim()
+  Gamma <- function(X) SE(X)
+  Theta <- function(X) matrix(0, nrow(sim$Y)-1, ncol(X))
+  fit.new <- basset(sim$Y, sim$X, Gamma = list(Gamma,Gamma), Theta = list(Theta,Theta), n_samples = 10000)
+  expect_true(TRUE)
+})
+
 test_that("basset matches fido when only linear terms are used", {
   sim <- pibble_sim()
 
@@ -76,6 +84,8 @@ test_that("testing that r2 works",{
   mod <- basset(sim$Y, sim$X, sim$upsilon, Theta,Gamma, sim$Xi)
   expect_equal(mean(r2.bassetfit(mod)),  mean(r2.bassetfit(mod, components = c(1,2))), tolerance = 1e-3)
   expect_equal(mean(r2.bassetfit(mod, components = 1)), mean(r2.bassetfit(mod, components = 1, covariates = 1)) + mean(r2.bassetfit(mod, components = 1, covariates=2)), tolerance = 1e-3)
+  #expect_equal(mean(r2.bassetfit(mod)), mean(r2.bassetfit(mod, components = 1)) + mean(r2.bassetfit(mod, components = 2)), tolerance = 1e-3)
+  
 })
 
 

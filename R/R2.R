@@ -78,15 +78,20 @@ r2.bassetfit <- function(m, covariates = NULL, components = NULL, ...) {
     m.used <- m
     if (!is.null(covariates)) {
       ## Defensive
+      
+      ## Finding the linear component
+      linear.comp <- which(sapply(m$Gamma, is.matrix))
+      stopifnot("there must be a linear component to use the covariates input" =  !is.null(linear.comp))
+      Q <- dim(m$Lambda[[linear.comp]])[2]
+      
       covariates <- unique(covariates)
       stopifnot("covariates must be integer valued" = all(round(covariates) == covariates))
-      stopifnot("some passed covariates outside of range 1:Q" = max(covariates) <= m$Q & min(covariates) >= 1)
+      stopifnot("some passed covariates outside of range 1:Q" = max(covariates) <= Q & min(covariates) >= 1)
       ## END DEFENSE
       
-      ## set non-included covariates to zero
-      
-      covariates.exclude <- setdiff(1:m$Q, covariates)
-      newdata[covariates.exclude, ] <- 0
+      covariates.exclude <- setdiff(1:Q, covariates)
+      linear.comp <- which(sapply(m$Gamma, is.matrix))
+      m.used$Lambda[[linear.comp]][,covariates.exclude,] <- 0
     }
     
     if(!is.null(components)){
@@ -98,7 +103,7 @@ r2.bassetfit <- function(m, covariates = NULL, components = NULL, ...) {
       # for(i in components.exclude){
       #   m.used$Lambda[[i]] <- array(0, dim(m$Lambda[[i]]))
       # }
-      m.used$Lambda <- m$Lambda[components]
+      m.used$Lambda <- m.used$Lambda[components]
       m.used$Gamma <- m$Gamma[components]
       m.used$Theta <- m$Theta[components]
     }

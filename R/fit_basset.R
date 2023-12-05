@@ -12,7 +12,7 @@
 #' @param Xi (D-1)x(D-1) prior covariance matrix
 #'   (default: ALR transform of diag(1)*(upsilon-D)/2 - this is 
 #'   essentially iid on "base scale" using Aitchison terminology)
-#' @param linear A vector denoting which rows of X should be used in a linear component. Default is all rows.
+#' @param linear A vector denoting which rows of X should be used if  a linear component is specified. Default is all rows.
 #' @param init (D-1) x Q initialization for Eta for optimization 
 #' @param pars character vector of posterior parameters to return
 #' @param m object of class bassetfit 
