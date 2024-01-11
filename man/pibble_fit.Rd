@@ -15,6 +15,7 @@ pibble(
   Xi = NULL,
   init = NULL,
   pars = c("Eta", "Lambda", "Sigma"),
+  newdata = NULL,
   ...
 )
 
@@ -42,6 +43,8 @@ essentially iid on "base scale" using Aitchison terminology)}
 \item{init}{(D-1) x N initialization for Eta for optimization}
 
 \item{pars}{character vector of posterior parameters to return}
+
+\item{newdata}{Default is \code{NULL}. If non-null, newdata is used in the uncollapse sampler in place of X.}
 
 \item{...}{arguments passed to \code{\link{optimPibbleCollapsed}} and
 \code{\link{uncollapsePibble}}}

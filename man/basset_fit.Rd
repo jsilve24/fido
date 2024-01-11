@@ -16,6 +16,7 @@ basset(
   linear = NULL,
   init = NULL,
   pars = c("Eta", "Lambda", "Sigma"),
+  newdata = NULL,
   ...
 )
 
@@ -37,11 +38,13 @@ basset(
 (default: ALR transform of diag(1)*(upsilon-D)/2 - this is
 essentially iid on "base scale" using Aitchison terminology)}
 
-\item{linear}{A vector denoting which rows of X should be used in a linear component. Default is all rows.}
+\item{linear}{A vector denoting which rows of X should be used if  a linear component is specified. Default is all rows.}
 
 \item{init}{(D-1) x Q initialization for Eta for optimization}
 
 \item{pars}{character vector of posterior parameters to return}
+
+\item{newdata}{Default is \code{NULL}. If non-null, newdata is used in the uncollapse sampler in place of X.}
 
 \item{...}{other arguments passed to \link{pibble} (which is used internally to
 fit the basset model)}

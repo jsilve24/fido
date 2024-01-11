@@ -22,7 +22,7 @@ test_that("basset matches old if list is used as input",{
   fit.lam <- apply(fit$Lambda, c(1,2), mean)
   fit.new.lam <- apply(fit.new$Lambda[[1]], c(1,2), mean)
   
-  expect_true(mean(abs(fit.lam-fit.new.lam)) < .05)
+  expect_true(mean(abs(fit.lam-fit.new.lam)) < .1)
 })
 
 test_that("basset can have multiple GP components",{

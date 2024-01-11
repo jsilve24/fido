@@ -16,6 +16,7 @@
 #' @param init (D-1) x Q initialization for Eta for optimization 
 #' @param pars character vector of posterior parameters to return
 #' @param m object of class bassetfit 
+#' @param newdata Default is `NULL`. If non-null, newdata is used in the uncollapse sampler in place of X.
 #' @param ... other arguments passed to \link{pibble} (which is used internally to 
 #'  fit the basset model)
 #' 
@@ -49,7 +50,7 @@ NULL
 #' @rdname basset_fit
 #' @export
 basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, linear = NULL,
-                   init=NULL, pars=c("Eta", "Lambda", "Sigma"), ...){
+                   init=NULL, pars=c("Eta", "Lambda", "Sigma"), newdata = NULL, ...){
   
   args <- list(...)
   ncores <- args_null("ncores", args, -1)
@@ -79,6 +80,11 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
     if(min(linear) < 1 | max(linear) > nrow(X)){
       stop("Please verify that all values of 'linear' are between 1 and nrow(X).")
     }
+  }
+  
+  ## setting newdata <- X if newdata is null
+  if(is.null(newdata)){
+    newdata <- X
   }
   
   ## adding functionality so that Theta and Gamma can be a list
@@ -132,7 +138,7 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
     Gamma_comb <- Reduce('+', Gamma_trans)
     
     ## fitting the joint model
-    collapse_samps <- pibble(Y, X=diag(ncol(X)), upsilon, Theta_comb, Gamma_comb, Xi, init, pars, ...)
+    collapse_samps <- pibble(Y, X=diag(ncol(X)), upsilon, Theta_comb, Gamma_comb, Xi, init, pars, newdata = newdata, ...)
     
     ## fitting uncollapse using the joint samples
     Lambda <- list()
@@ -174,7 +180,7 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
       if(num.comp == 1){
         ## return the pibble samples.
         if(is.matrix(Theta[[i]])){
-          fitu <- uncollapsePibble(collapse_samps$Eta, X[linear,], Theta[[i]], Gamma[[i]], Xi, upsilon, 
+          fitu <- uncollapsePibble(collapse_samps$Eta, newdata[linear,], Theta[[i]], Gamma[[i]], Xi, upsilon, 
                                               ret_mean=ret_mean, ncores=ncores, seed=seed)
           Lambda.out[[i]] <- fitu$Lambda
         } else{
@@ -191,7 +197,7 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
             collapse_samps$Lambda - samp_mean
           }
           Gamma_comb_red <- Reduce('+', Gamma_trans[c(i:num.comp)])
-          fitu <- add.uncollapse(unc_samples, X, Theta[[i]], Gamma[[i]], Gamma_comb_red, Xi, collapse_samps$Sigma,
+          fitu <- add.uncollapse(unc_samples, newdata, Theta[[i]], Gamma[[i]], Gamma_comb_red, Xi, collapse_samps$Sigma,
                                  upsilon, ret_mean, ncores, seed, linear)
           Lambda[[i]] <- fitu$Lambda
           Lambda.out[[i]] <- fitu$Lambda.out
@@ -252,7 +258,9 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
     } else {
       stop("No Default Kernel For Gamma Implemented")
     }
-    out <- pibble(Y, X=diag(ncol(X)), upsilon, Theta_train, Gamma_train, Xi, init, pars, ...)
+    
+    ##newdata = NULL automatically handled by pibble
+    out <- pibble(Y, X=diag(ncol(X)), upsilon, Theta_train, Gamma_train, Xi, init, pars, newdata = newdata, ...)
     out$X <- X
     out$Q <- as.integer(nrow(X))
   }
