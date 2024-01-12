@@ -82,10 +82,6 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
     }
   }
   
-  ## setting newdata <- X if newdata is null
-  if(is.null(newdata)){
-    newdata <- X
-  }
   
   ## adding functionality so that Theta and Gamma can be a list
   if(typeof(Theta) == "list" | typeof(Gamma) == "list"){
@@ -94,6 +90,11 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
     }
     if(length(Gamma) != length(Theta)){
       stop("Theta and Gamma must be of the same length.")
+    }
+    
+    ## setting newdata <- X if newdata is null
+    if(is.null(newdata)){
+      newdata <- X
     }
     
     ## evaluating theta and gamma
