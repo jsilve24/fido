@@ -92,11 +92,6 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
       stop("Theta and Gamma must be of the same length.")
     }
     
-    ## setting newdata <- X if newdata is null
-    if(is.null(newdata)){
-      newdata <- X
-    }
-    
     ## evaluating theta and gamma
     ## theta
     theta_eval <- function(Theta, X, linear){
@@ -139,6 +134,7 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
     Gamma_comb <- Reduce('+', Gamma_trans)
     
     ## fitting the joint model
+    ## newdata auto handled by pibble
     collapse_samps <- pibble(Y, X=diag(ncol(X)), upsilon, Theta_comb, Gamma_comb, Xi, init, pars, newdata = newdata, ...)
     
     ## fitting uncollapse using the joint samples
@@ -175,6 +171,11 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
         return(list(Lambda = fitu$Lambda, Lambda.out = fitu$Lambda))
       }
     } 
+    
+    ## setting newdata <- X if newdata is null
+    if(is.null(newdata)){
+      newdata <- X
+    }
     
     for(i in 1:num.comp){
       ## if num.comp == 1 --> return the samples from Lambda above
