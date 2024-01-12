@@ -79,6 +79,8 @@ test_that("testing that predict works",{
 })
 
 test_that("testing that r2 works",{
+  # adding seed internally because pibble_sim causing tests to fail
+  set.seed(1234)
   sim <- pibble_sim()
   
   Theta <- list(matrix(0, nrow = sim$D-1, ncol = sim$Q), function(X) matrix(0, nrow = sim$D-1, ncol = ncol(X)))

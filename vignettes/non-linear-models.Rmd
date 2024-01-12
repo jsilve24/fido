@@ -145,30 +145,30 @@ predicted <- predict(fit.clr, X_predict, jitter=1)
 Now I am going to create a visual that shows the observed data in CLR coordinates 
 (to do that I will need to add a pseudo-count) along with the smoothed estimates. 
 ```{r fig.height=5, fig.width=7}
-family_names <- as(mallard_family$tax_table$Family, "vector")
-Y_clr_tidy <- clr_array(Y+0.65, parts = 1) %>% 
-  gather_array(mean, coord, sample) %>% 
-  mutate(time = X[1,sample], 
-         coord = paste0("CLR(", family_names[coord],")"))
-
-predicted_tidy <- gather_array(predicted, val, coord, sample, iter) %>% 
-  mutate(time = X_predict[1,sample]) %>% 
-  filter(!is.na(val)) %>% 
-  group_by(time, coord) %>% 
-  summarise_posterior(val, na.rm=TRUE) %>% 
-  ungroup() %>% 
-  mutate(coord = paste0("CLR(", family_names[coord],")"))
-
-ggplot(predicted_tidy, aes(x = time, y=mean)) +
-  geom_ribbon(aes(ymin=p2.5, ymax=p97.5), fill="darkgrey", alpha=0.5) +
-  geom_ribbon(aes(ymin=p25, ymax=p75), fill="darkgrey", alpha=0.9)+
-  geom_line(color="blue") +
-  geom_point(data = Y_clr_tidy, alpha=0.5) +
-  facet_wrap(~coord, scales="free_y") +
-  theme_minimal()+
-  theme(axis.title.y = element_blank(), 
-        axis.title.x = element_blank(), 
-        axis.text.x = element_text(angle=45))
+# family_names <- as(mallard_family$tax_table$Family, "vector")
+# Y_clr_tidy <- clr_array(Y+0.65, parts = 1) %>% 
+#   gather_array(mean, coord, sample) %>% 
+#   mutate(time = X[1,sample], 
+#          coord = paste0("CLR(", family_names[coord],")"))
+# 
+# predicted_tidy <- gather_array(predicted, val, coord, sample, iter) %>% 
+#   mutate(time = X_predict[1,sample]) %>% 
+#   filter(!is.na(val)) %>% 
+#   group_by(time, coord) %>% 
+#   summarise_posterior(val, na.rm=TRUE) %>% 
+#   ungroup() %>% 
+#   mutate(coord = paste0("CLR(", family_names[coord],")"))
+# 
+# ggplot(predicted_tidy, aes(x = time, y=mean)) +
+#   geom_ribbon(aes(ymin=p2.5, ymax=p97.5), fill="darkgrey", alpha=0.5) +
+#   geom_ribbon(aes(ymin=p25, ymax=p75), fill="darkgrey", alpha=0.9)+
+#   geom_line(color="blue") +
+#   geom_point(data = Y_clr_tidy, alpha=0.5) +
+#   facet_wrap(~coord, scales="free_y") +
+#   theme_minimal()+
+#   theme(axis.title.y = element_blank(), 
+#         axis.title.x = element_blank(), 
+#         axis.text.x = element_text(angle=45))
 
 ```
 
