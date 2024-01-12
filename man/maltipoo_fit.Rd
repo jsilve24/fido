@@ -69,9 +69,9 @@ the full model is given by:
    \deqn{Gamma = e^{ell_1} U_1 + ... + e^{ell_P} U_P}
    \deqn{Sigma \sim InvWish(upsilon, Xi)}
    
- Where A = (I_N + X * Gamma * X')^{-1}, K^{-1} = Xi is a (D-1)x(D-1) 
- covariance matrix, U_1 is a Q x Q covariance matrix (a variance component), 
- e^{ell_i} is a scale for that variance component and Phi^{-1} is 
+ Where \eqn{A = (I_N + X * Gamma * X')^{-1}}, \eqn{K^{-1} = Xi} is a (D-1)x(D-1) 
+ covariance matrix, \eqn{U_1} is a Q x Q covariance matrix (a variance component), 
+ \eqn{e^{ell_i}} is a scale for that variance component and \eqn{Phi^{-1}} is 
  ALRInv_D transform. 
  
  Default behavior is to use MAP estimate for uncollaping collapsed maltipoo 
