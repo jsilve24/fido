@@ -17,8 +17,8 @@ test_that("basset matches old if list is used as input",{
   sim <- pibble_sim()
   Gamma <- function(X) SE(X)
   Theta <- function(X) matrix(0, nrow(sim$Y)-1, ncol(X))
-  fit <- basset(sim$Y, sim$X, Gamma = Gamma, Theta = Theta, n_samples = 10000)
-  fit.new <- basset(sim$Y, sim$X, Gamma = list(Gamma), Theta = list(Theta), n_samples = 10000)
+  fit <- basset(sim$Y, sim$X, Gamma = Gamma, Theta = Theta, n_samples = 10000, seed = 123)
+  fit.new <- basset(sim$Y, sim$X, Gamma = list(Gamma), Theta = list(Theta), n_samples = 10000, seed = 123)
   
   ## Estimates match
   fit.lam <- apply(fit$Lambda, c(1,2), mean)
@@ -96,6 +96,8 @@ test_that("testing that r2 works",{
 
 
 test_that("transforms work with new basset", {
+  # adding seed internally because pibble_sim causing tests to fail
+  set.seed(123)
   sim <- pibble_sim()
   Gamma <- function(X) SE(X)
   Theta <- function(X) matrix(0, nrow(sim$Y)-1, ncol(X))
@@ -132,6 +134,8 @@ uncollapse <- function(eta, X, upsilon, Theta, Xi, Gamma, GammaComb, Sigma){
 
 
 test_that("basset c++ matches R implementation", {
+  # adding seed internally because pibble_sim causing tests to fail
+  set.seed(1234)
   sim <- pibble_sim()
   fit <- pibble(sim$Y, sim$X, Gamma = sim$Gamma, Theta = sim$Theta, Xi = sim$Xi, upsilon = sim$upsilon, seed = 1, n_samples = 5000)
   
