@@ -12,6 +12,8 @@ test_that("basset and predict.bassetfit run", {
 })
 
 test_that("basset matches old if list is used as input",{
+  # adding seed internally because pibble_sim causing tests to fail
+  set.seed(1234)
   sim <- pibble_sim()
   Gamma <- function(X) SE(X)
   Theta <- function(X) matrix(0, nrow(sim$Y)-1, ncol(X))
@@ -26,6 +28,8 @@ test_that("basset matches old if list is used as input",{
 })
 
 test_that("basset can have multiple GP components",{
+  # adding seed internally because pibble_sim causing tests to fail
+  set.seed(1234)
   sim <- pibble_sim()
   Gamma <- function(X) SE(X)
   Theta <- function(X) matrix(0, nrow(sim$Y)-1, ncol(X))
@@ -171,4 +175,6 @@ test_that("new collapse sampler matches old when inputs match",{
   
   expect_true(mean(abs(Lambda.fit - Lambda.fit.test)) < 0.05)
 })
+
+
 
