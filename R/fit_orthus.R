@@ -35,7 +35,7 @@
 #'    \deqn{cbind(Eta, Z) \sim MN_{D-1+P x N}(Lambda*X, Sigma, I_N)}
 #'    \deqn{Lambda \sim MN_{D-1+P x Q}(Theta, Sigma, Gamma)}
 #'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
-#'  Where Gamma is a Q x Q covariance matrix, and Phi^{-1} is 
+#'  Where Gamma is a Q x Q covariance matrix, and \eqn{Phi^{-1}} is 
 #'  ALRInv_D transform. 
 #'  That is, the orthus model models the latent multinomial log-ratios (Eta) and
 #'  the observations of the second dataset jointly as a linear model. This allows 

@@ -34,7 +34,7 @@
 #'    \deqn{Eta \sim MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
 #'    \deqn{Lambda \sim MN_{D-1 x Q}(Theta, Sigma, Gamma)}
 #'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
-#'  Where Gamma is a Q x Q covariance matrix, and Phi^{-1} is 
+#'  Where Gamma is a Q x Q covariance matrix, and \eqn{Phi^{-1}} is 
 #'  ALRInv_D transform. 
 #'  
 #'  Default behavior is to use MAP estimate for uncollaping the LTP 

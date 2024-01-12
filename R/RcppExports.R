@@ -355,19 +355,19 @@ optimPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, init, n_samples
 #'  
 #' @details Notation: Let Z_j denote the J-th row of a matrix Z.
 #' While the collapsed model is given by:
-#'    \deqn{Y_j ~ Multinomial(Pi_j)}
+#'    \deqn{Y_j sim Multinomial(Pi_j)}
 #'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-#'    \deqn{Eta ~ T_{D-1, N}(upsilon, Theta*X, K, A)}
+#'    \deqn{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
 #' Where A = I_N + X * Gamma * X', K = Xi is a (D-1)x(D-1) covariance 
-#' matrix, Gamma is a Q x Q covariance matrix, and Phi^{-1} is ALRInv_D 
+#' matrix, Gamma is a Q x Q covariance matrix, and \eqn{Phi^{-1}} is ALRInv_D 
 #' transform. 
 #' 
 #' The uncollapsed model (Full pibble model) is given by:
-#'    \deqn{Y_j ~ Multinomial(Pi_j)}
+#'    \deqn{Y_j \sim Multinomial(Pi_j)}
 #'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-#'    \deqn{Eta ~ MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
-#'    \deqn{Lambda ~ MN_{D-1 x Q}(Theta, Sigma, Gamma)}
-#'    \deqn{Sigma ~ InvWish(upsilon, Xi)}
+#'    \deqn{Eta \sim MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
+#'    \deqn{Lambda \sim MN_{D-1 x Q}(Theta, Sigma, Gamma)}
+#'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
 #' This function provides a means of sampling from the posterior distribution of 
 #' \code{Lambda} and \code{Sigma} given posterior samples of \code{Eta} from 
 #' the collapsed model. 
@@ -449,19 +449,19 @@ rMatUnitNormal_test2 <- function(n) {
 #'  
 #' @details Notation: Let Z_j denote the J-th row of a matrix Z.
 #' While the collapsed model is given by:
-#'    \deqn{Y_j ~ Multinomial(Pi_j)}
+#'    \deqn{Y_j \sim Multinomial(Pi_j)}
 #'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-#'    \deqn{Eta ~ T_{D-1, N}(upsilon, Theta*X, K, A)}
+#'    \deqn{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
 #' Where A = I_N + X * Gamma * X', K = Xi is a (D-1)x(D-1) covariance 
-#' matrix, Gamma is a Q x Q covariance matrix, and Phi^{-1} is ALRInv_D 
+#' matrix, Gamma is a Q x Q covariance matrix, and \eqn{Phi^{-1}} is ALRInv_D 
 #' transform. 
 #' 
 #' The uncollapsed model (Full pibble model) is given by:
-#'    \deqn{Y_j ~ Multinomial(Pi_j)}
+#'    \deqn{Y_j \sim Multinomial(Pi_j)}
 #'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-#'    \deqn{Eta ~ MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
-#'    \deqn{Lambda ~ MN_{D-1 x Q}(Theta, Sigma, Gamma)}
-#'    \deqn{Sigma ~ InvWish(upsilon, Xi)}
+#'    \deqn{Eta \sim MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
+#'    \deqn{Lambda \sim MN_{D-1 x Q}(Theta, Sigma, Gamma)}
+#'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
 #' This function provides a means of sampling from the posterior distribution of 
 #' \code{Lambda} and \code{Sigma} given posterior samples of \code{Eta} from 
 #' the collapsed model. 
