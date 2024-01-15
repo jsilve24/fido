@@ -42,7 +42,7 @@ for regression coefficients)}
 
 \item{KInv}{D-1 x D-1 precision matrix (inverse of Xi)}
 
-\item{AInv}{N x N precision matrix given by (I_N + X'\emph{Gamma}X)^{-1}}
+\item{AInv}{N x N precision matrix given by \eqn{(I_N + X'*Gamma*X)^{-1}}}
 
 \item{init}{D-1 x N matrix of initial guess for eta used for optimization}
 
