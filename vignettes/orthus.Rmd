@@ -140,7 +140,7 @@ state that our mean for $\Lambda$ is centered about $\mathbf{0}$ and that the si
 
 ```r
 Gamma <- diag(Q)
-Theta <- matrix(0, D-1+P, 1)
+Theta <- matrix(0, D-1+P, Q)
 ```
 
 
