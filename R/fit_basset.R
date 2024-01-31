@@ -198,7 +198,7 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
             samp_mean <- sweep(Lambda_mean, c(1,2), Theta_mean, FUN = "+")
             collapse_samps$Lambda - samp_mean
           }
-          Gamma_comb_red <- Reduce('+', Gamma_trans[c(i:num.comp)])
+          Gamma_comb_red <- Reduce('+', Gamma_trans[c((i+1):num.comp)])
           fitu <- add.uncollapse(unc_samples, newdata, Theta[[i]], Gamma[[i]], Gamma_comb_red, Xi, collapse_samps$Sigma,
                                  upsilon, ret_mean, ncores, seed, linear)
           Lambda[[i]] <- fitu$Lambda
