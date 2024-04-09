@@ -200,3 +200,13 @@ test_that("init argument words in refit", {
   expect(TRUE, "init argument not working in refit")
 })
 
+test_that("predict works with one sample", {
+  fit <- pibble(sim$Y, sim$X)
+  preds <- predict(fit, newdata = matrix(sim$X[,1], ncol = 1), response = "LambdaX")
+  preds <- predict(fit, newdata = matrix(sim$X[,1], ncol = 1), response = "Eta")
+  preds <- predict(fit, newdata = matrix(sim$X[,1], ncol = 1), response = "Y")
+
+  expect_true(TRUE)
+})
+
+

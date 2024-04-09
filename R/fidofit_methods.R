@@ -673,6 +673,13 @@ predict.pibblefit <- function(object, newdata=NULL, response="LambdaX", size=NUL
     Pi <- to_proportions(as.pibblefit(object[com]))$Eta
   }
   Ypred <- array(0, dim=c(object$D, nnew, iter))
+  
+  # Fixing small bug. If newdata is a single sample, then size will be a vector.
+  # The loop with rmultinom will break as a result unless size is transformed to a matrix.
+  
+  if(is.vector(size)){
+    size <- matrix(size, nrow = 1)
+  }
   for (i in 1:iter){
     for (j in 1:nnew){
       Ypred[,j,i] <- rmultinom(1, size=size[j,i], prob=Pi[,j,i])
