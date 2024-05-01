@@ -223,6 +223,7 @@ test_that("predict works with one sample", {
   preds <- predict(fit, newdata = matrix(sim$X[,1], ncol = 1), response = "LambdaX")
   preds <- predict(fit, newdata = matrix(sim$X[,1], ncol = 1), response = "Eta")
   preds <- predict(fit, newdata = matrix(sim$X[,1], ncol = 1), response = "Y")
-  
+
   expect_true(TRUE)
 })
+

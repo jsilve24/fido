@@ -614,7 +614,7 @@ predict.pibblefit <- function(object, newdata=NULL, response="LambdaX", size=NUL
   if(is.vector(size)){
     size <- matrix(size, nrow = 1)
   }
-  
+
   for (i in 1:iter){
     for (j in 1:nnew){
       Ypred[,j,i] <- rmultinom(1, size=size[j,i], prob=Pi[,j,i])
