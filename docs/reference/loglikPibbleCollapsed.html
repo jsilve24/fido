@@ -6,7 +6,7 @@ C++ class due to a lack of Memoization. By contrast function optimPibbleCollapse
 is much more optimized and massively cuts down on repeated calculations.
 A more efficient Rcpp module based implementation of these functions
 may following if the future. For model details see optimPibbleCollapsed
-documentation"><title>Calculations for the Collapsed Pibble Model — loglikPibbleCollapsed • fido</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Calculations for the Collapsed Pibble Model — loglikPibbleCollapsed"><meta property="og:description" content="Functions providing access to the Log Likelihood, Gradient, and Hessian
+documentation"><title>Calculations for the Collapsed Pibble Model — loglikPibbleCollapsed • fido</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Calculations for the Collapsed Pibble Model — loglikPibbleCollapsed"><meta property="og:description" content="Functions providing access to the Log Likelihood, Gradient, and Hessian
 of the collapsed pibble model. Note: These are convenience functions
 but are not as optimized as direct coding of the PibbleCollapsed
 C++ class due to a lack of Memoization. By contrast function optimPibbleCollapsed
@@ -20,12 +20,11 @@ documentation"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/li
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-<<<<<<< HEAD
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">fido</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,22 +67,6 @@ documentation"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/li
       <img src="" class="logo" alt=""><h1>Calculations for the Collapsed Pibble Model</h1>
       <small class="dont-index">Source: <a href="https://github.com/jsilve24/fido/blob/HEAD/R/RcppExports.R" class="external-link"><code>R/RcppExports.R</code></a></small>
       <div class="d-none name"><code>loglikPibbleCollapsed.Rd</code></div>
-=======
-    <div class="container template-reference-topic">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">fido</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.4</span>
-      </span>
->>>>>>> master
     </div>
 
     <div class="ref-description section level2">
@@ -178,29 +161,16 @@ identity to speed computation</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">loglikPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span></span></span>
-<<<<<<< HEAD
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -285995.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -195095.9</span>
 <span class="r-in"><span><span class="fu">gradPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 11.368476  5.187193  3.597229 27.682054 25.871794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.7284477 -0.1509676  1.2405685  0.2829217  2.6895085</span>
 <span class="r-in"><span><span class="fu">hessPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]         [,2]        [,3]         [,4]         [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -46.2116421    0.8176244   0.3134118     6.532787    0.9220093</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]   0.8176244 -185.9271349   1.1923475    26.644163    3.5750703</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   0.3134118    1.1923475 -63.8299045     9.081552    1.2227014</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]   6.5327874   26.6441629   9.0815515 -1170.803777   25.3597335</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]   0.9220093    3.5750703   1.2227014    25.359733 -177.0138175</span>
-=======
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -115558.2</span>
-<span class="r-in"><span><span class="fu">gradPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  4.7440863 -2.0141509 -0.6579329 -5.0887964 -0.9877219</span>
-<span class="r-in"><span><span class="fu">hessPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               [,1]        [,2]          [,3]          [,4]          [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1454.9780390  1.23680090  0.2229720363  1.450126e+03  0.0531649019</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     1.2368009 -3.57827522 -0.2111650936  6.691041e-01  0.0287388480</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]     0.2229720 -0.21116509 -0.5506432005  1.461724e-01 -0.0003659692</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]  1450.1262939  0.66910413  0.1461724285 -1.453056e+03 -0.0140213131</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]     0.0531649  0.02873885 -0.0003659692 -1.402131e-02 -0.4031252063</span>
->>>>>>> master
+<span class="r-out co"><span class="r-pr">#&gt;</span>               [,1]       [,2]        [,3]        [,4]          [,5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -395.55832129  0.3806120 -0.02360702 -0.06801042  393.92582730</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0.38061199 -8.4987346 -0.31053592 -0.10707949    6.35296890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   -0.02360702 -0.3105359 -1.22834285  0.10121428    0.81696424</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]   -0.06801042 -0.1070795  0.10121428 -0.48603619    0.04496538</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  393.92582730  6.3529689  0.81696424  0.04496538 -413.36822195</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -208,15 +178,11 @@ identity to speed computation</p></dd>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Justin Silverman, Michelle Nixon.</p>
+  <p>Developed by Justin Silverman, Michelle Nixon.</p>
 </div>
 
-<<<<<<< HEAD
 <div class="pkgdown-footer-right">
-=======
-<div class="pkgdown">
->>>>>>> master
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
     </footer></div>
