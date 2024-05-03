@@ -7,8 +7,8 @@ articles:
   non-linear-models: non-linear-models.html
   orthus: orthus.html
   picking_priors: picking_priors.html
-last_built: 2024-05-03T18:01Z
+last_built: 2024-05-03T18:41Z
 urls:
-  reference: https://github.com/jsilve24/fido/wiki/Installation-Details/reference
-  article: https://github.com/jsilve24/fido/wiki/Installation-Details/articles
+  reference: https://jsilve24.github.io/fido/reference
+  article: https://jsilve24.github.io/fido/articles
 

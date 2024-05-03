@@ -1,12 +1,107 @@
-url: https://github.com/jsilve24/fido/wiki/Installation-Details
+url: https://jsilve24.github.io/fido/
+
+home:
+  title: Bayesian Multiniomial Logisic Normal Models (really fast)
+
+authors:
+  Justin Silverman:
+    href: https://www.justin-silverman.com/
+  Michelle Nixon:
+  Kimberly Roche:
+
 template:
   bootstrap: 5
+  package: tidytemplate
 
 development:
-  mode: release
-  version_label: default
+  mode: auto
 
-navbar:
-  structure:
-    left: [intro, articles, reference, news]
-    right: [github]
+articles:
+- title: Models
+  navbar: ~
+  contents:
+  - introduction-to-fido
+  - non-linear-models
+  - orthus
+
+- title: Examples
+  contents:
+  - mitigating-pcrbias
+
+- title: Advanced Details
+  contents:
+  - picking_priors
+
+reference:
+- title: Model functions
+  desc:  Functions for fitting the main models
+  contents:
+  - pibble
+  - refit
+  - basset
+  - orthus
+
+- title: Model checking
+  contents:
+  - starts_with("plot")
+  - starts_with("ppc")
+
+- title: Useful functions for determining model fit
+  contents:
+  - starts_with("plot")
+  - starts_with("ppc")
+  - starts_with("r2")
+  - starts_with("sample_prior")
+  - summarise_posterior
+
+- title: Transformation functions
+  contents:
+  - starts_with("to")
+
+- title: Helper functions
+  contents:
+  - starts_with("alr")
+  - starts_with("as.")
+  - check_dims
+  - starts_with("clr")
+  - starts_with("coef")
+  - conjugateLinearModel
+  - convert_orthus_covariance
+  - create_default_ilr_base
+  - gather_array
+  - kernels
+  - lambda_to_iqlr
+  - starts_with("loglik")
+  - lmvgamma
+  - lmvgamma_deriv
+  - maltipoofit
+  - maltipoo_fit
+  - starts_with("miniclo")
+  - mongrel-deprecated
+  - starts_with("name")
+  - starts_with("ncategories")
+  - starts_with("optim")
+  - orthusfit
+  - orthus_lr_transforms
+  - orthus_tidy_samples
+  - pibblefit
+  - starts_with("predict")
+  - starts_with("print")
+  - pibble_tidy_samples
+  - random_pibble_init
+  - starts_with("req")
+  - store_coord
+  - starts_with("summary")
+  - starts_with("uncollapse")
+  - starts_with("verify")
+
+- title: Data sets and data simulators
+  contents:
+  - fido_package
+  - mallard
+  - mallard_family
+  - metadata
+  - orthus_sim
+  - pcrbias_mock
+  - pibble_sim
+  - 'Y'
