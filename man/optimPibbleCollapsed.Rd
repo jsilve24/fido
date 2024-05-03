@@ -23,7 +23,7 @@ optimPibbleCollapsed(
   verbose = FALSE,
   verbose_rate = 10L,
   decomp_method = "cholesky",
-  optim_method = "adam",
+  optim_method = "lbfgs",
   eigvalthresh = 0,
   jitter = 0,
   multDirichletBoot = -1,
@@ -74,7 +74,7 @@ iteration number}
 \item{decomp_method}{decomposition of hessian for Laplace approximation
 'eigen' (more stable-slightly, slower) or 'cholesky' (less stable, faster, default)}
 
-\item{optim_method}{(default:"adam") or "lbfgs"}
+\item{optim_method}{(default:"lbfgs") or "adam"}
 
 \item{eigvalthresh}{threshold for negative eigenvalues in
 decomposition of negative inverse hessian (should be <=0)}
@@ -82,7 +82,7 @@ decomposition of negative inverse hessian (should be <=0)}
 \item{jitter}{(default: 0) if >=0 then adds that factor to diagonal of Hessian
 before decomposition (to improve matrix conditioning)}
 
-\item{multDirichletBoot}{if >0 (overrides laplace approximation) and samples
+\item{multDirichletBoot}{if >0 then it overrides laplace approximation and samples
 eta efficiently at MAP estimate from pseudo Multinomial-Dirichlet posterior.}
 
 \item{useSylv}{(default: true) if N<D-1 uses Sylvester Determinant Identity
@@ -105,6 +105,8 @@ based on Laplace approximation (if n_samples>0)
 \item Timer - Vector of Execution Times
 \item logInvNegHessDet - the log determinant of the covariacne of the Laplace
 approximation, useful for calculating marginal likelihood
+\item logMarginalLikelihood - A calculation of the log marginal likelihood based on
+the laplace approximation
 }
 }
 \description{
@@ -119,8 +121,8 @@ Model:
 \deqn{Y_j \sim Multinomial(Pi_j)}
 \deqn{Pi_j = Phi^{-1}(Eta_j)}
 \deqn{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
-Where A = I_N + X * Gamma * X', K is a (D-1)x(D-1) covariance
-matrix, Gamma is a Q x Q covariance matrix, and Phi^{-1} is ALRInv_D
+Where \eqn{A = I_N + X * Gamma * X'}, K is a (D-1)x(D-1) covariance
+matrix, Gamma is a Q x Q covariance matrix, and \eqn{Phi^{-1}} is ALRInv_D
 transform.
 
 Gradient and Hessian calculations are fast as they are computed using closed
@@ -158,7 +160,7 @@ optimization algorithms}. arXiv 1609.04747
 
 JD Silverman K Roche, ZC Holmes, LA David, S Mukherjee.
 \emph{Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes}.
-2019, arXiv e-prints, arXiv:1903.11695
+2022, Journal of Machine Learning
 }
 \seealso{
 \code{\link{uncollapsePibble}}

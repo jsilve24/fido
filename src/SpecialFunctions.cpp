@@ -30,3 +30,4 @@ double lmvgamma_deriv(double a, int p){
   }
   return s*lmvgamma(a,p);
 }
+

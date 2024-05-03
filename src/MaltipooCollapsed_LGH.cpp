@@ -30,7 +30,6 @@ using Eigen::VectorXd;
 //'     \item hessMaltipooCollapsed- matrix
 //'   } 
 //' @name loglikMaltipooCollapsed
-//' @export
 // [[Rcpp::export]]
 double loglikMaltipooCollapsed(const Eigen::ArrayXXd Y,
                   const double upsilon,
@@ -48,7 +47,6 @@ double loglikMaltipooCollapsed(const Eigen::ArrayXXd Y,
 }
 
 //' @rdname loglikMaltipooCollapsed
-//' @export
 // [[Rcpp::export]]
 Eigen::VectorXd gradMaltipooCollapsed(const Eigen::ArrayXXd Y,
                          const double upsilon,
@@ -67,7 +65,6 @@ Eigen::VectorXd gradMaltipooCollapsed(const Eigen::ArrayXXd Y,
 }
 
 //' @rdname loglikMaltipooCollapsed
-//' @export
 // [[Rcpp::export]]
 Eigen::MatrixXd hessMaltipooCollapsed(const Eigen::ArrayXXd Y,
                          const double upsilon,

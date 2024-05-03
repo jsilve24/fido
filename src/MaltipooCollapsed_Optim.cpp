@@ -48,9 +48,9 @@ using Eigen::VectorXd;
 //' Model:
 //'    \deqn{Y_j \sim Multinomial(Pi_j)}
 //'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-//'    \deqn{Eta \sim T_{D-1, N}(upsilon, Theta\\*X, K, A)}
+//'    \deqn{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
 //'    
-//'  Where A = (I_N + e^{ell_1}\\*X\\*U_1\\*X' + ... + e^{ell_P}\\*X\\*U_P\\*X' ),
+//'  Where \eqn{A = (I_N + e^{ell_1}*X*U_1*X' + ... + e^{ell_P}*X*U_P*X' )},
 //'  K is a D-1xD-1 covariance and Phi is ALRInv_D transform. 
 //' 
 //' Gradient and Hessian calculations are fast as they are computed using closed
@@ -83,7 +83,6 @@ using Eigen::VectorXd;
 //' 7. logInvNegHessDet - the log determinant of the covariacne of the Laplace 
 //'    approximation, useful for calculating marginal likelihood 
 //' @md 
-//' @export
 //' @name optimMaltipooCollapsed
 //' @references S. Ruder (2016) \emph{An overview of gradient descent 
 //' optimization algorithms}. arXiv 1609.04747

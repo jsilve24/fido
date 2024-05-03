@@ -1,10 +1,11 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
-    branches: [main, master, parallel-fixes, remote-repo-fixes, develop, plot-bug-fix]
+    branches: [main, master, develop, plot-bug-fix, rng_update]
+
   pull_request:
-    branches: [main, master]
+    branches: [main, master, develop]
 
 name: R-CMD-check
 
@@ -18,10 +19,11 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release'}
+          - {os: macos-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
+          - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -31,11 +33,9 @@ jobs:
       - name: Configure git
         run: git config --global core.autocrlf false
 
-      - if: runner.os == 'Linux'
-        run: sudo apt-get install -y libgsl-dev
+      - uses: actions/checkout@v3
 
-      - if: runner.os == 'Linux'
-        run: sudo apt-get install -y libglpk-dev
+      - uses: r-lib/actions/setup-pandoc@v2
 
       - uses: actions/checkout@v2
 
@@ -63,8 +63,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@main
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check
+          upload-snapshots: true
 
       # - name: print path
         # if: failure()

@@ -1,3 +1,14 @@
+# fido 1.0.4
+
+* changing default optimizer (lbfgs rather than adam), adam is more sensitive to random seed
+* adding new r2 methods for calculating Bayesian R2 for pibble and basset models
+* predict.bassetfit now accepts a newdata=NULL argument to predict on training set
+
+bug fixes
+
+* cryptic fixes to base R commands (ask Michelle :)
+
+
 # fido 1.0.3
 
 bug fixes

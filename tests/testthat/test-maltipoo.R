@@ -25,7 +25,7 @@ test_that("maltipoo wrapper correctness", {
     Y[,i] <- rmultinom(1, 10000, prob=Pi[,i])
   }
   
-  fit <- maltipoo(Y, X, upsilon, Theta, U, Xi, init=Eta, ellinit = log(delta_true))
+  fit <- fido:::maltipoo(Y, X, upsilon, Theta, U, Xi, init=Eta, ellinit = log(delta_true))
   
   # Check that scale of VCs is correct
   expect_true(fit$VCScale-delta_true < 0.1)

@@ -15,6 +15,7 @@ pibble(
   Xi = NULL,
   init = NULL,
   pars = c("Eta", "Lambda", "Sigma"),
+  newdata = NULL,
   ...
 )
 
@@ -43,6 +44,8 @@ essentially iid on "base scale" using Aitchison terminology)}
 
 \item{pars}{character vector of posterior parameters to return}
 
+\item{newdata}{Default is \code{NULL}. If non-null, newdata is used in the uncollapse sampler in place of X.}
+
 \item{...}{arguments passed to \code{\link{optimPibbleCollapsed}} and
 \code{\link{uncollapsePibble}}}
 
@@ -69,7 +72,7 @@ the full model is given by:
 \deqn{Eta \sim MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
 \deqn{Lambda \sim MN_{D-1 x Q}(Theta, Sigma, Gamma)}
 \deqn{Sigma \sim InvWish(upsilon, Xi)}
-Where Gamma is a Q x Q covariance matrix, and Phi^{-1} is
+Where Gamma is a Q x Q covariance matrix, and \eqn{Phi^{-1}} is
 ALRInv_D transform.
 
 Default behavior is to use MAP estimate for uncollaping the LTP

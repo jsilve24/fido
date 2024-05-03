@@ -57,19 +57,16 @@ conjugateLinearModel <- function(Y, X, Theta, Gamma, Xi, upsilon, n_samples = 20
 #'     \item hessMaltipooCollapsed- matrix
 #'   } 
 #' @name loglikMaltipooCollapsed
-#' @export
 loglikMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv = FALSE) {
     .Call('_fido_loglikMaltipooCollapsed', PACKAGE = 'fido', Y, upsilon, Theta, X, KInv, U, eta, ell, sylv)
 }
 
 #' @rdname loglikMaltipooCollapsed
-#' @export
 gradMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv = FALSE) {
     .Call('_fido_gradMaltipooCollapsed', PACKAGE = 'fido', Y, upsilon, Theta, X, KInv, U, eta, ell, sylv)
 }
 
 #' @rdname loglikMaltipooCollapsed
-#' @export
 hessMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv = FALSE) {
     .Call('_fido_hessMaltipooCollapsed', PACKAGE = 'fido', Y, upsilon, Theta, X, KInv, U, eta, ell, sylv)
 }
@@ -114,9 +111,9 @@ hessMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv 
 #' Model:
 #'    \deqn{Y_j \sim Multinomial(Pi_j)}
 #'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-#'    \deqn{Eta \sim T_{D-1, N}(upsilon, Theta\\*X, K, A)}
+#'    \deqn{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
 #'    
-#'  Where A = (I_N + e^{ell_1}\\*X\\*U_1\\*X' + ... + e^{ell_P}\\*X\\*U_P\\*X' ),
+#'  Where \eqn{A = (I_N + e^{ell_1}*X*U_1*X' + ... + e^{ell_P}*X*U_P*X' )},
 #'  K is a D-1xD-1 covariance and Phi is ALRInv_D transform. 
 #' 
 #' Gradient and Hessian calculations are fast as they are computed using closed
@@ -149,7 +146,6 @@ hessMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv 
 #' 7. logInvNegHessDet - the log determinant of the covariacne of the Laplace 
 #'    approximation, useful for calculating marginal likelihood 
 #' @md 
-#' @export
 #' @name optimMaltipooCollapsed
 #' @references S. Ruder (2016) \emph{An overview of gradient descent 
 #' optimization algorithms}. arXiv 1609.04747
@@ -266,7 +262,7 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #'   decomposition of negative inverse hessian (should be <=0)
 #' @param jitter (default: 0) if >=0 then adds that factor to diagonal of Hessian 
 #' before decomposition (to improve matrix conditioning)
-#' @param multDirichletBoot if >0 (overrides laplace approximation) and samples
+#' @param multDirichletBoot if >0 then it overrides laplace approximation and samples
 #'  eta efficiently at MAP estimate from pseudo Multinomial-Dirichlet posterior.
 #' @param useSylv (default: true) if N<D-1 uses Sylvester Determinant Identity
 #'   to speed up calculation of log-likelihood and gradients. 
@@ -279,8 +275,8 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #'    \deqn{Y_j \sim Multinomial(Pi_j)}
 #'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
 #'    \deqn{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
-#' Where A = I_N + X * Gamma * X', K is a (D-1)x(D-1) covariance 
-#' matrix, Gamma is a Q x Q covariance matrix, and Phi^{-1} is ALRInv_D 
+#' Where \eqn{A = I_N + X * Gamma * X'}, K is a (D-1)x(D-1) covariance 
+#' matrix, Gamma is a Q x Q covariance matrix, and \eqn{Phi^{-1}} is ALRInv_D 
 #' transform. 
 #' 
 #' Gradient and Hessian calculations are fast as they are computed using closed
@@ -308,10 +304,12 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #' 3. Hessian - (if \code{calcGradHess}=true) of the POSITIVE LOG POSTERIOR
 #' 4. Pars - Parameter value of eta at optima
 #' 5. Samples - (D-1) x N x n_samples array containing posterior samples of eta 
-#'   based on Laplace approximation (if n_samples>0)
+#'    based on Laplace approximation (if n_samples>0)
 #' 6. Timer - Vector of Execution Times
 #' 7. logInvNegHessDet - the log determinant of the covariacne of the Laplace 
 #'    approximation, useful for calculating marginal likelihood 
+#' 8. logMarginalLikelihood - A calculation of the log marginal likelihood based on
+#'    the laplace approximation
 #' @md 
 #' @export
 #' @name optimPibbleCollapsed
@@ -320,7 +318,7 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #' 
 #' JD Silverman K Roche, ZC Holmes, LA David, S Mukherjee. 
 #'   \emph{Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes}. 
-#'   2019, arXiv e-prints, arXiv:1903.11695
+#'   2022, Journal of Machine Learning
 #' @seealso \code{\link{uncollapsePibble}}
 #' @examples
 #' sim <- pibble_sim()
@@ -357,19 +355,19 @@ optimPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, init, n_samples
 #'  
 #' @details Notation: Let Z_j denote the J-th row of a matrix Z.
 #' While the collapsed model is given by:
-#'    \deqn{Y_j ~ Multinomial(Pi_j)}
+#'    \deqn{Y_j sim Multinomial(Pi_j)}
 #'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-#'    \deqn{Eta ~ T_{D-1, N}(upsilon, Theta*X, K, A)}
+#'    \deqn{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
 #' Where A = I_N + X * Gamma * X', K = Xi is a (D-1)x(D-1) covariance 
-#' matrix, Gamma is a Q x Q covariance matrix, and Phi^{-1} is ALRInv_D 
+#' matrix, Gamma is a Q x Q covariance matrix, and \eqn{Phi^{-1}} is ALRInv_D 
 #' transform. 
 #' 
 #' The uncollapsed model (Full pibble model) is given by:
-#'    \deqn{Y_j ~ Multinomial(Pi_j)}
+#'    \deqn{Y_j \sim Multinomial(Pi_j)}
 #'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-#'    \deqn{Eta ~ MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
-#'    \deqn{Lambda ~ MN_{D-1 x Q}(Theta, Sigma, Gamma)}
-#'    \deqn{Sigma ~ InvWish(upsilon, Xi)}
+#'    \deqn{Eta \sim MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
+#'    \deqn{Lambda \sim MN_{D-1 x Q}(Theta, Sigma, Gamma)}
+#'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
 #' This function provides a means of sampling from the posterior distribution of 
 #' \code{Lambda} and \code{Sigma} given posterior samples of \code{Eta} from 
 #' the collapsed model. 
@@ -421,6 +419,65 @@ rMatUnitNormal_test1 <- function(n, m) {
 
 rMatUnitNormal_test2 <- function(n) {
     .Call('_fido_rMatUnitNormal_test2', PACKAGE = 'fido', n)
+}
+
+#' Uncollapse output from optimPibbleCollapsed to full pibble Model when Sigma is known
+#' 
+#' See details for model. Should likely be called following 
+#' \code{\link{optimPibbleCollapsed}}. Notation: \code{N} is number of samples,
+#' \code{D} is number of multinomial categories, \code{Q} is number
+#' of covariates, \code{iter} is the number of samples of \code{eta} (e.g., 
+#' the parameter \code{n_samples} in the function \code{optimPibbleCollapsed})
+#' 
+#' @param eta array of dimension (D-1) x N x iter (e.g., \code{Pars} output of 
+#'   function optimPibbleCollapsed)
+#' @param X matrix of covariates of dimension Q x N
+#' @param Theta matrix of prior mean of dimension (D-1) x Q
+#' @param Gamma covariance matrix of dimension Q x Q
+#' @param GammaComb summed covariance matrix across additive components of dimension Q x Q.
+#' @param Xi covariance matrix of dimension (D-1) x (D-1)
+#' @param sigma known covariance matrix of dimension (D-1) x (D-1) x iter
+#' @param upsilon scalar (must be > D) degrees of freedom for InvWishart prior
+#' @param ret_mean if true then uses posterior mean of Lambda and Sigma 
+#'   corresponding to each sample of eta rather than sampling from 
+#'   posterior of Lambda and Sigma (useful if Laplace approximation
+#'   is not used (or fails) in optimPibbleCollapsed)
+#' @param seed seed to use for random number generation
+#' @param linear Boolean. Is this for a linear parameter? 
+#' @param ncores (default:-1) number of cores to use, if ncores==-1 then 
+#' uses default from OpenMP typically to use all available cores. 
+#'  
+#' @details Notation: Let Z_j denote the J-th row of a matrix Z.
+#' While the collapsed model is given by:
+#'    \deqn{Y_j \sim Multinomial(Pi_j)}
+#'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
+#'    \deqn{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
+#' Where A = I_N + X * Gamma * X', K = Xi is a (D-1)x(D-1) covariance 
+#' matrix, Gamma is a Q x Q covariance matrix, and \eqn{Phi^{-1}} is ALRInv_D 
+#' transform. 
+#' 
+#' The uncollapsed model (Full pibble model) is given by:
+#'    \deqn{Y_j \sim Multinomial(Pi_j)}
+#'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
+#'    \deqn{Eta \sim MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
+#'    \deqn{Lambda \sim MN_{D-1 x Q}(Theta, Sigma, Gamma)}
+#'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
+#' This function provides a means of sampling from the posterior distribution of 
+#' \code{Lambda} and \code{Sigma} given posterior samples of \code{Eta} from 
+#' the collapsed model. 
+#' @return List with components 
+#' 1. Lambda Array of dimension (D-1) x Q x iter (posterior samples)
+#' 2. Sigma Array of dimension (D-1) x (D-1) x iter (posterior samples)
+#' 3. The number of cores used
+#' 4. Timer
+#' @export
+#' @md
+#' @seealso \code{\link{optimPibbleCollapsed}}
+#' @references JD Silverman K Roche, ZC Holmes, LA David, S Mukherjee. 
+#'   Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes. 
+#'   2019, arXiv e-prints, arXiv:1903.11695
+uncollapsePibble_sigmaKnown <- function(eta, X, Theta, Gamma, GammaComb, Xi, sigma, upsilon, seed, ret_mean = FALSE, linear = FALSE, ncores = -1L) {
+    .Call('_fido_uncollapsePibble_sigmaKnown', PACKAGE = 'fido', eta, X, Theta, Gamma, GammaComb, Xi, sigma, upsilon, seed, ret_mean, linear, ncores)
 }
 
 #' Log of Multivarate Gamma Function - Gamma_p(a)

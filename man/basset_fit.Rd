@@ -13,8 +13,10 @@ basset(
   Theta = NULL,
   Gamma = NULL,
   Xi = NULL,
+  linear = NULL,
   init = NULL,
   pars = c("Eta", "Lambda", "Sigma"),
+  newdata = NULL,
   ...
 )
 
@@ -28,17 +30,21 @@ basset(
 \item{upsilon}{dof for inverse wishart prior (numeric must be > D)
 (default: D+3)}
 
-\item{Theta}{A function from dimensions dim(X) -> (D-1)xN (prior mean of gaussian process)}
+\item{Theta}{A function from dimensions dim(X) -> (D-1)xN (prior mean of gaussian process). For an additive GP model, can be a list of functions from dimensions dim(X) -> (D-1)xN + a (optional) matrix of size (D-1)xQ for the prior of a linear component if desired.}
 
-\item{Gamma}{A function from dimension dim(X) -> NxN (kernel matrix of gaussian process)}
+\item{Gamma}{A function from dimension dim(X) -> NxN (kernel matrix of gaussian process). For an additive GP model, can be a list of functions from dimension dim(X) -> NxN + a QxQ prior covariance matrix if a linear component is specified. It is assumed that the order matches the order of Theta.}
 
 \item{Xi}{(D-1)x(D-1) prior covariance matrix
 (default: ALR transform of diag(1)*(upsilon-D)/2 - this is
 essentially iid on "base scale" using Aitchison terminology)}
 
+\item{linear}{A vector denoting which rows of X should be used if  a linear component is specified. Default is all rows.}
+
 \item{init}{(D-1) x Q initialization for Eta for optimization}
 
 \item{pars}{character vector of posterior parameters to return}
+
+\item{newdata}{Default is \code{NULL}. If non-null, newdata is used in the uncollapse sampler in place of X.}
 
 \item{...}{other arguments passed to \link{pibble} (which is used internally to
 fit the basset model)}
@@ -53,11 +59,23 @@ Basset (A Lazy Learner) - non-linear regression models in fido
 }
 \details{
 the full model is given by:
-\deqn{Y_j \sim Multinomial(Pi_j)}
-\deqn{Pi_j = Phi^{-1}(Eta_j)}
-\deqn{Eta \sim MN_{D-1 x N}(Lambda, Sigma, I_N)}
-\deqn{Lambda \sim GP_{D-1 x Q}(Theta(X), Sigma, Gamma(X))}
-\deqn{Sigma \sim InvWish(upsilon, Xi)}
+\deqn{Y_j \sim Multinomial(\Pi_j)}
+\deqn{\Pi_j = \Phi^{-1}(\Eta_j)}
+\deqn{\Eta \sim MN_{D-1 x N}(\Lambda, \Sigma, I_N)}
+\deqn{\Lambda \sim GP_{D-1 x Q}(\Theta(X), \Sigma, \Gamma(X))}
+\deqn{\Sigma \sim InvWish(\upsilon, \Xi)}
+Where Gamma(X) is short hand for the Gram matrix of the Kernel function.
+
+Alternatively can be used to fit an additive GP of the form:
+\deqn{Y_j \sim Multinomial(\Pi_j)}
+\deqn{\Pi_j = \Phi^{-1}(\Eta_j)}
+\deqn{\Eta \sim MN_{D-1 x N}(\Lambda, \Sigma, I_N)}
+\deqn{\Lambda = \Lambda_1 + ... + \Lambda_p + \Beta X}
+\deqn{\Lambda_1 \sim GP_{D-1 x Q}(\Theta_1(X), \Sigma, \Gamma_p(X))}
+...
+\deqn{\Lambda_p \sim GP_{D-1 x Q}(\Theta_1(X), \Sigma, \Gamma_1(X))}
+\deqn{\Beta \sim MN(\Theta_B, \Sigma, \Gamma_B)}
+\deqn{\Sigma \sim InvWish(\upsilon, \Xi)}
 Where Gamma(X) is short hand for the Gram matrix of the Kernel function.
 
 Default behavior is to use MAP estimate for uncollaping the LTP

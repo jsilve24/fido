@@ -24,6 +24,7 @@
 #' @param init (D-1) x N initialization for Eta for optimization
 #' @param pars character vector of posterior parameters to return
 #' @param m object of class pibblefit 
+#' @param newdata Default is `NULL`. If non-null, newdata is used in the uncollapse sampler in place of X.
 #' @param ... arguments passed to \code{\link{optimPibbleCollapsed}} and 
 #'   \code{\link{uncollapsePibble}}
 #' 
@@ -33,7 +34,7 @@
 #'    \deqn{Eta \sim MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
 #'    \deqn{Lambda \sim MN_{D-1 x Q}(Theta, Sigma, Gamma)}
 #'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
-#'  Where Gamma is a Q x Q covariance matrix, and Phi^{-1} is 
+#'  Where Gamma is a Q x Q covariance matrix, and \eqn{Phi^{-1}} is 
 #'  ALRInv_D transform. 
 #'  
 #'  Default behavior is to use MAP estimate for uncollaping the LTP 
@@ -71,7 +72,7 @@ NULL
 #'   2019, arXiv e-prints, arXiv:1903.11695
 pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL,
                     init=NULL, 
-                    pars=c("Eta", "Lambda", "Sigma"),
+                    pars=c("Eta", "Lambda", "Sigma"), newdata = NULL,
                     ...){
   args <- list(...)
   N <- try_set_dims(c(ncol(Y), ncol(X), args[["N"]]))
@@ -95,11 +96,17 @@ pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL
     Xi <- Xi*(upsilon-D) # make inverse wishart mean Xi as in previous lines 
   }
   
+  ## setting newdata <- X if newdata is null
+  if(is.null(newdata)){
+    newdata <- X
+  }
+  
   # check dimensions
   check_dims(upsilon, 1, "upsilon")
   check_dims(Theta, c(D-1, Q), "Theta")
   check_dims(Gamma, c(Q, Q), "Gamma")
   check_dims(Xi, c(D-1, D-1), "Xi")
+
   
   # set number of iterations 
   n_samples <- args_null("n_samples", args, 2000)
@@ -123,7 +130,7 @@ pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL
     if(is.null(init)) {
       init <- random_pibble_init(Y)   # initialize init 
     } else {
-      check_dims(init, c(D-1, N), "init") 
+     check_dims(init, c(D-1, N), "init") 
     }
   }
 
@@ -189,7 +196,7 @@ pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL
   
   seed <- seed + sample(1:2^15, 1)
   ## uncollapse collapsed model ##
-  fitu <- uncollapsePibble(fitc$Samples, X, Theta, Gamma, Xi, upsilon, 
+  fitu <- uncollapsePibble(fitc$Samples, newdata, Theta, Gamma, Xi, upsilon, 
                                      ret_mean=ret_mean, ncores=ncores, seed=seed)
   timeru <- parse_timer_seconds(fitu$Timer)
   
@@ -201,8 +208,9 @@ pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL
   
   
   # Marginal Likelihood Computation
-  d <- D^2 + N*D + D*Q
-  logMarginalLikelihood <- fitc$LogLik+d/2*log(2*pi)+.5*fitc$logInvNegHessDet-d/2*log(N)
+  ## d <- D^2 + N*D + D*Q
+  ## logMarginalLikelihood <- fitc$LogLik+d/2*log(2*pi)+.5*fitc$logInvNegHessDet-d/2*log(N)
+  logMarginalLikelihood <- fitc$logMarginalLikelihood
   
   
   
@@ -239,6 +247,8 @@ pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL
   out$summary <- NULL
   out$Timer <- timer
   out$logMarginalLikelihood <- logMarginalLikelihood
+  out$logLik <- fitc$LogLik
+  out$logInvNegHessDet <- fitc$logInvNegHessDet
   attr(out, "class") <- c("pibblefit")
   # add names if present 
   if (use_names) out <- name(out)

@@ -30,6 +30,8 @@ plot.pibblefit <- function(x, ...){
  focus.coord <- args_null("focus.coord", args, NULL)
  focus.sample<- args_null("focus.sample", args, NULL)
  use_names <- args_null("use_names", args, TRUE)
+ 
+ if(typeof(x$Lambda) == "list" & "Lambda" %in% par) stop("Plotting of lambda not supported for additive model.")
 
  if (is.null(x[[par]])) stop("pibblefit object does not contain samples for specified parameter")
  if (par %in% c("Lambda", "Eta")) {
@@ -145,6 +147,7 @@ ppc.pibblefit <- function(m, ...){
   msg <- paste("No observed count data (Y) to check against", 
                "perhaps you are looking for the function `predict`?")
   if (is.null(m$Y)) stop(msg)
+  if(typeof(m$Theta) == "list") stop("Function not supported for additive basset model.")
   
   if (is.null(iter)) {
     if (type =="lines") iter <- min(50, niter(m))
