@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">fido</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,7 +103,7 @@
           
           <code><a href="as.list.pibblefit.html">as.list(<i>&lt;pibblefit&gt;</i>)</a></code> 
         </dt>
-        <dd>#' Generic method to convert to list #' #' @param x An object of class pibblefit or orthusfit #' @param ... Other objects to pass #' #' @return A list object #' @export as.list &lt;- function(x, ...) UseMethod("as.list") Convert object of class pibblefit to a list</dd>
+        <dd>Convert object of class pibblefit to a list</dd>
       </dl><dl><dt>
           
           <code><a href="as.orthusfit.html">as.orthusfit()</a></code> 
@@ -138,7 +138,7 @@
           
           <code><a href="coef.pibblefit.html">coef(<i>&lt;pibblefit&gt;</i>)</a></code> 
         </dt>
-        <dd>#' Return regression coefficients of pibblefit or orthusfit object</dd>
+        <dd>Return regression coefficients of pibblefit object</dd>
       </dl><dl><dt>
           
           <code><a href="conjugateLinearModel.html">conjugateLinearModel()</a></code> 
@@ -348,7 +348,7 @@
           
           <code><a href="predict.pibblefit.html">predict(<i>&lt;pibblefit&gt;</i>)</a></code> 
         </dt>
-        <dd>#' Predict response from new data #' #' #' @param object An object of class pibblefit #' @param ... Other objects to be passed to the `predict` function #' #' @return (if summary==FALSE) array D x N x iter; (if summary==TRUE) #' tibble with calculated posterior summaries #' #' @export #' @importFrom stats median predict runif #' @examples #' sim &lt;- pibble_sim() #' fit &lt;- pibble(sim$Y, sim$X) #' predict(fit)[,,1:2] # just show 2 samples predict &lt;- function(object, ...) UseMethod("predict") Predict response from new data</dd>
+        <dd>Predict response from new data</dd>
       </dl><dl><dt>
           
           <code><a href="print.orthusfit.html">print(<i>&lt;orthusfit&gt;</i>)</a></code> 
@@ -358,7 +358,7 @@
           
           <code><a href="print.pibblefit.html">print(<i>&lt;pibblefit&gt;</i>)</a></code> 
         </dt>
-        <dd>#' Print dimensions and coordinate system information for an orthusfit or pibblefit object. #' #' @param x an object of class pibblefit or orthusfit #' @param ... other arguments to pass to summary function #' @return No direct value, but a print out #' @export #' @examples #' sim &lt;- pibble_sim() #' fit &lt;- pibble(sim$Y, sim$X) #' print(fit) #' print &lt;- function(x, ...) UseMethod("print") Print dimensions and coordinate system information for pibblefit object.</dd>
+        <dd>Print dimensions and coordinate system information for pibblefit object.</dd>
       </dl><dl><dt>
           
           <code><a href="r2.html">r2()</a></code> 
@@ -423,7 +423,7 @@
           
           <code><a href="summary.pibblefit.html">summary(<i>&lt;pibblefit&gt;</i>)</a></code> 
         </dt>
-        <dd>#' Summarise pibblefit or orthusfit object and print posterior quantiles #' #' Default calculates median, mean, 50% and 95% credible interval #' #' @param object an object of class pibblefit or orthusfit #' @param ... other objects to be passed to `summary.pibblefit` or `summary.orthusfit` #' @return A list if class is `pibblefit` or `orthusfit` #' @export summary &lt;- function(object, ...) UseMethod("summary") Summarise pibblefit object and print posterior quantiles</dd>
+        <dd>Summarise pibblefit object and print posterior quantiles</dd>
       </dl><dl><dt>
           
           <code><a href="uncollapsePibble.html">uncollapsePibble()</a></code> 
