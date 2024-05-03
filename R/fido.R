@@ -4,7 +4,7 @@
 #'  Logistic Normal Models using MAP estimation and Laplace Approximation.
 #'  Key functionality is implemented in C++ for scalability. 
 #'  
-#' @docType _PACKAGE
+#' @docType package
 #' @name fido_package
 #' 
 #' @useDynLib fido
