@@ -1,3 +1,8 @@
+# fido 1.1.0
+
+* Updating the basset model to allow for additive Gaussian processes
+* Updating the random seed generation
+
 # fido 1.0.4
 
 * changing default optimizer (lbfgs rather than adam), adam is more sensitive to random seed
@@ -6,7 +11,7 @@
 
 bug fixes
 
-* cryptic fixes to base R commands (ask Michelle :)
+* fixing a few discrepancies with base R commands (print, summary, etc).
 
 
 # fido 1.0.3
