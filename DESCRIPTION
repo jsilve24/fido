@@ -26,6 +26,7 @@ Suggests:
     rmarkdown,
     ape,
     numDeriv,
+    LaplacesDemon,
     MCMCpack,  
     MicrobeDS,
     phyloseq

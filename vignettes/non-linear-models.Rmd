@@ -172,5 +172,184 @@ ggplot(predicted_tidy, aes(x = time, y=mean)) +
 
 ```
 
+# Updated Functionality: Additive Gaussian Processes
+
+*Michelle Nixon*
+
+Starting with *fido* version 1.1.0, the *basset* model has been updated. The new model is a more flexible extension of the old model as it allows $\eta$ to be modeled as an additive Gaussian process model:
+
+\begin{align*}
+    Y_j &\sim \mathrm{Multinomial}(\pi_j)\\
+    \pi_j &= \phi(\eta_j)\\
+    \eta_j &\sim N(\Lambda(X), \Sigma, I)\\
+    \Lambda(X) &= \Lambda_1 X + \Lambda_2(X) + ... + \Lambda_p(X)\\
+    \Lambda_1 &\sim N(\Theta_1, \Sigma, \Gamma_1)\\
+    \Lambda_2(X) &\sim GP(\Theta_2(X), \Sigma, \Gamma_2(X))\\
+    & \cdots\\
+    \Lambda_p(X) &\sim GP(\Theta_p(X), \Sigma, \Gamma_p(X))\\
+    \Sigma &\sim IW(\Xi, \upsilon).
+\end{align*}
+
+There is a great deal of flexibility in how $\Theta_i(X)$ and $\Gamma_i(X)$ can be specified for $i = 1,...,p$. To invoke the additive Gaussian process, the inputs *Theta* and *Gamma* can now be a list of length $p$ with each element of both lists corresponding to the prior specification for a given additive component. The elements of the list can either be functions over the correct dimensions (see documentation) or an (optional) matrix of correct size. If the matrix is used for component $i$, then a linear model is fit for that component, and $\Lambda_i(X)$ returns estimated parameters similar to the *fido* model. If a function is used for component $i$, then that component works similarly to the old *basset* model in both input and returned results. **Note:** If the $i^{th}$ list item for *Theta* is a function, then the $i^{th}$ list item for *Gamma* must also be a function. If the $i^{th}$ list item for *Theta* is a matrix, then the $i^{th}$ list item for *Gamma* must also be a matrix.
+
+Now, a simple simulation study to show how the updated functionality works. First, we are going to simulate our data. Here, we will simulate three taxa ($D=3$) over 100 observations ($N=100$).
+
+```{r, message = FALSE, warning = FALSE}
+library(fido)
+library(MCMCpack)
+library(LaplacesDemon)
+
+set.seed(2024)
+D <- 3 # number of taxa
+N <- 100 #number of observation
+X <- seq(0,10, length.out = N) # specifying the values of X
+```
+
+We are going to simulate our data such that $\Lambda(X) = \Lambda_1(X) + \Lambda_2(X)$. The first component will be using a radial basis function kernel. The second component will be using a linear kernel.
+```{r}
+# RBF kernel function
+rbf <- function(x,l,sigma) {
+  K <- outer(x,x, FUN = function(x,y, sigma,l){sigma^2 * exp(- (x - y)^2 / (2 * l^2))}, sigma = sigma, l = l)
+  identity_matrix <- diag(ncol(K))
+  K  <-  K  + 1e-8 * identity_matrix
+  return(K)
+}
+
+# Linear kernel function
+linear <- function(x,sigma,c) {
+  K <- outer(x,x, FUN = function(x,y, sigma,c){ (sigma^2 + (x-c) * (y-c))}, sigma = sigma, c=c)
+  identity_matrix <- diag(ncol(K))
+  K  <-  K  + 1e-8 * identity_matrix
+  return(K)
+}
+```
+
+First, we will simulate $\Sigma$, then $\Lambda_1(X)$ and $\Lambda_2(X)$ (and thus $\Lambda(X)$). Then, we will simulate $\eta$, transform to proportions, and, finally, simulate $Y$.
+
+```{r}
+## Step 1: Sigma ~ IW(upsilon,Xi)
+Sigma <- rinvwishart(D-1, 0.5*diag(D-1))
+
+## Step 2a: Lambda_1 ~ GP(0,Sigma,K)
+K <- rbf(X,1,1)
+Theta <- matrix(0, D-1, N)
+x <- matrix(rnorm(N*(D-1)),nrow = D-1)
+l1 <- Theta+ t(chol(Sigma))%*%x%*%(chol(K))
+
+## Step 2b: Lambda_2 ~ GP(0, Sigma, K2)
+K2 <- linear(X,.1,0)
+Theta <- matrix(0, D-1, N)
+x <- matrix(rnorm(N*(D-1)),nrow = D-1)
+l2 <- Theta+ t(chol(Sigma))%*%x%*%(chol(K2))
+
+l <- l1 + l2
+
+## Step 3: eta ~ N(Lambda,Sigma, I)
+eta <- matrix(rnorm(N*(D-1)),nrow = D-1, byrow = TRUE)
+eta <- l + t(chol(Sigma))%*%eta
+
+## Step 4: transform to proportions
+pai <- t(alrInv(t(eta)))
+
+## Step 5: Simulate Y.
+Y <- matrix(0, D, N)
+for (i in 1:N) Y[,i] <- rmultinom(1, 5000, prob = pai[,i])
+```
+
+Phew! Now, to analyze the data. First, we want to specify our priors for $\Gamma_1(X)$ and $\Gamma_2(X)$. Since we know how the data were simulated, we will use the ground truth as our priors:
+
+```{r}
+rbf <- function(x,l,sigma) {
+  x <- x[1,]
+  K <- outer(x,x, FUN = function(x,y, sigma,l){sigma^2 * exp(- (x - y)^2 / (2 * l^2))}, sigma = sigma, l = l)
+  identity_matrix <- diag(ncol(K))
+  K  <-  K  + 1e-8 * identity_matrix
+  return(K)
+}
+
+# Linear kernel function for Gaussian process
+linear <- function(x,sigma,c) {
+  x <- x[1,]
+  K <- outer(x,x, FUN = function(x,y, sigma,c){ (sigma^2 + (x-c) * (y-c))}, sigma = sigma, c=c)
+  identity_matrix <- diag(ncol(K))
+  K  <-  K  + 1e-8 * identity_matrix
+  return(K)
+}
+
+Gamma <- list(function(X) rbf(X,1,1), function(X) linear(X,.1,0))
+```
+
+
+Next, we need to specify our prior for $\Theta_1(X)$ and $\Theta_2(X)$:
+
+```{r}
+Theta <- list(function(X) matrix(0, D-1, ncol(X)), function(X) matrix(0, D-1, ncol(X)))
+```
+
+And, finally, we can fit the model:
+```{r}
+mmX <- model.matrix(~X-1)
+mod <- basset(Y, t(mmX), Theta = Theta, Gamma = Gamma)
+```
+
+Now, let's look at the results. You'll notice that the parameter objects for $\Lambda$ is now a list. It behaves as you largely would expect: the $i^{th}$ element of the list for *Lambda* corresponds to the $i^{th}$ component as specified by *Theta* and *Gamma*.
+
+```{r}
+typeof(mod$Lambda)
+```
+
+The model object should largely work as it has before. For example, we can find predictions:
+
+```{r}
+## predictions
+preds <- predict(mod)
+
+## summarizing predictions over posterior samples
+summary_preds <- apply(preds,MARGIN = c(1,2), FUN = mean)
+```
+
+And, finally, we can plot the predictions:
+```{r, fig.height=4, fig.width=6}
+## plotting
+data.frame("points" = c(eta[1,], summary_preds[1,]), "group" = c(rep("Truth", length(eta[1,])), rep("Predicted", length(summary_preds[1,]))), "Index" = c(1:N, 1:N)) %>%
+  ggplot(aes(x=Index, y= points, color = group)) +
+  geom_line() +
+  theme_bw() +
+  scale_color_manual(values = c("red", "black")) +
+  theme(legend.title=element_blank()) +
+  ylab("Eta")
+
+```
+
+Note that since the second component was linear, we could have specified the priors using matrices as well. This might be more helpful if, for example, the estimated individual coefficients for the linear terms are of interest.
+
+```{r}
+Theta <- list(matrix(0, D-1, ncol(mmX)), function(X) matrix(0, D-1, ncol(X)))
+Gamma <- list(diag(ncol(mmX)), function(X) rbf(X,1,1))
+
+mmX <- model.matrix(~X-1)
+mod <- basset(Y, t(mmX), Theta = Theta, Gamma = Gamma)
+```
+
+Finally, predicting and plotting:
+
+```{r, fig.height=4, fig.width=6}
+## predictions
+preds <- predict(mod)
+
+## summarizing predictions over posterior samples
+summary_preds <- apply(preds,MARGIN = c(1,2), FUN = mean)
+
+## plotting
+data.frame("points" = c(eta[1,], summary_preds[1,]), "group" = c(rep("Truth", length(eta[1,])), rep("Predicted", length(summary_preds[1,]))), "Index" = c(1:N, 1:N)) %>%
+  ggplot(aes(x=Index, y= points, color = group)) +
+  geom_line() +
+  theme_bw() +
+  scale_color_manual(values = c("red", "black")) +
+  theme(legend.title=element_blank()) +
+  ylab("Eta")
+```
+
+An updated vignette will be available soon.
 
 # References

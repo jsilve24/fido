@@ -550,7 +550,7 @@ predict.pibblefit <- function(object, newdata=NULL, response="LambdaX", size=NUL
   if (is.null(object$Lambda)) stop("pibblefit object does not contain samples of Lambda")
   LambdaX <- array(0, dim = c(object$D-1, nnew, iter))
   for (i in 1:iter){
-    LambdaX[,,i] <- object$Lambda[,,i] %*% newdata
+    LambdaX[,,i] <- object$Lambda[,,i, drop = FALSE] %*% newdata
   }
   if (use_names) LambdaX <- name_array(LambdaX, object,
                                        list("cat", colnames(newdata), 
