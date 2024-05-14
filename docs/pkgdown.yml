@@ -1,13 +1,13 @@
 pandoc: 3.1.1
-pkgdown: 2.0.7
-pkgdown_sha: ~
+pkgdown: 2.0.9.9000
+pkgdown_sha: a8e849c06c9928ade06f37d669295b9c41e772df
 articles:
   introduction-to-fido: introduction-to-fido.html
   mitigating-pcrbias: mitigating-pcrbias.html
   non-linear-models: non-linear-models.html
   orthus: orthus.html
   picking_priors: picking_priors.html
-last_built: 2024-05-06T14:40Z
+last_built: 2024-05-14T14:13Z
 urls:
   reference: https://jsilve24.github.io/fido/reference
   article: https://jsilve24.github.io/fido/articles
