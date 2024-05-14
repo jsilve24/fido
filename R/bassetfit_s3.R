@@ -126,7 +126,7 @@ predict.bassetfit <- function(object, newdata=NULL, response="Lambda", size=NULL
 
       if(!is.function(object$Theta[[k]])){
         for(i in 1:object$iter){
-          Lambda_tmp[[k]][,,i] <- object$Lambda[[k]][,,i, drop = FALSE] %*% newdata[object$linear,,drop = FALSE]
+          Lambda_tmp[[k]][,,i] <- drop(object$Lambda[[k]][,,i, drop = FALSE]) %*% newdata[object$linear,,drop = FALSE]
         }
       } else{
       Theta <- object$Theta[[k]](cbind(object$X, newdata))
