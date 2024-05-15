@@ -16,9 +16,9 @@
 #' @param n_samples number of samples to draw (default: 2000)
 #' 
 #' @details 
-#'    \deqn{Y ~ MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
-#'    \deqn{Lambda ~ MN_{D-1 x Q}(Theta, Sigma, Gamma)}
-#'    \deqn{Sigma ~ InvWish(upsilon, Xi)}
+#'    \deqn{Y \sim MN_{D-1 \times N}(Lambda*X, Sigma, I_N)}
+#'    \deqn{Lambda \sim MN_{D-1 \times Q}(Theta, Sigma, Gamma)}
+#'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
 #' This function provides a means of sampling from the posterior distribution of 
 #' \code{Lambda} and \code{Sigma}. 
 #' @return List with components 
@@ -57,6 +57,7 @@ conjugateLinearModel <- function(Y, X, Theta, Gamma, Xi, upsilon, n_samples = 20
 #'     \item hessMaltipooCollapsed- matrix
 #'   } 
 #' @name loglikMaltipooCollapsed
+#' @noRd
 loglikMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv = FALSE) {
     .Call('_fido_loglikMaltipooCollapsed', PACKAGE = 'fido', Y, upsilon, Theta, X, KInv, U, eta, ell, sylv)
 }
@@ -150,6 +151,7 @@ hessMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv 
 #' @references S. Ruder (2016) \emph{An overview of gradient descent 
 #' optimization algorithms}. arXiv 1609.04747
 #' @seealso \code{\link{uncollapsePibble}}
+#' @noRd
 optimMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, init, ellinit, n_samples = 2000L, calcGradHess = TRUE, b1 = 0.9, b2 = 0.99, step_size = 0.003, epsilon = 10e-7, eps_f = 1e-10, eps_g = 1e-4, max_iter = 10000L, verbose = FALSE, verbose_rate = 10L, decomp_method = "cholesky", eigvalthresh = 0, jitter = 0) {
     .Call('_fido_optimMaltipooCollapsed', PACKAGE = 'fido', Y, upsilon, Theta, X, KInv, U, init, ellinit, n_samples, calcGradHess, b1, b2, step_size, epsilon, eps_f, eps_g, max_iter, verbose, verbose_rate, decomp_method, eigvalthresh, jitter)
 }
@@ -459,8 +461,8 @@ rMatUnitNormal_test2 <- function(n) {
 #' The uncollapsed model (Full pibble model) is given by:
 #'    \deqn{Y_j \sim Multinomial(Pi_j)}
 #'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-#'    \deqn{Eta \sim MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
-#'    \deqn{Lambda \sim MN_{D-1 x Q}(Theta, Sigma, Gamma)}
+#'    \deqn{Eta \sim MN_{D-1 \times N}(Lambda*X, Sigma, I_N)}
+#'    \deqn{Lambda \sim MN_{D-1 \times Q}(Theta, Sigma, Gamma)}
 #'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
 #' This function provides a means of sampling from the posterior distribution of 
 #' \code{Lambda} and \code{Sigma} given posterior samples of \code{Eta} from 

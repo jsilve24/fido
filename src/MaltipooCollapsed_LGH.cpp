@@ -30,6 +30,7 @@ using Eigen::VectorXd;
 //'     \item hessMaltipooCollapsed- matrix
 //'   } 
 //' @name loglikMaltipooCollapsed
+//' @noRd
 // [[Rcpp::export]]
 double loglikMaltipooCollapsed(const Eigen::ArrayXXd Y,
                   const double upsilon,

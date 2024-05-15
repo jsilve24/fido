@@ -27,6 +27,7 @@ new_maltipoofit <- function(D, N, Q, P, coord_system, iter=NULL,
 #' @param P number of variance components
 #' @return object of class maltipoofit
 #' @seealso \code{\link{maltipoo}}
+#' @noRd
 maltipoofit <- function(D, N, Q, P, coord_system, iter=NULL,  
                         alr_base=NULL, ilr_base=NULL,
                         Eta=NULL, Lambda=NULL, Sigma=NULL, Sigma_default=NULL, 
@@ -49,6 +50,7 @@ maltipoofit <- function(D, N, Q, P, coord_system, iter=NULL,
 #' @param m an object of class multipoo
 #' @param ... not used
 #' @return throws error if any verification tests fail
+#' @noRd
 verify.maltipoofit <- function(m,...){
   verify.pibblefit(m)
   stopifnot(is.integer(m$P))
@@ -60,6 +62,7 @@ verify.maltipoofit <- function(m,...){
 #' require elements to be non-null in pibblefit or throw error
 #' @inheritParams req
 #' @return Throws an error if null
+#' @noRd
 req.maltipoofit <- function(m, r){
   present <- sapply(m[r], is.null)
   if(any(present)){

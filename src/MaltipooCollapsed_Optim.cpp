@@ -87,6 +87,7 @@ using Eigen::VectorXd;
 //' @references S. Ruder (2016) \emph{An overview of gradient descent 
 //' optimization algorithms}. arXiv 1609.04747
 //' @seealso \code{\link{uncollapsePibble}}
+//' @noRd
 // [[Rcpp::export]]
 List optimMaltipooCollapsed(const Eigen::ArrayXXd Y, 
                const double upsilon, 

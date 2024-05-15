@@ -24,7 +24,7 @@
 #'    \deqn{Gamma = e^{ell_1} U_1 + ... + e^{ell_P} U_P}
 #'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
 #'    
-#'  Where \eqn{A = (I_N + X * Gamma * X')^{-1}}, \eqn{K^{-1} = Xi} is a (D-1)x(D-1) 
+#'  Where \eqn{A = (I_N + X * Gamma * X')^{-1}}{A = (I_N + X * Gamma * X')^(-1)}, \eqn{K^{-1} = Xi}{K^(-1) = Xi} is a (D-1)x(D-1) 
 #'  covariance matrix, \eqn{U_1} is a Q x Q covariance matrix (a variance component), 
 #'  \eqn{e^{ell_i}} is a scale for that variance component and \eqn{Phi^{-1}} is 
 #'  ALRInv_D transform. 
@@ -36,6 +36,7 @@
 #'  
 #' @name maltipoo_fit
 #' @return an object of class maltipoofit
+#' @noRd
 maltipoo <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, U=NULL, 
                      Xi=NULL, init=NULL, ellinit=NULL, 
                      pars=c("Eta", "Lambda", "Sigma"), 

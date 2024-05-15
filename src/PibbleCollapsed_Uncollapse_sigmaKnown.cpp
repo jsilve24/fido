@@ -54,8 +54,8 @@ using Eigen::Lower;
 //' The uncollapsed model (Full pibble model) is given by:
 //'    \deqn{Y_j \sim Multinomial(Pi_j)}
 //'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-//'    \deqn{Eta \sim MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
-//'    \deqn{Lambda \sim MN_{D-1 x Q}(Theta, Sigma, Gamma)}
+//'    \deqn{Eta \sim MN_{D-1 \times N}(Lambda*X, Sigma, I_N)}
+//'    \deqn{Lambda \sim MN_{D-1 \times Q}(Theta, Sigma, Gamma)}
 //'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
 //' This function provides a means of sampling from the posterior distribution of 
 //' \code{Lambda} and \code{Sigma} given posterior samples of \code{Eta} from 

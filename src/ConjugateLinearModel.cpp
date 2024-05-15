@@ -26,9 +26,9 @@ using Eigen::Lower;
 //' @param n_samples number of samples to draw (default: 2000)
 //' 
 //' @details 
-//'    \deqn{Y ~ MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
-//'    \deqn{Lambda ~ MN_{D-1 x Q}(Theta, Sigma, Gamma)}
-//'    \deqn{Sigma ~ InvWish(upsilon, Xi)}
+//'    \deqn{Y \sim MN_{D-1 \times N}(Lambda*X, Sigma, I_N)}
+//'    \deqn{Lambda \sim MN_{D-1 \times Q}(Theta, Sigma, Gamma)}
+//'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
 //' This function provides a means of sampling from the posterior distribution of 
 //' \code{Lambda} and \code{Sigma}. 
 //' @return List with components 
