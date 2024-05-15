@@ -1,13 +1,11 @@
-citHeader("To cite fido in publications use:")
-
-citEntry(
-  entry = "article",
+bibentry(
+  "Article",
   title = "Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T Processes",
-  author = c("Justin D Silverman",
-  "Kim Roche",
-  "Zachary C Holmes",
-  "Lawrence A David",
-  "Sayan Mukherjee"),
+  author = as.person("Justin D. Silverman,
+  Kimberly Roche,
+  Zachary C. Holmes,
+  Lawrence A. David,
+  Sayan Mukherjee"),
   year = 2022,
   volume = 23,
   journal = "Journal of Machine Learning Research",
