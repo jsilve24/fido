@@ -166,8 +166,8 @@ transform.</p>
 <p>The uncollapsed model (Full pibble model) is given by:
 $$Y_j \sim Multinomial(Pi_j)$$
 $$Pi_j = Phi^{-1}(Eta_j)$$
-$$Eta \sim MN_{D-1 x N}(Lambda*X, Sigma, I_N)$$
-$$Lambda \sim MN_{D-1 x Q}(Theta, Sigma, Gamma)$$
+$$Eta \sim MN_{D-1 \times N}(Lambda*X, Sigma, I_N)$$
+$$Lambda \sim MN_{D-1 \times Q}(Theta, Sigma, Gamma)$$
 $$Sigma \sim InvWish(upsilon, Xi)$$
 This function provides a means of sampling from the posterior distribution of
 <code>Lambda</code> and <code>Sigma</code> given posterior samples of <code>Eta</code> from

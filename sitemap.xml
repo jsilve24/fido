@@ -109,9 +109,6 @@
     <loc>https://jsilve24.github.io/fido/reference/lmvgamma_deriv.html</loc>
   </url>
   <url>
-    <loc>https://jsilve24.github.io/fido/reference/loglikMaltipooCollapsed.html</loc>
-  </url>
-  <url>
     <loc>https://jsilve24.github.io/fido/reference/loglikPibbleCollapsed.html</loc>
   </url>
   <url>
@@ -119,12 +116,6 @@
   </url>
   <url>
     <loc>https://jsilve24.github.io/fido/reference/mallard_family.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/maltipoo_fit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/maltipoofit.html</loc>
   </url>
   <url>
     <loc>https://jsilve24.github.io/fido/reference/metadata.html</loc>
@@ -149,9 +140,6 @@
   </url>
   <url>
     <loc>https://jsilve24.github.io/fido/reference/name_dims.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/optimMaltipooCollapsed.html</loc>
   </url>
   <url>
     <loc>https://jsilve24.github.io/fido/reference/optimPibbleCollapsed.html</loc>
@@ -223,9 +211,6 @@
     <loc>https://jsilve24.github.io/fido/reference/req.html</loc>
   </url>
   <url>
-    <loc>https://jsilve24.github.io/fido/reference/req.maltipoofit.html</loc>
-  </url>
-  <url>
     <loc>https://jsilve24.github.io/fido/reference/req.orthusfit.html</loc>
   </url>
   <url>
@@ -260,9 +245,6 @@
   </url>
   <url>
     <loc>https://jsilve24.github.io/fido/reference/verify.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/verify.maltipoofit.html</loc>
   </url>
   <url>
     <loc>https://jsilve24.github.io/fido/reference/verify.orthusfit.html</loc>
