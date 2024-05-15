@@ -41,7 +41,7 @@ using Eigen::Lower;
 //'  
 //' @details Notation: Let Z_j denote the J-th row of a matrix Z.
 //' While the collapsed model is given by:
-//'    \deqn{Y_j sim Multinomial(Pi_j)}
+//'    \deqn{Y_j \sim Multinomial(Pi_j)}
 //'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
 //'    \deqn{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
 //' Where A = I_N + X * Gamma * X', K = Xi is a (D-1)x(D-1) covariance 
