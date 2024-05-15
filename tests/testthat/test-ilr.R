@@ -8,7 +8,6 @@ test_that("ilr plus summary works", {
 })
 
 test_that("clr plus summary works", {
-  library(phyloseq)
   library(dplyr)
   set.seed(123)
   Y = pibble_sim()
