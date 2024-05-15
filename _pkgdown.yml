@@ -73,8 +73,6 @@ reference:
   - starts_with("loglik")
   - lmvgamma
   - lmvgamma_deriv
-  - maltipoofit
-  - maltipoo_fit
   - starts_with("miniclo")
   - mongrel-deprecated
   - starts_with("name")
