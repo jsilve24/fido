@@ -141,6 +141,7 @@ name_tidy <- function(X, m, dimvars, as_factor=FALSE){
 #' @param m object of class pibblefit
 #' @param ... currently ignored
 #' @return object of class pibblefit
+#' @export
 name.pibblefit <- function(m, ...){
   if (!is.null(m$Eta)) {
     m$Eta <- name_array(m$Eta, m, list("cat", "sam", NULL))
