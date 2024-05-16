@@ -5,7 +5,7 @@
 ## For standard
 PKG_CPPFLAGS =  -I../inst/include/ 
 PKG_CXXFLAGS = @OPENMP_FLAG@
-PKG_LIBS = @OPENMP_FLAG@ 
+PKG_LIBS = @OPENMP_FLAG@ $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
 
 ## For MKL - make sure you are using icc compiler in ~.R/Makevars 
 # Using GCC -- PREFERRED for MKL
