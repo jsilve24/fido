@@ -194,7 +194,7 @@ maltipoo <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, U=NULL,
   attr(out, "class") <- c("maltipoofit", "pibblefit")
   # add names if present 
   if (use_names) out <- name(out)
-  verify(out) # verify the pibblefit object
+  verify_maltipoofit(out) # verify the pibblefit object
   return(out)
 }
 

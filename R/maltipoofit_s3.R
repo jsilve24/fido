@@ -40,18 +40,22 @@ maltipoofit <- function(D, N, Q, P, coord_system, iter=NULL,
                     Y, X, upsilon, Theta, Xi,Xi_default, Gamma, 
                     init, ellinit, names_categories, names_samples, 
                     names_covariates, VCScale, U)
-  verify(m)
+  verify_maltipoofit(m)
   return(m)
 }
 
 
 
 #' Simple verification of passed multipoo object
+#' Changed from \code{verify.maltipoofit} to \code{verify_maltipoofit}.
+#' This is due to an issue with Generics and S3 methods. 
+#' Before, R CMD check result in the NOTE (CRAN doesn't like most NOTES):
+#' "Apparent methods for exported generics not registered"
 #' @param m an object of class multipoo
 #' @param ... not used
 #' @return throws error if any verification tests fail
 #' @noRd
-verify.maltipoofit <- function(m,...){
+verify_maltipoofit <- function(m,...){
   verify.pibblefit(m)
   stopifnot(is.integer(m$P))
   ifnotnull(m$VCScale, check_dims(m$VCScale, m$P, "VCScale"))
@@ -60,10 +64,15 @@ verify.maltipoofit <- function(m,...){
 }
 
 #' require elements to be non-null in pibblefit or throw error
+#' Changed from \code{req.maltipoofit} to \code{req_maltipoofit}.
+#' This is due to an issue with Generics and S3 methods. 
+#' Before, R CMD check result in the NOTE (CRAN doesn't like most NOTES):
+#' "Apparent methods for exported generics not registered"
+#' 
 #' @inheritParams req
 #' @return Throws an error if null
 #' @noRd
-req.maltipoofit <- function(m, r){
+req_maltipoofit <- function(m, r){
   present <- sapply(m[r], is.null)
   if(any(present)){
     stop("maltipoofit object does not contain required components:", r[present])
