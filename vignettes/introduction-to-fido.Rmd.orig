@@ -109,15 +109,16 @@ I will reanalyze a previously published study comparing microbial composition in
 Crohn's Disease (CD) to healthy controls [@gevers2014]. To do this I will fit a pibble model using 
 CD status, inflammation status and age as covariates (plus a constant intercept term). 
 
+For convienece, we have added a copy of the data set to *fido*. The data was obtained from the *MicrobeDS* repository on [GitHub]( https://github.com/twbattaglia/MicrobeDS}).
+
 ```{r message=FALSE, warning=FALSE}
-library(MicrobeDS)
 library(phyloseq)
 library(dplyr)
 library(fido)
 
 set.seed(899)
 
-data("RISK_CCFA")
+data(RISK_CCFA)
 # drop low abundant taxa and samples
 dat <- RISK_CCFA %>% 
   subset_samples(disease_stat!="missing", 

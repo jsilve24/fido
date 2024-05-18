@@ -8,6 +8,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   %\VignetteIndexEntry{Introduction to fido::Pibble}
   %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 bibliography: bibliography.bib
 ---
 
@@ -102,16 +104,17 @@ I will reanalyze a previously published study comparing microbial composition in
 Crohn's Disease (CD) to healthy controls [@gevers2014]. To do this I will fit a pibble model using 
 CD status, inflammation status and age as covariates (plus a constant intercept term). 
 
+For convienece, we have added a copy of the data set to *fido*. The data was obtained from the *MicrobeDS* repository on [GitHub]( https://github.com/twbattaglia/MicrobeDS}).
+
 
 ```r
-library(MicrobeDS)
 library(phyloseq)
 library(dplyr)
 library(fido)
 
 set.seed(899)
 
-data("RISK_CCFA")
+data(RISK_CCFA)
 # drop low abundant taxa and samples
 dat <- RISK_CCFA %>% 
   subset_samples(disease_stat!="missing", 
@@ -243,7 +246,7 @@ Faster implementations of summary may be included as a future update if need ari
 priors <- to_clr(priors)  
 summary(priors, pars="Lambda", gather_prob=TRUE, as_factor=TRUE, use_names=TRUE)  
 #> $Lambda
-#> # A tibble: 784 x 9
+#> # A tibble: 784 × 9
 #>    Parameter coord covariate         val .lower .upper .width .point .interval
 #>    <chr>     <int>     <int>       <dbl>  <dbl>  <dbl>  <dbl> <chr>  <chr>    
 #>  1 Lambda        1         1  0.0509     -0.528  0.596    0.5 mean   qi       
@@ -256,7 +259,7 @@ summary(priors, pars="Lambda", gather_prob=TRUE, as_factor=TRUE, use_names=TRUE)
 #>  8 Lambda        2         4  0.0165     -0.536  0.589    0.5 mean   qi       
 #>  9 Lambda        3         1  0.0138     -0.584  0.620    0.5 mean   qi       
 #> 10 Lambda        3         2 -0.00502    -0.542  0.581    0.5 mean   qi       
-#> # ... with 774 more rows
+#> # ℹ 774 more rows
 ```
 
 By default the `summary` function returns a list (with possible elements `Lambda`, 
@@ -272,14 +275,12 @@ to provide some more specific names for the covariates (helpful when we then plo
 ```r
 names_covariates(priors) <- rownames(X)
 p <- plot(priors, par="Lambda") 
-#> Scale for 'colour' is already present. Adding another scale for 'colour', which will
-#> replace the existing scale.
+#> Scale for colour is already present.
+#> Adding another scale for colour, which will replace the existing scale.
 p + ggplot2::xlim(c(-10, 10))  
 ```
-```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
-knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/fido-lambda-all.png')
-```
 
+![](figure/unnamed-chunk-7-1.png)
 
 This looks fairly reasonable to me. So I am going to go ahead and 
 fit the model with data. `fido` provides a helper method called `refit` 
@@ -321,10 +322,7 @@ object as in our `priors` object].
 ppc(posterior) + ggplot2::coord_cartesian(ylim=c(0, 30000))
 ```
 
-```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
-knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/fido-ppc.png')
-```
-
+![](figure/unnamed-chunk-10-1.png)
 
 There are a few things to note about this plot. First, when zoomed out like this
 it looks it is hard to make much of it. This is a fairly large dataset we are 
@@ -335,7 +333,7 @@ the median and 95% confidence interval in grey and black and the observed counts
 
 ```r
 ppc_summary(posterior)
-#> Proportions of Observations within 95% Credible Interval: 0.9898776
+#> Proportions of Observations within 95% Credible Interval: 0.9897143
 ```
 
 Here we see that the model appears to be fitting well (at least based on the posterior
@@ -355,14 +353,11 @@ than the other.
 ppc(posterior, from_scratch=TRUE) +ggplot2::coord_cartesian(ylim=c(0, 30000))
 ```
 
-```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
-knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/fido-ppc-scratch.png')
-```
-
+![](figure/unnamed-chunk-12-1.png)
 
 ```r
 ppc_summary(posterior, from_scratch=TRUE)
-#> Proportions of Observations within 95% Credible Interval: 0.9721633
+#> Proportions of Observations within 95% Credible Interval: 0.9725714
 ```
 
 Now we are going to finally look at the posterior distribution of our regression
@@ -377,14 +372,11 @@ posterior_summary <- summary(posterior, pars="Lambda")$Lambda
 focus <- posterior_summary[sign(posterior_summary$p2.5) == sign(posterior_summary$p97.5),]
 focus <- unique(focus$coord)
 plot(posterior, par="Lambda", focus.coord = focus, focus.cov = rownames(X)[2:4])
-#> Scale for 'colour' is already present. Adding another scale for 'colour', which will
-#> replace the existing scale.
+#> Scale for colour is already present.
+#> Adding another scale for colour, which will replace the existing scale.
 ```
 
-```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
-knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/fido-lambda-res.png')
-```
-
+![](figure/unnamed-chunk-13-1.png)
 
 The first, and most obvious ting to notice is that the covariate `age` has pretty 
 much no effect at all, whatever effect it may have is incredibly weak. So 
@@ -398,20 +390,21 @@ focus <- posterior_summary[sign(posterior_summary$p2.5) == sign(posterior_summar
 focus <- unique(focus$coord)
 
 tax_table(dat)[taxa_names(dat)[which(names_coords(posterior) %in% focus)]]
-#> Taxonomy Table:     [12 taxa by 7 taxonomic ranks]:
-#>         Kingdom    Phylum           Class                   Order              
-#> 74305   "Bacteria" "Proteobacteria" "Epsilonproteobacteria" "Campylobacterales"
-#> 4449236 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"  
-#> 1105919 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"  
-#> 4477696 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Pasteurellales"   
-#> 4448331 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Enterobacteriales"
-#> 4154872 "Bacteria" "Bacteroidetes"  "Flavobacteriia"        "Flavobacteriales" 
-#> 4452538 "Bacteria" "Fusobacteria"   "Fusobacteriia"         "Fusobacteriales"  
-#> 341322  "Bacteria" "Firmicutes"     "Bacilli"               "Turicibacterales" 
-#> 1015143 "Bacteria" "Firmicutes"     "Bacilli"               "Gemellales"       
-#> 176318  "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"    
-#> 1788466 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"    
-#> 1896700 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"    
+#> Taxonomy Table:     [13 taxa by 7 taxonomic ranks]:
+#>         Kingdom    Phylum           Class                   Order               
+#> 74305   "Bacteria" "Proteobacteria" "Epsilonproteobacteria" "Campylobacterales" 
+#> 4449236 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"   
+#> 1105919 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"   
+#> 4477696 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Pasteurellales"    
+#> 4448331 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Enterobacteriales" 
+#> 4154872 "Bacteria" "Bacteroidetes"  "Flavobacteriia"        "Flavobacteriales"  
+#> 4452538 "Bacteria" "Fusobacteria"   "Fusobacteriia"         "Fusobacteriales"   
+#> 341322  "Bacteria" "Firmicutes"     "Bacilli"               "Turicibacterales"  
+#> 1015143 "Bacteria" "Firmicutes"     "Bacilli"               "Gemellales"        
+#> 176318  "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     
+#> 1788466 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     
+#> 1896700 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     
+#> 191718  "Bacteria" "Firmicutes"     "Erysipelotrichi"       "Erysipelotrichales"
 #>         Family                  Genus Species
 #> 74305   "Helicobacteraceae"     NA    NA     
 #> 4449236 "Alcaligenaceae"        NA    NA     
@@ -424,16 +417,14 @@ tax_table(dat)[taxa_names(dat)[which(names_coords(posterior) %in% focus)]]
 #> 1015143 "Gemellaceae"           NA    NA     
 #> 176318  "Christensenellaceae"   NA    NA     
 #> 1788466 "Lachnospiraceae"       NA    NA     
-#> 1896700 "Peptostreptococcaceae" NA    NA
+#> 1896700 "Peptostreptococcaceae" NA    NA     
+#> 191718  "Erysipelotrichaceae"   NA    NA
 plot(posterior, par="Lambda", focus.coord = focus, focus.cov = rownames(X)[2])
-#> Scale for 'colour' is already present. Adding another scale for 'colour', which will
-#> replace the existing scale.
+#> Scale for colour is already present.
+#> Adding another scale for colour, which will replace the existing scale.
 ```
 
-```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
-knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/fido-lambda-cd.png')
-```
-
+![](figure/unnamed-chunk-14-1.png)
 
 
 # More Technical Details 
@@ -453,7 +444,7 @@ Y_j & \sim \text{Multinomial}\left(\pi_j, n_j\right)  \\
 $$
 where $A=(I_N + X^T \Gamma, X)^{-1}$ and $T_{(D-1)\times N}$ refers to the Matrix T-distribution the $(D-1)\times N$ matrix $\eta$ with log density given by 
 $$\log T_{(D-1)\times N}(\eta | \upsilon, \Theta X, \Xi, A) \propto -\frac{\upsilon+N-D-2}{2}\log | I_{D-1}+\Xi^{-1}(\eta-\Theta X)A(\eta-\Theta X)^T |.$$
-Rather than using MCMC to sample $\eta$ fido uses MAP estimation. Additionally, *fido* allows quantification of uncertainty in MAP estimates using a Laplace approximation. We found that in practice this MAP based Laplace approximation produced 
+Rather than using MCMC to sample $\eta$ fido uses MAP estimation (using a custom C++ Eigen based implementation of the ADAM optimizer and closed form solutions for gradient and hessian of the collapsed model)^[Which we found preformed substantially better than L-BFGS, which we also tried.]. Additionally, *fido* allows quantification of uncertainty in MAP estimates using a Laplace approximation. We found that in practice this MAP based Laplace approximation produced 
 comparable results to a full MCMC sampler but with tremendous improvements in compute time. 
 
 Once samples of $\eta$ are produced using the Laplace approximation closed form 
