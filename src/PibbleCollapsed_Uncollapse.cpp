@@ -39,21 +39,21 @@ using Eigen::Lower;
 //' @param ncores (default:-1) number of cores to use, if ncores==-1 then 
 //' uses default from OpenMP typically to use all available cores. 
 //'  
-//' @details Notation: Let Z_j denote the J-th row of a matrix Z.
+//' @details Notation: Let \eqn{Z_j}{Z_j} denote the J-th row of a matrix Z.
 //' While the collapsed model is given by:
-//'    \deqn{Y_j \sim Multinomial(Pi_j)}
-//'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-//'    \deqn{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
-//' Where A = I_N + X * Gamma * X', K = Xi is a (D-1)x(D-1) covariance 
-//' matrix, Gamma is a Q x Q covariance matrix, and \eqn{Phi^{-1}} is ALRInv_D 
+//'    \deqn{Y_j \sim \text{Multinomial}(\pi_j)}{Y_j \sim Multinomial(Pi_j)}
+//'    \deqn{\pi_j = \Phi^{-1}(\eta_j)}{Pi_j = Phi^{-1}(Eta_j)}
+//'    \deqn{\eta \sim T_{D-1, N}(\upsilon, \Theta X, K, A)}{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
+//' Where \eqn{A = I_N + X \Gamma X'}{A = I_N + X * Gamma * X'}, \eqn{K=\Xi}{K = Xi} is a (D-1)x(D-1) covariance 
+//' matrix, \eqn{\Gamma}{Gamma} is a Q x Q covariance matrix, and \eqn{\Phi^{-1}}{Phi^(-1)} is ALRInv_D 
 //' transform. 
 //' 
 //' The uncollapsed model (Full pibble model) is given by:
-//'    \deqn{Y_j \sim Multinomial(Pi_j)}
-//'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-//'    \deqn{Eta \sim MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
-//'    \deqn{Lambda \sim MN_{D-1 x Q}(Theta, Sigma, Gamma)}
-//'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
+//'    \deqn{Y_j \sim \text{Multinomial}(\pi_j)}{Y_j \sim Multinomial(Pi_j)}
+//'    \deqn{\pi_j = \Phi^{-1}(\eta_j)}{Pi_j = Phi^(-1)(Eta_j)}
+//'    \deqn{\eta \sim MN_{D-1 \times N}(\Lambda X, \Sigma, I_N)}{Eta \sim MN_(D-1 x N)(Lambda*X, Sigma, I_N)}
+//'    \deqn{\Lambda \sim MN_{D-1 x Q}(\Theta, \Sigma, \Gamma)}{Lambda \sim MN_(D-1 x Q)(Theta, Sigma, Gamma)}
+//'    \deqn{\Sigma \sim InvWish(\upsilon, \Xi)}{Sigma \sim InvWish(upsilon, Xi)}
 //' This function provides a means of sampling from the posterior distribution of 
 //' \code{Lambda} and \code{Sigma} given posterior samples of \code{Eta} from 
 //' the collapsed model. 
