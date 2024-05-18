@@ -116,13 +116,13 @@ See details for model. Should likely be followed by function
 of covariates.
 }
 \details{
-Notation: Let Z_j denote the J-th row of a matrix Z.
+Notation: Let \eqn{Z_j} denote the J-th row of a matrix Z.
 Model:
-\deqn{Y_j \sim Multinomial(Pi_j)}
-\deqn{Pi_j = Phi^{-1}(Eta_j)}
-\deqn{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
-Where \eqn{A = I_N + X * Gamma * X'}, K is a (D-1)x(D-1) covariance
-matrix, Gamma is a Q x Q covariance matrix, and \eqn{Phi^{-1}} is ALRInv_D
+\deqn{Y_j \sim Multinomial(\pi_j)}{Y_j \sim Multinomial(Pi_j)}
+\deqn{\pi_j = \Phi^{-1}(\eta_j)}{Pi_j = Phi^(-1)(Eta_j)}
+\deqn{\eta \sim T_{D-1, N}(\upsilon, \Theta X, K, A)}{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
+Where \eqn{A = I_N + X  \Gamma X'}{A = I_N + X  Gamma  X'}, K is a (D-1)x(D-1) covariance
+matrix, \eqn{\Gamma}{Gamma} is a Q x Q covariance matrix, and \eqn{\Phi^{-1}}{Phi^(-1)} is ALRInv_D
 transform.
 
 Gradient and Hessian calculations are fast as they are computed using closed

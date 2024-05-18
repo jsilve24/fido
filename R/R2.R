@@ -31,7 +31,7 @@ r2_internal <- function(eta.hat, eta) {
 ##' @param covariates vector of indices for covariates to include in calculation of R2 (default:NULL
 ##'   means include all covariates by default). When non-null, all covariates not specified are set
 ##'   to zero for prediction.
-##' @details Calculates Posterior over Linear Model R2 as: \deqn{1-\frac{SS_{res}}{SS_{tot}}} where
+##' @details Calculates Posterior over Linear Model R2 as: \deqn{1-\frac{SS_{res}}{SS_{tot}}}{1-(SS_(res)/SS_(tot))} where
 ##'   \eqn{SS} is defined in terms of trace of variances
 ##'
 ##'   Method of calculating R2 is multivariate version of the Bayesian R2 proposed
@@ -67,7 +67,7 @@ r2.pibblefit <- function(m, covariates = NULL, ...) {
 ##' for prediction.
 ##' @details
 ##'   Calculates Posterior over Basset Model R2 as:
-##'   \deqn{1-\frac{SS_{res}}{SS_tot}}
+##'   \deqn{1-\frac{SS_{res}}{SS_{tot}}}{1-(SS_(res)/SS_(tot))}
 ##'
 ##'   Method of calculating R2 is multivariate version of the Bayesian R2 proposed
 ##'   by Gelman, Goodrich, Gabry, and Vehtari, 2019

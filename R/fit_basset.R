@@ -21,24 +21,24 @@
 #'  fit the basset model)
 #' 
 #' @details the full model is given by:
-#'    \deqn{Y_j \sim Multinomial(Pi_j)} 
-#'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-#'    \deqn{Eta \sim MN_{D-1 \times N}(Lambda, Sigma, I_N)}
-#'    \deqn{Lambda \sim GP_{D-1 \times Q}(Theta(X), Sigma, Gamma(X))}
-#'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
-#'  Where Gamma(X) is short hand for the Gram matrix of the Kernel function. 
+#'    \deqn{Y_j \sim Multinomial(\pi_j)}{Y_j \sim Multinomial(Pi_j)}  
+#'    \deqn{\pi_j = \Phi^{-1}(\eta_j)}{Pi_j = Phi^(-1)(Eta_j)}
+#'    \deqn{\eta \sim MN_{D-1 \times N}(\Lambda, \Sigma, I_N)}{Eta \sim MN_(D-1 x N)(Lambda, Sigma, I_N)}
+#'    \deqn{\Lambda \sim GP_{D-1 \times Q}(\Theta(X), \Sigma, \Gamma(X))}{Lambda \sim GP_{D-1 times Q}(Theta(X), Sigma, Gamma(X))}
+#'    \deqn{\Sigma \sim InvWish(\upsilon, \Xi)}{Sigma \sim InvWish(upsilon, Xi)}
+#'  Where \eqn{\Gamma(X)}{Gamma(X)}  is short hand for the Gram matrix of the Kernel function. 
 #'  
 #'  Alternatively can be used to fit an additive GP of the form:
-#'    \deqn{Y_j \sim Multinomial(Pi_j)} 
-#'    \deqn{Pi_j = Phi^{-1}(Eta_j)}
-#'    \deqn{Eta \sim MN_{D-1 \times N}(Lambda, Sigma, I_N)}
-#'    \deqn{Lambda = Lambda_1 + ... + Lambda_p + Beta X}
-#'    \deqn{Lambda_1 \sim GP_{D-1 \times Q}(Theta_1(X), Sigma, Gamma_p(X))}
-#'    ...
-#'    \deqn{Lambda_p \sim GP_{D-1 \times Q}(Theta_1(X), Sigma, Gamma_1(X))}
-#'    \deqn{Beta \sim MN(Theta_B, Sigma, Gamma_B)}
-#'    \deqn{Sigma \sim InvWish(upsilon, Xi)}
-#'  Where Gamma(X) is short hand for the Gram matrix of the Kernel function. 
+#'    \deqn{Y_j \sim Multinomial(\pi_j)}{Y_j \sim Multinomial(Pi_j)} 
+#'    \deqn{\pi_j = \Phi^{-1}(\eta_j)}{Pi_j = Phi^(-1)(Eta_j)}
+#'    \deqn{\eta \sim MN_{D-1 \times N}(\Lambda, \Sigma, I_N)}{Eta \sim MN_(D-1 times N)(Lambda, Sigma, I_N)}
+#'    \deqn{\Lambda = \Lambda_1 + ... + \Lambda_p + B X}{Lambda = Lambda_1 + ... + Lambda_p + Beta X}
+#'    \deqn{\Lambda_1 \sim GP_{D-1 \times Q}(\Theta_1(X), \Sigma, \Gamma_1(X))}{Lambda_1 \sim GP_{D-1 x Q}(Theta_1(X), Sigma, Gamma_1(X))}
+#'    \deqn{...}
+#'    \deqn{\Lambda_p \sim GP_{D-1 \times Q}(\Theta_p(X), \Sigma, \Gamma_p(X))}{Lambda_p \sim GP_{D-1 x Q}(Theta_p(X), Sigma, Gamma_p(X))}
+#'    \deqn{B \sim MN(\Theta_B, \Sigma, \Gamma_B)}{Beta \sim MN(Theta_B, Sigma, Gamma_B)}
+#'    \deqn{\Sigma \sim InvWish(\upsilon, \Xi)}{Sigma \sim InvWish(upsilon, Xi)}
+#'  Where \eqn{\Gamma(X)}{Gamma(X)} is short hand for the Gram matrix of the Kernel function. 
 #'  
 #'  Default behavior is to use MAP estimate for uncollaping the LTP 
 #'  model if laplace approximation is not preformed. 
