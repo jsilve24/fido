@@ -190,15 +190,17 @@ Disease (CD) to healthy controls <span class="citation">(Gevers et al.
 2014)</span>. To do this I will fit a pibble model using CD status,
 inflammation status and age as covariates (plus a constant intercept
 term).</p>
+<p>For convienece, we have added a copy of the data set to
+<em>fido</em>. The data was obtained from the <em>MicrobeDS</em>
+repository on <a href="https://github.com/twbattaglia/MicrobeDS%7D" class="external-link">GitHub</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://github.com/twbattaglia/MicrobeDS" class="external-link">MicrobeDS</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://dx.plos.org/10.1371/journal.pone.0061217" class="external-link">phyloseq</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://dx.plos.org/10.1371/journal.pone.0061217" class="external-link">phyloseq</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jsilve24.github.io/fido/">fido</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">899</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"RISK_CCFA"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">RISK_CCFA</span><span class="op">)</span></span>
 <span><span class="co"># drop low abundant taxa and samples</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">RISK_CCFA</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html" class="external-link">subset_samples</a></span><span class="op">(</span><span class="va">disease_stat</span><span class="op">!=</span><span class="st">"missing"</span>, </span>
@@ -318,7 +320,7 @@ of summary may be included as a future update if need arises&lt;/p&gt;"><sup>1</
 <code class="sourceCode R"><span><span class="va">priors</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fido_transforms.html">to_clr</a></span><span class="op">(</span><span class="va">priors</span><span class="op">)</span>  </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">priors</span>, pars<span class="op">=</span><span class="st">"Lambda"</span>, gather_prob<span class="op">=</span><span class="cn">TRUE</span>, as_factor<span class="op">=</span><span class="cn">TRUE</span>, use_names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>  </span>
 <span><span class="co">#&gt; $Lambda</span></span>
-<span><span class="co">#&gt; # A tibble: 784 x 9</span></span>
+<span><span class="co">#&gt; # A tibble: 784 × 9</span></span>
 <span><span class="co">#&gt;    Parameter coord covariate         val .lower .upper .width .point .interval</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    </span></span>
 <span><span class="co">#&gt;  1 Lambda        1         1  0.0509     -0.528  0.596    0.5 mean   qi       </span></span>
@@ -331,7 +333,7 @@ of summary may be included as a future update if need arises&lt;/p&gt;"><sup>1</
 <span><span class="co">#&gt;  8 Lambda        2         4  0.0165     -0.536  0.589    0.5 mean   qi       </span></span>
 <span><span class="co">#&gt;  9 Lambda        3         1  0.0138     -0.584  0.620    0.5 mean   qi       </span></span>
 <span><span class="co">#&gt; 10 Lambda        3         2 -0.00502    -0.542  0.581    0.5 mean   qi       </span></span>
-<span><span class="co">#&gt; # ... with 774 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 774 more rows</span></span></code></pre></div>
 <p>By default the <code>summary</code> function returns a list (with
 possible elements <code>Lambda</code>, <code>Sigma</code>, and
 <code>Eta</code>) summarizing each posterior parameter based on
@@ -347,10 +349,10 @@ then plot).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/name_dims.html">names_covariates</a></span><span class="op">(</span><span class="va">priors</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">priors</span>, par<span class="op">=</span><span class="st">"Lambda"</span><span class="op">)</span> </span>
-<span><span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour', which will</span></span>
-<span><span class="co">#&gt; replace the existing scale.</span></span>
+<span><span class="co">#&gt; Scale for colour is already present.</span></span>
+<span><span class="co">#&gt; Adding another scale for colour, which will replace the existing scale.</span></span>
 <span><span class="va">p</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>  </span></code></pre></div>
-<p><img src="https://github.com/jsilve24/fido/raw/master/vignettes/fido-lambda-all.png" width="50%" style="display: block; margin: auto;"></p>
+<p><img src="pibble-priors.png"></p>
 <p>This looks fairly reasonable to me. So I am going to go ahead and fit
 the model with data. <code>fido</code> provides a helper method called
 <code>refit</code> that we will use to avoid passing prior parameters
@@ -383,7 +385,7 @@ predictive distribution if Y is null in the object as in our
 &lt;code&gt;priors&lt;/code&gt; object&lt;/p&gt;"><sup>3</sup></a>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ppc.html">ppc</a></span><span class="op">(</span><span class="va">posterior</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30000</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="https://github.com/jsilve24/fido/raw/master/vignettes/fido-ppc.png" width="50%" style="display: block; margin: auto;"></p>
+<p><img src="pibble-ppc.png"></p>
 <p>There are a few things to note about this plot. First, when zoomed
 out like this it looks it is hard to make much of it. This is a fairly
 large dataset we are analyzing and its hard to view an uncertainty
@@ -393,7 +395,7 @@ interval in grey and black and the observed counts in green.
 predictive check.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ppc_summary.html">ppc_summary</a></span><span class="op">(</span><span class="va">posterior</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Proportions of Observations within 95% Credible Interval: 0.9898776</span></span></code></pre></div>
+<span><span class="co">#&gt; Proportions of Observations within 95% Credible Interval: 0.9897143</span></span></code></pre></div>
 <p>Here we see that the model appears to be fitting well (at least based
 on the posterior predictive check) and that only about 1.5% of
 observations fall outside of the 95% posterior predictive density (this
@@ -409,10 +411,10 @@ to the <code>ppc</code> function. Note: these two posterior predictive
 checks have different meanings, one is not better than the other.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ppc.html">ppc</a></span><span class="op">(</span><span class="va">posterior</span>, from_scratch<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30000</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="https://github.com/jsilve24/fido/raw/master/vignettes/fido-ppc-scratch.png" width="50%" style="display: block; margin: auto;"></p>
+<p><img src="pibble-ppc-sum.png"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ppc_summary.html">ppc_summary</a></span><span class="op">(</span><span class="va">posterior</span>, from_scratch<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Proportions of Observations within 95% Credible Interval: 0.9721633</span></span></code></pre></div>
+<span><span class="co">#&gt; Proportions of Observations within 95% Credible Interval: 0.9725714</span></span></code></pre></div>
 <p>Now we are going to finally look at the posterior distribution of our
 regression parameters, but because there are so many we will focus on
 just those that have a 95% credible interval not including zero (i.e.,
@@ -424,9 +426,9 @@ age and disease status.</p>
 <span><span class="va">focus</span> <span class="op">&lt;-</span> <span class="va">posterior_summary</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">posterior_summary</span><span class="op">$</span><span class="va">p2.5</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">posterior_summary</span><span class="op">$</span><span class="va">p97.5</span><span class="op">)</span>,<span class="op">]</span></span>
 <span><span class="va">focus</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">focus</span><span class="op">$</span><span class="va">coord</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">posterior</span>, par<span class="op">=</span><span class="st">"Lambda"</span>, focus.coord <span class="op">=</span> <span class="va">focus</span>, focus.cov <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour', which will</span></span>
-<span><span class="co">#&gt; replace the existing scale.</span></span></code></pre></div>
-<p><img src="https://github.com/jsilve24/fido/raw/master/vignettes/fido-lambda-res.png" width="50%" style="display: block; margin: auto;"></p>
+<span><span class="co">#&gt; Scale for colour is already present.</span></span>
+<span><span class="co">#&gt; Adding another scale for colour, which will replace the existing scale.</span></span></code></pre></div>
+<p><img src="pibble-CD-clr.png"></p>
 <p>The first, and most obvious ting to notice is that the covariate
 <code>age</code> has pretty much no effect at all, whatever effect it
 may have is incredibly weak. So we are going to remove age from the plot
@@ -438,20 +440,21 @@ CD</p>
 <span><span class="va">focus</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">focus</span><span class="op">$</span><span class="va">coord</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/tax_table-methods.html" class="external-link">tax_table</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/taxa_names-methods.html" class="external-link">taxa_names</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="../reference/name_dims.html">names_coords</a></span><span class="op">(</span><span class="va">posterior</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">focus</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="co">#&gt; Taxonomy Table:     [12 taxa by 7 taxonomic ranks]:</span></span>
-<span><span class="co">#&gt;         Kingdom    Phylum           Class                   Order              </span></span>
-<span><span class="co">#&gt; 74305   "Bacteria" "Proteobacteria" "Epsilonproteobacteria" "Campylobacterales"</span></span>
-<span><span class="co">#&gt; 4449236 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"  </span></span>
-<span><span class="co">#&gt; 1105919 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"  </span></span>
-<span><span class="co">#&gt; 4477696 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Pasteurellales"   </span></span>
-<span><span class="co">#&gt; 4448331 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Enterobacteriales"</span></span>
-<span><span class="co">#&gt; 4154872 "Bacteria" "Bacteroidetes"  "Flavobacteriia"        "Flavobacteriales" </span></span>
-<span><span class="co">#&gt; 4452538 "Bacteria" "Fusobacteria"   "Fusobacteriia"         "Fusobacteriales"  </span></span>
-<span><span class="co">#&gt; 341322  "Bacteria" "Firmicutes"     "Bacilli"               "Turicibacterales" </span></span>
-<span><span class="co">#&gt; 1015143 "Bacteria" "Firmicutes"     "Bacilli"               "Gemellales"       </span></span>
-<span><span class="co">#&gt; 176318  "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"    </span></span>
-<span><span class="co">#&gt; 1788466 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"    </span></span>
-<span><span class="co">#&gt; 1896700 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"    </span></span>
+<span><span class="co">#&gt; Taxonomy Table:     [13 taxa by 7 taxonomic ranks]:</span></span>
+<span><span class="co">#&gt;         Kingdom    Phylum           Class                   Order               </span></span>
+<span><span class="co">#&gt; 74305   "Bacteria" "Proteobacteria" "Epsilonproteobacteria" "Campylobacterales" </span></span>
+<span><span class="co">#&gt; 4449236 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"   </span></span>
+<span><span class="co">#&gt; 1105919 "Bacteria" "Proteobacteria" "Betaproteobacteria"    "Burkholderiales"   </span></span>
+<span><span class="co">#&gt; 4477696 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Pasteurellales"    </span></span>
+<span><span class="co">#&gt; 4448331 "Bacteria" "Proteobacteria" "Gammaproteobacteria"   "Enterobacteriales" </span></span>
+<span><span class="co">#&gt; 4154872 "Bacteria" "Bacteroidetes"  "Flavobacteriia"        "Flavobacteriales"  </span></span>
+<span><span class="co">#&gt; 4452538 "Bacteria" "Fusobacteria"   "Fusobacteriia"         "Fusobacteriales"   </span></span>
+<span><span class="co">#&gt; 341322  "Bacteria" "Firmicutes"     "Bacilli"               "Turicibacterales"  </span></span>
+<span><span class="co">#&gt; 1015143 "Bacteria" "Firmicutes"     "Bacilli"               "Gemellales"        </span></span>
+<span><span class="co">#&gt; 176318  "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     </span></span>
+<span><span class="co">#&gt; 1788466 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     </span></span>
+<span><span class="co">#&gt; 1896700 "Bacteria" "Firmicutes"     "Clostridia"            "Clostridiales"     </span></span>
+<span><span class="co">#&gt; 191718  "Bacteria" "Firmicutes"     "Erysipelotrichi"       "Erysipelotrichales"</span></span>
 <span><span class="co">#&gt;         Family                  Genus Species</span></span>
 <span><span class="co">#&gt; 74305   "Helicobacteraceae"     NA    NA     </span></span>
 <span><span class="co">#&gt; 4449236 "Alcaligenaceae"        NA    NA     </span></span>
@@ -464,11 +467,12 @@ CD</p>
 <span><span class="co">#&gt; 1015143 "Gemellaceae"           NA    NA     </span></span>
 <span><span class="co">#&gt; 176318  "Christensenellaceae"   NA    NA     </span></span>
 <span><span class="co">#&gt; 1788466 "Lachnospiraceae"       NA    NA     </span></span>
-<span><span class="co">#&gt; 1896700 "Peptostreptococcaceae" NA    NA</span></span>
+<span><span class="co">#&gt; 1896700 "Peptostreptococcaceae" NA    NA     </span></span>
+<span><span class="co">#&gt; 191718  "Erysipelotrichaceae"   NA    NA</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">posterior</span>, par<span class="op">=</span><span class="st">"Lambda"</span>, focus.coord <span class="op">=</span> <span class="va">focus</span>, focus.cov <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour', which will</span></span>
-<span><span class="co">#&gt; replace the existing scale.</span></span></code></pre></div>
-<p><img src="https://github.com/jsilve24/fido/raw/master/vignettes/fido-lambda-cd.png" width="50%" style="display: block; margin: auto;"></p>
+<span><span class="co">#&gt; Scale for colour is already present.</span></span>
+<span><span class="co">#&gt; Adding another scale for colour, which will replace the existing scale.</span></span></code></pre></div>
+<p><img src="pibble-posterior-summary.png"></p>
 </div>
 <div class="section level2">
 <h2 id="more-technical-details">More Technical Details<a class="anchor" aria-label="anchor" href="#more-technical-details"></a>
@@ -496,11 +500,14 @@ N}\)</span> refers to the Matrix T-distribution the <span class="math inline">\(
 \Xi, A) \propto -\frac{\upsilon+N-D-2}{2}\log |
 I_{D-1}+\Xi^{-1}(\eta-\Theta X)A(\eta-\Theta X)^T |.\]</span> Rather
 than using MCMC to sample <span class="math inline">\(\eta\)</span> fido
-uses MAP estimation. Additionally, <em>fido</em> allows quantification
-of uncertainty in MAP estimates using a Laplace approximation. We found
-that in practice this MAP based Laplace approximation produced
-comparable results to a full MCMC sampler but with tremendous
-improvements in compute time.</p>
+uses MAP estimation (using a custom C++ Eigen based implementation of
+the ADAM optimizer and closed form solutions for gradient and hessian of
+the collapsed model)<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Which we found preformed substantially better than
+L-BFGS, which we also tried.&lt;/p&gt;"><sup>4</sup></a>. Additionally, <em>fido</em> allows
+quantification of uncertainty in MAP estimates using a Laplace
+approximation. We found that in practice this MAP based Laplace
+approximation produced comparable results to a full MCMC sampler but
+with tremendous improvements in compute time.</p>
 <p>Once samples of <span class="math inline">\(\eta\)</span> are
 produced using the Laplace approximation closed form solutions for the
 conditional density of <span class="math inline">\(\Lambda\)</span> and

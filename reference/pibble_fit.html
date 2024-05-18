@@ -164,12 +164,12 @@ essentially iid on "base scale" using Aitchison terminology)</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>the full model is given by:
-$$Y_j \sim Multinomial(Pi_j)$$
-$$Pi_j = Phi^{-1}(Eta_j)$$
-$$Eta \sim MN_{D-1 \times N}(Lambda*X, Sigma, I_N)$$
-$$Lambda \sim MN_{D-1 \times Q}(Theta, Sigma, Gamma)$$
-$$Sigma \sim InvWish(upsilon, Xi)$$
-Where Gamma is a Q x Q covariance matrix, and \(Phi^{-1}\) is
+$$Y_j \sim Multinomial(\pi_j)$$
+$$\pi_j = \Phi^{-1}(\eta_j)$$
+$$\eta \sim MN_{D-1 \times N}(\Lambda X, \Sigma, I_N)$$
+$$\Lambda \sim MN_{D-1 \times Q}(\Theta, \Sigma, \Gamma)$$
+$$\Sigma \sim InvWish(\upsilon, \Xi)$$
+Where \(\Gamma\) is a Q x Q covariance matrix, and \(\Phi^{-1}\) is
 ALRInv_D transform.</p>
 <p>Default behavior is to use MAP estimate for uncollaping the LTP
 model if laplace approximation is not preformed.</p>

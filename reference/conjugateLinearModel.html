@@ -109,9 +109,9 @@ of covariates.</p>
 </ol></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>$$Y \sim MN_{D-1 \times N}(Lambda*X, Sigma, I_N)$$
-$$Lambda \sim MN_{D-1 \times Q}(Theta, Sigma, Gamma)$$
-$$Sigma \sim InvWish(upsilon, Xi)$$
+    <p>$$Y \sim MN_{D-1 \times N}(\Lambda \mathbf{X}, \Sigma, I_N)$$
+$$\Lambda \sim MN_{D-1 \times Q}(\Theta, \Sigma, \Gamma)$$
+$$\Sigma \sim InvWish(\upsilon, \Xi)$$
 This function provides a means of sampling from the posterior distribution of
 <code>Lambda</code> and <code>Sigma</code>.</p>
     </div>

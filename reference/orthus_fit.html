@@ -161,12 +161,12 @@ essentially iid on "base scale" using Aitchison terminology)</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>the full model is given by:
-$$Y_j \sim Multinomial(Pi_j)$$
-$$Pi_j = Phi^{-1}(Eta_j)$$
-$$cbind(Eta, Z) \sim MN_{D-1+P x N}(Lambda*X, Sigma, I_N)$$
-$$Lambda \sim MN_{D-1+P x Q}(Theta, Sigma, Gamma)$$
-$$Sigma \sim InvWish(upsilon, Xi)$$
-Where Gamma is a Q x Q covariance matrix, and \(Phi^{-1}\) is
+$$Y_j \sim Multinomial(\pi_j)$$
+$$\pi_j = \Phi^{-1}(\eta_j)$$
+$$cbind(\eta, Z) \sim MN_{D-1+P \times N}(\Lambda X, \Sigma, I_N)$$
+$$\Lambda \sim MN_{D-1+P \times Q}(\Theta, \Sigma, \Gamma)$$
+$$\Sigma \sim InvWish(\upsilon, \Xi)$$
+Where \(\Gamma\) is a Q x Q covariance matrix, and \(\Phi^{-1}\) is
 ALRInv_D transform.
 That is, the orthus model models the latent multinomial log-ratios (Eta) and
 the observations of the second dataset jointly as a linear model. This allows

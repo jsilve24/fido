@@ -229,13 +229,13 @@ the laplace approximation</p></li>
 </ol></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Notation: Let Z_j denote the J-th row of a matrix Z.
+    <p>Notation: Let \(Z_j\) denote the J-th row of a matrix Z.
 Model:
-$$Y_j \sim Multinomial(Pi_j)$$
-$$Pi_j = Phi^{-1}(Eta_j)$$
-$$Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)$$
-Where \(A = I_N + X * Gamma * X'\), K is a (D-1)x(D-1) covariance
-matrix, Gamma is a Q x Q covariance matrix, and \(Phi^{-1}\) is ALRInv_D
+$$Y_j \sim Multinomial(\pi_j)$$
+$$\pi_j = \Phi^{-1}(\eta_j)$$
+$$\eta \sim T_{D-1, N}(\upsilon, \Theta X, K, A)$$
+Where \(A = I_N + X  \Gamma X'\), K is a (D-1)x(D-1) covariance
+matrix, \(\Gamma\) is a Q x Q covariance matrix, and \(\Phi^{-1}\) is ALRInv_D
 transform.</p>
 <p>Gradient and Hessian calculations are fast as they are computed using closed
 form solutions. That said, the Hessian matrix can be quite large
