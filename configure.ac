@@ -188,7 +188,7 @@ fi
 openmp_flag=""
 
 ## Set the fallback, by default it is nope
-arma_have_openmp="#define ARMA_DONT_USE_OPENMP 1"
+arma_have_openmp="#define ARMA_DONT_USE_OPENMP"
 
 if test x"${openmp_already_works}" = x"yes"; then
     arma_have_openmp="#define ARMA_USE_OPENMP"
