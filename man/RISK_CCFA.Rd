@@ -5,7 +5,7 @@
 \alias{RISK_CCFA}
 \title{Data from Gevers et al. (2014)}
 \format{
-A phyloseq object.
+An otu table, sample data table, and taxonomy table.
 }
 \usage{
 data(RISK_CCFA)

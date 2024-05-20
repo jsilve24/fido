@@ -8,6 +8,6 @@
 #' @docType data
 #' @name RISK_CCFA
 #' @usage data(RISK_CCFA)
-#' @format A phyloseq object.
+#' @format An otu table, sample data table, and taxonomy table.
 #' @references Gevers D, et al. The treatment-naive microbiome in new-onset Crohn's disease. Cell Host Microbe. 2014 Mar 12;15(3):382-392. doi: 10.1016/j.chom.2014.02.005. PMID: 24629344; PMCID: PMC4059512.
 NULL

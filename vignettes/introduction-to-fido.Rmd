@@ -115,8 +115,11 @@ library(fido)
 set.seed(899)
 
 data(RISK_CCFA)
+
+# making into a phyloseq object
+CCFA_phylo <- phyloseq(otu_table(as.matrix(RISK_CCFA_otu), taxa_are_rows = TRUE), sample_data(RISK_CCFA_sam), tax_table(as.matrix(RISK_CCFA_tax)))
 # drop low abundant taxa and samples
-dat <- RISK_CCFA %>% 
+dat <- CCFA_phylo %>% 
   subset_samples(disease_stat!="missing", 
                  immunosup!="missing") %>% 
   subset_samples(diagnosis %in% c("no", "CD")) %>% 
