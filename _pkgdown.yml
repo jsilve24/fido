@@ -102,4 +102,7 @@ reference:
   - pcrbias_mock
   - pibble_sim
   - RISK_CCFA
+  - RISK_CCFA_otu
+  - RISK_CCFA_sam
+  - RISK_CCFA_tax
   - 'Y'
