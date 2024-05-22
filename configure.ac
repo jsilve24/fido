@@ -187,7 +187,7 @@ openmp_flag=""
 arma_have_openmp="#define ARMA_DONT_USE_OPENMP 1"
 
 if test x"${openmp_already_works}" = x"yes"; then
-    arma_have_openmp="#define ARMA_USE_OPENMP 1"
+    arma_have_openmp="#define ARMA_USE_OPENMP"
     ## Added by JDS 
     openmp_flag='$(SHLIB_OPENMP_CXXFLAGS)'
 fi
@@ -199,10 +199,10 @@ if test x"${can_use_openmp}" = x"yes"; then
     hasOpenMP=$(echo ${allldflags} | grep -- -fopenmp)
     if test x"${hasOpenMP}" = x""; then
         AC_MSG_RESULT([missing])
-        arma_have_openmp="#define ARMA_DONT_USE_OPENMP 1"
+        arma_have_openmp="#define ARMA_DONT_USE_OPENMP"
     else
         AC_MSG_RESULT([found and suitable])
-        arma_have_openmp="#define ARMA_USE_OPENMP 1"
+        arma_have_openmp="#define ARMA_USE_OPENMP"
         openmp_flag='$(SHLIB_OPENMP_CXXFLAGS)'
     fi
 fi
