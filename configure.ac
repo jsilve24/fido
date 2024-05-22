@@ -54,8 +54,7 @@ int main() {
 EOF
 
 ## Execute R CMD SHLIB.
-"${R_HOME}/bin/R" CMD SHLIB test-omp.cpp >/dev/null 2>&1
-if test x"$?" = x"0"; then
+if ${CC} ${CFLAGS} -fopenmp test-omp.cpp >/dev/null 2>&1; then
     AC_MSG_RESULT([yes])
     openmp_already_works="yes"
 else
@@ -66,8 +65,6 @@ fi
 cd "${owd}"
 rm -rf "${BUILDDIR}"
 
-
-
 ## additional reporting/diagnostics for mac don't trust the above approach for mac
 RSysinfoName=$("${R_HOME}/bin/Rscript" --vanilla -e 'cat(Sys.info()[["sysname"]])')
 AC_MSG_CHECKING([for mac OS])
@@ -77,7 +74,6 @@ if test x"${RSysinfoName}" = x"Darwin"; then
 else
    AC_MSG_RESULT([not found])
 fi # end mac check
-
 
 ## If the above checks failed, then perform other heuristics
 ## based on the compiler version, etc.
@@ -191,7 +187,7 @@ openmp_flag=""
 arma_have_openmp="#define ARMA_DONT_USE_OPENMP 1"
 
 if test x"${openmp_already_works}" = x"yes"; then
-    arma_have_openmp="#define ARMA_USE_OPENMP"
+    arma_have_openmp="#define ARMA_USE_OPENMP 1"
     ## Added by JDS 
     openmp_flag='$(SHLIB_OPENMP_CXXFLAGS)'
 fi
@@ -203,10 +199,10 @@ if test x"${can_use_openmp}" = x"yes"; then
     hasOpenMP=$(echo ${allldflags} | grep -- -fopenmp)
     if test x"${hasOpenMP}" = x""; then
         AC_MSG_RESULT([missing])
-        arma_have_openmp="#define ARMA_DONT_USE_OPENMP"
+        arma_have_openmp="#define ARMA_DONT_USE_OPENMP 1"
     else
         AC_MSG_RESULT([found and suitable])
-        arma_have_openmp="#define ARMA_USE_OPENMP"
+        arma_have_openmp="#define ARMA_USE_OPENMP 1"
         openmp_flag='$(SHLIB_OPENMP_CXXFLAGS)'
     fi
 fi
