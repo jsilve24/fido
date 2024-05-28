@@ -1,7 +1,10 @@
 # fido 1.1.0
 
-* Updating the basset model to allow for additive Gaussian processes
-* Updating the random seed generation
+* Updating the basset model to allow for additive Gaussian processes.
+* Updating the random seed generation.
+* Removed maltipoo as an export. There were a few small changes to names of internal maltipoo functions (e.g., "verify.maltipoo" became "verify_maltipoo").
+* Updating the configure script to a compile but that occured when OpenMP is present but R is not configured to use it.
+* Fixed a few small bugs (predicting with one sample; wrong constant; etc.).
 
 # fido 1.0.4
 

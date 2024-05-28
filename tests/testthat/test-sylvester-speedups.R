@@ -1,6 +1,7 @@
 context("test-sylvester-speedups")
 
 test_that("Pibble Sylvester Results Agree", {
+  set.seed(123)
   sim <- pibble_sim(D = 20, N=5)
   ThetaX <- sim$Theta %*% sim$X
   eta <- random_pibble_init(sim$Y)
@@ -26,26 +27,28 @@ test_that("Pibble Sylvester Results Agree", {
   expect_equal(hess, hesssylv)
 })
 
-test_that("Maltipoo Sylvester Results Agree", {
-  # lazy, just use pibble sim data
-  sim <- pibble_sim(D = 20, N=5)
-  eta <- random_pibble_init(sim$Y)
-  ell <- c(1)
-
-  ll <- loglikMaltipooCollapsed(sim$Y, sim$upsilon, sim$Theta, sim$X, sim$KInv, sim$Gamma, eta, ell, 
-                               sylv=FALSE)
-  llsylv <- loglikMaltipooCollapsed(sim$Y, sim$upsilon, sim$Theta, sim$X, sim$KInv, sim$Gamma, eta, ell, 
-                               sylv=FALSE)
-  g <- gradMaltipooCollapsed(sim$Y, sim$upsilon, sim$Theta, sim$X, sim$KInv, sim$Gamma, eta, ell,
-                            sylv=FALSE)
-  gsylv <- gradMaltipooCollapsed(sim$Y, sim$upsilon, sim$Theta, sim$X, sim$KInv, sim$Gamma, eta, ell,
-                            sylv=FALSE)
-  hess <- hessMaltipooCollapsed(sim$Y, sim$upsilon, sim$Theta, sim$X, sim$KInv, sim$Gamma, eta, ell,
-                            sylv=FALSE)
-  hesssylv <- hessMaltipooCollapsed(sim$Y, sim$upsilon, sim$Theta, sim$X, sim$KInv, sim$Gamma, eta, ell,
-                            sylv=FALSE)
-  
-  expect_equal(ll, llsylv)
-  expect_equal(g, gsylv)
-  expect_equal(hess, hesssylv)
-})
+# MPN: removed test since maltipoo is removed
+# test_that("Maltipoo Sylvester Results Agree", {
+#   set.seed(123)
+#   # lazy, just use pibble sim data
+#   sim <- pibble_sim(D = 20, N=5)
+#   eta <- random_pibble_init(sim$Y)
+#   ell <- c(1)
+# 
+#   ll <- loglikMaltipooCollapsed(sim$Y, sim$upsilon, sim$Theta, sim$X, sim$KInv, sim$Gamma, eta, ell, 
+#                                sylv=FALSE)
+#   llsylv <- loglikMaltipooCollapsed(sim$Y, sim$upsilon, sim$Theta, sim$X, sim$KInv, sim$Gamma, eta, ell, 
+#                                sylv=FALSE)
+#   g <- gradMaltipooCollapsed(sim$Y, sim$upsilon, sim$Theta, sim$X, sim$KInv, sim$Gamma, eta, ell,
+#                             sylv=FALSE)
+#   gsylv <- gradMaltipooCollapsed(sim$Y, sim$upsilon, sim$Theta, sim$X, sim$KInv, sim$Gamma, eta, ell,
+#                             sylv=FALSE)
+#   hess <- hessMaltipooCollapsed(sim$Y, sim$upsilon, sim$Theta, sim$X, sim$KInv, sim$Gamma, eta, ell,
+#                             sylv=FALSE)
+#   hesssylv <- hessMaltipooCollapsed(sim$Y, sim$upsilon, sim$Theta, sim$X, sim$KInv, sim$Gamma, eta, ell,
+#                             sylv=FALSE)
+#   
+#   expect_equal(ll, llsylv)
+#   expect_equal(g, gsylv)
+#   expect_equal(hess, hesssylv)
+# })
