@@ -56,8 +56,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.0" id="fido-110">fido 1.1.0<a class="anchor" aria-label="anchor" href="#fido-110"></a></h2>
-<ul><li>Updating the basset model to allow for additive Gaussian processes</li>
-<li>Updating the random seed generation</li>
+<ul><li>Updating the basset model to allow for additive Gaussian processes.</li>
+<li>Updating the random seed generation.</li>
+<li>Removed maltipoo as an export. There were a few small changes to names of internal maltipoo functions (e.g., “verify.maltipoo” became “verify_maltipoo”).</li>
+<li>Updating the configure script to a compile but that occured when OpenMP is present but R is not configured to use it.</li>
+<li>Fixed a few small bugs (predicting with one sample; wrong constant; etc.).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.4" id="fido-104">fido 1.0.4<a class="anchor" aria-label="anchor" href="#fido-104"></a></h2><p class="text-muted">CRAN release: 2023-03-24</p>
