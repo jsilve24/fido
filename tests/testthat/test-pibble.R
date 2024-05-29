@@ -103,7 +103,7 @@ uncollapse <- function(eta, X, upsilon, Theta, Xi, Gamma){
     EN <- eta[,,i] - LambdaN %*% X
     Delta <- LambdaN - Theta
     XiN <- Xi + tcrossprod(EN) + Delta %*% solve(Gamma) %*% t(Delta)
-    Sigma[,,i] <- MCMCpack::riwish(upsilonN, XiN)#solve(rWishart(1, upsilonN, XiN)[,,1])
+    Sigma[,,i] <- solve(rWishart(1, upsilonN, solve(XiN))[,,1])
     Z <- matrix(rnorm((D-1)*Q), D-1, Q)
     Lambda[,,i] <- LambdaN + t(chol(Sigma[,,i]))%*%Z%*%chol(GammaN)
   }
