@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[margin=1in]{geometry}
+\usepackage{url}
+\usepackage{listings}
+
+
+\title{\texttt{fido} Maintainer Guide}
+\author{Michelle Nixon}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+
+
+\subsection*{Non-Trivial Changes}
+
+\begin{itemize}
+    \item Long vignettes need to be pre-computed first before submitting to CRAN. This is to prevent warning/notes related to run-time issues. The basic idea is to have the vignette written in one file (for example, \texttt{introduction-to-fido.Rmd.org}) and use \texttt{knitr} to create a file where all the R code is already pre-computed. The \texttt{knitr} file will have just the \texttt{.Rmd} extension and, therefore, will be the one build by \texttt{R}. To knit the vignettes, run the command:
+    
+    \texttt{knitr::knit("name-of-vignette.Rmd.orig", output = "name-of-vignette.Rmd")}
+
+    in the directory with the vignettes. The inspiration for this approach was taken from \url{https://www.kloppenborg.ca/2021/06/long-running-vignettes/}. \textbf{Note}: It is advisable to run the vignette on your computer to make sure that the pre-compiled vignette looks OK (especially with figures-- they will usually get a title by default but easy to edit manually).
+    \item I updated the manual math. This provides a little better control of how things render in HTML and PDF format. The basic idea is that both \texttt{eqn} and \texttt{deqn} can take two inputs:
+
+    \texttt{eqn\{math in Latex form\}\{math in ASCII form\}}.
+
+    For some of the complicated math formula, this has two benefits: (1) things can be made to look nice and (2) it prevents notes on CRAN. \textbf{Note:} The math supported by the Latex is very, very basic. They have very limited support for the two common math packages.
+    \item The configure script needed updated due to an issue with a specific CRAN container (development version of \texttt{R} on Fedora). This specific CRAN container was ``special'' in the sense that OpenMP was present, but \texttt{R} was not configured to use it. The fix was replacing the following:
+
+    \begin{lstlisting}[language=R]
+    cat <<EOF > test-omp.cpp
+    #include <omp.h>
+    int main() {
+        return omp_get_num_threads();
+    }
+    EOF
+
+    ## Execute R CMD SHLIB.
+    if ${CC} ${CFLAGS} -fopenmp test-omp.cpp >/dev/null 2>&1; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes"
+        >&5 printf "%s\n" "yes" >&6; }
+        openmp_already_works="yes"
+    else
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" 
+        >&5 printf "%s\n" "no" >&6; }
+    fi
+    \end{lstlisting}
+    with 
+    \begin{lstlisting}[language=R]
+        cat > test-omp.cpp <<EOF
+        #include <omp.h>
+        extern "C" void configtest(int * arg) {
+          *arg = omp_get_num_threads();
+        }
+        EOF
+        # Without the following you're relying on the GNU/Linux-like behaviour
+        # w.r.t. undefined symbols (see WRE 1.2.1.1):
+        cat > Makevars <<EOF
+        PKG_CXXFLAGS = \$(SHLIB_OPENMP_CXXFLAGS)
+        PKG_LIBS = \$(SHLIB_OPENMP_CXXFLAGS)
+        EOF
+        R CMD SHLIB test-omp.cpp
+    \end{lstlisting}
+
+    This solution was given by Ivan Krylov on the \texttt{r-package-devel} mailing list. The specific email can be seen here (\url{https://stat.ethz.ch/pipermail/r-package-devel/2024q2/010822.html}). \textbf{Note:} I checked this with my system, and OpenMP support still worked.
+    \item \texttt{maltipoo} is no longer exported. Because of \texttt{R} warnings related to non-exported generics, \texttt{verify.maltipoo} was replaced with \texttt{verify\_maltipoo} and \texttt{req.maltipoo} was replaced with \texttt{req\_maltipoo}. Otherwise, \texttt{maltipoo} should work as before, but three colons will be needed to run:
+
+    \texttt{fido:::maltipoo()}.
+    \item Building the fido site is now done automatically. This was set up by creating another workflow using
+
+    \texttt{usethis::use\_pkgdown\_github\_pages()}.
+
+    The advantage to this type of approach is that the pages will not need to be built each time (and we can probably remove the related files on GitHub). \textbf{Note: We need to check that the page is linked properly. I think that the site might have to be build from the gh-pages branch instead of from GitHub actions, but I am not sure about this!}
+\end{itemize}
+
+\subsection*{Helpful Debugging Tools}
+
+\begin{itemize}
+    \item The \texttt{rhub} package is very useful for debugging the package. It is very similar to the GitHub Actions workflow we already have set up, but it has more possible container specifications (for example, containers using specific compilers). If you get issues with a specific CRAN container, this can be a helpful place to start if you can't recreate the error. \texttt{fido} is already set up to support this. Each check is run manually. To run a manual check, simply run:
+
+    \texttt{rhub::rhub\_check()}
+
+    in the package directory. Then, you can select which platforms you want to run it on. The results will appear under the ``Actions" tab on GitHub. To see the list of available platforms, run:
+
+    \texttt{rhub::rhub\_platforms()}.
+
+\end{itemize}
+
+\end{document}
