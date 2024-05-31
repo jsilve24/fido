@@ -1,3 +1,7 @@
+# fido 1.1.1
+
+* Fixing a minor bug in the configure script
+
 # fido 1.1.0
 
 * Updating the basset model to allow for additive Gaussian processes.
