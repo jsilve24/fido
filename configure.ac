@@ -46,20 +46,19 @@ mkdir -p "${BUILDDIR}"
 owd=$(pwd)
 cd "${BUILDDIR}"
 
-# The configure script:
-cat > test-omp.cpp <<EOF
-#include <omp.h>
-extern "C" void configtest(int * arg) {
-  *arg = omp_get_num_threads();
-}
-EOF
-# Without the following you're relying on the GNU/Linux-like behaviour
-# w.r.t. undefined symbols (see WRE 1.2.1.1):
-cat > Makevars <<EOF
-PKG_CXXFLAGS = \$(SHLIB_OPENMP_CXXFLAGS)
-PKG_LIBS = \$(SHLIB_OPENMP_CXXFLAGS)
-EOF
-R CMD SHLIB test-omp.cpp
+# compile and link the shared object
+"${R_HOME}/bin/R" CMD SHLIB test-omp.cpp
+# load it and use a function from the inside
+"${R_HOME}/bin/Rscript" -e '
+ dyn.load(paste0("test-omp", .Platform$dynlib.ext))
+ .C("configtest", arg = integer(1))$arg
+'
+if test $? -eq 0; then
+ # everything seems to have succeeded
+ openmp_already_works="yes"
+fi
+# let the user know either way
+AC_MSG_RESULT([${openmp_already_works}])
 
 ## Go back home.
 cd "${owd}"
