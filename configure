@@ -3252,6 +3252,19 @@ cd "${BUILDDIR}"
 # MPN: These updates were from a (very, very useful) help question posted to r-package-devel
 # Credit goes to Ivan Krylov.
 
+cat > test-omp.cpp <<EOF
+#include <omp.h>
+extern "C" void configtest(int * arg) {
+  *arg = omp_get_num_threads();
+}
+EOF
+# Without the following you're relying on the GNU/Linux-like behaviour
+# w.r.t. undefined symbols (see WRE 1.2.1.1):
+cat > Makevars <<EOF
+PKG_CXXFLAGS = \$(SHLIB_OPENMP_CXXFLAGS)
+PKG_LIBS = \$(SHLIB_OPENMP_CXXFLAGS)
+EOF
+
 # compile and link the shared object
 "${R_HOME}/bin/R" CMD SHLIB test-omp.cpp
 # load it and use a function from the inside
