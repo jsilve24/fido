@@ -3276,8 +3276,6 @@ if test $? -eq 0; then
  # everything seems to have succeeded
  openmp_already_works="yes"
 fi
-# let the user know either way
-AC_MSG_RESULT([${openmp_already_works}])
 
 ## Go back home.
 cd "${owd}"
