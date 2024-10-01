@@ -1,5 +1,5 @@
 pandoc: 3.1.11
-pkgdown: 2.0.9
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   introduction-to-fido: introduction-to-fido.html
@@ -7,8 +7,7 @@ articles:
   non-linear-models: non-linear-models.html
   orthus: orthus.html
   picking_priors: picking_priors.html
-last_built: 2024-05-31T18:01Z
+last_built: 2024-10-01T22:11Z
 urls:
   reference: https://jsilve24.github.io/fido/reference
   article: https://jsilve24.github.io/fido/articles
-

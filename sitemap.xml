@@ -1,267 +1,91 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://jsilve24.github.io/fido/404.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/articles/introduction-to-fido.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/articles/mitigating-pcrbias.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/articles/non-linear-models.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/articles/orthus.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/articles/picking_priors.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/index.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/RISK_CCFA.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/RISK_CCFA_otu.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/RISK_CCFA_sam.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/RISK_CCFA_tax.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/Y.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/access_dims.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/alr.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/alrInv.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/alrInv_array.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/alr_array.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/as.list.orthusfit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/as.list.pibblefit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/as.orthusfit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/as.pibblefit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/basset_fit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/check_dims.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/clr_array.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/coef.orthusfit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/coef.pibblefit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/conjugateLinearModel.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/convert_orthus_covariance.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/create_default_ilr_base.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/fido_package.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/fido_transforms.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/gather_array.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/kernels.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/lambda_to_iqlr.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/lmvgamma.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/lmvgamma_deriv.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/loglikPibbleCollapsed.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/mallard.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/mallard_family.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/miniclo.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/miniclo_array.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/mongrel-deprecated.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/name.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/name.orthusfit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/name.pibblefit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/name_dims.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/optimPibbleCollapsed.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/orthus_fit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/orthus_lr_transforms.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/orthus_sim.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/orthus_tidy_samples.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/orthusfit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/pcrbias_mock.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/pibble_fit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/pibble_sim.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/pibble_tidy_samples.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/pibblefit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/plot.pibblefit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/ppc.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/ppc.pibblefit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/ppc_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/predict.bassetfit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/predict.pibblefit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/print.orthusfit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/print.pibblefit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/r2.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/random_pibble_init.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/refit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/req.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/req.orthusfit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/req.pibblefit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/sample_prior.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/sample_prior.pibblefit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/store_coord.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/summarise_posterior.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/summary.orthusfit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/summary.pibblefit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/uncollapsePibble.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/uncollapsePibble_sigmaKnown.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/verify.bassetfit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/verify.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/verify.orthusfit.html</loc>
-  </url>
-  <url>
-    <loc>https://jsilve24.github.io/fido/reference/verify.pibblefit.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://jsilve24.github.io/fido/404.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/articles/index.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/articles/introduction-to-fido.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/articles/mitigating-pcrbias.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/articles/non-linear-models.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/articles/orthus.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/articles/picking_priors.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/authors.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/index.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/news/index.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/RISK_CCFA.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/RISK_CCFA_otu.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/RISK_CCFA_sam.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/RISK_CCFA_tax.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/Y.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/access_dims.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/alr.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/alrInv.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/alrInv_array.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/alr_array.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/as.list.orthusfit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/as.list.pibblefit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/as.orthusfit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/as.pibblefit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/basset_fit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/check_dims.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/clr_array.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/coef.orthusfit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/coef.pibblefit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/conjugateLinearModel.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/convert_orthus_covariance.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/create_default_ilr_base.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/fido_package.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/fido_transforms.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/gather_array.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/index.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/kernels.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/lambda_to_iqlr.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/lmvgamma.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/lmvgamma_deriv.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/loglikPibbleCollapsed.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/mallard.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/mallard_family.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/metadata.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/miniclo.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/miniclo_array.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/mongrel-deprecated.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/name.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/name.orthusfit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/name.pibblefit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/name_dims.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/optimPibbleCollapsed.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/orthus_fit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/orthus_lr_transforms.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/orthus_sim.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/orthus_tidy_samples.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/orthusfit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/pcrbias_mock.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/pibble_fit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/pibble_sim.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/pibble_tidy_samples.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/pibblefit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/plot.pibblefit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/ppc.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/ppc.pibblefit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/ppc_summary.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/predict.bassetfit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/predict.pibblefit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/print.orthusfit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/print.pibblefit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/r2.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/random_pibble_init.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/refit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/req.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/req.orthusfit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/req.pibblefit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/sample_prior.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/sample_prior.pibblefit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/store_coord.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/summarise_posterior.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/summary.orthusfit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/summary.pibblefit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/uncollapsePibble.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/uncollapsePibble_sigmaKnown.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/verify.bassetfit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/verify.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/verify.orthusfit.html</loc></url>
+<url><loc>https://jsilve24.github.io/fido/reference/verify.pibblefit.html</loc></url>
 </urlset>
+
