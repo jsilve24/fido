@@ -8,9 +8,6 @@ using Eigen::ArrayXXd;
 using Eigen::Map;
 using Eigen::Lower;
 
-//Eta should be array with dim [D-1, N, iter]
-
-
 //' Solve Bayesian Multivariate Conjugate Linear Model
 //' 
 //' See details for model.  Notation: \code{N} is number of samples,
@@ -22,18 +19,18 @@ using Eigen::Lower;
 //' @param Theta matrix of prior mean of dimension D x Q
 //' @param Gamma covariance matrix of dimension Q x Q
 //' @param Xi covariance matrix of dimension D x D
-//' @param upsilon scalar (must be > D-1) degrees of freedom for InvWishart prior
+//' @param upsilon scalar (must be > D) degrees of freedom for InvWishart prior
 //' @param n_samples number of samples to draw (default: 2000)
 //' 
 //' @details 
-//'    \deqn{Y \sim MN_{D-1 \times N}(\Lambda \mathbf{X}, \Sigma, I_N)}{Y \sim MN_{D-1 \times N}(Lambda*X, Sigma, I_N)}
-//'    \deqn{\Lambda \sim MN_{D-1 \times Q}(\Theta, \Sigma, \Gamma)}{Lambda \sim MN_{D-1 \times Q}(Theta, Sigma, Gamma)}
+//'    \deqn{Y \sim MN_{D \times N}(\Lambda \mathbf{X}, \Sigma, I_N)}{Y \sim MN_{D \times N}(Lambda*X, Sigma, I_N)}
+//'    \deqn{\Lambda \sim MN_{D \times Q}(\Theta, \Sigma, \Gamma)}{Lambda \sim MN_{D \times Q}(Theta, Sigma, Gamma)}
 //'    \deqn{\Sigma \sim InvWish(\upsilon, \Xi)}{Sigma \sim InvWish(upsilon, Xi)}
 //' This function provides a means of sampling from the posterior distribution of 
 //' \code{Lambda} and \code{Sigma}. 
 //' @return List with components 
-//' 1. Lambda Array of dimension (D-1) x Q x n_samples (posterior samples)
-//' 2. Sigma Array of dimension (D-1) x (D-1) x n_samples (posterior samples)
+//' 1. Lambda Array of dimension D x Q x n_samples (posterior samples)
+//' 2. Sigma Array of dimension D x D x n_samples (posterior samples)
 //' @export
 //' @md
 //' @examples
