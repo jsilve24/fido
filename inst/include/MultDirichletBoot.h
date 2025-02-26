@@ -5,6 +5,7 @@
 using namespace Rcpp;
 using Eigen::Map;
 using Eigen::MatrixXd;
+
 using Eigen::ArrayXXd;
 using Eigen::ArrayXd;
 using Eigen::VectorXd;
