@@ -17,15 +17,15 @@ conjugateLinearModel(Y, X, Theta, Gamma, Xi, upsilon, n_samples = 2000L)
 
 \item{Xi}{covariance matrix of dimension D x D}
 
-\item{upsilon}{scalar (must be > D-1) degrees of freedom for InvWishart prior}
+\item{upsilon}{scalar (must be > D) degrees of freedom for InvWishart prior}
 
 \item{n_samples}{number of samples to draw (default: 2000)}
 }
 \value{
 List with components
 \enumerate{
-\item Lambda Array of dimension (D-1) x Q x n_samples (posterior samples)
-\item Sigma Array of dimension (D-1) x (D-1) x n_samples (posterior samples)
+\item Lambda Array of dimension D x Q x n_samples (posterior samples)
+\item Sigma Array of dimension D x D x n_samples (posterior samples)
 }
 }
 \description{
@@ -34,8 +34,8 @@ See details for model.  Notation: \code{N} is number of samples,
 of covariates.
 }
 \details{
-\deqn{Y \sim MN_{D-1 \times N}(\Lambda \mathbf{X}, \Sigma, I_N)}{Y \sim MN_{D-1 \times N}(Lambda*X, Sigma, I_N)}
-\deqn{\Lambda \sim MN_{D-1 \times Q}(\Theta, \Sigma, \Gamma)}{Lambda \sim MN_{D-1 \times Q}(Theta, Sigma, Gamma)}
+\deqn{Y \sim MN_{D \times N}(\Lambda \mathbf{X}, \Sigma, I_N)}{Y \sim MN_{D \times N}(Lambda*X, Sigma, I_N)}
+\deqn{\Lambda \sim MN_{D \times Q}(\Theta, \Sigma, \Gamma)}{Lambda \sim MN_{D \times Q}(Theta, Sigma, Gamma)}
 \deqn{\Sigma \sim InvWish(\upsilon, \Xi)}{Sigma \sim InvWish(upsilon, Xi)}
 This function provides a means of sampling from the posterior distribution of
 \code{Lambda} and \code{Sigma}.

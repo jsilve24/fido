@@ -20,16 +20,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Michelle Nixon \email{pistner@psu.edu} [contributor]
-
-Authors:
-\itemize{
-  \item Justin Silverman \email{Justin.Silverman@psu.edu}
-}
+\strong{Maintainer}: Justin Silverman \email{Justin.Silverman@psu.edu}
 
 Other contributors:
 \itemize{
   \item Kim Roche \email{kimberly.roche@duke.edu} [contributor]
+  \item Michelle Nixon \email{pistner@psu.edu} [contributor]
 }
 
 }

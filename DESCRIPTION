@@ -1,10 +1,10 @@
 Package: fido
 Type: Package
 Title: Bayesian Multinomial Logistic Normal Regression
-Version: 1.1.1
-Date: 2024-05-31
+Version: 1.1.2
+Date: 2025-02-26
 Authors@R: c(person("Justin", "Silverman", role=c("aut", "cre"),
-                     email = "Justin.Silverman@psu.edu"), 
+                     email = "JustinSilverman@psu.edu"), 
              person("Kim", "Roche", role=("ctb"), 
                      email = "kimberly.roche@duke.edu"),
              person("Michelle", "Nixon", role=c("ctb"), 
