@@ -11,7 +11,7 @@ of covariates."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">fido</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@ of covariates.</p>
 
 
 <dt id="arg-upsilon">upsilon<a class="anchor" aria-label="anchor" href="#arg-upsilon"></a></dt>
-<dd><p>scalar (must be &gt; D-1) degrees of freedom for InvWishart prior</p></dd>
+<dd><p>scalar (must be &gt; D) degrees of freedom for InvWishart prior</p></dd>
 
 
 <dt id="arg-n-samples">n_samples<a class="anchor" aria-label="anchor" href="#arg-n-samples"></a></dt>
@@ -90,13 +90,13 @@ of covariates.</p>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>List with components</p><ol><li><p>Lambda Array of dimension (D-1) x Q x n_samples (posterior samples)</p></li>
-<li><p>Sigma Array of dimension (D-1) x (D-1) x n_samples (posterior samples)</p></li>
+    <p>List with components</p><ol><li><p>Lambda Array of dimension D x Q x n_samples (posterior samples)</p></li>
+<li><p>Sigma Array of dimension D x D x n_samples (posterior samples)</p></li>
 </ol></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>$$Y \sim MN_{D-1 \times N}(\Lambda \mathbf{X}, \Sigma, I_N)$$
-$$\Lambda \sim MN_{D-1 \times Q}(\Theta, \Sigma, \Gamma)$$
+    <p>$$Y \sim MN_{D \times N}(\Lambda \mathbf{X}, \Sigma, I_N)$$
+$$\Lambda \sim MN_{D \times Q}(\Theta, \Sigma, \Gamma)$$
 $$\Sigma \sim InvWish(\upsilon, \Xi)$$
 This function provides a means of sampling from the posterior distribution of
 <code>Lambda</code> and <code>Sigma</code>.</p>
