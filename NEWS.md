@@ -1,3 +1,7 @@
+# fido 1.1.3
+
+* Replaced explicit integer sequences with `seq_len()` and `seq_along()` for improved robustness.
+
 # fido 1.1.1
 
 * Fixing a minor bug in the configure script

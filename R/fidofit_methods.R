@@ -860,7 +860,7 @@ ppc_summary.pibblefit <- function(m, from_scratch=FALSE, ...){
   pp <- apply(pp, 1, function(x) quantile(x, probs = c(0.025, 0.975)))
   rownames(pp) <- c("p2.5", "p97.5")
   pp <- as.data.frame(t(pp))
-  pp$dim_1 <- 1:nrow(pp)
+  pp$dim_1 <- seq_len(nrow(pp))
   
   inBounds <- (pp$p2.5 <= tr$val) & (pp$p97.5 >= tr$val)
   inBounds <- sum(inBounds)/length(inBounds)

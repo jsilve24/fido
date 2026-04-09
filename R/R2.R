@@ -97,9 +97,9 @@ r2.bassetfit <- function(m, covariates = NULL, components = NULL, ...) {
     if(!is.null(components)){
       components <- unique(components)
       stopifnot("components must be integer valued" = all(round(components) == components))
-      stopifnot("some passed components outside of range 1:length(m$Lambda)" = max(components) <= length(m$Lambda) & min(components) >= 1)
+      stopifnot("some passed components outside of range seq_along(m$Lambda)" = max(components) <= length(m$Lambda) & min(components) >= 1)
       ## END DEFENSE
-      # components.exclude <- setdiff(1:length(m$Lambda), components)
+      # components.exclude <- setdiff(seq_along(m$Lambda), components)
       # for(i in components.exclude){
       #   m.used$Lambda[[i]] <- array(0, dim(m$Lambda[[i]]))
       # }

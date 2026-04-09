@@ -21,3 +21,5 @@ inst/doc
 /maintainer.pdf
 /maintainer.synctex.gz
 /.auctex-auto/
+*.pdf
+/.agent-shell/

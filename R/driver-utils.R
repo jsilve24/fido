@@ -280,11 +280,11 @@ gather_array <- function(a, value, ..., .id=NULL){
     dimnames <- purrr::map(qs, rlang::quo_name) %>%
       purrr::as_vector()
   } else {
-    dimnames <- paste0("dim_", 1:length(d))
+    dimnames <- paste0("dim_", seq_along(d))
   }
   
   l <- list()
-  for (i in 1:length(d)){
+  for (i in seq_along(d)){
     l[[i]] <- 1:d[i]
   }
   names(l) <- dimnames
@@ -362,7 +362,7 @@ array_apply_1D_function <- function(a, dimno, f, dimname=NULL){
     select(-contains("dim")) %>%
     as.matrix() %>%
     f %>%
-    `colnames<-`(., 1:ncol(.)) %>%
+    `colnames<-`(., seq_len(ncol(.))) %>%
     as.data.frame() %>%
     bind_cols(indicies, .) %>%
     gather(!!sdim, var, -contains("dim")) %>%
@@ -375,7 +375,7 @@ array_apply_1D_function <- function(a, dimno, f, dimname=NULL){
       dn[dimno] <- list(NULL)
     } else {
       dn <- list()
-      for (i in 1:length(d)) dn[[i]] <- NULL
+      for (i in seq_along(d)) dn[[i]] <- NULL
     }
     if (!is.null(dimname)){
       dn[[dimno]] <- dimname
@@ -414,11 +414,11 @@ spread_array <- function(data, value, ...){
       purrr::map(~.x[2]) %>%
       purrr::map(as.integer) %>%
       as_vector()
-    if (!setequal(consecutive1, 1:length(consecutive1))) {
+    if (!setequal(consecutive1, seq_along(consecutive1))) {
       stop("default dimnetion names must have consecutive integer suffixes")
     }
     ##
-    cn <- cn[match(consecutive1, 1:length(consecutive1))]
+    cn <- cn[match(consecutive1, seq_along(consecutive1))]
     qs <- rlang::syms(cn)
   }
   if (missing(value)) evalue <- rlang::sym("var")

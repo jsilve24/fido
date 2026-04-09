@@ -74,7 +74,7 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
   
   if(is.null(linear)){
     message("No rows of X were specified. Using all rows...")
-    linear <- 1:nrow(X)
+    linear <- seq_len(nrow(X))
   } else{
     ## Check that linear doesn't contain values less than 1 or greater than nrow(X)
     if(min(linear) < 1 | max(linear) > nrow(X)){
@@ -125,7 +125,7 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
     }
     Theta_trans <- list()
     Gamma_trans <- list()
-    for(i in 1:length(Theta)){
+    for(i in seq_along(Theta)){
       Theta_trans[[i]] <- theta_eval(Theta[[i]], X, linear)
       Gamma_trans[[i]] <- gamma_eval(Gamma[[i]], X, linear)
     }

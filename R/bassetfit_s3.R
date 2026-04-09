@@ -121,7 +121,7 @@ predict.bassetfit <- function(object, newdata=NULL, response="Lambda", size=NULL
     Lambda_u <- array(0, dim=c(object$D-1, nnew, object$iter))
     Lambda_tmp <- list()
     
-    for (k in 1:length(object$Theta)){
+    for (k in seq_along(object$Theta)){
       Lambda_tmp[[k]] <- array(0, dim=c(object$D-1, nnew, object$iter))
 
       if(!is.function(object$Theta[[k]])){

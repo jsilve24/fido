@@ -172,7 +172,7 @@ ppc.pibblefit <- function(m, ...){
     pp <- apply(pp, 1, function(x) stats::quantile(x, probs = c(0.025, 0.5, 0.975)))
     rownames(pp) <- c("p2.5", "p50", "p97.5")
     pp <- as.data.frame(t(pp))
-    pp$dim_1 <- 1:nrow(pp)
+    pp$dim_1 <- seq_len(nrow(pp))
     p <- ggplot(pp, aes(x=.data$dim_1, y=.data$p50)) 
     if (type == "bounds") {
       p <- p + geom_linerange(aes(ymin=.data$p2.5, ymax=.data$p97.5), color="black", alpha=0.4)

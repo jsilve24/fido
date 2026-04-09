@@ -53,7 +53,7 @@ to_proportions.pibblefit <- function(m){
     if (!is.null(m$Eta)) m$Eta <- alrInv_array(m$Eta, m$alr_base, 1)
     if(!is.null(m$Lambda)){
       if(is.list(m$Lambda)){
-        for(i in 1:length(m$Lambda)) m$Lambda[[i]] <-  alrInv_array(m$Lambda[[i]], m$alr_base, 1)
+        for(i in seq_along(m$Lambda)) m$Lambda[[i]] <-  alrInv_array(m$Lambda[[i]], m$alr_base, 1)
       }
       else {
         m$Lambda <-  alrInv_array(m$Lambda, m$alr_base, 1)
@@ -85,7 +85,7 @@ to_proportions.pibblefit <- function(m){
     if (!is.null(m$Eta)) m$Eta <- ilrInv_array(m$Eta, m$ilr_base, 1)
     if(!is.null(m$Lambda)){
       if(is.list(m$Lambda)){
-        for(i in 1:length(m$Lambda)) m$Lambda[[i]] <-  ilrInv_array(m$Lambda[[i]], m$ilr_base, 1)
+        for(i in seq_along(m$Lambda)) m$Lambda[[i]] <-  ilrInv_array(m$Lambda[[i]], m$ilr_base, 1)
       }
       else {
         m$Lambda <-  ilrInv_array(m$Lambda, m$ilr_base, 1)
@@ -114,7 +114,7 @@ to_proportions.pibblefit <- function(m){
     if (!is.null(m$Eta)) m$Eta <- clrInv_array(m$Eta, 1)
     if(!is.null(m$Lambda)){
       if(is.list(m$Lambda)){
-        for(i in 1:length(m$Lambda)) m$Lambda[[i]] <- clrInv_array(m$Lambda[[i]], 1)
+        for(i in seq_along(m$Lambda)) m$Lambda[[i]] <- clrInv_array(m$Lambda[[i]], 1)
       }
       else {
         m$Lambda <- clrInv_array(m$Lambda, 1)
@@ -223,7 +223,7 @@ to_alr.pibblefit <- function(m, d){
   
   if(!is.null(m$Lambda)){
     if(is.list(m$Lambda)){
-      for(i in 1:length(m$Lambda)) m$Lambda[[i]] <- alr_array(m$Lambda[[i]], d, 1)
+      for(i in seq_along(m$Lambda)) m$Lambda[[i]] <- alr_array(m$Lambda[[i]], d, 1)
     }
     else {
       m$Lambda <- alr_array(m$Lambda, d, 1)
@@ -292,7 +292,7 @@ to_ilr.pibblefit <- function(m, V=NULL){
   if (!is.null(m$Eta)) m$Eta <- ilr_array(m$Eta, V, 1)
   if(!is.null(m$Lambda)){
     if(is.list(m$Lambda)){
-      for(i in 1:length(m$Lambda)) m$Lambda[[i]] <-  ilr_array(m$Lambda[[i]], V, 1)
+      for(i in seq_along(m$Lambda)) m$Lambda[[i]] <-  ilr_array(m$Lambda[[i]], V, 1)
     }
     else {
       m$Lambda <-  ilr_array(m$Lambda, V, 1)
@@ -315,7 +315,7 @@ to_ilr.pibblefit <- function(m, V=NULL){
   }
   if (!is.null(m$init)) m$init <- ilr_array(m$init, V, 1)
   
-  colnames(V) <- paste0("ilr_", rep(1:ncol(V)))
+  colnames(V) <- paste0("ilr_", rep(seq_len(ncol(V))))
     
   m$summary <- NULL
   m$coord_system <- "ilr"
@@ -346,7 +346,7 @@ to_ilr.orthusfit <- function(m, V=NULL){
   if (!is.null(m$Theta)) m$Theta <- oilr(m$Theta, m$D, V)  
   if (!is.null(m$init)) m$init <- ilr_array(m$init, V, 1)
   
-  colnames(V) <- paste0("ilr_", rep(1:ncol(V)))
+  colnames(V) <- paste0("ilr_", rep(seq_len(ncol(V))))
   
   m$summary <- NULL
   m$coord_system <- "ilr"
@@ -363,7 +363,7 @@ to_clr.pibblefit <- function(m){
   if (!is.null(m$Eta)) m$Eta <- clr_array(m$Eta, 1)
   if(!is.null(m$Lambda)){
     if(is.list(m$Lambda)){
-      for(i in 1:length(m$Lambda)) m$Lambda[[i]] <- clr_array(m$Lambda[[i]], 1)
+      for(i in seq_along(m$Lambda)) m$Lambda[[i]] <- clr_array(m$Lambda[[i]], 1)
       }
     else {
       m$Lambda <- clr_array(m$Lambda, 1)

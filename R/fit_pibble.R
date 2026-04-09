@@ -283,7 +283,7 @@ refit.pibblefit <- function(m, pars=c("Eta", "Lambda", "Sigma"), ...){
   argl <- list(...)
   argl$pars <- pars
   ml <- as.list(m)
-  for (i in 1:length(argl)){
+  for (i in seq_along(argl)){
     ml[[names(argl)[i]]] <- argl[[i]]
   }
   #argl <- c(ml, argl)
