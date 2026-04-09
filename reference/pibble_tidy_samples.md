@@ -37,10 +37,10 @@ fit <- pibble(sim$Y, sim$X)
 fit_tidy <- pibble_tidy_samples(fit, use_names=TRUE)
 head(fit_tidy)
 #>   Parameter       coord sample iter        val covariate coord2
-#> 1       Eta log(c1/c10)     s1    1  4.0010376      <NA>   <NA>
-#> 2       Eta log(c2/c10)     s1    1  4.4812471      <NA>   <NA>
-#> 3       Eta log(c3/c10)     s1    1 -4.5202200      <NA>   <NA>
-#> 4       Eta log(c4/c10)     s1    1  5.5775444      <NA>   <NA>
-#> 5       Eta log(c5/c10)     s1    1 -0.2492499      <NA>   <NA>
-#> 6       Eta log(c6/c10)     s1    1  1.1798842      <NA>   <NA>
+#> 1       Eta log(c1/c10)     s1    1  4.0017697      <NA>   <NA>
+#> 2       Eta log(c2/c10)     s1    1  4.4819772      <NA>   <NA>
+#> 3       Eta log(c3/c10)     s1    1 -4.5087071      <NA>   <NA>
+#> 4       Eta log(c4/c10)     s1    1  5.5782748      <NA>   <NA>
+#> 5       Eta log(c5/c10)     s1    1 -0.2482112      <NA>   <NA>
+#> 6       Eta log(c6/c10)     s1    1  1.1804562      <NA>   <NA>
 ```
