@@ -11,3 +11,4 @@
 ^\.github$
 ^.*\.orig$
 ^.*\.tex$
+^.agent-shell$
