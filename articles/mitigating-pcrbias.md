@@ -43,6 +43,7 @@ samples can be modeled). This is the mock community data we analyzed in
 the manuscript.
 
 ``` r
+
 library(fido)
 library(dplyr)
 library(tidyr)
@@ -59,6 +60,7 @@ count table that I already preprocessed just as in our manuscript) and
 of PCR cycles each sample has undergone).
 
 ``` r
+
 Y[1:5,1:5]
 #>               cycle13.1 cycle13.2 cycle13.3 cycle14.1 cycle14.2
 #> B.longum             27        28        22        37        44
@@ -88,6 +90,7 @@ eventually), you just need to use the formula interface provided by
 base-R’s `model.matrix` function.
 
 ``` r
+
 X <- t(model.matrix(~ cycle_num + sample_num + machine  -1, data = metadata))
 X[,1:5]
 #>                        1  2  3  4  5
@@ -126,6 +129,7 @@ likelihood. At the end of this vignette I will show an example of how
 this can be done.
 
 ``` r
+
 fit <- pibble(Y = Y, X=X, Gamma = 10*diag(nrow(X)))
 ```
 
@@ -133,6 +137,7 @@ Next we are going to transform the results into CLR coordinates and
 interpret them in that space.
 
 ``` r
+
 fit <- to_clr(fit)
 ```
 
@@ -143,6 +148,7 @@ corresponding `sample_num` variable. We can plot the results simply
 enough:
 
 ``` r
+
 # pull out indices for random intercepts corresponding to `sample_num`
 focus.covariate <- rownames(X)[which(grepl("sample_num", rownames(X)))]
 
@@ -163,6 +169,7 @@ plot(fit, par="Lambda", focus.cov=focus.covariate, focus.coord=focus.coord) +
 The compositional bias introduced at each cycle can also be visualized.
 
 ``` r
+
 # Also to make the plot fit nicely, I just flip the orientation of the plot 
 plot(fit, par="Lambda", focus.cov="cycle_num")
 #> Scale for 'colour' is already present. Adding another scale for 'colour', which will
@@ -180,6 +187,7 @@ One plot I find particularly useful, is visualizing the calibration data
 and the fitted bias model. This can be done as follows:
 
 ``` r
+
 
 # First transform the data into CLR coordinates (requires pseudo-count to deal with
 # zeros). Then will convert to tidy format for ggplot 
@@ -271,6 +279,7 @@ seemed more reasonable. The model basically just says: “don’t choose a
 value less than 10”.
 
 ``` r
+
 sigma <- c(1, 2, 3, 10, 100, 1000) # candidate values
 
 lml <- rep(NA, length(sigma)) # log marginal likelihood

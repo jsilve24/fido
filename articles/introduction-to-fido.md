@@ -2,12 +2,12 @@
 
 ## An introduction to *fido*
 
-*fido* (Justin D. Silverman et al. 2019) is a loose acronym for
-**“(Bayesian) Multinomial Logistic-Normal Models”**. In particular the
-development of *fido* stems from the need for fast inference for
-time-invariant MALLARD models(Justin D. Silverman et al. 2018). *fido*
-is very fast! It uses closed form solutions for model gradients and
-Hessians written in C++ to preform [MAP
+*fido* (Silverman et al. 2019) is a loose acronym for **“(Bayesian)
+Multinomial Logistic-Normal Models”**. In particular the development of
+*fido* stems from the need for fast inference for time-invariant MALLARD
+models(Silverman et al. 2018). *fido* is very fast! It uses closed form
+solutions for model gradients and Hessians written in C++ to preform
+[MAP
 estimation](https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation)
 in combination with parameter uncertainty estimation using a [Laplace
 Approximation](https://www.sumsar.net/blog/2013/11/easy-laplace-approximation/).
@@ -16,7 +16,7 @@ Multinomial Logistic-Normal **Linear Regression** model.
 
 **So what is a *fido* model exactly?** First let me give the broad
 description from 10,000ft up: Basically its a model for multinomial
-count data (e.g., each sample contains the counts of $D$ “types of
+count data (e.g., each sample contains the counts of $`D`$ “types of
 things”). Importantly, unlike the more common Poisson count models, the
 multinomial models a “competition to be counted” (i.e., cases in which
 counting more of one type of thing means that I have less resources
@@ -50,67 +50,69 @@ competition to be counted.
 *Pibble* is one type of *fido* model. In particular its a *fido* model
 for multivariate linear regression.
 
-Let $Y$ denote an $D \times N$ matrix of counts. Let us denote the
-$j$-th column of $Y$ as $Y_{j}$. Thus each “sample” in the dataset is a
-measurement of the relative amount of $D$ “types of things”. Suppose we
-also have have covariate information in the form of a $Q \times N$
-matrix $X$.
+Let $`Y`$ denote an $`D\times N`$ matrix of counts. Let us denote the
+$`j`$-th column of $`Y`$ as $`Y_j`$. Thus each “sample” in the dataset
+is a measurement of the relative amount of $`D`$ “types of things”.
+Suppose we also have have covariate information in the form of a
+$`Q\times N`$ matrix $`X`$.
 
 The following is the pibble model including likelihood and priors:
-$$\begin{aligned}
-Y_{j} & {\sim \text{Multinomial}\left( \pi_{j} \right)} \\
-\pi_{j} & {= \phi^{- 1}\left( \eta_{j} \right)} \\
-\eta_{j} & {\sim N\left( \Lambda X_{j},\Sigma \right)} \\
-\Lambda & {\sim MN_{{(D - 1)} \times Q}(\Theta,\Sigma,\Gamma)} \\
-\Sigma & {\sim W^{- 1}(\Xi,\upsilon)}
-\end{aligned}$$ Here $MN_{{(D - 1)} \times Q}$ denotes a [Matrix Normal
+``` math
+\begin{align}
+Y_j & \sim \text{Multinomial}\left(\pi_j \right)  \\
+\pi_j & = \phi^{-1}(\eta_j) \\
+\eta_j &\sim N(\Lambda X_j, \Sigma) \\
+\Lambda &\sim  MN_{(D-1) \times Q}(\Theta, \Sigma, \Gamma) \\
+\Sigma &\sim W^{-1}(\Xi, \upsilon) 
+\end{align}
+```
+Here $`MN_{(D-1) \times Q}`$ denotes a [Matrix Normal
 distribution](https://en.wikipedia.org/wiki/Matrix_normal_distribution)
-for a matrix $\Lambda$ of regression coefficients of dimension
-$(D - 1) \times Q$. Essentially you can think of the Matrix normal as
+for a matrix $`\Lambda`$ of regression coefficients of dimension
+$`(D-1)\times Q`$. Essentially you can think of the Matrix normal as
 having two covariance matrices one describing the covariation between
-the rows of $\Lambda$ ($\Sigma$) and another describing the covariation
-of the columns of $\Lambda$ ($\Gamma$). and $W^{- 1}$ refers to the
-[Inverse Wishart
+the rows of $`\Lambda`$ ($`\Sigma`$) and another describing the
+covariation of the columns of $`\Lambda`$ ($`\Gamma`$). and $`W^{-1}`$
+refers to the [Inverse Wishart
 distribution](https://en.wikipedia.org/wiki/Inverse-Wishart_distribution)
 (which is a common distribution over covariance matrices). The line
-$\pi_{j} = \phi^{- 1}\left( \eta_{j} \right)$ represents a
-transformation between the parameters $\pi_{j}$ which exist on a simplex
-(e.g., $\pi_{j}$ must sum to 1) and the transformed parameters
-$\eta_{j}$ that exist in real space. In particular we define
-$\phi^{- 1}$ to be the [inverse additive log ratio
+$`\pi_j = \phi^{-1}(\eta_j)`$ represents a transformation between the
+parameters $`\pi_j`$ which exist on a simplex (e.g., $`\pi_j`$ must sum
+to 1) and the transformed parameters $`\eta_j`$ that exist in real
+space. In particular we define $`\phi^{-1}`$ to be the [inverse additive
+log ratio
 transform](http://www.sediment.uni-goettingen.de/staff/tolosana/extra/CoDaNutshell.pdf)
-(which conversely implies that $\eta_{j} = ALR\left( \pi_{j} \right)$)
-also known as the identified softmax transform (as it is more commonly
-known in the Machine Learning community). While I will say more on this
-later in this tutorial, one thing to know is that I have the model
-implemented using the ALR transform as it is computationally simple and
-fast; the results of the model can be viewed as if any number of
-transforms had been used (instead of the ALR) including the isometric
-log-ratio transform, or the centered log-ratio transform.
+(which conversely implies that $`\eta_j = ALR(\pi_j)`$) also known as
+the identified softmax transform (as it is more commonly known in the
+Machine Learning community). While I will say more on this later in this
+tutorial, one thing to know is that I have the model implemented using
+the ALR transform as it is computationally simple and fast; the results
+of the model can be viewed as if any number of transforms had been used
+(instead of the ALR) including the isometric log-ratio transform, or the
+centered log-ratio transform.
 
 Before moving on, I would like to give **a more intuitive description of
 *pibble***. Essentially the main modeling component of *pibble* is the
-third equation above
-($\eta_{j} \sim N\left( \Lambda X_{j},\Sigma \right)$) which is just a
-multivariate linear model. That is, $X$ are your covariates (which can
-be continuous, discrete, binary, etc…), and $\Sigma$ is the covariance
-matrix for the regression residuals.
+third equation above ($`\eta_j \sim N(\Lambda X_j, \Sigma)`$) which is
+just a multivariate linear model. That is, $`X`$ are your covariates
+(which can be continuous, discrete, binary, etc…), and $`\Sigma`$ is the
+covariance matrix for the regression residuals.
 
 ## Example analysis of microbiome data
 
 This analysis is the same as that presented in the *fido* manuscript
-(Justin D. Silverman et al. 2019). I will reanalyze a previously
-published study comparing microbial composition in the terminal ileum of
-subjects with Crohn’s Disease (CD) to healthy controls (Gevers et al.
-2014). To do this I will fit a pibble model using CD status,
-inflammation status and age as covariates (plus a constant intercept
-term).
+(Silverman et al. 2019). I will reanalyze a previously published study
+comparing microbial composition in the terminal ileum of subjects with
+Crohn’s Disease (CD) to healthy controls (Gevers et al. 2014). To do
+this I will fit a pibble model using CD status, inflammation status and
+age as covariates (plus a constant intercept term).
 
 For convienece, we have added a copy of the data set to *fido*. The data
 was obtained from the *MicrobeDS* repository on
 [GitHub](https://github.com/twbattaglia/MicrobeDS).
 
 ``` r
+
 library(phyloseq)
 library(dplyr)
 library(fido)
@@ -138,6 +140,7 @@ dat <- CCFA_phylo %>%
 Create Design Matrix and OTU Table
 
 ``` r
+
 sample_dat <- as.data.frame(as(sample_data(dat),"matrix")) %>% 
   mutate(age = as.numeric(as.character(age)),
          diagnosis = relevel(factor(diagnosis, ordered = FALSE), ref="no"), 
@@ -169,37 +172,42 @@ Y[1:5,1:5]
 ```
 
 Next specify priors. We are going to start by specifying a prior on the
-covariance between log-ratios $\Sigma$. I like to do this by thinking
+covariance between log-ratios $`\Sigma`$. I like to do this by thinking
 about a prior on the covariance between taxa on the log-scale (i.e.,
 between the log of their absolute abundances not the log-ratios). I will
-refer to this covariance on log-absolute abundances $\Omega$. For
-example, here I will build a prior that states that the mean of $\Omega$
-is the identity matrix $I_{D}$. From From Aitchison (1986), we know that
-if we assume that the taxa have a covariance $\Omega$ in terms of
-log-absolute abundance then their correlation in the $\text{ALR}_{D}$ is
-given by $$\Sigma = G\Omega G^{T}$$ where $G$ is a $D - 1 \times D$
-matrix given by $G = \left\lbrack I_{D - 1}; - 1_{D - 1} \right\rbrack$
-(i.e., $G$ is the $\text{ALR}_{D}$ contrast matrix). Additionally, we
-know that the Inverse Wishart mode is given by
-$\frac{\Xi}{\upsilon + D}$. Finally, note that $\upsilon$ essentially
-controls our uncertainty in $\Sigma$ about this prior mean. Here I will
-take $\upsilon = D + 3$. This then gives us
-$\Xi = (\upsilon - D)GIG^{T}$. We scale $\Xi$ by a factor of 1/2 to make
-$Tr(\Xi) = D - 1$.
+refer to this covariance on log-absolute abundances $`\Omega`$. For
+example, here I will build a prior that states that the mean of
+$`\Omega`$ is the identity matrix $`I_D`$. From From Aitchison (1986),
+we know that if we assume that the taxa have a covariance $`\Omega`$ in
+terms of log-absolute abundance then their correlation in the
+$`\text{ALR}_D`$ is given by
+``` math
+ \Sigma = G \Omega G^T 
+```
+where $`G`$ is a $`D-1 \times D`$ matrix given by
+$`G = [I_{D-1}; -1_{D-1}]`$ (i.e., $`G`$ is the $`\text{ALR}_D`$
+contrast matrix). Additionally, we know that the Inverse Wishart mode is
+given by $`\frac{\Xi}{\upsilon + D}`$. Finally, note that $`\upsilon`$
+essentially controls our uncertainty in $`\Sigma`$ about this prior
+mean. Here I will take $`\upsilon = D+3`$. This then gives us
+$`\Xi = (\upsilon - D) GIG^T`$. We scale $`\Xi`$ by a factor of 1/2 to
+make $`Tr(\Xi)=D-1`$.
 
 ``` r
+
 upsilon <- ntaxa(dat)+3 
 Omega <- diag(ntaxa(dat))
 G <- cbind(diag(ntaxa(dat)-1), -1)
 Xi <- (upsilon-ntaxa(dat))*G%*%Omega%*%t(G)
 ```
 
-Finally I specify my priors for $\Theta$ (mean of $\Lambda$) and
-$\Gamma$ (covariance between columns of $\Lambda$; i.e., covariance
-between the covariates). I will center my prior for $\Lambda$ about
+Finally I specify my priors for $`\Theta`$ (mean of $`\Lambda`$) and
+$`\Gamma`$ (covariance between columns of $`\Lambda`$; i.e., covariance
+between the covariates). I will center my prior for $`\Lambda`$ about
 zero, and assume that the covariates are independent.
 
 ``` r
+
 Theta <- matrix(0, ntaxa(dat)-1, nrow(X))
 Gamma <- diag(nrow(X))
 ```
@@ -211,6 +219,7 @@ prior predictive distribution if `Y` is left as `NULL` (e.g., without
 data your posterior is just your prior).
 
 ``` r
+
 priors <- pibble(NULL, X, upsilon, Theta, Gamma, Xi)  
 print(priors)
 #>  pibblefit Object (Priors Only): 
@@ -232,9 +241,11 @@ you will get a nice summary of what is in the object.
 outputs in the “default” coordinate system; this is simply the ALR
 coordinate system where the last category (49 above) is taken as
 reference (this will be generalized in future versions). More
-specifically for a vector $x$ representing the proportions of categories
-$\{ 1,\ldots,D\}$ we can write
-$$x^{*} = \left( \log\frac{x_{1}}{x_{D}},\ldots,\log\frac{x_{D - 1}}{x_{D}} \right).$$
+specifically for a vector $`x`$ representing the proportions of
+categories $`\{1, \dots, D\}`$ we can write
+``` math
+x^* = \left( \log \frac{x_1}{x_D}, \dots, \log \frac{x_{D-1}}{x_D}\right).
+```
 As mentioned above however, I have designed *fido* to work with many
 different coordinate systems including the ALR (with respect to any
 category), CLR, ILR, or proportions. To help transform things between
@@ -247,9 +258,10 @@ that covariance matrices cannot be represented in proportions and so
 visualizations or summaries based on covariance matrices will be
 suppressed when `pibblefit` objects are in the proportions coordinate
 system. As an example, lets look at viewing a summary of the prior for
-$\Lambda$ with respect to the CLR coordinate system[¹](#fn1).
+$`\Lambda`$ with respect to the CLR coordinate system[^1].
 
 ``` r
+
 priors <- to_clr(priors)  
 summary(priors, pars="Lambda", gather_prob=TRUE, as_factor=TRUE, use_names=TRUE)  
 #> $Lambda
@@ -281,6 +293,7 @@ functions for `pibblefit` objects to provide some more specific names
 for the covariates (helpful when we then plot).
 
 ``` r
+
 names_covariates(priors) <- rownames(X)
 p <- plot(priors, par="Lambda") 
 #> Scale for colour is already present.
@@ -295,16 +308,17 @@ the model with data. `fido` provides a helper method called `refit` that
 we will use to avoid passing prior parameters again.
 
 ``` r
+
 priors$Y <- Y # remember pibblefit objects are just lists
 posterior <- refit(priors, optim_method="lbfgs")
 ```
 
 Unlike the main *pibble* function, the `refit` method can be called on
 objects in any coordinate system and all transformations to and from the
-default coordinate system are handled internally[²](#fn2). This is one
-nice thing about using the `refit` method. That said, new objects added
-to the `pibblefit` object need to be added in the proper coordinates For
-example, if we wanted to replace our prior for $\Xi$ for an object in
+default coordinate system are handled internally[^2]. This is one nice
+thing about using the `refit` method. That said, new objects added to
+the `pibblefit` object need to be added in the proper coordinates For
+example, if we wanted to replace our prior for $`\Xi`$ for an object in
 CLR coordinates, we would had to transform our prior for `Xi` to CLR
 coordinates before adding it to the `priors` object.
 
@@ -312,6 +326,7 @@ Now I are also going to add in the taxa names to make it easier to
 interpret the results.
 
 ``` r
+
 tax <- tax_table(dat)[,c("Class", "Family")]
 tax <- apply(tax, 1, paste, collapse="_")
 names_categories(posterior) <- tax
@@ -319,9 +334,10 @@ names_categories(posterior) <- tax
 
 Before doing anything else lets look at the posterior predictive
 distribution to assess model fit. This can be accessed through the
-method `ppc`[³](#fn3).
+method `ppc`[^3].
 
 ``` r
+
 ppc(posterior) + ggplot2::coord_cartesian(ylim=c(0, 30000))
 ```
 
@@ -335,6 +351,7 @@ and black and the observed counts in green. *fido* also has a simpler
 function that summarizes the posterior predictive check.
 
 ``` r
+
 ppc_summary(posterior)
 #> Proportions of Observations within 95% Credible Interval: 0.9897143
 ```
@@ -345,21 +362,23 @@ fall outside of the 95% posterior predictive density (this is good).
 
 Some readers will look at the above `ppc` plots and think “looks like
 over-fitting”. However, note that there are two ways of using `ppc`. One
-is to predict the counts based on the samples of $\eta$ (Eta; as we did
-above); the other is to predict “from scratch” that is to predict
-starting form the posterior samples of $\Lambda$ (Lambda) then sampling
-$\eta$ and only then sampling $Y$. This later functionality can be
-accessed by also passing the parameters `from_scratch=TRUE` to the `ppc`
-function. Note: these two posterior predictive checks have different
-meanings, one is not better than the other.
+is to predict the counts based on the samples of $`\eta`$ (Eta; as we
+did above); the other is to predict “from scratch” that is to predict
+starting form the posterior samples of $`\Lambda`$ (Lambda) then
+sampling $`\eta`$ and only then sampling $`Y`$. This later functionality
+can be accessed by also passing the parameters `from_scratch=TRUE` to
+the `ppc` function. Note: these two posterior predictive checks have
+different meanings, one is not better than the other.
 
 ``` r
+
 ppc(posterior, from_scratch=TRUE) +ggplot2::coord_cartesian(ylim=c(0, 30000))
 ```
 
 ![](pibble-ppc-sum.png)
 
 ``` r
+
 ppc_summary(posterior, from_scratch=TRUE)
 #> Proportions of Observations within 95% Credible Interval: 0.9725714
 ```
@@ -372,6 +391,7 @@ to ignore the intercept term and just look at parameters associated with
 age and disease status.
 
 ``` r
+
 posterior_summary <- summary(posterior, pars="Lambda")$Lambda
 focus <- posterior_summary[sign(posterior_summary$p2.5) == sign(posterior_summary$p97.5),]
 focus <- unique(focus$coord)
@@ -388,6 +408,7 @@ incredibly weak. So we are going to remove age from the plot and just
 look at those coordinates with non-zero effect for diagnosis CD
 
 ``` r
+
 posterior_summary <- filter(posterior_summary, covariate=="diagnosisCD") 
 focus <- posterior_summary[sign(posterior_summary$p2.5) == sign(posterior_summary$p97.5),]
 focus <- unique(focus$coord)
@@ -441,77 +462,79 @@ fully conjugate sampling schemes that do not require optimization or
 MCMC (only matrix operations).
 
 **Here are the details:** The collapsed model is given by
-$$\begin{aligned}
-Y_{j} & {\sim \text{Multinomial}\left( \pi_{j},n_{j} \right)} \\
-\pi_{j} & {= \phi^{- 1}\left( \eta_{j} \right)} \\
-\eta_{j} & {\sim T_{{(D - 1)} \times N}\left( \upsilon,\Theta X,\Xi,I_{N} + X^{T}\Gamma X \right)}
-\end{aligned}$$ where $A = \left( I_{N} + X^{T}\Gamma,X \right)^{- 1}$
-and $T_{{(D - 1)} \times N}$ refers to the Matrix T-distribution the
-$(D - 1) \times N$ matrix $\eta$ with log density given by
-$$\log T_{{(D - 1)} \times N}(\eta\left| \upsilon,\Theta X,\Xi,A) \propto - \frac{\upsilon + N - D - 2}{2}\log \right|I_{D - 1} + \Xi^{- 1}(\eta - \Theta X)A(\eta - \Theta X)^{T}|.$$
-Rather than using MCMC to sample $\eta$ fido uses MAP estimation (using
-a custom C++ Eigen based implementation of the ADAM optimizer and closed
-form solutions for gradient and hessian of the collapsed
-model)[⁴](#fn4). Additionally, *fido* allows quantification of
-uncertainty in MAP estimates using a Laplace approximation. We found
-that in practice this MAP based Laplace approximation produced
-comparable results to a full MCMC sampler but with tremendous
-improvements in compute time.
+``` math
+\begin{align}
+Y_j & \sim \text{Multinomial}\left(\pi_j, n_j\right)  \\
+\pi_j & = \phi^{-1}(\eta_j) \\
+\eta_j &\sim T_{(D-1)\times N}(\upsilon, \Theta X, \Xi, I_N + X^T \Gamma X)
+\end{align}
+```
+where $`A=(I_N + X^T \Gamma, X)^{-1}`$ and $`T_{(D-1)\times N}`$ refers
+to the Matrix T-distribution the $`(D-1)\times N`$ matrix $`\eta`$ with
+log density given by
+``` math
+\log T_{(D-1)\times N}(\eta | \upsilon, \Theta X, \Xi, A) \propto -\frac{\upsilon+N-D-2}{2}\log | I_{D-1}+\Xi^{-1}(\eta-\Theta X)A(\eta-\Theta X)^T |.
+```
+Rather than using MCMC to sample $`\eta`$ fido uses MAP estimation
+(using a custom C++ Eigen based implementation of the ADAM optimizer and
+closed form solutions for gradient and hessian of the collapsed
+model)[^4]. Additionally, *fido* allows quantification of uncertainty in
+MAP estimates using a Laplace approximation. We found that in practice
+this MAP based Laplace approximation produced comparable results to a
+full MCMC sampler but with tremendous improvements in compute time.
 
-Once samples of $\eta$ are produced using the Laplace approximation
-closed form solutions for the conditional density of $\Lambda$ and
-$\Sigma$ given $\eta$ are used to “uncollapse” the collapsed model and
-produce posterior samples from the target model. This uncollapsing is
-fast and given by the following matrix equations:
+Once samples of $`\eta`$ are produced using the Laplace approximation
+closed form solutions for the conditional density of $`\Lambda`$ and
+$`\Sigma`$ given $`\eta`$ are used to “uncollapse” the collapsed model
+and produce posterior samples from the target model. This uncollapsing
+is fast and given by the following matrix equations:
 
-$$\begin{aligned}
-\upsilon_{N} & {= \upsilon + N} \\
-\Gamma_{N} & {= \left( XX^{T} + \Gamma^{- 1} \right)^{- 1}} \\
-\Theta_{N} & {= \left( \eta X^{T} + \Theta\Gamma^{- 1} \right)\Gamma_{N}} \\
-\Xi_{N} & {= \Xi + \left( \eta - \Theta_{N}X \right)\left( \eta - \Theta_{N}X \right)^{T} + \left( \Theta_{N} - \Theta \right)\Gamma\left( \Theta_{N} - \Theta \right)^{T}} \\
-{p\left( \Sigma|\eta,X \right)} & {= W^{- 1}\left( \Xi_{N},\upsilon_{N} \right)} \\
-{p\left( \Lambda|\Sigma,\eta,X \right)} & {= MN_{{(D - 1)} \times Q}\left( \Lambda_{N},\Sigma,\Gamma_{N} \right).}
-\end{aligned}$$ If Laplace approximation is too slow, unstable (see
-below) or simply not needed, the default behavior of *pibble* is to
-preform the above matrix calculations and produce a single point
-estimate of $\Sigma$ and $\Lambda$ based on the posterior means of
-$p\left( \Sigma|\eta,X \right)$ and
-$\left( \Lambda|\Sigma,\eta,X \right)$.
+``` math
+\begin{align}
+\upsilon_N &= \upsilon+N \\
+\Gamma_N &= (XX^T+\Gamma^{-1})^{-1} \\
+\Theta_N &= (\eta X^T+\Theta\Gamma^{-1})\Gamma_N \\
+\Xi_N &= \Xi + (\eta - \Theta_N X)(\eta - \Theta_N X)^T + (\Theta_N - \Theta)\Gamma(\Theta_N- \Theta)^T \\
+p(\Sigma | \eta, X) &= W^{-1}(\Xi_N, \upsilon_N)\\
+p(\Lambda | \Sigma, \eta, X) &= MN_{(D-1)\times Q}(\Lambda_N, \Sigma, \Gamma_N).
+\end{align}
+```
+If Laplace approximation is too slow, unstable (see below) or simply not
+needed, the default behavior of *pibble* is to preform the above matrix
+calculations and produce a single point estimate of $`\Sigma`$ and
+$`\Lambda`$ based on the posterior means of $`p(\Sigma | \eta, X)`$ and
+$`(\Lambda | \Sigma, \eta, X)`$.
 
 ## References
 
 Aitchison, J. 1986. *The Statistical Analysis of Compositional Data*.
-Book. Monographs on Statistics and Applied Probability. London ; New
-York: Chapman; Hall.
+Book. Monographs on Statistics and Applied Probability. Chapman; Hall.
 
-Gevers, Dirk, Subra Kugathasan, Lee A Denson, Yoshiki Vázquez-Baeza,
-Will Van Treuren, Boyu Ren, Emma Schwager, et al. 2014. “The
+Gevers, Dirk, Subra Kugathasan, Lee A Denson, et al. 2014. “The
 Treatment-Naive Microbiome in New-Onset Crohn’s Disease.” *Cell Host &
 Microbe* 15 (3): 382–92.
 
 Silverman, Justin D, Heather Durand, Rachael J Bloom, Sayan Mukherjee,
 and Lawrence A David. 2018. “Dynamic Linear Models Guide Design and
-Analysis of Microbiota Studies Within Artificial Human Guts.” *bioRxiv*.
-<https://doi.org/10.1101/306597>.
+Analysis of Microbiota Studies Within Artificial Human Guts.” *bioRxiv*,
+ahead of print. <https://doi.org/10.1101/306597>.
 
 Silverman, Justin D., Kimberly Roche, Zachary C. Holmes, Lawrence A.
 David, and Sayan Mukherjee. 2019. “Bayesian Multinomial Logistic Normal
 Models through Marginally Latent Matrix-T Processes.” *arXiv e-Prints*,
 March, arXiv:1903.11695. <https://arxiv.org/abs/1903.11695>.
 
-------------------------------------------------------------------------
+[^1]: These are very large objects with many posterior samples, so it
+    can take a little time to compute. Faster implementations of summary
+    may be included as a future update if need arises
 
-1.  These are very large objects with many posterior samples, so it can
-    take a little time to compute. Faster implementations of summary may
-    be included as a future update if need arises
-
-2.  That said, due to the need to transform back and forth from the
+[^2]: That said, due to the need to transform back and forth from the
     default coordinate system, it is fastest to call refit on
     `pibblefit` objects in the default coordinate system bypassing these
     transforms.
 
-3.  This can also be used to plot samples of the prior predictive
+[^3]: This can also be used to plot samples of the prior predictive
     distribution if Y is null in the object as in our `priors` object
 
-4.  Which we found preformed substantially better than L-BFGS, which we
-    also tried.
+[^4]: Which we found preformed substantially better than L-BFGS, which
+    we also tried.

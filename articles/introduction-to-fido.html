@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Introduction to fido::Pibble • fido</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to fido::Pibble">
 </head>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fido</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,13 +74,12 @@ Silverman</h4>
 <div class="section level2">
 <h2 id="an-introduction-to-fido">An introduction to <em>fido</em><a class="anchor" aria-label="anchor" href="#an-introduction-to-fido"></a>
 </h2>
-<p><em>fido</em> <span class="citation">(Justin D. Silverman et al.
-2019)</span> is a loose acronym for <strong>“(Bayesian) Multinomial
-Logistic-Normal Models”</strong>. In particular the development of
-<em>fido</em> stems from the need for fast inference for time-invariant
-MALLARD models<span class="citation">(Justin D. Silverman et al.
-2018)</span>. <em>fido</em> is very fast! It uses closed form solutions
-for model gradients and Hessians written in C++ to preform <a href="https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation" class="external-link">MAP
+<p><em>fido</em> <span class="citation">(Silverman et al. 2019)</span>
+is a loose acronym for <strong>“(Bayesian) Multinomial Logistic-Normal
+Models”</strong>. In particular the development of <em>fido</em> stems
+from the need for fast inference for time-invariant MALLARD models<span class="citation">(Silverman et al. 2018)</span>. <em>fido</em> is very
+fast! It uses closed form solutions for model gradients and Hessians
+written in C++ to preform <a href="https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation" class="external-link">MAP
 estimation</a> in combination with parameter uncertainty estimation
 using a <a href="https://www.sumsar.net/blog/2013/11/easy-laplace-approximation/" class="external-link">Laplace
 Approximation</a>. One of the main models in <em>fido</em> is the
@@ -139,7 +138,7 @@ the form of a
 matrix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>.</p>
 <p>The following is the pibble model including likelihood and priors:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>Y</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>∼</mo><mtext mathvariant="normal">Multinomial</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>π</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>π</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msup><mi>ϕ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>η</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>η</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>∼</mo><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Λ</mi><msub><mi>X</mi><mi>j</mi></msub><mo>,</mo><mi>Σ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>Λ</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>∼</mo><mi>M</mi><msub><mi>N</mi><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>Q</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>Θ</mi><mo>,</mo><mi>Σ</mi><mo>,</mo><mi>Γ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>Σ</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>∼</mo><msup><mi>W</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>Ξ</mi><mo>,</mo><mi>υ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>Y</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>∼</mo><mtext mathvariant="normal">Multinomial</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>π</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>π</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msup><mi>ϕ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><msub><mi>η</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>η</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>∼</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Λ</mi><msub><mi>X</mi><mi>j</mi></msub><mo>,</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mi mathvariant="normal">Λ</mi></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>∼</mo><mi>M</mi><msub><mi>N</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>Q</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Θ</mi><mo>,</mo><mi mathvariant="normal">Σ</mi><mo>,</mo><mi mathvariant="normal">Γ</mi><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mi mathvariant="normal">Σ</mi></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>∼</mo><msup><mi>W</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ξ</mi><mo>,</mo><mi>υ</mi><mo stretchy="false" form="postfix">)</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{align}
 Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 \pi_j &amp; = \phi^{-1}(\eta_j) \\
@@ -148,25 +147,25 @@ Y_j &amp; \sim \text{Multinomial}\left(\pi_j \right)  \\
 \Sigma &amp;\sim W^{-1}(\Xi, \upsilon) 
 \end{align}
 </annotation></semantics></math> Here
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><msub><mi>N</mi><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>Q</mi></mrow></msub></mrow><annotation encoding="application/x-tex">MN_{(D-1) \times Q}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><msub><mi>N</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>Q</mi></mrow></msub></mrow><annotation encoding="application/x-tex">MN_{(D-1) \times Q}</annotation></semantics></math>
 denotes a <a href="https://en.wikipedia.org/wiki/Matrix_normal_distribution" class="external-link">Matrix
 Normal distribution</a> for a matrix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
 of regression coefficients of dimension
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">(D-1)\times Q</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">(D-1)\times Q</annotation></semantics></math>.
 Essentially you can think of the Matrix normal as having two covariance
 matrices one describing the covariation between the rows of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>)
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>)
 and another describing the covariation of the columns of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Γ</mi><annotation encoding="application/x-tex">\Gamma</annotation></semantics></math>).
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Γ</mi><annotation encoding="application/x-tex">\Gamma</annotation></semantics></math>).
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>W</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">W^{-1}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>W</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">W^{-1}</annotation></semantics></math>
 refers to the <a href="https://en.wikipedia.org/wiki/Inverse-Wishart_distribution" class="external-link">Inverse
 Wishart distribution</a> (which is a common distribution over covariance
 matrices). The line
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>j</mi></msub><mo>=</mo><msup><mi>ϕ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>η</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\pi_j = \phi^{-1}(\eta_j)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>j</mi></msub><mo>=</mo><msup><mi>ϕ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><msub><mi>η</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\pi_j = \phi^{-1}(\eta_j)</annotation></semantics></math>
 represents a transformation between the parameters
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>π</mi><mi>j</mi></msub><annotation encoding="application/x-tex">\pi_j</annotation></semantics></math>
 which exist on a simplex (e.g.,
@@ -174,10 +173,10 @@ which exist on a simplex (e.g.,
 must sum to 1) and the transformed parameters
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>η</mi><mi>j</mi></msub><annotation encoding="application/x-tex">\eta_j</annotation></semantics></math>
 that exist in real space. In particular we define
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ϕ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">\phi^{-1}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ϕ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">\phi^{-1}</annotation></semantics></math>
 to be the <a href="http://www.sediment.uni-goettingen.de/staff/tolosana/extra/CoDaNutshell.pdf" class="external-link">inverse
 additive log ratio transform</a> (which conversely implies that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>η</mi><mi>j</mi></msub><mo>=</mo><mi>A</mi><mi>L</mi><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>π</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\eta_j = ALR(\pi_j)</annotation></semantics></math>)
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>η</mi><mi>j</mi></msub><mo>=</mo><mi>A</mi><mi>L</mi><mi>R</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>π</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\eta_j = ALR(\pi_j)</annotation></semantics></math>)
 also known as the identified softmax transform (as it is more commonly
 known in the Machine Learning community). While I will say more on this
 later in this tutorial, one thing to know is that I have the model
@@ -188,12 +187,12 @@ log-ratio transform, or the centered log-ratio transform.</p>
 <p>Before moving on, I would like to give <strong>a more intuitive
 description of <em>pibble</em></strong>. Essentially the main modeling
 component of <em>pibble</em> is the third equation above
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>η</mi><mi>j</mi></msub><mo>∼</mo><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Λ</mi><msub><mi>X</mi><mi>j</mi></msub><mo>,</mo><mi>Σ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\eta_j \sim N(\Lambda X_j, \Sigma)</annotation></semantics></math>)
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>η</mi><mi>j</mi></msub><mo>∼</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Λ</mi><msub><mi>X</mi><mi>j</mi></msub><mo>,</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\eta_j \sim N(\Lambda X_j, \Sigma)</annotation></semantics></math>)
 which is just a multivariate linear model. That is,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
 are your covariates (which can be continuous, discrete, binary, etc…),
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
 is the covariance matrix for the regression residuals.</p>
 </div>
 </div>
@@ -201,13 +200,13 @@ is the covariance matrix for the regression residuals.</p>
 <h2 id="example-analysis-of-microbiome-data">Example analysis of microbiome data<a class="anchor" aria-label="anchor" href="#example-analysis-of-microbiome-data"></a>
 </h2>
 <p>This analysis is the same as that presented in the <em>fido</em>
-manuscript <span class="citation">(Justin D. Silverman et al.
-2019)</span>. I will reanalyze a previously published study comparing
-microbial composition in the terminal ileum of subjects with Crohn’s
-Disease (CD) to healthy controls <span class="citation">(Gevers et al.
-2014)</span>. To do this I will fit a pibble model using CD status,
-inflammation status and age as covariates (plus a constant intercept
-term).</p>
+manuscript <span class="citation">(Silverman et al. 2019)</span>. I will
+reanalyze a previously published study comparing microbial composition
+in the terminal ileum of subjects with Crohn’s Disease (CD) to healthy
+controls <span class="citation">(<span class="nocase">Gevers et
+al.</span> 2014)</span>. To do this I will fit a pibble model using CD
+status, inflammation status and age as covariates (plus a constant
+intercept term).</p>
 <p>For convienece, we have added a copy of the data set to
 <em>fido</em>. The data was obtained from the <em>MicrobeDS</em>
 repository on <a href="https://github.com/twbattaglia/MicrobeDS" class="external-link">GitHub</a>.</p>
@@ -266,63 +265,63 @@ repository on <a href="https://github.com/twbattaglia/MicrobeDS" class="external
 <span><span class="co">#&gt; 4339819               0            37            42            70            22</span></span></code></pre></div>
 <p>Next specify priors. We are going to start by specifying a prior on
 the covariance between log-ratios
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>.
 I like to do this by thinking about a prior on the covariance between
 taxa on the log-scale (i.e., between the log of their absolute
 abundances not the log-ratios). I will refer to this covariance on
 log-absolute abundances
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>.
 For example, here I will build a prior that states that the mean of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
 is the identity matrix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>D</mi></msub><annotation encoding="application/x-tex">I_D</annotation></semantics></math>.
 From From <span class="citation">Aitchison (1986)</span>, we know that
 if we assume that the taxa have a covariance
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
 in terms of log-absolute abundance then their correlation in the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mtext mathvariant="normal">ALR</mtext><mi>D</mi></msub><annotation encoding="application/x-tex">\text{ALR}_D</annotation></semantics></math>
 is given by
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Σ</mi><mo>=</mo><mi>G</mi><mi>Ω</mi><msup><mi>G</mi><mi>T</mi></msup></mrow><annotation encoding="application/x-tex"> \Sigma = G \Omega G^T </annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><mo>=</mo><mi>G</mi><mi mathvariant="normal">Ω</mi><msup><mi>G</mi><mi>T</mi></msup></mrow><annotation encoding="application/x-tex"> \Sigma = G \Omega G^T </annotation></semantics></math>
 where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
 is a
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>−</mo><mn>1</mn><mo>×</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">D-1 \times D</annotation></semantics></math>
 matrix given by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>I</mi><mrow><mi>D</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>;</mo><mo>−</mo><msub><mn>1</mn><mrow><mi>D</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">G = [I_{D-1}; -1_{D-1}]</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>I</mi><mrow><mi>D</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>;</mo><mi>−</mi><msub><mn>1</mn><mrow><mi>D</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">G = [I_{D-1}; -1_{D-1}]</annotation></semantics></math>
 (i.e.,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
 is the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mtext mathvariant="normal">ALR</mtext><mi>D</mi></msub><annotation encoding="application/x-tex">\text{ALR}_D</annotation></semantics></math>
 contrast matrix). Additionally, we know that the Inverse Wishart mode is
 given by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mi>Ξ</mi><mrow><mi>υ</mi><mo>+</mo><mi>D</mi></mrow></mfrac><annotation encoding="application/x-tex">\frac{\Xi}{\upsilon + D}</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mi mathvariant="normal">Ξ</mi><mrow><mi>υ</mi><mo>+</mo><mi>D</mi></mrow></mfrac><annotation encoding="application/x-tex">\frac{\Xi}{\upsilon + D}</annotation></semantics></math>.
 Finally, note that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>υ</mi><annotation encoding="application/x-tex">\upsilon</annotation></semantics></math>
 essentially controls our uncertainty in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
 about this prior mean. Here I will take
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>υ</mi><mo>=</mo><mi>D</mi><mo>+</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\upsilon = D+3</annotation></semantics></math>.
 This then gives us
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Ξ</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>υ</mi><mo>−</mo><mi>D</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>G</mi><mi>I</mi><msup><mi>G</mi><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">\Xi = (\upsilon - D) GIG^T</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ξ</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>υ</mi><mo>−</mo><mi>D</mi><mo stretchy="false" form="postfix">)</mo><mi>G</mi><mi>I</mi><msup><mi>G</mi><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">\Xi = (\upsilon - D) GIG^T</annotation></semantics></math>.
 We scale
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Ξ</mi><annotation encoding="application/x-tex">\Xi</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ξ</mi><annotation encoding="application/x-tex">\Xi</annotation></semantics></math>
 by a factor of 1/2 to make
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Ξ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>D</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">Tr(\Xi)=D-1</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ξ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>D</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">Tr(\Xi)=D-1</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">upsilon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html" class="external-link">ntaxa</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">+</span><span class="fl">3</span> </span>
 <span><span class="va">Omega</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html" class="external-link">ntaxa</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">G</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html" class="external-link">ntaxa</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">Xi</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">upsilon</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html" class="external-link">ntaxa</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="va">G</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">Omega</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">G</span><span class="op">)</span></span></code></pre></div>
 <p>Finally I specify my priors for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Θ</mi><annotation encoding="application/x-tex">\Theta</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Θ</mi><annotation encoding="application/x-tex">\Theta</annotation></semantics></math>
 (mean of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>)
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>)
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Γ</mi><annotation encoding="application/x-tex">\Gamma</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Γ</mi><annotation encoding="application/x-tex">\Gamma</annotation></semantics></math>
 (covariance between columns of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>;
 i.e., covariance between the covariates). I will center my prior for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
 about zero, and assume that the covariates are independent.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/ntaxa-methods.html" class="external-link">ntaxa</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span></span>
@@ -358,7 +357,7 @@ specifically for a vector
 representing the proportions of categories
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>D</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{1, \dots, D\}</annotation></semantics></math>
 we can write
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mo>*</mo></msup><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mo>log</mo><mfrac><msub><mi>x</mi><mn>1</mn></msub><msub><mi>x</mi><mi>D</mi></msub></mfrac><mo>,</mo><mi>…</mi><mo>,</mo><mo>log</mo><mfrac><msub><mi>x</mi><mrow><mi>D</mi><mo>−</mo><mn>1</mn></mrow></msub><msub><mi>x</mi><mi>D</mi></msub></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">x^* = \left( \log \frac{x_1}{x_D}, \dots, \log \frac{x_{D-1}}{x_D}\right).</annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mo>*</mo></msup><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi mathvariant="normal">log</mi><mfrac><msub><mi>x</mi><mn>1</mn></msub><msub><mi>x</mi><mi>D</mi></msub></mfrac><mo>,</mo><mi>…</mi><mo>,</mo><mi mathvariant="normal">log</mi><mfrac><msub><mi>x</mi><mrow><mi>D</mi><mo>−</mo><mn>1</mn></mrow></msub><msub><mi>x</mi><mi>D</mi></msub></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">x^* = \left( \log \frac{x_1}{x_D}, \dots, \log \frac{x_{D-1}}{x_D}\right).</annotation></semantics></math>
 As mentioned above however, I have designed <em>fido</em> to work with
 many different coordinate systems including the ALR (with respect to any
 category), CLR, ILR, or proportions. To help transform things between
@@ -372,7 +371,7 @@ proportions and so visualizations or summaries based on covariance
 matrices will be suppressed when <code>pibblefit</code> objects are in
 the proportions coordinate system. As an example, lets look at viewing a
 summary of the prior for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
 with respect to the CLR coordinate system<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;These are very large objects with many posterior
 samples, so it can take a little time to compute. Faster implementations
 of summary may be included as a future update if need arises&lt;/p&gt;"><sup>1</sup></a>.</p>
@@ -430,7 +429,7 @@ bypassing these transforms.&lt;/p&gt;"><sup>2</sup></a>. This is one nice thing 
 <code>refit</code> method. That said, new objects added to the
 <code>pibblefit</code> object need to be added in the proper coordinates
 For example, if we wanted to replace our prior for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Ξ</mi><annotation encoding="application/x-tex">\Xi</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ξ</mi><annotation encoding="application/x-tex">\Xi</annotation></semantics></math>
 for an object in CLR coordinates, we would had to transform our prior
 for <code>Xi</code> to CLR coordinates before adding it to the
 <code>priors</code> object.</p>
@@ -469,7 +468,7 @@ samples of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>
 (Eta; as we did above); the other is to predict “from scratch” that is
 to predict starting form the posterior samples of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
 (Lambda) then sampling
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>
 and only then sampling
@@ -557,22 +556,22 @@ re-expanded using fully conjugate sampling schemes that do not require
 optimization or MCMC (only matrix operations).</p>
 <p><strong>Here are the details:</strong> The collapsed model is given
 by
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>Y</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>∼</mo><mtext mathvariant="normal">Multinomial</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>π</mi><mi>j</mi></msub><mo>,</mo><msub><mi>n</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>π</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msup><mi>ϕ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>η</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>η</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>∼</mo><msub><mi>T</mi><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>N</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>υ</mi><mo>,</mo><mi>Θ</mi><mi>X</mi><mo>,</mo><mi>Ξ</mi><mo>,</mo><msub><mi>I</mi><mi>N</mi></msub><mo>+</mo><msup><mi>X</mi><mi>T</mi></msup><mi>Γ</mi><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>Y</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>∼</mo><mtext mathvariant="normal">Multinomial</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>π</mi><mi>j</mi></msub><mo>,</mo><msub><mi>n</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>π</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msup><mi>ϕ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><msub><mi>η</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>η</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>∼</mo><msub><mi>T</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>υ</mi><mo>,</mo><mi mathvariant="normal">Θ</mi><mi>X</mi><mo>,</mo><mi mathvariant="normal">Ξ</mi><mo>,</mo><msub><mi>I</mi><mi>N</mi></msub><mo>+</mo><msup><mi>X</mi><mi>T</mi></msup><mi mathvariant="normal">Γ</mi><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{align}
 Y_j &amp; \sim \text{Multinomial}\left(\pi_j, n_j\right)  \\
 \pi_j &amp; = \phi^{-1}(\eta_j) \\
 \eta_j &amp;\sim T_{(D-1)\times N}(\upsilon, \Theta X, \Xi, I_N + X^T \Gamma X)
 \end{align}
 </annotation></semantics></math> where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>I</mi><mi>N</mi></msub><mo>+</mo><msup><mi>X</mi><mi>T</mi></msup><mi>Γ</mi><mo>,</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">A=(I_N + X^T \Gamma, X)^{-1}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>I</mi><mi>N</mi></msub><mo>+</mo><msup><mi>X</mi><mi>T</mi></msup><mi mathvariant="normal">Γ</mi><mo>,</mo><mi>X</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">A=(I_N + X^T \Gamma, X)^{-1}</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>N</mi></mrow></msub><annotation encoding="application/x-tex">T_{(D-1)\times N}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>N</mi></mrow></msub><annotation encoding="application/x-tex">T_{(D-1)\times N}</annotation></semantics></math>
 refers to the Matrix T-distribution the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">(D-1)\times N</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">(D-1)\times N</annotation></semantics></math>
 matrix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>
 with log density given by
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><msub><mi>T</mi><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mrow><mo stretchy="true" form="prefix">|</mo><mi>υ</mi><mo>,</mo><mi>Θ</mi><mi>X</mi><mo>,</mo><mi>Ξ</mi><mo>,</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>∝</mo><mo>−</mo><mfrac><mrow><mi>υ</mi><mo>+</mo><mi>N</mi><mo>−</mo><mi>D</mi><mo>−</mo><mn>2</mn></mrow><mn>2</mn></mfrac><mo>log</mo><mo stretchy="true" form="postfix">|</mo></mrow><msub><mi>I</mi><mrow><mi>D</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msup><mi>Ξ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>η</mi><mo>−</mo><mi>Θ</mi><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>A</mi><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>η</mi><mo>−</mo><mi>Θ</mi><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>T</mi></msup><mo stretchy="false" form="prefix">|</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\log T_{(D-1)\times N}(\eta | \upsilon, \Theta X, \Xi, A) \propto -\frac{\upsilon+N-D-2}{2}\log | I_{D-1}+\Xi^{-1}(\eta-\Theta X)A(\eta-\Theta X)^T |.</annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><msub><mi>T</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mo stretchy="false" form="prefix">|</mo><mi>υ</mi><mo>,</mo><mi mathvariant="normal">Θ</mi><mi>X</mi><mo>,</mo><mi mathvariant="normal">Ξ</mi><mo>,</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>∝</mo><mi>−</mi><mfrac><mrow><mi>υ</mi><mo>+</mo><mi>N</mi><mo>−</mo><mi>D</mi><mo>−</mo><mn>2</mn></mrow><mn>2</mn></mfrac><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>I</mi><mrow><mi>D</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msup><mi mathvariant="normal">Ξ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mo>−</mo><mi mathvariant="normal">Θ</mi><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mo>−</mo><mi mathvariant="normal">Θ</mi><mi>X</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup><mo stretchy="false" form="prefix">|</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\log T_{(D-1)\times N}(\eta | \upsilon, \Theta X, \Xi, A) \propto -\frac{\upsilon+N-D-2}{2}\log | I_{D-1}+\Xi^{-1}(\eta-\Theta X)A(\eta-\Theta X)^T |.</annotation></semantics></math>
 Rather than using MCMC to sample
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>
 fido uses MAP estimation (using a custom C++ Eigen based implementation
@@ -587,15 +586,15 @@ with tremendous improvements in compute time.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>
 are produced using the Laplace approximation closed form solutions for
 the conditional density of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
 given
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>
 are used to “uncollapse” the collapsed model and produce posterior
 samples from the target model. This uncollapsing is fast and given by
 the following matrix equations:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>υ</mi><mi>N</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>υ</mi><mo>+</mo><mi>N</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>Γ</mi><mi>N</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><msup><mi>X</mi><mi>T</mi></msup><mo>+</mo><msup><mi>Γ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>Θ</mi><mi>N</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>η</mi><msup><mi>X</mi><mi>T</mi></msup><mo>+</mo><mi>Θ</mi><msup><mi>Γ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>Γ</mi><mi>N</mi></msub></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>Ξ</mi><mi>N</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>Ξ</mi><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>η</mi><mo>−</mo><msub><mi>Θ</mi><mi>N</mi></msub><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>η</mi><mo>−</mo><msub><mi>Θ</mi><mi>N</mi></msub><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>T</mi></msup><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Θ</mi><mi>N</mi></msub><mo>−</mo><mi>Θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>Γ</mi><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Θ</mi><mi>N</mi></msub><mo>−</mo><mi>Θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>T</mi></msup></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Σ</mi><mo stretchy="false" form="prefix">|</mo><mi>η</mi><mo>,</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msup><mi>W</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Ξ</mi><mi>N</mi></msub><mo>,</mo><msub><mi>υ</mi><mi>N</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Λ</mi><mo stretchy="false" form="prefix">|</mo><mi>Σ</mi><mo>,</mo><mi>η</mi><mo>,</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>M</mi><msub><mi>N</mi><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>Q</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Λ</mi><mi>N</mi></msub><mo>,</mo><mi>Σ</mi><mo>,</mo><msub><mi>Γ</mi><mi>N</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>υ</mi><mi>N</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mi>υ</mi><mo>+</mo><mi>N</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi mathvariant="normal">Γ</mi><mi>N</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>X</mi><msup><mi>X</mi><mi>T</mi></msup><mo>+</mo><msup><mi mathvariant="normal">Γ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi mathvariant="normal">Θ</mi><mi>N</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>η</mi><msup><mi>X</mi><mi>T</mi></msup><mo>+</mo><mi mathvariant="normal">Θ</mi><msup><mi mathvariant="normal">Γ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo><msub><mi mathvariant="normal">Γ</mi><mi>N</mi></msub></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi mathvariant="normal">Ξ</mi><mi>N</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mi mathvariant="normal">Ξ</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mo>−</mo><msub><mi mathvariant="normal">Θ</mi><mi>N</mi></msub><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mo>−</mo><msub><mi mathvariant="normal">Θ</mi><mi>N</mi></msub><mi>X</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup><mo>+</mo><mo stretchy="false" form="prefix">(</mo><msub><mi mathvariant="normal">Θ</mi><mi>N</mi></msub><mo>−</mo><mi mathvariant="normal">Θ</mi><mo stretchy="false" form="postfix">)</mo><mi mathvariant="normal">Γ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi mathvariant="normal">Θ</mi><mi>N</mi></msub><mo>−</mo><mi mathvariant="normal">Θ</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false" form="prefix">|</mo><mi>η</mi><mo>,</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msup><mi>W</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><msub><mi mathvariant="normal">Ξ</mi><mi>N</mi></msub><mo>,</mo><msub><mi>υ</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Λ</mi><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Σ</mi><mo>,</mo><mi>η</mi><mo>,</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mi>M</mi><msub><mi>N</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>Q</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi mathvariant="normal">Λ</mi><mi>N</mi></msub><mo>,</mo><mi mathvariant="normal">Σ</mi><mo>,</mo><msub><mi mathvariant="normal">Γ</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{align}
 \upsilon_N &amp;= \upsilon+N \\
 \Gamma_N &amp;= (XX^T+\Gamma^{-1})^{-1} \\
@@ -608,35 +607,35 @@ p(\Lambda | \Sigma, \eta, X) &amp;= MN_{(D-1)\times Q}(\Lambda_N, \Sigma, \Gamma
 unstable (see below) or simply not needed, the default behavior of
 <em>pibble</em> is to preform the above matrix calculations and produce
 a single point estimate of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math>
 based on the posterior means of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Σ</mi><mo stretchy="false" form="prefix">|</mo><mi>η</mi><mo>,</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">p(\Sigma | \eta, X)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false" form="prefix">|</mo><mi>η</mi><mo>,</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p(\Sigma | \eta, X)</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mi>Λ</mi><mo stretchy="false" form="prefix">|</mo><mi>Σ</mi><mo>,</mo><mi>η</mi><mo>,</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\Lambda | \Sigma, \eta, X)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Λ</mi><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Σ</mi><mo>,</mo><mi>η</mi><mo>,</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\Lambda | \Sigma, \eta, X)</annotation></semantics></math>.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-aitchison1986" class="csl-entry">
 Aitchison, J. 1986. <em>The Statistical Analysis of Compositional
 Data</em>. Book. Monographs on Statistics and Applied Probability.
-London ; New York: Chapman; Hall.
+Chapman; Hall.
 </div>
 <div id="ref-gevers2014" class="csl-entry">
-Gevers, Dirk, Subra Kugathasan, Lee A Denson, Yoshiki Vázquez-Baeza,
-Will Van Treuren, Boyu Ren, Emma Schwager, et al. 2014. <span>“The
-Treatment-Naive Microbiome in New-Onset Crohn’s Disease.”</span>
-<em>Cell Host &amp; Microbe</em> 15 (3): 382–92.
+<span class="nocase">Gevers, Dirk, Subra Kugathasan, Lee A Denson, et
+al.</span> 2014. <span>“The Treatment-Naive Microbiome in New-Onset
+Crohn’s Disease.”</span> <em>Cell Host &amp; Microbe</em> 15 (3):
+382–92.
 </div>
 <div id="ref-silverman2018" class="csl-entry">
 Silverman, Justin D, Heather Durand, Rachael J Bloom, Sayan Mukherjee,
 and Lawrence A David. 2018. <span>“Dynamic Linear Models Guide Design
 and Analysis of Microbiota Studies Within Artificial Human Guts.”</span>
-<em>bioRxiv</em>. <a href="https://doi.org/10.1101/306597" class="external-link">https://doi.org/10.1101/306597</a>.
+<em>bioRxiv</em>, ahead of print. <a href="https://doi.org/10.1101/306597" class="external-link">https://doi.org/10.1101/306597</a>.
 </div>
 <div id="ref-silverman2019" class="csl-entry">
 Silverman, Justin D., Kimberly Roche, Zachary C. Holmes, Lawrence A.

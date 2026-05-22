@@ -1,6 +1,7 @@
 # Joint Modeling (e.g., Multiomics) with fido::Orthus
 
 ``` r
+
 library(fido)
 library(phyloseq)
 library(dplyr)
@@ -22,34 +23,35 @@ brother of Cerberus in Greek
 Mythology](https://en.Wikipedia.org/wiki/Orthrus). The *orthus* model
 can be written as
 
-$$\begin{aligned}
-Y_{j} & {\sim \text{Multinomial}\left( \pi_{j} \right)} \\
-\pi_{j} & {= \phi^{- 1}\left( \eta_{j} \right)} \\
-\begin{bmatrix}
-\eta_{j} \\
-Z_{j}
-\end{bmatrix} & {\sim N(\Lambda X,\Sigma)} \\
-\Lambda & {\sim N(\Theta,\Sigma,\Gamma)} \\
-\Sigma & {\sim W^{- 1}(\Xi,\upsilon)}
-\end{aligned}$$
+``` math
+\begin{align}
+Y_j & \sim \text{Multinomial}\left(\pi_j \right)  \\
+\pi_j & = \phi^{-1}(\eta_j) \\
+\begin{bmatrix}\eta_j \\ Z_j \end{bmatrix} &\sim N(\Lambda X, \Sigma) \\
+\Lambda &\sim  N(\Theta, \Sigma, \Gamma) \\
+\Sigma &\sim W^{-1}(\Xi, \upsilon) 
+\end{align}
+```
 
 Note this looks nearly identical to the *pibble* model but we have
-appended the second (Gaussian) dataset ($Z$) onto $\eta$. In doing this,
-the definition of $\Lambda$ changes (it is now larger with the bottom
-rows dictating how the covariates $X$ influence the second dataset).
-Similarly, $\Sigma$ now is much larger and can be though of as
-$$\Sigma = \begin{bmatrix}
-\Sigma_{(\eta,\eta)} & \Sigma_{(\eta,Z)} \\
-\Sigma_{(Z,\eta)} & \Sigma_{(Z,Z)}
-\end{bmatrix}$$ where $\Sigma_{(\eta,\eta)}$ describes the covariance
-between log-ratios (e.g., the covariance among the multinomial
-categories in log-ratio space), $\Sigma_{(Z,Z)}$ describes the
-covariance between the dimensions of $Z$ (e.g., between metabolites if Z
-is metabolomics data), and $\Sigma_{(\eta,Z)} = \Sigma_{(Z,\eta)}^{T}$
-represents the covariance between log-ratios and dimensions of $Z$
-(e.g., between microbial taxa and metabolites). Similar to $\Sigma$ and
-$\Lambda$, the parameters $\Xi$ and $\Theta$ undergo a similar expansion
-to accommodate the second dataset.
+appended the second (Gaussian) dataset ($`Z`$) onto $`\eta`$. In doing
+this, the definition of $`\Lambda`$ changes (it is now larger with the
+bottom rows dictating how the covariates $`X`$ influence the second
+dataset). Similarly, $`\Sigma`$ now is much larger and can be though of
+as
+``` math
+\Sigma = \begin{bmatrix} \Sigma_{(\eta, \eta)} & \Sigma_{(\eta, Z)} \\
+                          \Sigma_{(Z, \eta)} & \Sigma_{(Z, Z)}\end{bmatrix}
+```
+where $`\Sigma_{(\eta, \eta)}`$ describes the covariance between
+log-ratios (e.g., the covariance among the multinomial categories in
+log-ratio space), $`\Sigma_{(Z, Z)}`$ describes the covariance between
+the dimensions of $`Z`$ (e.g., between metabolites if Z is metabolomics
+data), and $`\Sigma_{(\eta, Z)} = \Sigma_{(Z, \eta)}^T`$ represents the
+covariance between log-ratios and dimensions of $`Z`$ (e.g., between
+microbial taxa and metabolites). Similar to $`\Sigma`$ and $`\Lambda`$,
+the parameters $`\Xi`$ and $`\Theta`$ undergo a similar expansion to
+accommodate the second dataset.
 
 ## Joint modeling of Microbial 16S data and Metabolomics
 
@@ -62,6 +64,7 @@ don’t pass filtering to a category called “other”. I do this to maintain
 the proper variance in the multinomial model.
 
 ``` r
+
 metab_path <- system.file("extdata/Kashyap2013", "metabolites.csv", package="fido")
 microbe_path <- system.file("extdata/Kashyap2013", "microbe.rda", package="fido")
 metab <- read.csv(metab_path, row.names = 1)
@@ -92,6 +95,7 @@ for orthus. Note I have no extra metadata so we are just going to use an
 intercept in our model at this time.
 
 ``` r
+
 Y <- otu_table(microbe, taxa_are_rows=TRUE)
 Z <- metab #(metabolites are rows)
 X <- matrix(1, 1, phyloseq::nsamples(microbe))
@@ -107,20 +111,21 @@ Now I am going to set up the priors. My priors are going to be similar
 to that of *pibble* but now we need to think about a prior for the
 covariance among the metabolites and between the metabolites and the
 log-ratios of the taxa. Remember, that priors must be defined in the
-$ALR_{D}$ (e.g., ALR with the reference being the D-th taxa; this may be
+$`ALR_D`$ (e.g., ALR with the reference being the D-th taxa; this may be
 changed in the future to make specifying priors more user friendly).
 
-I am going to form our prior for $\Sigma$ by specifying $\upsilon$ and
-$\Xi$. I will specify that I have weak prior belief that the taxa are
-independent in terms of their log absolute abundance. We can translate
-this statement about covariance of log absolute abundance into a
-statement about log-ratio covariance by pre- and post-multiplying by the
-$ALR_{D}$ contrast matrix (which I refer to as $GG$ below).
+I am going to form our prior for $`\Sigma`$ by specifying $`\upsilon`$
+and $`\Xi`$. I will specify that I have weak prior belief that the taxa
+are independent in terms of their log absolute abundance. We can
+translate this statement about covariance of log absolute abundance into
+a statement about log-ratio covariance by pre- and post-multiplying by
+the $`ALR_D`$ contrast matrix (which I refer to as $`GG`$ below).
 Additionally, I believe that there is likely no substantial covariance
 between the taxa and the metabolites and I assume the metabolites are
 likely independent.
 
 ``` r
+
 upsilon <- (D-1+P)+10 # weak-ish prior on covariance over joint taxa and metabolites
 Xi <- diag(D-1+P)
 GG <- cbind(diag(D-1), -1)
@@ -133,14 +138,15 @@ image(Xi)
 
 Note the structure of this prior, everything is independent but there is
 a moderate positive covariance between the log-ratios based on their
-shared definition in terms of the $D$-th taxa.
+shared definition in terms of the $`D`$-th taxa.
 
 The other parts of the prior are less interesting. We are going to state
-that our mean for $\Lambda$ is centered about $\mathbf{0}$ and that the
-signal-to-noise ratio in the data is approximately 1 (this later part is
-specified by $\Gamma = I$).
+that our mean for $`\Lambda`$ is centered about $`\mathbf{0}`$ and that
+the signal-to-noise ratio in the data is approximately 1 (this later
+part is specified by $`\Gamma=I`$).
 
 ``` r
+
 Gamma <- diag(Q)
 Theta <- matrix(0, D-1+P, Q)
 ```
@@ -148,18 +154,20 @@ Theta <- matrix(0, D-1+P, Q)
 Finally I fit the model.
 
 ``` r
+
 fit <- orthus(Y, Z, X, Theta=Theta, Gamma=Gamma, Xi=Xi, upsilon=upsilon, n_samples=1000)
 ```
 
-Next we are going to transform the log-ratios from $ALR_{D}$ to the
-$CLR$. I have written all the transformation functions, *e.g.*, `to_clr`
-etc… to work on `orthusfit` objects in a similar manner to how they work
-on `pibblefit` objects. For `orthusfit` objects they only transform the
-log-ratio components of parameters leaving the other parts of inferred
-model parameters (*i.e.*, the parts associated with the metabolites)
-untouched.
+Next we are going to transform the log-ratios from $`ALR_D`$ to the
+$`CLR`$. I have written all the transformation functions, *e.g.*,
+`to_clr` etc… to work on `orthusfit` objects in a similar manner to how
+they work on `pibblefit` objects. For `orthusfit` objects they only
+transform the log-ratio components of parameters leaving the other parts
+of inferred model parameters (*i.e.*, the parts associated with the
+metabolites) untouched.
 
 ``` r
+
 fit <- to_clr(fit)
 print(fit)
 #> orthusfit Object: 
@@ -185,6 +193,7 @@ find a list of taxa metabolite covariances that the model is very
 confident about.
 
 ``` r
+
 # First just look ath the cross-covariances fit by the model
 # (covariance between taxa in CLR coordinates and metabolites)
 # This requires that we extract the corner of Sigma. 
@@ -271,8 +280,7 @@ Callahan, Ben J, Kris Sankaran, Julia A Fukuyama, Paul J McMurdie, and
 Susan P Holmes. 2016. “Bioconductor Workflow for Microbiome Data
 Analysis: From Raw Reads to Community Analyses.” *F1000Research* 5.
 
-Kashyap, Purna C, Angela Marcobal, Luke K Ursell, Samuel A Smits, Erica
-D Sonnenburg, Elizabeth K Costello, Steven K Higginbottom, et al. 2013.
+Kashyap, Purna C, Angela Marcobal, Luke K Ursell, et al. 2013.
 “Genetically Dictated Change in Host Mucus Carbohydrate Landscape Exerts
 a Diet-Dependent Effect on the Gut Microbiota.” *Proceedings of the
 National Academy of Sciences* 110 (42): 17059–64.

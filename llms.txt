@@ -21,12 +21,14 @@ License](https://www.gnu.org/licenses/gpl-3.0.en.html).
 ## Installation
 
 ``` r
+
 install.packages("fido")
 ```
 
 Or to download the development version from GitHub:
 
 ``` r
+
 devtools::install_github("jsilve24/fido", ref="develop")
 ```
 

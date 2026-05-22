@@ -14,7 +14,7 @@ Useful links:
 
 ## Author
 
-**Maintainer**: Justin Silverman <Justin.Silverman@psu.edu>
+**Maintainer**: Justin Silverman <JustinSilverman@psu.edu>
 
 Other contributors:
 
