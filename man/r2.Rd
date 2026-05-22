@@ -33,8 +33,9 @@ vector
 Generic Method to Calculate R2 for Fitted Model
 }
 \details{
-Calculates Posterior over Linear Model R2 as: \deqn{1-\frac{SS_{res}}{SS_{tot}}}{1-(SS_(res)/SS_(tot))} where
-  \eqn{SS} is defined in terms of trace of variances
+Calculates Posterior over Linear Model R2 as:
+  \deqn{1-\frac{SS_{res}}{SS_{tot}}}{1-(SS_(res)/SS_(tot))} where \eqn{SS}
+  is defined in terms of trace of variances
 
   Method of calculating R2 is multivariate version of the Bayesian R2 proposed
   by Gelman, Goodrich, Gabry, and Vehtari, 2019

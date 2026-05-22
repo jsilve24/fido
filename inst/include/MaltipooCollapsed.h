@@ -254,7 +254,7 @@ class MaltipooCollapsed : public Numer::MFuncGrad
     
     // function for use by ADAMOptimizer wrapper (and for RcppNumeric L-BFGS)
     virtual double f_grad(Numer::Constvec& pars, Numer::Refvec grad){
-      const Map<const VectorXd> eta(pars.head(N*(D-1)).data(), N*D-1);
+      const Map<const VectorXd> eta(pars.head(N*(D-1)).data(), N*(D-1));
       const Map<const VectorXd> ell(pars.tail(P).data(), P);
       updateWithEtaLL(eta, ell);    // precompute things needed for LogLik
       updateWithEtaGH();       // precompute things needed for gradient and hessian

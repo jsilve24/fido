@@ -31,6 +31,13 @@ test_that("MultDirichletBoot is correct", {
   expect_equal(apply(x, 1, var), apply(s, 1, var), tolerance=0.05)
 })
 
+test_that("Dirichlet sampler rejects nonpositive alpha", {
+  expect_error(rDirichlet_test(10, c(1, 0, 2)),
+               "positive and finite")
+  expect_error(rDirichlet_test(10, c(1, -1, 2)),
+               "positive and finite")
+})
+
 test_that("Timer does not have Error Johannes pointed out",{
   sim <- pibble_sim()
   fit <- pibble(sim$Y, sim$X, calcGradHess=FALSE, multDirichletBoot=0.65)

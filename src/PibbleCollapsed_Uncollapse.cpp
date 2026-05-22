@@ -126,10 +126,6 @@ List uncollapsePibble(const Eigen::Map<Eigen::VectorXd> eta, // note this is ess
   #endif 
   #pragma omp parallel shared(D, N, Q, LambdaDraw0, SigmaDraw0)
   {
-    boost::random::mt19937 rng(seed);
-  #ifdef FIDO_USE_PARALLEL
-    rng.discard(omp_get_thread_num()*iter);
-  #endif 
   // storage for computation
   MatrixXd LambdaN(D-1, Q);
   MatrixXd XiN(D-1, D-1);
@@ -139,6 +135,7 @@ List uncollapsePibble(const Eigen::Map<Eigen::VectorXd> eta, // note this is ess
   #pragma omp for 
   for (int i=0; i < iter; i++){
     //R_CheckUserInterrupt();
+    boost::random::mt19937 rng(fido_rng::mix_seed(seed, i));
     const Map<const MatrixXd> Eta(&eta(i*N*(D-1)),D-1, N);
     LambdaN.noalias() = Eta*XTGammaN+ThetaGammaInvGammaN;
     ELambda = LambdaN-Theta;
@@ -149,7 +146,7 @@ List uncollapsePibble(const Eigen::Map<Eigen::VectorXd> eta, // note this is ess
       Map<VectorXd> LambdaNVec(LambdaN.data(), LambdaN.size());
       Map<VectorXd> XiNVec(XiN.data(), XiN.size());
       LambdaDraw0.col(i) = LambdaNVec;
-      SigmaDraw0.col(i) = (upsilonN-D)*XiNVec; // mean of inverse wishart
+      SigmaDraw0.col(i) = XiNVec/(upsilonN-D); // mean of inverse wishart
     } else {
       // Draw Random Component
       rInvWishRevCholesky_thread_inplace(LSigmaDraw, upsilonN, XiN, rng);

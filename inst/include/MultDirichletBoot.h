@@ -2,6 +2,7 @@
 #define MONGREL_MULTDIRICHLETBOOT_H
 
 #include <RcppEigen.h>
+#include <cmath>
 using namespace Rcpp;
 using Eigen::Map;
 using Eigen::MatrixXd;
@@ -40,6 +41,11 @@ namespace MultDirichletBoot{
     int D = alpha.rows();
     int p = alpha.cols();
     if (p > 1) Rcpp::stop("rDirichlet must only be passed alpha as a vector");
+    for (int i=0; i<D; i++){
+      if (!std::isfinite(alpha(i)) || alpha(i) <= 0.0) {
+        Rcpp::stop("Dirichlet concentration parameters must all be positive and finite");
+      }
+    }
     NumericVector r(n_samples);
     MatrixXd s(D, n_samples);
     for (int i=0; i<D; i++){

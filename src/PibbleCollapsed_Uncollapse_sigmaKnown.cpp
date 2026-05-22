@@ -120,15 +120,12 @@ List uncollapsePibble_sigmaKnown(const Eigen::Map<Eigen::VectorXd> eta, // note 
   #endif 
   #pragma omp parallel shared(D, N, Q, LambdaDraw0)
   {
-    boost::random::mt19937 rng(seed);
-  #ifdef FIDO_USE_PARALLEL
-    rng.discard(omp_get_thread_num()*iter);
-  #endif 
   // storage for computation
   MatrixXd LambdaN(D-1, Q);
   #pragma omp for 
   for (int i=0; i < iter; i++){
     //R_CheckUserInterrupt();
+    boost::random::mt19937 rng(fido_rng::mix_seed(seed, i));
     const Map<const MatrixXd> Eta(&eta(i*N*(D-1)),D-1, N);
     const Map<const MatrixXd> Sigma(&sigma(i*(D-1)*(D-1)), D-1, D-1);
     const MatrixXd LSigma(Sigma.llt().matrixL());

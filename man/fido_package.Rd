@@ -20,7 +20,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Justin Silverman \email{Justin.Silverman@psu.edu}
+\strong{Maintainer}: Justin Silverman \email{JustinSilverman@psu.edu}
 
 Other contributors:
 \itemize{

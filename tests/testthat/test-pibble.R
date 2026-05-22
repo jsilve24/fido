@@ -128,7 +128,7 @@ uncollapse_mean_only <- function(eta, X, upsilon, Theta, Xi, Gamma){
     Delta <- LambdaN - Theta
     EN <- eta[,,i] - LambdaN %*% X
     XiN <- Xi + tcrossprod(EN) + Delta %*% solve(Gamma) %*% t(Delta)
-    Sigma[,,i] <- XiN*(upsilonN-D)
+    Sigma[,,i] <- XiN/(upsilonN-D)
     Lambda[,,i] <- LambdaN 
   }
   return(list(Lambda=Lambda, Sigma=Sigma))
@@ -169,6 +169,17 @@ test_that("uncollapse correctnesss against double programming", {
   Sigma_uncol <- apply(uncol$Sigma, MARGIN = c(1,2), mean)
   
   expect_true(mean(abs(Sigma_fit3 - Sigma_uncol)) < 0.05)
+})
+
+test_that("uncollapse is invariant to ncores for fixed seed", {
+  eta <- array(rep(sim$Eta, 5), dim = c(sim$D-1, sim$N, 5))
+  fit1 <- uncollapsePibble(eta, sim$X, sim$Theta, sim$Gamma,
+                           sim$Xi, sim$upsilon, seed = 91, ncores = 1)
+  fit2 <- uncollapsePibble(eta, sim$X, sim$Theta, sim$Gamma,
+                           sim$Xi, sim$upsilon, seed = 91, ncores = 2)
+
+  expect_equal(fit1$Lambda, fit2$Lambda)
+  expect_equal(fit1$Sigma, fit2$Sigma)
 })
 
 
@@ -226,4 +237,3 @@ test_that("predict works with one sample", {
 
   expect_true(TRUE)
 })
-

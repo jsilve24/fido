@@ -1,3 +1,9 @@
+# fido 1.1.4
+
+* Fixed the posterior mean of `Sigma` returned by `uncollapsePibble(..., ret_mean = TRUE)` to use the correct inverse-Wishart mean.
+* Fixed OpenMP sampling in the uncollapse routines so posterior draws are reproducible across `ncores` for a fixed seed and no longer depend on overlapping thread RNG streams.
+* Added input validation to the multinomial-Dirichlet bootstrap so Dirichlet concentration parameters must be positive and finite.
+
 # fido 1.1.3
 
 * Replaced explicit integer sequences with `seq_len()` and `seq_along()` for improved robustness.
