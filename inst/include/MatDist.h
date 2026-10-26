@@ -11,7 +11,12 @@ using Eigen::Map;
 
 // [[Rcpp::depends(RcppZiggurat)]]
 
-static Ziggurat::MT::ZigguratMT ziggmt;
+// Share one generator across translation units so seeding and sampling
+// always operate on the same state.
+inline Ziggurat::MT::ZigguratMT& normal_rng() {
+  static Ziggurat::MT::ZigguratMT generator;
+  return generator;
+}
 
 
 // fills passed dense objects with unit normal random variables
@@ -22,12 +27,12 @@ inline void fillUnitNormal(Eigen::DenseBase<Derived>& Z){
   int n = Z.cols();
   for (int i=0; i<m; i++){
     for (int j=0; j<n; j++)
-    Z(i,j) = ziggmt.norm();
+    Z(i,j) = normal_rng().norm();
   }
 }
 
 inline void zigSetSeed(int s) {
-  ziggmt.setSeed(s);
+  normal_rng().setSeed(s);
 }
 
 
