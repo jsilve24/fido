@@ -15,7 +15,7 @@ the parameter n_samples in the function optimPibbleCollapsed)"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">fido</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -145,7 +145,7 @@ uses default from OpenMP typically to use all available cores.</p></dd>
 While the collapsed model is given by:
 $$Y_j \sim Multinomial(\pi_j)$$
 $$\pi_j = \Phi^{-1}(\eta_j)$$
-$$\eta \sim T_{D-1, N}(\upsilon, \Theta X, K, A)$$
+$$\eta \sim T_{D-1, N}(\upsilon-D+2, \Theta X, K, A)$$
 Where \(A = I_N + X \Gamma X'\), \(K = \Xi\) is a (D-1)x(D-1) covariance
 matrix, \(\Gamma\) is a Q x Q covariance matrix, and \(\Phi^{-1}\) is ALRInv_D
 transform.</p>
@@ -179,7 +179,7 @@ Bayesian Multinomial Logistic Normal Models through Marginally Latent Matrix-T P
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

@@ -6,14 +6,16 @@ C++ class due to a lack of Memoization. By contrast function optimPibbleCollapse
 is much more optimized and massively cuts down on repeated calculations.
 A more efficient Rcpp module based implementation of these functions
 may following if the future. For model details see optimPibbleCollapsed
-documentation"><meta property="og:description" content="Functions providing access to the Log Likelihood, Gradient, and Hessian
+documentation. The log likelihood omits terms constant in eta (including
+the matrix-t and multinomial normalizers); it is not a normalized density."><meta property="og:description" content="Functions providing access to the Log Likelihood, Gradient, and Hessian
 of the collapsed pibble model. Note: These are convenience functions
 but are not as optimized as direct coding of the PibbleCollapsed
 C++ class due to a lack of Memoization. By contrast function optimPibbleCollapsed
 is much more optimized and massively cuts down on repeated calculations.
 A more efficient Rcpp module based implementation of these functions
 may following if the future. For model details see optimPibbleCollapsed
-documentation"></head><body>
+documentation. The log likelihood omits terms constant in eta (including
+the matrix-t and multinomial normalizers); it is not a normalized density."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -21,7 +23,7 @@ documentation"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">fido</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +65,8 @@ C++ class due to a lack of Memoization. By contrast function optimPibbleCollapse
 is much more optimized and massively cuts down on repeated calculations.
 A more efficient Rcpp module based implementation of these functions
 may following if the future. For model details see <code><a href="optimPibbleCollapsed.html">optimPibbleCollapsed</a></code>
-documentation</p>
+documentation. The log likelihood omits terms constant in eta (including
+the matrix-t and multinomial normalizers); it is not a normalized density.</p>
     </div>
 
     <div class="section level2">
@@ -84,7 +87,11 @@ documentation</p>
 
 
 <dt id="arg-upsilon">upsilon<a class="anchor" aria-label="anchor" href="#arg-upsilon"></a></dt>
-<dd><p>(must be &gt; D)</p></dd>
+<dd><p>matrix-t degrees of freedom (must be &gt; 0). This is
+<em>not</em> the same scale as the <code>upsilon</code> argument of
+<code><a href="pibble_fit.html">pibble</a></code> or <code><a href="uncollapsePibble.html">uncollapsePibble</a></code>: for an
+inverse-Wishart prior with degrees of freedom <code>upsilon</code>, pass
+<code>upsilon - D + 2</code> here.</p></dd>
 
 
 <dt id="arg-thetax">ThetaX<a class="anchor" aria-label="anchor" href="#arg-thetax"></a></dt>
@@ -146,17 +153,17 @@ identity to speed computation</p></dd>
 <span class="r-in"><span><span class="va">ThetaX</span> <span class="op">&lt;-</span> <span class="va">Theta</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">X</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">loglikPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -195095.9</span>
-<span class="r-in"><span><span class="fu">gradPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.7284477 -0.1509676  1.2405685  0.2829217  2.6895085</span>
-<span class="r-in"><span><span class="fu">hessPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               [,1]       [,2]        [,3]        [,4]          [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -395.55832129  0.3806120 -0.02360702 -0.06801042  393.92582730</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0.38061199 -8.4987346 -0.31053592 -0.10707949    6.35296890</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   -0.02360702 -0.3105359 -1.22834285  0.10121428    0.81696424</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]   -0.06801042 -0.1070795  0.10121428 -0.48603619    0.04496538</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  393.92582730  6.3529689  0.81696424  0.04496538 -413.36822195</span>
+<span class="r-in"><span><span class="fu">loglikPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span> <span class="op">-</span> <span class="va">D</span> <span class="op">+</span> <span class="fl">2</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -195051.6</span>
+<span class="r-in"><span><span class="fu">gradPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span> <span class="op">-</span> <span class="va">D</span> <span class="op">+</span> <span class="fl">2</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.6504749 -0.2351229  1.2316352  0.2345338  2.8531653</span>
+<span class="r-in"><span><span class="fu">hessPibbleCollapsed</span><span class="op">(</span><span class="va">Y</span>, <span class="va">upsilon</span> <span class="op">-</span> <span class="va">D</span> <span class="op">+</span> <span class="fl">2</span>, <span class="va">ThetaX</span>, <span class="va">KInv</span>, <span class="va">AInv</span>, <span class="va">Eta</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               [,1]        [,2]        [,3]        [,4]          [,5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -395.52246082  0.39157593 -0.01261465 -0.05799243  393.92071965</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0.39157593 -8.25804838 -0.26758007 -0.09229975    6.34270080</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   -0.01261465 -0.26758007 -1.17258369  0.08725493    0.80984797</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]   -0.05799243 -0.09229975  0.08725493 -0.42836088    0.04745915</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  393.92071965  6.34270080  0.80984797  0.04745915 -413.33444034</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -168,7 +175,7 @@ identity to speed computation</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

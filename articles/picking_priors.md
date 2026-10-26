@@ -153,17 +153,17 @@ The prior for $`\Sigma`$ is an [Inverse
 Wishart](https://en.wikipedia.org/wiki/Inverse-Wishart_distribution)
 written
 ``` math
-\Sigma \sim W^{-1}(\Xi, \upsilon)
+\Sigma \sim W^{-1}(\upsilon, \Xi)
 ```
 where $`\Xi`$ is called the scale matrix (and must be a valid covariance
 matrix itself), and $`\upsilon`$ is called the degrees of freedom
-parameter. If $`\Sigma`$ is a $`(D-1)x(D-1)`$ matrix, then there is a
-constraint on $`\upsilon`$ such that $`\upsilon \geq D-1`$.
+parameter. If $`\Sigma`$ is a $`(D-1)\times(D-1)`$ matrix, then there is
+a constraint on $`\upsilon`$ such that $`\upsilon > D-2`$.
 
 The inverse Wishart has a mildly complex form for its moments (e.g.,
 mean and variance). Its mean is given by
 ``` math
-E[\Sigma] = \frac{\Xi}{\upsilon-D-2} \quad \text{for } \upsilon > D.
+E[\Sigma] = \frac{\Xi}{\upsilon-D} \quad \text{for } \upsilon > D.
 ```
 Its variance is somewhat complicated ([Wikipedia gives the
 relationships](https://en.wikipedia.org/wiki/Inverse-Wishart_distribution#Moments))
@@ -201,8 +201,9 @@ transformation matrix $`\Psi`$.
 
 **Linear transformation of the Inverse Wishart** It turns out that if we
 have $`\Omega \sim W^{-1}(\gamma, S)`$ for a $`D\times D`$ covariance
-matrix $`\Omega`$ then for $`M\times D`$ matrix $`\Psi`$ we have
-$`\Psi \Omega \Psi^T \sim W^{-1}(\upsilon, \Psi S \Psi^T)`$.
+matrix $`\Omega`$ then for a full-row-rank $`M\times D`$ matrix $`\Psi`$
+we have $`\Psi \Omega \Psi^T \sim W^{-1}(\upsilon, \Psi S \Psi^T)`$ with
+$`\upsilon=\gamma-D+M`$.
 
 **Putting It All Together** A central question: what is a reasonable
 prior for log-ratios? We are not used to working with log-ratios so this
@@ -220,10 +221,10 @@ for $`\Omega`$.
 E[\Omega] =I_D.
 ```
 Next we say we have little certainty about this mean (want high
-variance) so we set $`\gamma`$ to be close to the lower bound of $`D`$
-(I often like $`\gamma=D+3`$). Now we have $`\gamma`$ we need to
-calculate $`S`$ which we do by solving for $`S`$ in the equation for the
-Inverse-Wishart mean[^1]:
+variance) so we set $`\gamma`$ to be close to its lower bound (the mean
+only exists for $`\gamma > D+1`$; I often like $`\gamma=D+3`$). Now we
+have $`\gamma`$ we need to calculate $`S`$ which we do by solving for
+$`S`$ in the equation for the Inverse-Wishart mean[^1]:
 ``` math
 S = E[\Omega](\gamma -D-1).
 ```
@@ -231,8 +232,10 @@ There you go that’s a prior on the log-absolute-abundances. Next we need
 to transform this into a prior on log-ratios. Well the above allows us
 to do this by simplifying taking the contrast matrix $`\Psi`$ from the
 log-ratio transform we want and transforming our prior for $`\Omega`$ as
-$`\Sigma \sim W^{-1}(\gamma, \Psi S \Psi^T)`$. That’s it there the prior
-on log-ratios built form a prior on log-absolute-abundances.
+$`\Sigma \sim W^{-1}(\gamma-1, \Psi S \Psi^T)`$ (the degrees of freedom
+drop by one because we go from $`D`$ to $`D-1`$ dimensions). That’s it
+there the prior on log-ratios built form a prior on
+log-absolute-abundances.
 
 *A Note on Phylogenetic priors:* As in phylogenetic linear models, you
 can make $`S`$ (as defined above) a covariance derived from the
@@ -242,11 +245,12 @@ phylogenetic linear models in *fido*.
 **Making It Even Simpler** Say that you have a prior
 $`\Omega \sim W^{-1}(\gamma, S)`$ for covariance between
 log-absolute-abundances (created as in our example above). You want to
-transform this into a prior $`\Sigma \sim W^{-1}(\upsilon, \Xi)`$. You
-do this by simply taking $`\upsilon=\gamma`$. To calculate $`\Xi`$,
-rather than worrying about $`\Psi`$, functions in the [*driver* package
-I wrote](https://jsilve24.github.io/driver/) will do this for you, here
-are recipes:
+transform this into a prior $`\Sigma \sim W^{-1}(\upsilon, \Xi)`$. The
+projected standard inverse-Wishart df is $`\upsilon=\gamma-D+M`$ (so
+$`\upsilon=\gamma-1`$ for an ALR or ILR contrast with $`M=D-1`$). To
+calculate $`\Xi`$, rather than worrying about $`\Psi`$, functions in the
+[*driver* package I wrote](https://jsilve24.github.io/driver/) will do
+this for you, here are recipes:
 
 ``` r
 

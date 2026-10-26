@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fido</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -556,22 +556,31 @@ re-expanded using fully conjugate sampling schemes that do not require
 optimization or MCMC (only matrix operations).</p>
 <p><strong>Here are the details:</strong> The collapsed model is given
 by
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>Y</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>∼</mo><mtext mathvariant="normal">Multinomial</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>π</mi><mi>j</mi></msub><mo>,</mo><msub><mi>n</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>π</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msup><mi>ϕ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><msub><mi>η</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>η</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>∼</mo><msub><mi>T</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>υ</mi><mo>,</mo><mi mathvariant="normal">Θ</mi><mi>X</mi><mo>,</mo><mi mathvariant="normal">Ξ</mi><mo>,</mo><msub><mi>I</mi><mi>N</mi></msub><mo>+</mo><msup><mi>X</mi><mi>T</mi></msup><mi mathvariant="normal">Γ</mi><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>Y</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>∼</mo><mtext mathvariant="normal">Multinomial</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>π</mi><mi>j</mi></msub><mo>,</mo><msub><mi>n</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>π</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msup><mi>ϕ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><msub><mi>η</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>η</mi><mi>j</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>∼</mo><msub><mi>T</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>υ</mi><mo>−</mo><mi>D</mi><mo>+</mo><mn>2</mn><mo>,</mo><mi mathvariant="normal">Θ</mi><mi>X</mi><mo>,</mo><mi mathvariant="normal">Ξ</mi><mo>,</mo><msub><mi>I</mi><mi>N</mi></msub><mo>+</mo><msup><mi>X</mi><mi>T</mi></msup><mi mathvariant="normal">Γ</mi><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{align}
 Y_j &amp; \sim \text{Multinomial}\left(\pi_j, n_j\right)  \\
 \pi_j &amp; = \phi^{-1}(\eta_j) \\
-\eta_j &amp;\sim T_{(D-1)\times N}(\upsilon, \Theta X, \Xi, I_N + X^T \Gamma X)
+\eta_j &amp;\sim T_{(D-1)\times N}(\upsilon-D+2, \Theta X, \Xi, I_N + X^T \Gamma X)
 \end{align}
 </annotation></semantics></math> where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>I</mi><mi>N</mi></msub><mo>+</mo><msup><mi>X</mi><mi>T</mi></msup><mi mathvariant="normal">Γ</mi><mo>,</mo><mi>X</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">A=(I_N + X^T \Gamma, X)^{-1}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><msub><mi>I</mi><mi>N</mi></msub><mo>+</mo><msup><mi>X</mi><mi>T</mi></msup><mi mathvariant="normal">Γ</mi><mi>X</mi></mrow><annotation encoding="application/x-tex">A=I_N + X^T \Gamma X</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>N</mi></mrow></msub><annotation encoding="application/x-tex">T_{(D-1)\times N}</annotation></semantics></math>
-refers to the Matrix T-distribution the
+is the matrix-t distribution of the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">(D-1)\times N</annotation></semantics></math>
 matrix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>
-with log density given by
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><msub><mi>T</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mo stretchy="false" form="prefix">|</mo><mi>υ</mi><mo>,</mo><mi mathvariant="normal">Θ</mi><mi>X</mi><mo>,</mo><mi mathvariant="normal">Ξ</mi><mo>,</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>∝</mo><mi>−</mi><mfrac><mrow><mi>υ</mi><mo>+</mo><mi>N</mi><mo>−</mo><mi>D</mi><mo>−</mo><mn>2</mn></mrow><mn>2</mn></mfrac><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>I</mi><mrow><mi>D</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msup><mi mathvariant="normal">Ξ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mo>−</mo><mi mathvariant="normal">Θ</mi><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mo>−</mo><mi mathvariant="normal">Θ</mi><mi>X</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup><mo stretchy="false" form="prefix">|</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\log T_{(D-1)\times N}(\eta | \upsilon, \Theta X, \Xi, A) \propto -\frac{\upsilon+N-D-2}{2}\log | I_{D-1}+\Xi^{-1}(\eta-\Theta X)A(\eta-\Theta X)^T |.</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>.
+Note that the matrix-t degrees of freedom are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>υ</mi><mo>−</mo><mi>D</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\upsilon-D+2</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>υ</mi><annotation encoding="application/x-tex">\upsilon</annotation></semantics></math>
+is the inverse-Wishart degrees of freedom of the prior on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
+(the <code>upsilon</code> argument to <code><a href="../reference/pibble_fit.html">pibble()</a></code>).
+<code><a href="../reference/pibble_fit.html">pibble()</a></code> and <code><a href="../reference/basset_fit.html">basset()</a></code> make this conversion for
+you; only the low-level function <code><a href="../reference/optimPibbleCollapsed.html">optimPibbleCollapsed()</a></code>
+expects the matrix-t value directly.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><msub><mi>T</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mo stretchy="false" form="prefix">|</mo><mi>υ</mi><mo>−</mo><mi>D</mi><mo>+</mo><mn>2</mn><mo>,</mo><mi mathvariant="normal">Θ</mi><mi>X</mi><mo>,</mo><mi mathvariant="normal">Ξ</mi><mo>,</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>∝</mo><mi>−</mi><mfrac><mrow><mi>υ</mi><mo>+</mo><mi>N</mi></mrow><mn>2</mn></mfrac><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>I</mi><mrow><mi>D</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msup><mi mathvariant="normal">Ξ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mo>−</mo><mi mathvariant="normal">Θ</mi><mi>X</mi><mo stretchy="false" form="postfix">)</mo><msup><mi>A</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mo>−</mo><mi mathvariant="normal">Θ</mi><mi>X</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup><mo stretchy="false" form="prefix">|</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\log T_{(D-1)\times N}(\eta | \upsilon-D+2, \Theta X, \Xi, A) \propto -\frac{\upsilon+N}{2}\log | I_{D-1}+\Xi^{-1}(\eta-\Theta X)A^{-1}(\eta-\Theta X)^T |.</annotation></semantics></math>
 Rather than using MCMC to sample
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>
 fido uses MAP estimation (using a custom C++ Eigen based implementation
@@ -658,7 +667,7 @@ arXiv:1903.11695. <a href="https://arxiv.org/abs/1903.11695" class="external-lin
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

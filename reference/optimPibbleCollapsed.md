@@ -45,7 +45,12 @@ optimPibbleCollapsed(
 
 - upsilon:
 
-  (must be \> D)
+  matrix-t degrees of freedom (must be \> 0). This is *not* the same
+  scale as the `upsilon` argument of
+  [`pibble`](https://jsilve24.github.io/fido/reference/pibble_fit.md) or
+  [`uncollapsePibble`](https://jsilve24.github.io/fido/reference/uncollapsePibble.md):
+  for an inverse-Wishart prior with degrees of freedom `upsilon`, pass
+  `upsilon - D + 2` here.
 
 - ThetaX:
 
@@ -201,8 +206,8 @@ with the observed data. If you get this warning try the following.
     orders of magnitude
 
 3.  Try relaxing prior assumptions regarding covariance matrix. (e.g.,
-    may want to consider decreasing parameter `upsilon` closer to a
-    minimum value of D)
+    may want to consider decreasing parameter `upsilon` towards its
+    minimum value of zero)
 
 4.  Try adding small amount of jitter (e.g., set `jitter=1e-5`) to
     address potential floating point errors.
@@ -226,6 +231,6 @@ Processes*. 2022, Journal of Machine Learning
 sim <- pibble_sim()
 
 # Fit model for eta
-fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, sim$Theta%*%sim$X, sim$KInv, 
+fit <- optimPibbleCollapsed(sim$Y, sim$upsilon - sim$D + 2, sim$Theta%*%sim$X, sim$KInv,
                              sim$AInv, random_pibble_init(sim$Y))  
 ```

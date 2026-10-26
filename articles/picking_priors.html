@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fido</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -247,7 +247,7 @@ to understand.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
 is an <a href="https://en.wikipedia.org/wiki/Inverse-Wishart_distribution" class="external-link">Inverse
 Wishart</a> written
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><mo>∼</mo><msup><mi>W</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Ξ</mi><mo>,</mo><mi>υ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Sigma \sim W^{-1}(\Xi, \upsilon)</annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><mo>∼</mo><msup><mi>W</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>υ</mi><mo>,</mo><mi mathvariant="normal">Ξ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Sigma \sim W^{-1}(\upsilon, \Xi)</annotation></semantics></math>
 where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ξ</mi><annotation encoding="application/x-tex">\Xi</annotation></semantics></math>
 is called the scale matrix (and must be a valid covariance matrix
@@ -256,14 +256,14 @@ itself), and
 is called the degrees of freedom parameter. If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math>
 is a
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>x</mi><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(D-1)x(D-1)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(D-1)\times(D-1)</annotation></semantics></math>
 matrix, then there is a constraint on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>υ</mi><annotation encoding="application/x-tex">\upsilon</annotation></semantics></math>
 such that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>υ</mi><mo>≥</mo><mi>D</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\upsilon \geq D-1</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>υ</mi><mo>&gt;</mo><mi>D</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\upsilon &gt; D-2</annotation></semantics></math>.</p>
 <p>The inverse Wishart has a mildly complex form for its moments (e.g.,
 mean and variance). Its mean is given by
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mfrac><mi mathvariant="normal">Ξ</mi><mrow><mi>υ</mi><mo>−</mo><mi>D</mi><mo>−</mo><mn>2</mn></mrow></mfrac><mspace width="1.0em"></mspace><mrow><mtext mathvariant="normal">for </mtext><mspace width="0.333em"></mspace></mrow><mi>υ</mi><mo>&gt;</mo><mi>D</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">E[\Sigma] = \frac{\Xi}{\upsilon-D-2} \quad \text{for } \upsilon &gt; D.</annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">[</mo><mi mathvariant="normal">Σ</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mfrac><mi mathvariant="normal">Ξ</mi><mrow><mi>υ</mi><mo>−</mo><mi>D</mi></mrow></mfrac><mspace width="1.0em"></mspace><mrow><mtext mathvariant="normal">for </mtext><mspace width="0.333em"></mspace></mrow><mi>υ</mi><mo>&gt;</mo><mi>D</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">E[\Sigma] = \frac{\Xi}{\upsilon-D} \quad \text{for } \upsilon &gt; D.</annotation></semantics></math>
 Its variance is somewhat complicated (<a href="https://en.wikipedia.org/wiki/Inverse-Wishart_distribution#Moments" class="external-link">Wikipedia
 gives the relationships</a>) but for most purposes you can think of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>υ</mi><annotation encoding="application/x-tex">\upsilon</annotation></semantics></math>
@@ -324,12 +324,14 @@ for a
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>×</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">D\times D</annotation></semantics></math>
 covariance matrix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
-then for
+then for a full-row-rank
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>×</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">M\times D</annotation></semantics></math>
 matrix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ψ</mi><annotation encoding="application/x-tex">\Psi</annotation></semantics></math>
 we have
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ψ</mi><mi mathvariant="normal">Ω</mi><msup><mi mathvariant="normal">Ψ</mi><mi>T</mi></msup><mo>∼</mo><msup><mi>W</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>υ</mi><mo>,</mo><mi mathvariant="normal">Ψ</mi><mi>S</mi><msup><mi mathvariant="normal">Ψ</mi><mi>T</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Psi \Omega \Psi^T \sim W^{-1}(\upsilon, \Psi S \Psi^T)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ψ</mi><mi mathvariant="normal">Ω</mi><msup><mi mathvariant="normal">Ψ</mi><mi>T</mi></msup><mo>∼</mo><msup><mi>W</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>υ</mi><mo>,</mo><mi mathvariant="normal">Ψ</mi><mi>S</mi><msup><mi mathvariant="normal">Ψ</mi><mi>T</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Psi \Omega \Psi^T \sim W^{-1}(\upsilon, \Psi S \Psi^T)</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>υ</mi><mo>=</mo><mi>γ</mi><mo>−</mo><mi>D</mi><mo>+</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">\upsilon=\gamma-D+M</annotation></semantics></math>.</p>
 <p><strong>Putting It All Together</strong> A central question: what is
 a reasonable prior for log-ratios? We are not used to working with
 log-ratios so this is difficult. A potentially simpler problem is to
@@ -352,9 +354,9 @@ that reflect this. Lets start by specifying the mean for
 Next we say we have little certainty about this mean (want high
 variance) so we set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>
-to be close to the lower bound of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
-(I often like
+to be close to its lower bound (the mean only exists for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi><mo>&gt;</mo><mi>D</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gamma &gt; D+1</annotation></semantics></math>;
+I often like
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi><mo>=</mo><mi>D</mi><mo>+</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\gamma=D+3</annotation></semantics></math>).
 Now we have
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>
@@ -378,9 +380,13 @@ to do this by simplifying taking the contrast matrix
 from the log-ratio transform we want and transforming our prior for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
 as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><mo>∼</mo><msup><mi>W</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>γ</mi><mo>,</mo><mi mathvariant="normal">Ψ</mi><mi>S</mi><msup><mi mathvariant="normal">Ψ</mi><mi>T</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Sigma \sim W^{-1}(\gamma, \Psi S \Psi^T)</annotation></semantics></math>.
-That’s it there the prior on log-ratios built form a prior on
-log-absolute-abundances.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><mo>∼</mo><msup><mi>W</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>γ</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi mathvariant="normal">Ψ</mi><mi>S</mi><msup><mi mathvariant="normal">Ψ</mi><mi>T</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Sigma \sim W^{-1}(\gamma-1, \Psi S \Psi^T)</annotation></semantics></math>
+(the degrees of freedom drop by one because we go from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">D-1</annotation></semantics></math>
+dimensions). That’s it there the prior on log-ratios built form a prior
+on log-absolute-abundances.</p>
 <p><em>A Note on Phylogenetic priors:</em> As in phylogenetic linear
 models, you can make
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
@@ -392,8 +398,12 @@ models in <em>fido</em>.</p>
 for covariance between log-absolute-abundances (created as in our
 example above). You want to transform this into a prior
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><mo>∼</mo><msup><mi>W</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>υ</mi><mo>,</mo><mi mathvariant="normal">Ξ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Sigma \sim W^{-1}(\upsilon, \Xi)</annotation></semantics></math>.
-You do this by simply taking
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>υ</mi><mo>=</mo><mi>γ</mi></mrow><annotation encoding="application/x-tex">\upsilon=\gamma</annotation></semantics></math>.
+The projected standard inverse-Wishart df is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>υ</mi><mo>=</mo><mi>γ</mi><mo>−</mo><mi>D</mi><mo>+</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">\upsilon=\gamma-D+M</annotation></semantics></math>
+(so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>υ</mi><mo>=</mo><mi>γ</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\upsilon=\gamma-1</annotation></semantics></math>
+for an ALR or ILR contrast with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mi>D</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">M=D-1</annotation></semantics></math>).
 To calculate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ξ</mi><annotation encoding="application/x-tex">\Xi</annotation></semantics></math>,
 rather than worrying about
@@ -628,7 +638,7 @@ sets the signal-to-noise ratio in our prior.</strong></p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

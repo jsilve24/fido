@@ -46,7 +46,9 @@ orthus(
 
 - upsilon:
 
-  dof for inverse wishart prior (numeric must be \> D) (default: D+3)
+  degrees of freedom for the inverse-Wishart prior on Sigma (numeric,
+  must be \> D+P-2; the prior mean of Sigma exists only if \> D+P)
+  (default: D+P+3)
 
 - Theta:
 
@@ -84,7 +86,15 @@ an object of class pibblefit
 
 ## Details
 
-the full model is given by: \$\$Y_j \sim Multinomial(\pi_j)\$\$
+`upsilon` is the usual inverse-Wishart degrees of freedom for the full
+`(D-1+P) x (D-1+P)` covariance Sigma, so the prior mean of Sigma is
+`Xi/(upsilon-D-P)` (for `upsilon > D+P`). Internally, Eta is estimated
+from its distribution conditional on Z, which is matrix-t with
+`upsilon-D+2` degrees of freedom; this conversion is automatic. Versions
+of fido before 1.1.5 used the wrong conversion (`upsilon+P`); fits made
+with earlier versions should be refit.
+
+The full model is given by: \$\$Y_j \sim Multinomial(\pi_j)\$\$
 \$\$\pi_j = \Phi^{-1}(\eta_j)\$\$ \$\$cbind(\eta, Z) \sim MN\_{D-1+P
 \times N}(\Lambda X, \Sigma, I_N)\$\$ \$\$\Lambda \sim MN\_{D-1+P \times
 Q}(\Theta, \Sigma, \Gamma)\$\$ \$\$\Sigma \sim InvWish(\upsilon,

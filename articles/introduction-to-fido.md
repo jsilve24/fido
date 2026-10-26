@@ -466,14 +466,24 @@ MCMC (only matrix operations).
 \begin{align}
 Y_j & \sim \text{Multinomial}\left(\pi_j, n_j\right)  \\
 \pi_j & = \phi^{-1}(\eta_j) \\
-\eta_j &\sim T_{(D-1)\times N}(\upsilon, \Theta X, \Xi, I_N + X^T \Gamma X)
+\eta_j &\sim T_{(D-1)\times N}(\upsilon-D+2, \Theta X, \Xi, I_N + X^T \Gamma X)
 \end{align}
 ```
-where $`A=(I_N + X^T \Gamma, X)^{-1}`$ and $`T_{(D-1)\times N}`$ refers
-to the Matrix T-distribution the $`(D-1)\times N`$ matrix $`\eta`$ with
-log density given by
+where $`A=I_N + X^T \Gamma X`$ and $`T_{(D-1)\times N}`$ is the matrix-t
+distribution of the $`(D-1)\times N`$ matrix $`\eta`$. Note that the
+matrix-t degrees of freedom are $`\upsilon-D+2`$, where $`\upsilon`$ is
+the inverse-Wishart degrees of freedom of the prior on $`\Sigma`$ (the
+`upsilon` argument to
+[`pibble()`](https://jsilve24.github.io/fido/reference/pibble_fit.md)).
+[`pibble()`](https://jsilve24.github.io/fido/reference/pibble_fit.md)
+and
+[`basset()`](https://jsilve24.github.io/fido/reference/basset_fit.md)
+make this conversion for you; only the low-level function
+[`optimPibbleCollapsed()`](https://jsilve24.github.io/fido/reference/optimPibbleCollapsed.md)
+expects the matrix-t value directly.
+
 ``` math
-\log T_{(D-1)\times N}(\eta | \upsilon, \Theta X, \Xi, A) \propto -\frac{\upsilon+N-D-2}{2}\log | I_{D-1}+\Xi^{-1}(\eta-\Theta X)A(\eta-\Theta X)^T |.
+\log T_{(D-1)\times N}(\eta | \upsilon-D+2, \Theta X, \Xi, A) \propto -\frac{\upsilon+N}{2}\log | I_{D-1}+\Xi^{-1}(\eta-\Theta X)A^{-1}(\eta-\Theta X)^T |.
 ```
 Rather than using MCMC to sample $`\eta`$ fido uses MAP estimation
 (using a custom C++ Eigen based implementation of the ADAM optimizer and

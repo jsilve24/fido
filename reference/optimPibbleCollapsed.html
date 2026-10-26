@@ -13,7 +13,7 @@ of covariates."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">fido</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,7 +94,11 @@ of covariates.</p>
 
 
 <dt id="arg-upsilon">upsilon<a class="anchor" aria-label="anchor" href="#arg-upsilon"></a></dt>
-<dd><p>(must be &gt; D)</p></dd>
+<dd><p>matrix-t degrees of freedom (must be &gt; 0). This is
+<em>not</em> the same scale as the <code>upsilon</code> argument of
+<code><a href="pibble_fit.html">pibble</a></code> or <code><a href="uncollapsePibble.html">uncollapsePibble</a></code>: for an
+inverse-Wishart prior with degrees of freedom <code>upsilon</code>, pass
+<code>upsilon - D + 2</code> here.</p></dd>
 
 
 <dt id="arg-thetax">ThetaX<a class="anchor" aria-label="anchor" href="#arg-thetax"></a></dt>
@@ -236,8 +240,8 @@ and increasing <code>max_iter</code> parameters in optimizer. Also can try
 increasing <code>b1</code> to 0.99 and decreasing <code>eps_f</code> by a few orders
 of magnitude</p></li>
 <li><p>Try relaxing prior assumptions regarding covariance matrix. (e.g., may want
-to consider decreasing parameter <code>upsilon</code> closer to a minimum value of
-D)</p></li>
+to consider decreasing parameter <code>upsilon</code> towards its minimum
+value of zero)</p></li>
 <li><p>Try adding small amount of jitter (e.g., set <code>jitter=1e-5</code>) to address
 potential floating point errors.</p></li>
 </ol></div>
@@ -259,7 +263,7 @@ optimization algorithms</em>. arXiv 1609.04747</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="pibble_sim.html">pibble_sim</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Fit model for eta</span></span></span>
-<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">optimPibbleCollapsed</span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">upsilon</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Theta</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">sim</span><span class="op">$</span><span class="va">X</span>, <span class="va">sim</span><span class="op">$</span><span class="va">KInv</span>, </span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">optimPibbleCollapsed</span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span>, <span class="va">sim</span><span class="op">$</span><span class="va">upsilon</span> <span class="op">-</span> <span class="va">sim</span><span class="op">$</span><span class="va">D</span> <span class="op">+</span> <span class="fl">2</span>, <span class="va">sim</span><span class="op">$</span><span class="va">Theta</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span><span class="va">sim</span><span class="op">$</span><span class="va">X</span>, <span class="va">sim</span><span class="op">$</span><span class="va">KInv</span>,</span></span>
 <span class="r-in"><span>                             <span class="va">sim</span><span class="op">$</span><span class="va">AInv</span>, <span class="fu"><a href="random_pibble_init.html">random_pibble_init</a></span><span class="op">(</span><span class="va">sim</span><span class="op">$</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span>  </span></span>
 </code></pre></div>
     </div>
@@ -272,7 +276,7 @@ optimization algorithms</em>. arXiv 1609.04747</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

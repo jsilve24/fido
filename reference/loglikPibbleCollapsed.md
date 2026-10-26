@@ -8,7 +8,9 @@ is much more optimized and massively cuts down on repeated calculations.
 A more efficient Rcpp module based implementation of these functions may
 following if the future. For model details see
 [`optimPibbleCollapsed`](https://jsilve24.github.io/fido/reference/optimPibbleCollapsed.md)
-documentation
+documentation. The log likelihood omits terms constant in eta (including
+the matrix-t and multinomial normalizers); it is not a normalized
+density.
 
 ## Usage
 
@@ -28,7 +30,12 @@ hessPibbleCollapsed(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALSE)
 
 - upsilon:
 
-  (must be \> D)
+  matrix-t degrees of freedom (must be \> 0). This is *not* the same
+  scale as the `upsilon` argument of
+  [`pibble`](https://jsilve24.github.io/fido/reference/pibble_fit.md) or
+  [`uncollapsePibble`](https://jsilve24.github.io/fido/reference/uncollapsePibble.md):
+  for an inverse-Wishart prior with degrees of freedom `upsilon`, pass
+  `upsilon - D + 2` here.
 
 - ThetaX:
 
@@ -93,15 +100,15 @@ AInv <- solve(diag(N)+ t(X)%*%Gamma%*%X)
 ThetaX <- Theta%*%X
 
 
-loglikPibbleCollapsed(Y, upsilon, ThetaX, KInv, AInv, Eta)
-#> [1] -195095.9
-gradPibbleCollapsed(Y, upsilon, ThetaX, KInv, AInv, Eta)[1:5]
-#> [1] -4.7284477 -0.1509676  1.2405685  0.2829217  2.6895085
-hessPibbleCollapsed(Y, upsilon, ThetaX, KInv, AInv, Eta)[1:5,1:5]
-#>               [,1]       [,2]        [,3]        [,4]          [,5]
-#> [1,] -395.55832129  0.3806120 -0.02360702 -0.06801042  393.92582730
-#> [2,]    0.38061199 -8.4987346 -0.31053592 -0.10707949    6.35296890
-#> [3,]   -0.02360702 -0.3105359 -1.22834285  0.10121428    0.81696424
-#> [4,]   -0.06801042 -0.1070795  0.10121428 -0.48603619    0.04496538
-#> [5,]  393.92582730  6.3529689  0.81696424  0.04496538 -413.36822195
+loglikPibbleCollapsed(Y, upsilon - D + 2, ThetaX, KInv, AInv, Eta)
+#> [1] -195051.6
+gradPibbleCollapsed(Y, upsilon - D + 2, ThetaX, KInv, AInv, Eta)[1:5]
+#> [1] -4.6504749 -0.2351229  1.2316352  0.2345338  2.8531653
+hessPibbleCollapsed(Y, upsilon - D + 2, ThetaX, KInv, AInv, Eta)[1:5,1:5]
+#>               [,1]        [,2]        [,3]        [,4]          [,5]
+#> [1,] -395.52246082  0.39157593 -0.01261465 -0.05799243  393.92071965
+#> [2,]    0.39157593 -8.25804838 -0.26758007 -0.09229975    6.34270080
+#> [3,]   -0.01261465 -0.26758007 -1.17258369  0.08725493    0.80984797
+#> [4,]   -0.05799243 -0.09229975  0.08725493 -0.42836088    0.04745915
+#> [5,]  393.92071965  6.34270080  0.80984797  0.04745915 -413.33444034
 ```

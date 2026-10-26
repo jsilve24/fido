@@ -1,5 +1,95 @@
 # Changelog
 
+## fido 1.1.5
+
+This release fixes a long-standing error in how the prior degrees of
+freedom (`upsilon`) were used. **Results from
+[`pibble()`](https://jsilve24.github.io/fido/reference/pibble_fit.md),
+[`basset()`](https://jsilve24.github.io/fido/reference/basset_fit.md)
+and
+[`orthus()`](https://jsilve24.github.io/fido/reference/orthus_fit.md)
+fitted with earlier versions may change; please refit.**
+
+### What was wrong
+
+fido fits models in two steps. It first finds `Eta` using a “collapsed”
+model in which `Lambda` and `Sigma` have been integrated out. It then
+draws `Lambda` and `Sigma` given `Eta` (the “uncollapse” step). Both
+steps should use the same inverse-Wishart prior on `Sigma`, with
+`upsilon` degrees of freedom.
+
+The collapsed step expects its degrees of freedom on a different scale
+(the matrix-t scale). Converting the inverse-Wishart `upsilon` to that
+scale requires subtracting `D - 2`. Since 2018,
+[`pibble()`](https://jsilve24.github.io/fido/reference/pibble_fit.md)
+passed `upsilon` to the collapsed step without this conversion. The
+collapsed step therefore used a prior on `Sigma` that was more
+informative than the one requested. The uncollapse step used the correct
+prior, so the two steps did not agree.
+
+### Who is affected
+
+- [`pibble()`](https://jsilve24.github.io/fido/reference/pibble_fit.md)
+  and
+  [`basset()`](https://jsilve24.github.io/fido/reference/basset_fit.md)
+  (including additive
+  [`basset()`](https://jsilve24.github.io/fido/reference/basset_fit.md)
+  models) with three or more categories (`D > 2`). With `D = 2` the two
+  scales coincide and results are unchanged. The larger `D` is relative
+  to `upsilon`, the larger the effect.
+- [`orthus()`](https://jsilve24.github.io/fido/reference/orthus_fit.md)
+  in all cases, because it had a similar conversion error (`upsilon + P`
+  was used where `upsilon - D + 2` is correct).
+- `maltipoo()` (experimental) received the same fix.
+
+### Other fixes
+
+- The log marginal likelihood reported by the Laplace approximation
+  (`logMarginalLikelihood`) was missing several constant terms and is
+  now correctly normalized. Stored values from earlier versions (for any
+  `D`) should not be compared with new ones.
+- [`pibble()`](https://jsilve24.github.io/fido/reference/pibble_fit.md),
+  [`basset()`](https://jsilve24.github.io/fido/reference/basset_fit.md),
+  [`orthus()`](https://jsilve24.github.io/fido/reference/orthus_fit.md)
+  and `maltipoo()` now stop with an error if `upsilon` is too small for
+  a valid inverse-Wishart prior (`upsilon <= D-2`, or `upsilon <= D+P-2`
+  for
+  [`orthus()`](https://jsilve24.github.io/fido/reference/orthus_fit.md)).
+  Previously such values were accepted silently and produced meaningless
+  fits.
+- `orthus_sim(true_priors = FALSE)` now returns `upsilon = D+P`
+  (previously `D`, which is not a valid prior for the
+  `(D-1+P)`-dimensional covariance).
+- Non-integer `upsilon` was silently rounded down when drawing `Sigma`;
+  it is now used as given.
+- [`basset()`](https://jsilve24.github.io/fido/reference/basset_fit.md)
+  with more than one component (lists of `Theta` and `Gamma`) passed
+  `ncores` into the `ret_mean` slot of the component sampler. When
+  `ncores` was set this could return component means instead of
+  posterior draws, and the `seed` and `ncores` settings were ignored.
+  Arguments are now passed by name, and each component uses its own
+  random stream, so component uncertainty is now correct.
+
+### What you need to do
+
+- **Refit** analyses from the original data and priors. Old fits can
+  still be loaded, but there is no way to correct their draws by
+  adjusting `upsilon` after the fact; predictions from old fit objects
+  reflect the old results.
+- The meaning of the `upsilon` argument has not changed: it is the
+  standard inverse-Wishart degrees of freedom, so the prior mean of
+  `Sigma` is `Xi / (upsilon - D)`. Existing scripts need no edits.
+- If you call the low-level functions
+  [`optimPibbleCollapsed()`](https://jsilve24.github.io/fido/reference/optimPibbleCollapsed.md),
+  [`loglikPibbleCollapsed()`](https://jsilve24.github.io/fido/reference/loglikPibbleCollapsed.md),
+  [`gradPibbleCollapsed()`](https://jsilve24.github.io/fido/reference/loglikPibbleCollapsed.md)
+  or
+  [`hessPibbleCollapsed()`](https://jsilve24.github.io/fido/reference/loglikPibbleCollapsed.md)
+  directly, note that they take matrix-t degrees of freedom. Pass
+  `upsilon - D + 2` rather than `upsilon` (see their help pages).
+  [`uncollapsePibble()`](https://jsilve24.github.io/fido/reference/uncollapsePibble.md)
+  still takes `upsilon` unchanged.
+
 ## fido 1.1.4
 
 - Fixed the posterior mean of `Sigma` returned by

@@ -31,7 +31,9 @@ mongrel(
 
 - upsilon:
 
-  dof for inverse wishart prior (numeric must be \> D) (default: D+3)
+  degrees of freedom for the inverse-Wishart prior on Sigma (numeric,
+  must be \> D-2; the prior mean of Sigma exists only if \> D) (default:
+  D+3)
 
 - Theta:
 

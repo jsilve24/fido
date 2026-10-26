@@ -23,7 +23,7 @@ optimPibbleCollapsed)"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">fido</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,7 +102,8 @@ be present to sample Eta)</p></dd>
 
 
 <dt id="arg-upsilon">upsilon<a class="anchor" aria-label="anchor" href="#arg-upsilon"></a></dt>
-<dd><p>dof for inverse wishart prior (numeric must be &gt; D)
+<dd><p>degrees of freedom for the inverse-Wishart prior on Sigma
+(numeric, must be &gt; D-2; the prior mean of Sigma exists only if &gt; D)
 (default: D+3)</p></dd>
 
 
@@ -149,7 +150,18 @@ essentially iid on "base scale" using Aitchison terminology)</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>the full model is given by:
+    <p><code>upsilon</code> is the usual inverse-Wishart degrees of freedom, so
+the prior mean of Sigma is <code>Xi/(upsilon-D)</code> (for <code>upsilon &gt; D</code>).
+Larger values give a more concentrated prior on Sigma. Internally this is
+converted to the matrix-t degrees of freedom (<code>upsilon-D+2</code>) used by
+the collapsed model; you do not need to do this yourself. (If you call
+<code><a href="optimPibbleCollapsed.html">optimPibbleCollapsed</a></code> directly, you do.)</p>
+<p>Versions of fido before 1.1.5 skipped this conversion when <code>D &gt; 2</code>, so
+the prior used to estimate Eta did not match the prior requested. Fits made
+with earlier versions should be refit from the original data and priors.
+Log marginal likelihoods from earlier versions were also mis-normalized (for
+any <code>D</code>) and should not be compared with new values.</p>
+<p>The full model is given by:
 $$Y_j \sim Multinomial(\pi_j)$$
 $$\pi_j = \Phi^{-1}(\eta_j)$$
 $$\eta \sim MN_{D-1 \times N}(\Lambda X, \Sigma, I_N)$$
@@ -200,7 +212,7 @@ and <code><a href="ppc.pibblefit.html">ppc</a></code> (posterior predictive chec
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

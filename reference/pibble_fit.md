@@ -43,7 +43,9 @@ refit(m, pars = c("Eta", "Lambda", "Sigma"), ...)
 
 - upsilon:
 
-  dof for inverse wishart prior (numeric must be \> D) (default: D+3)
+  degrees of freedom for the inverse-Wishart prior on Sigma (numeric,
+  must be \> D-2; the prior mean of Sigma exists only if \> D) (default:
+  D+3)
 
 - Theta:
 
@@ -90,7 +92,21 @@ an object of class pibblefit
 
 ## Details
 
-the full model is given by: \$\$Y_j \sim Multinomial(\pi_j)\$\$
+`upsilon` is the usual inverse-Wishart degrees of freedom, so the prior
+mean of Sigma is `Xi/(upsilon-D)` (for `upsilon > D`). Larger values
+give a more concentrated prior on Sigma. Internally this is converted to
+the matrix-t degrees of freedom (`upsilon-D+2`) used by the collapsed
+model; you do not need to do this yourself. (If you call
+[`optimPibbleCollapsed`](https://jsilve24.github.io/fido/reference/optimPibbleCollapsed.md)
+directly, you do.)
+
+Versions of fido before 1.1.5 skipped this conversion when `D > 2`, so
+the prior used to estimate Eta did not match the prior requested. Fits
+made with earlier versions should be refit from the original data and
+priors. Log marginal likelihoods from earlier versions were also
+mis-normalized (for any `D`) and should not be compared with new values.
+
+The full model is given by: \$\$Y_j \sim Multinomial(\pi_j)\$\$
 \$\$\pi_j = \Phi^{-1}(\eta_j)\$\$ \$\$\eta \sim MN\_{D-1 \times
 N}(\Lambda X, \Sigma, I_N)\$\$ \$\$\Lambda \sim MN\_{D-1 \times
 Q}(\Theta, \Sigma, \Gamma)\$\$ \$\$\Sigma \sim InvWish(\upsilon,

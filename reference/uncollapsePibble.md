@@ -82,10 +82,10 @@ List with components
 
 Notation: Let \\Z_j\\ denote the J-th row of a matrix Z. While the
 collapsed model is given by: \$\$Y_j \sim \text{Multinomial}(\pi_j)\$\$
-\$\$\pi_j = \Phi^{-1}(\eta_j)\$\$ \$\$\eta \sim T\_{D-1, N}(\upsilon,
-\Theta X, K, A)\$\$ Where \\A = I_N + X \Gamma X'\\, \\K=\Xi\\ is a
-(D-1)x(D-1) covariance matrix, \\\Gamma\\ is a Q x Q covariance matrix,
-and \\\Phi^{-1}\\ is ALRInv_D transform.
+\$\$\pi_j = \Phi^{-1}(\eta_j)\$\$ \$\$\eta \sim T\_{D-1,
+N}(\upsilon-D+2, \Theta X, K, A)\$\$ Where \\A = I_N + X \Gamma X'\\,
+\\K=\Xi\\ is a (D-1)x(D-1) covariance matrix, \\\Gamma\\ is a Q x Q
+covariance matrix, and \\\Phi^{-1}\\ is ALRInv_D transform.
 
 The uncollapsed model (Full pibble model) is given by: \$\$Y_j \sim
 \text{Multinomial}(\pi_j)\$\$ \$\$\pi_j = \Phi^{-1}(\eta_j)\$\$ \$\$\eta
@@ -111,7 +111,7 @@ Processes. 2019, arXiv e-prints, arXiv:1903.11695
 sim <- pibble_sim()
 
 # Fit model for eta
-fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, sim$Theta%*%sim$X, sim$KInv, 
+fit <- optimPibbleCollapsed(sim$Y, sim$upsilon - sim$D + 2, sim$Theta%*%sim$X, sim$KInv,
                              sim$AInv, random_pibble_init(sim$Y))  
 
 # Finally obtain samples from Lambda and Sigma
