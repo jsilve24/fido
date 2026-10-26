@@ -66,7 +66,20 @@ the parameter \code{n_samples} in the function
 \code{\link{optimPibbleCollapsed}})
 }
 \details{
-the full model is given by:
+\code{upsilon} uses standard inverse-Wishart degrees of freedom:
+for \code{P = D-1}, the prior mean of Sigma is \code{Xi/(upsilon-P-1)}
+when it exists. The collapsed matrix-t distribution has df
+\code{upsilon-P+1}; the wrapper performs this conversion internally.
+Low-level \code{optimPibbleCollapsed} and its likelihood/derivative helpers
+accept matrix-t df instead.
+
+Fits produced before version 1.1.5 used inconsistent df in collapse and
+uncollapse when P > 1. Saved draws remain readable, but cannot be corrected
+by changing their stored df: refit from the data and original priors.
+Previously stored marginal likelihoods should also be recomputed by refitting,
+including when P = 1, because their normalization was incomplete.
+
+The full model is given by:
 \deqn{Y_j \sim Multinomial(\pi_j)}{Y_j \sim Multinomial(Pi_j)}
 \deqn{\pi_j = \Phi^{-1}(\eta_j)}{Pi_j = Phi^(-1)(Eta_j)}
 \deqn{\eta \sim MN_{D-1 \times N}(\Lambda X, \Sigma, I_N)}{Eta \sim MN_{D-1 x N}(Lambda*X, Sigma, I_N)}

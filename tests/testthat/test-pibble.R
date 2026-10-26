@@ -8,7 +8,7 @@ sim <- pibble_sim(true_priors=TRUE)
 test_that("optim and uncollapse correctnesss", {
  
   init <- random_pibble_init(sim$Y)
-  fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, (sim$Theta%*%sim$X), sim$KInv, 
+  fit <- optimPibbleCollapsed(sim$Y, sim$upsilon - sim$D + 2, (sim$Theta%*%sim$X), sim$KInv,
                                sim$AInv, init,
                                n_samples=3000,
                                calcGradHess = FALSE, seed=40)
@@ -41,7 +41,7 @@ test_that("optim sylvester gets same result", {
   sim <- pibble_sim(D=30, N=10, true_priors = TRUE)
   init <- random_pibble_init(sim$Y)
   start <- Sys.time()
-  fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, (sim$Theta%*%sim$X), sim$KInv, 
+  fit <- optimPibbleCollapsed(sim$Y, sim$upsilon - sim$D + 2, (sim$Theta%*%sim$X), sim$KInv,
                                sim$AInv, init,
                                n_samples=2000,
                                calcGradHess = FALSE, 
@@ -49,7 +49,7 @@ test_that("optim sylvester gets same result", {
   end <- Sys.time()
   plain <- end-start
   start <- Sys.time()
-  fitsylv <- optimPibbleCollapsed(sim$Y, sim$upsilon, (sim$Theta%*%sim$X), sim$KInv, 
+  fitsylv <- optimPibbleCollapsed(sim$Y, sim$upsilon - sim$D + 2, (sim$Theta%*%sim$X), sim$KInv,
                                sim$AInv, init,
                                n_samples=2000,
                                calcGradHess = FALSE, 
@@ -137,7 +137,7 @@ uncollapse_mean_only <- function(eta, X, upsilon, Theta, Xi, Gamma){
 
 test_that("uncollapse correctnesss against double programming", {
   init <- random_pibble_init(sim$Y)
-  fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, (sim$Theta%*%sim$X), sim$KInv, 
+  fit <- optimPibbleCollapsed(sim$Y, sim$upsilon - sim$D + 2, (sim$Theta%*%sim$X), sim$KInv,
                                sim$AInv, init,
                                n_samples=2000,
                                calcGradHess = FALSE)
@@ -186,12 +186,12 @@ test_that("uncollapse is invariant to ncores for fixed seed", {
 test_that("eigen and cholesky get same result", {
   sim <- pibble_sim(true_priors=TRUE, N=2, D=4)
   init <- random_pibble_init(sim$Y)
-  fitc <- optimPibbleCollapsed(sim$Y, sim$upsilon, (sim$Theta%*%sim$X), sim$KInv, 
+  fitc <- optimPibbleCollapsed(sim$Y, sim$upsilon - sim$D + 2, (sim$Theta%*%sim$X), sim$KInv,
                                sim$AInv, init,
                                n_samples=500000,
                                calcGradHess = FALSE, 
                                decomp="cholesky")
-  fite <- optimPibbleCollapsed(sim$Y, sim$upsilon, (sim$Theta%*%sim$X), sim$KInv, 
+  fite <- optimPibbleCollapsed(sim$Y, sim$upsilon - sim$D + 2, (sim$Theta%*%sim$X), sim$KInv,
                                 sim$AInv, init,
                                 n_samples=500000,
                                 calcGradHess = FALSE, 
@@ -210,7 +210,7 @@ test_that("eigen and cholesky get same result", {
 
 test_that("logInvNegHessDet correct", {
   init <- random_pibble_init(sim$Y)
-  fitc <- optimPibbleCollapsed(sim$Y, sim$upsilon, (sim$Theta%*%sim$X), sim$KInv, 
+  fitc <- optimPibbleCollapsed(sim$Y, sim$upsilon - sim$D + 2, (sim$Theta%*%sim$X), sim$KInv,
                                 sim$AInv, init,
                                 n_samples=1,
                                 calcGradHess = TRUE, 

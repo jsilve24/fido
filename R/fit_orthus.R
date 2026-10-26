@@ -29,7 +29,10 @@
 #' @param ... arguments passed to \code{\link{optimPibbleCollapsed}} and 
 #'   \code{\link{uncollapsePibble}}
 #' 
-#' @details the full model is given by:
+#' @details \code{upsilon} is standard inverse-Wishart df on the full
+#' \code{D-1+P} dimensional covariance. The full matrix-t df is
+#' \code{upsilon-(D-1+P)+1}; conditioning on Z adds P to that df.
+#' The full model is given by:
 #'    \deqn{Y_j \sim Multinomial(\pi_j)}{Y_j \sim Multinomial(Pi_j)}  
 #'    \deqn{\pi_j = \Phi^{-1}(\eta_j)}{Pi_j = Phi^(-1)(Eta_j)}
 #'    \deqn{cbind(\eta, Z) \sim MN_{D-1+P \times N}(\Lambda X, \Sigma, I_N)}{cbind(Eta, Z) \sim MN_{D-1+P x N}(Lambda*X, Sigma, I_N)}
@@ -167,7 +170,9 @@ orthus <- function(Y=NULL, Z=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL,
   B <- Theta%*%X
   E2 <- Z - B[two,]
   K22Inv <- chol2inv(chol(K[two,two]))
-  upsilon.star <- upsilon+P
+  # Full matrix-t df is upsilon - (D-1+P) + 1; conditioning on
+  # the P continuous rows adds P to the matrix-t df.
+  upsilon.star <- upsilon - D + 2
   K.star <- K[one,one] - K[one,two] %*% K22Inv %*% K[two,one]
   B.star <- B[one,] + K[one,two] %*% K22Inv %*% E2
   A.star <- A%*%(diag(N) + AInv %*% t(E2) %*% K22Inv %*% E2)

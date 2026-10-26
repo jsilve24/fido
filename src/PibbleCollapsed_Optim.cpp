@@ -21,7 +21,10 @@ using Eigen::VectorXd;
 //' of covariates. 
 //' 
 //' @param Y D x N matrix of counts
-//' @param upsilon (must be > D)
+//' @param upsilon positive matrix-t degrees of freedom. For a standard
+//' inverse-Wishart prior with df \code{v} on a \code{P = D-1} dimensional
+//' covariance, pass \code{v - P + 1}. This differs from \code{pibble}
+//' and \code{uncollapsePibble}, which accept inverse-Wishart df.
 //' @param ThetaX D-1 x N matrix formed by Theta*X (Theta is Prior mean 
 //'    for regression coefficients) 
 //' @param KInv D-1 x D-1 precision matrix (inverse of Xi)
@@ -81,7 +84,7 @@ using Eigen::VectorXd;
 //'   of magnitude
 //' 3. Try relaxing prior assumptions regarding covariance matrix. (e.g., may want
 //' to consider decreasing parameter \code{upsilon} closer to a minimum value of 
-//' D)
+//' zero)
 //' 4. Try adding small amount of jitter (e.g., set \code{jitter=1e-5}) to address
 //'   potential floating point errors. 
 //' @return List containing (all with respect to found optima)
@@ -110,7 +113,7 @@ using Eigen::VectorXd;
 //' sim <- pibble_sim()
 //' 
 //' # Fit model for eta
-//' fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, sim$Theta%*%sim$X, sim$KInv, 
+//' fit <- optimPibbleCollapsed(sim$Y, sim$upsilon - sim$D + 2, sim$Theta%*%sim$X, sim$KInv,
 //'                              sim$AInv, random_pibble_init(sim$Y))  
 // [[Rcpp::export]]
 List optimPibbleCollapsed(const Eigen::ArrayXXd Y, 
@@ -240,11 +243,15 @@ List optimPibbleCollapsed(const Eigen::ArrayXXd Y,
       Eigen::LLT<MatrixXd> AInvSqrt; 
       KInvSqrt.compute(KInv);
       AInvSqrt.compute(AInv);
-      // // log |K|^(-(D-1)/2) MPN: Comments are wrong, code is correct.
-      normConstT = N*0.5*KInvSqrt.matrixLLT().diagonal().array().log().sum();
-      // // log |A|^(-N/2) MPN: Comments are wrong, code is correct.
-      normConstT = normConstT + (D-1)*0.5*AInvSqrt.matrixLLT().diagonal().array().log().sum();
-      // // TODO normConstT needs to account for the multivariate gamma terms...
+      // upsilon is matrix-t df here, so IW df = upsilon + (D-1) - 1.
+      const int P = D - 1;
+      const double iw_df = upsilon + P - 1.0;
+      const double log_pi = std::log(std::acos(-1.0));
+      // Cholesky log diagonals sum to half the log determinant.
+      normConstT = N*KInvSqrt.matrixLLT().diagonal().array().log().sum()
+        + P*AInvSqrt.matrixLLT().diagonal().array().log().sum()
+        - 0.5*P*N*log_pi
+        + lmvgamma(0.5*(iw_df + N), P) - lmvgamma(0.5*iw_df, P);
       ArrayXd numer = Y.colwise().sum();
       numer += ArrayXd::Ones(N);
       Eigen::ArrayXXd denom = Y;
@@ -256,7 +263,8 @@ List optimPibbleCollapsed(const Eigen::ArrayXXd Y,
 	}
       }
       normConstMult = numer.sum()-denom.sum(); 
-      out[7] = -nllopt + 0.5*logInvNegHessDet  + (D-1)*N/2*log(2*3.1415)  + normConstT + normConstMult - 0.5*log((D-1)*N);
+      out[7] = -nllopt + 0.5*logInvNegHessDet
+        + 0.5*P*N*(std::log(2.0) + log_pi) + normConstT + normConstMult;
       IntegerVector d = IntegerVector::create(D-1, N, n_samples);
       NumericVector samples = wrap(samp);
       samples.attr("dim") = d; // convert to 3d array for return to R

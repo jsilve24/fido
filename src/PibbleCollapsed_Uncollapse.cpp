@@ -43,7 +43,7 @@ using Eigen::Lower;
 //' While the collapsed model is given by:
 //'    \deqn{Y_j \sim \text{Multinomial}(\pi_j)}{Y_j \sim Multinomial(Pi_j)}
 //'    \deqn{\pi_j = \Phi^{-1}(\eta_j)}{Pi_j = Phi^{-1}(Eta_j)}
-//'    \deqn{\eta \sim T_{D-1, N}(\upsilon, \Theta X, K, A)}{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
+//'    \deqn{\eta \sim T_{D-1, N}(\upsilon-D+2, \Theta X, K, A)}{Eta \sim T_{D-1, N}(upsilon-D+2, Theta*X, K, A)}
 //' Where \eqn{A = I_N + X \Gamma X'}{A = I_N + X * Gamma * X'}, \eqn{K=\Xi}{K = Xi} is a (D-1)x(D-1) covariance 
 //' matrix, \eqn{\Gamma}{Gamma} is a Q x Q covariance matrix, and \eqn{\Phi^{-1}}{Phi^(-1)} is ALRInv_D 
 //' transform. 
@@ -72,7 +72,7 @@ using Eigen::Lower;
 //' sim <- pibble_sim()
 //' 
 //' # Fit model for eta
-//' fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, sim$Theta%*%sim$X, sim$KInv, 
+//' fit <- optimPibbleCollapsed(sim$Y, sim$upsilon - sim$D + 2, sim$Theta%*%sim$X, sim$KInv,
 //'                              sim$AInv, random_pibble_init(sim$Y))  
 //' 
 //' # Finally obtain samples from Lambda and Sigma
@@ -201,7 +201,7 @@ Eigen::MatrixXd rMatNormalCholesky_test(Eigen::MatrixXd M,
 }
 
 // [[Rcpp::export]]
-Eigen::MatrixXd rInvWishRevCholesky_test(int v, Eigen::MatrixXd Psi){
+Eigen::MatrixXd rInvWishRevCholesky_test(double v, Eigen::MatrixXd Psi){
   return rInvWishRevCholesky(v, Psi);
 }
 

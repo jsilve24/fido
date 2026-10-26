@@ -18,7 +18,8 @@ using Eigen::VectorXd;
 //' is much more optimized and massively cuts down on repeated calculations.
 //' A more efficient Rcpp module based implementation of these functions
 //' may following if the future. For model details see \code{\link{optimPibbleCollapsed}}
-//' documentation
+//' documentation. The log likelihood omits terms constant in eta (including
+//' the matrix-t and multinomial normalizers); it is not a normalized density.
 //'
 //' @inheritParams optimPibbleCollapsed
 //' @param AInv Inverse of A for LTP (for Pibble defined as 
@@ -63,9 +64,9 @@ using Eigen::VectorXd;
 //' ThetaX <- Theta%*%X
 //'
 //'
-//' loglikPibbleCollapsed(Y, upsilon, ThetaX, KInv, AInv, Eta)
-//' gradPibbleCollapsed(Y, upsilon, ThetaX, KInv, AInv, Eta)[1:5]
-//' hessPibbleCollapsed(Y, upsilon, ThetaX, KInv, AInv, Eta)[1:5,1:5]
+//' loglikPibbleCollapsed(Y, upsilon - D + 2, ThetaX, KInv, AInv, Eta)
+//' gradPibbleCollapsed(Y, upsilon - D + 2, ThetaX, KInv, AInv, Eta)[1:5]
+//' hessPibbleCollapsed(Y, upsilon - D + 2, ThetaX, KInv, AInv, Eta)[1:5,1:5]
 // [[Rcpp::export]]
 double loglikPibbleCollapsed(const Eigen::ArrayXXd Y,
                   const double upsilon,

@@ -114,7 +114,9 @@ maltipoo <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, U=NULL,
   K <- solve(Xi)
   
   ## fit collapsed model ##
-  fitc <- optimMaltipooCollapsed(Y, upsilon, Theta, X, K, U, init, ellinit, 
+  # Convert standard inverse-Wishart df to matrix-t df.
+  matrix_t_df <- upsilon - (D-1) + 1
+  fitc <- optimMaltipooCollapsed(Y, matrix_t_df, Theta, X, K, U, init, ellinit,
                                 n_samples, 
                                 calcGradHess, b1, b2, step_size, epsilon, eps_f, 
                                 eps_g, max_iter, verbose, verbose_rate, 

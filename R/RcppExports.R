@@ -80,7 +80,10 @@ hessMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv 
 #' of covariates. 
 #' 
 #' @param Y D x N matrix of counts
-#' @param upsilon (must be > D)
+#' @param upsilon positive matrix-t degrees of freedom. For a standard
+#' inverse-Wishart prior with df \code{v} on a \code{P = D-1} dimensional
+#' covariance, pass \code{v - P + 1}. This differs from \code{pibble}
+#' and \code{uncollapsePibble}, which accept inverse-Wishart df.
 #' @param Theta D-1 x Q matrix the prior mean for regression coefficients
 #' @param X Q x N matrix of covariates
 #' @param KInv D-1 x D-1 symmetric positive-definite matrix
@@ -133,7 +136,7 @@ hessMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv 
 #'   of magnitude
 #' 3. Try relaxing prior assumptions regarding covariance matrix. (e.g., may want
 #' to consider decreasing parameter \code{upsilon} closer to a minimum value of 
-#' D)
+#' zero)
 #' 4. Try adding small amount of jitter (e.g., set \code{jitter=1e-5}) to address
 #'   potential floating point errors. 
 #' @return List containing (all with respect to found optima)
@@ -165,7 +168,8 @@ optimMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, init, ellinit,
 #' is much more optimized and massively cuts down on repeated calculations.
 #' A more efficient Rcpp module based implementation of these functions
 #' may following if the future. For model details see \code{\link{optimPibbleCollapsed}}
-#' documentation
+#' documentation. The log likelihood omits terms constant in eta (including
+#' the matrix-t and multinomial normalizers); it is not a normalized density.
 #'
 #' @inheritParams optimPibbleCollapsed
 #' @param AInv Inverse of A for LTP (for Pibble defined as 
@@ -210,9 +214,9 @@ optimMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, init, ellinit,
 #' ThetaX <- Theta%*%X
 #'
 #'
-#' loglikPibbleCollapsed(Y, upsilon, ThetaX, KInv, AInv, Eta)
-#' gradPibbleCollapsed(Y, upsilon, ThetaX, KInv, AInv, Eta)[1:5]
-#' hessPibbleCollapsed(Y, upsilon, ThetaX, KInv, AInv, Eta)[1:5,1:5]
+#' loglikPibbleCollapsed(Y, upsilon - D + 2, ThetaX, KInv, AInv, Eta)
+#' gradPibbleCollapsed(Y, upsilon - D + 2, ThetaX, KInv, AInv, Eta)[1:5]
+#' hessPibbleCollapsed(Y, upsilon - D + 2, ThetaX, KInv, AInv, Eta)[1:5,1:5]
 loglikPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALSE) {
     .Call('_fido_loglikPibbleCollapsed', PACKAGE = 'fido', Y, upsilon, ThetaX, KInv, AInv, eta, sylv)
 }
@@ -237,7 +241,10 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #' of covariates. 
 #' 
 #' @param Y D x N matrix of counts
-#' @param upsilon (must be > D)
+#' @param upsilon positive matrix-t degrees of freedom. For a standard
+#' inverse-Wishart prior with df \code{v} on a \code{P = D-1} dimensional
+#' covariance, pass \code{v - P + 1}. This differs from \code{pibble}
+#' and \code{uncollapsePibble}, which accept inverse-Wishart df.
 #' @param ThetaX D-1 x N matrix formed by Theta*X (Theta is Prior mean 
 #'    for regression coefficients) 
 #' @param KInv D-1 x D-1 precision matrix (inverse of Xi)
@@ -297,7 +304,7 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #'   of magnitude
 #' 3. Try relaxing prior assumptions regarding covariance matrix. (e.g., may want
 #' to consider decreasing parameter \code{upsilon} closer to a minimum value of 
-#' D)
+#' zero)
 #' 4. Try adding small amount of jitter (e.g., set \code{jitter=1e-5}) to address
 #'   potential floating point errors. 
 #' @return List containing (all with respect to found optima)
@@ -326,7 +333,7 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #' sim <- pibble_sim()
 #' 
 #' # Fit model for eta
-#' fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, sim$Theta%*%sim$X, sim$KInv, 
+#' fit <- optimPibbleCollapsed(sim$Y, sim$upsilon - sim$D + 2, sim$Theta%*%sim$X, sim$KInv,
 #'                              sim$AInv, random_pibble_init(sim$Y))  
 optimPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, init, n_samples = 2000L, calcGradHess = TRUE, b1 = 0.9, b2 = 0.99, step_size = 0.003, epsilon = 10e-7, eps_f = 1e-10, eps_g = 1e-4, max_iter = 10000L, verbose = FALSE, verbose_rate = 10L, decomp_method = "cholesky", optim_method = "lbfgs", eigvalthresh = 0, jitter = 0, multDirichletBoot = -1.0, useSylv = TRUE, ncores = -1L, seed = -1L) {
     .Call('_fido_optimPibbleCollapsed', PACKAGE = 'fido', Y, upsilon, ThetaX, KInv, AInv, init, n_samples, calcGradHess, b1, b2, step_size, epsilon, eps_f, eps_g, max_iter, verbose, verbose_rate, decomp_method, optim_method, eigvalthresh, jitter, multDirichletBoot, useSylv, ncores, seed)
@@ -359,7 +366,7 @@ optimPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, init, n_samples
 #' While the collapsed model is given by:
 #'    \deqn{Y_j \sim \text{Multinomial}(\pi_j)}{Y_j \sim Multinomial(Pi_j)}
 #'    \deqn{\pi_j = \Phi^{-1}(\eta_j)}{Pi_j = Phi^{-1}(Eta_j)}
-#'    \deqn{\eta \sim T_{D-1, N}(\upsilon, \Theta X, K, A)}{Eta \sim T_{D-1, N}(upsilon, Theta*X, K, A)}
+#'    \deqn{\eta \sim T_{D-1, N}(\upsilon-D+2, \Theta X, K, A)}{Eta \sim T_{D-1, N}(upsilon-D+2, Theta*X, K, A)}
 #' Where \eqn{A = I_N + X \Gamma X'}{A = I_N + X * Gamma * X'}, \eqn{K=\Xi}{K = Xi} is a (D-1)x(D-1) covariance 
 #' matrix, \eqn{\Gamma}{Gamma} is a Q x Q covariance matrix, and \eqn{\Phi^{-1}}{Phi^(-1)} is ALRInv_D 
 #' transform. 
@@ -388,7 +395,7 @@ optimPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, init, n_samples
 #' sim <- pibble_sim()
 #' 
 #' # Fit model for eta
-#' fit <- optimPibbleCollapsed(sim$Y, sim$upsilon, sim$Theta%*%sim$X, sim$KInv, 
+#' fit <- optimPibbleCollapsed(sim$Y, sim$upsilon - sim$D + 2, sim$Theta%*%sim$X, sim$KInv,
 #'                              sim$AInv, random_pibble_init(sim$Y))  
 #' 
 #' # Finally obtain samples from Lambda and Sigma
@@ -453,7 +460,7 @@ rMatUnitNormal_test2 <- function(n) {
 #' While the collapsed model is given by:
 #'    \deqn{Y_j \sim Multinomial(\pi_j)}{Y_j \sim Multinomial(Pi_j)}
 #'    \deqn{\pi_j = \Phi^{-1}(\eta_j)}{Pi_j = Phi^(-1)(Eta_j)}
-#'    \deqn{\eta \sim T_{D-1, N}(\upsilon, \Theta X, K, A)}{Eta \sim T_(D-1, N)(upsilon, Theta*X, K, A)}
+#'    \deqn{\eta \sim T_{D-1, N}(\upsilon-D+2, \Theta X, K, A)}{Eta \sim T_(D-1, N)(upsilon-D+2, Theta*X, K, A)}
 #' Where \eqn{A = I_N + X \Gamma X'}{A = I_N + X * Gamma * X'}, \eqn{K = \Xi}{K = Xi} is a (D-1)x(D-1) covariance 
 #' matrix, \eqn{\Gamma}{Gamma} is a Q x Q covariance matrix, and \eqn{\Phi^{-1}}{Phi^(-1)} is ALRInv_D 
 #' transform. 

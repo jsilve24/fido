@@ -1,3 +1,28 @@
+# fido 1.1.5
+
+* Fixed inconsistent degrees of freedom between collapse and uncollapse in
+  `pibble()` and `basset()` (including additive models). Public `upsilon` remains
+  standard inverse-Wishart df; with `P = D-1`, the wrappers now pass
+  `upsilon-P+1` to the matrix-t collapsed calculation. This corrects the fitted
+  objective, derivatives, Laplace approximation and resulting posterior draws
+  when `P > 1`. The df conventions coincide when `P = 1`.
+* Applied the corresponding conversion to the shared orthus conditional path
+  and the internal maltipoo wrapper. Low-level collapsed APIs retain their
+  matrix-t df convention; inverse-Wishart prior and uncollapse samplers retain
+  standard inverse-Wishart df.
+* Preserved fractional inverse-Wishart df in posterior sampling; the C++
+  inverse-Wishart helpers previously truncated them to integers.
+* Corrected the Laplace log marginal likelihood's matrix-t normalizer (including
+  multivariate gamma, pi and determinant terms) and Laplace integration factor.
+  Previously reported marginal likelihoods were incorrectly normalized even
+  when `P = 1`.
+* Existing saved fits remain readable and their stored `upsilon` retains its
+  meaning. There is no valid df-only migration of their modes or draws: refit
+  existing analyses from the data and original priors to obtain corrected
+  posterior inference and marginal likelihoods. Predictions from saved draws
+  continue to reflect the old fit. The size and direction of changes depend on
+  the analysis; no universal numerical effect is asserted.
+
 # fido 1.1.4
 
 * Fixed the posterior mean of `Sigma` returned by `uncollapsePibble(..., ret_mean = TRUE)` to use the correct inverse-Wishart mean.

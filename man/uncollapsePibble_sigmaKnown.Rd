@@ -70,7 +70,7 @@ Notation: Let \eqn{Z_j} denote the J-th row of a matrix Z.
 While the collapsed model is given by:
 \deqn{Y_j \sim Multinomial(\pi_j)}{Y_j \sim Multinomial(Pi_j)}
 \deqn{\pi_j = \Phi^{-1}(\eta_j)}{Pi_j = Phi^(-1)(Eta_j)}
-\deqn{\eta \sim T_{D-1, N}(\upsilon, \Theta X, K, A)}{Eta \sim T_(D-1, N)(upsilon, Theta*X, K, A)}
+\deqn{\eta \sim T_{D-1, N}(\upsilon-D+2, \Theta X, K, A)}{Eta \sim T_(D-1, N)(upsilon-D+2, Theta*X, K, A)}
 Where \eqn{A = I_N + X \Gamma X'}{A = I_N + X * Gamma * X'}, \eqn{K = \Xi}{K = Xi} is a (D-1)x(D-1) covariance
 matrix, \eqn{\Gamma}{Gamma} is a Q x Q covariance matrix, and \eqn{\Phi^{-1}}{Phi^(-1)} is ALRInv_D
 transform.

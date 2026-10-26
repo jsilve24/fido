@@ -63,7 +63,10 @@ the parameter \code{n_samples} in the function
 \code{\link{optimPibbleCollapsed}})
 }
 \details{
-the full model is given by:
+\code{upsilon} is standard inverse-Wishart df on the full
+\code{D-1+P} dimensional covariance. The full matrix-t df is
+\code{upsilon-(D-1+P)+1}; conditioning on Z adds P to that df.
+The full model is given by:
 \deqn{Y_j \sim Multinomial(\pi_j)}{Y_j \sim Multinomial(Pi_j)}
 \deqn{\pi_j = \Phi^{-1}(\eta_j)}{Pi_j = Phi^(-1)(Eta_j)}
 \deqn{cbind(\eta, Z) \sim MN_{D-1+P \times N}(\Lambda X, \Sigma, I_N)}{cbind(Eta, Z) \sim MN_{D-1+P x N}(Lambda*X, Sigma, I_N)}

@@ -101,7 +101,7 @@ inline void rMatNormalCholesky_thread_inplace(Eigen::MatrixBase<T>& A,
 //' @return Reverse cholesky factor of the inverse wishart sample. That is it
 //' returns an upper triangular matrix U such if V=UU^T, V ~ IW(v, Psi).
 template <typename RNG>
-inline Eigen::MatrixXd rInvWishRevCholesky_thread(const int v,
+inline Eigen::MatrixXd rInvWishRevCholesky_thread(const double v,
                                            const Eigen::Ref<const Eigen::MatrixXd>& Psi,
                                            RNG& rng){
   int p = Psi.rows();
@@ -131,7 +131,7 @@ inline Eigen::MatrixXd rInvWishRevCholesky_thread(const int v,
 
 template <typename T, typename RNG>
 inline void rInvWishRevCholesky_thread_inplace(Eigen::PlainObjectBase<T>& A, 
-                                                  const int v,
+                                                  const double v,
                                                   const Eigen::Ref<const Eigen::MatrixXd>& Psi,
                                                   RNG& rng){
   int p = Psi.rows();

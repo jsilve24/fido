@@ -16,7 +16,10 @@ using Eigen::VectorXd;
 //' of covariates. 
 //' 
 //' @param Y D x N matrix of counts
-//' @param upsilon (must be > D)
+//' @param upsilon positive matrix-t degrees of freedom. For a standard
+//' inverse-Wishart prior with df \code{v} on a \code{P = D-1} dimensional
+//' covariance, pass \code{v - P + 1}. This differs from \code{pibble}
+//' and \code{uncollapsePibble}, which accept inverse-Wishart df.
 //' @param Theta D-1 x Q matrix the prior mean for regression coefficients
 //' @param X Q x N matrix of covariates
 //' @param KInv D-1 x D-1 symmetric positive-definite matrix
@@ -69,7 +72,7 @@ using Eigen::VectorXd;
 //'   of magnitude
 //' 3. Try relaxing prior assumptions regarding covariance matrix. (e.g., may want
 //' to consider decreasing parameter \code{upsilon} closer to a minimum value of 
-//' D)
+//' zero)
 //' 4. Try adding small amount of jitter (e.g., set \code{jitter=1e-5}) to address
 //'   potential floating point errors. 
 //' @return List containing (all with respect to found optima)

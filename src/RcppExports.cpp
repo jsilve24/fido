@@ -238,12 +238,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // rInvWishRevCholesky_test
-Eigen::MatrixXd rInvWishRevCholesky_test(int v, Eigen::MatrixXd Psi);
+Eigen::MatrixXd rInvWishRevCholesky_test(double v, Eigen::MatrixXd Psi);
 RcppExport SEXP _fido_rInvWishRevCholesky_test(SEXP vSEXP, SEXP PsiSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type v(vSEXP);
+    Rcpp::traits::input_parameter< double >::type v(vSEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type Psi(PsiSEXP);
     rcpp_result_gen = Rcpp::wrap(rInvWishRevCholesky_test(v, Psi));
     return rcpp_result_gen;

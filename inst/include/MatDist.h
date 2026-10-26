@@ -87,7 +87,7 @@ inline Eigen::MatrixXd rMatNormalCholesky(const Eigen::Ref<const Eigen::MatrixXd
 //' 
 //' @return Reverse cholesky factor of the inverse wishart sample. That is it
 //' returns an upper triangular matrix U such if V=UU^T, V ~ IW(v, Psi).
-inline Eigen::MatrixXd rInvWishRevCholesky(const int v, 
+inline Eigen::MatrixXd rInvWishRevCholesky(const double v,
                                  const Eigen::Ref<const Eigen::MatrixXd>& Psi){
   int p = Psi.rows();
   MatrixXd PsiInv = Psi.llt().solve(MatrixXd::Identity(p,p));

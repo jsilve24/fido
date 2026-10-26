@@ -28,7 +28,20 @@
 #' @param ... arguments passed to \code{\link{optimPibbleCollapsed}} and 
 #'   \code{\link{uncollapsePibble}}
 #' 
-#' @details the full model is given by:
+#' @details \code{upsilon} uses standard inverse-Wishart degrees of freedom:
+#' for \code{P = D-1}, the prior mean of Sigma is \code{Xi/(upsilon-P-1)}
+#' when it exists. The collapsed matrix-t distribution has df
+#' \code{upsilon-P+1}; the wrapper performs this conversion internally.
+#' Low-level \code{optimPibbleCollapsed} and its likelihood/derivative helpers
+#' accept matrix-t df instead.
+#'
+#' Fits produced before version 1.1.5 used inconsistent df in collapse and
+#' uncollapse when P > 1. Saved draws remain readable, but cannot be corrected
+#' by changing their stored df: refit from the data and original priors.
+#' Previously stored marginal likelihoods should also be recomputed by refitting,
+#' including when P = 1, because their normalization was incomplete.
+#'
+#' The full model is given by:
 #'    \deqn{Y_j \sim Multinomial(\pi_j)}{Y_j \sim Multinomial(Pi_j)} 
 #'    \deqn{\pi_j = \Phi^{-1}(\eta_j)}{Pi_j = Phi^(-1)(Eta_j)}
 #'    \deqn{\eta \sim MN_{D-1 \times N}(\Lambda X, \Sigma, I_N)}{Eta \sim MN_{D-1 x N}(Lambda*X, Sigma, I_N)}
@@ -165,7 +178,9 @@ pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL
   AInv <- chol2inv(chol(diag(N) + t(X) %*% Gamma %*% X))
   if (verbose) cat("Starting Optimization\n")
   ## fit collapsed model ##
-  fitc <- optimPibbleCollapsed(Y, upsilon, Theta%*%X, KInv, AInv, init, n_samples, 
+  # The collapsed API uses matrix-t df; the public prior uses IW df.
+  matrix_t_df <- upsilon - (D-1) + 1
+  fitc <- optimPibbleCollapsed(Y, matrix_t_df, Theta%*%X, KInv, AInv, init, n_samples,
                                 calcGradHess, b1, b2, step_size, epsilon, eps_f, 
                                 eps_g, max_iter, verbose, verbose_rate, 
                                 decomp_method, optim_method, eigvalthresh, 
