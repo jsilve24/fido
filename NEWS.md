@@ -1,35 +1,66 @@
 # fido 1.1.5
 
-* Fixed argument forwarding to the additive `basset()` component sampler for
-  both Gaussian-process and linear components. `seed`, `ret_mean`, and `ncores`
-  are now passed by name. Previously, the core count could be interpreted as
-  `ret_mean`, returning conditional component means when posterior draws were
-  requested, and the supplied seed and core count were not honored. Sequential
-  component draws now also use distinct deterministic seeds to avoid reusing
-  random noise when there are three or more components. Refit additive analyses
-  to obtain corrected conditional component uncertainty.
-* Fixed inconsistent degrees of freedom between collapse and uncollapse in
-  `pibble()` and `basset()` (including additive models). Public `upsilon` remains
-  standard inverse-Wishart df; with `P = D-1`, the wrappers now pass
-  `upsilon-P+1` to the matrix-t collapsed calculation. This corrects the fitted
-  objective, derivatives, Laplace approximation and resulting posterior draws
-  when `P > 1`. The df conventions coincide when `P = 1`.
-* Applied the corresponding conversion to the shared orthus conditional path
-  and the internal maltipoo wrapper. Low-level collapsed APIs retain their
-  matrix-t df convention; inverse-Wishart prior and uncollapse samplers retain
-  standard inverse-Wishart df.
-* Preserved fractional inverse-Wishart df in posterior sampling; the C++
-  inverse-Wishart helpers previously truncated them to integers.
-* Corrected the Laplace log marginal likelihood's matrix-t normalizer (including
-  multivariate gamma, pi and determinant terms) and Laplace integration factor.
-  Previously reported marginal likelihoods were incorrectly normalized even
-  when `P = 1`.
-* Existing saved fits remain readable and their stored `upsilon` retains its
-  meaning. There is no valid df-only migration of their modes or draws: refit
-  existing analyses from the data and original priors to obtain corrected
-  posterior inference and marginal likelihoods. Predictions from saved draws
-  continue to reflect the old fit. The size and direction of changes depend on
-  the analysis; no universal numerical effect is asserted.
+This release fixes a long-standing error in how the prior degrees of freedom
+(`upsilon`) were used. **Results from `pibble()`, `basset()` and `orthus()`
+fitted with earlier versions may change; please refit.**
+
+## What was wrong
+
+fido fits models in two steps. It first finds `Eta` using a "collapsed" model in
+which `Lambda` and `Sigma` have been integrated out. It then draws `Lambda` and
+`Sigma` given `Eta` (the "uncollapse" step). Both steps should use the same
+inverse-Wishart prior on `Sigma`, with `upsilon` degrees of freedom.
+
+The collapsed step expects its degrees of freedom on a different scale (the
+matrix-t scale). Converting the inverse-Wishart `upsilon` to that scale requires
+subtracting `D - 2`. Since 2018, `pibble()` passed `upsilon` to the collapsed
+step without this conversion. The collapsed step therefore used a prior on
+`Sigma` that was more informative than the one requested. The uncollapse step
+used the correct prior, so the two steps did not agree.
+
+## Who is affected
+
+* `pibble()` and `basset()` (including additive `basset()` models) with three or
+  more categories (`D > 2`). With `D = 2` the two scales coincide and results are
+  unchanged. The larger `D` is relative to `upsilon`, the larger the effect.
+* `orthus()` in all cases, because it had a similar conversion error (`upsilon + P`
+  was used where `upsilon - D + 2` is correct).
+* `maltipoo()` (experimental) received the same fix.
+
+## Other fixes
+
+* The log marginal likelihood reported by the Laplace approximation
+  (`logMarginalLikelihood`) was missing several constant terms and is now
+  correctly normalized. Stored values from earlier versions (for any `D`) should
+  not be compared with new ones.
+* `pibble()`, `basset()`, `orthus()` and `maltipoo()` now stop with an error if
+  `upsilon` is too small for a valid inverse-Wishart prior (`upsilon <= D-2`,
+  or `upsilon <= D+P-2` for `orthus()`). Previously such values were accepted
+  silently and produced meaningless fits.
+* `orthus_sim(true_priors = FALSE)` now returns `upsilon = D+P` (previously `D`,
+  which is not a valid prior for the `(D-1+P)`-dimensional covariance).
+* Non-integer `upsilon` was silently rounded down when drawing `Sigma`; it is
+  now used as given.
+* `basset()` with more than one component (lists of `Theta` and `Gamma`) passed
+  `ncores` into the `ret_mean` slot of the component sampler. When `ncores` was
+  set this could return component means instead of posterior draws, and the
+  `seed` and `ncores` settings were ignored. Arguments are now passed by name,
+  and each component uses its own random stream, so component uncertainty is
+  now correct.
+
+## What you need to do
+
+* **Refit** analyses from the original data and priors. Old fits can still be
+  loaded, but there is no way to correct their draws by adjusting `upsilon`
+  after the fact; predictions from old fit objects reflect the old results.
+* The meaning of the `upsilon` argument has not changed: it is the standard
+  inverse-Wishart degrees of freedom, so the prior mean of `Sigma` is
+  `Xi / (upsilon - D)`. Existing scripts need no edits.
+* If you call the low-level functions `optimPibbleCollapsed()`,
+  `loglikPibbleCollapsed()`, `gradPibbleCollapsed()` or `hessPibbleCollapsed()`
+  directly, note that they take matrix-t degrees of freedom. Pass
+  `upsilon - D + 2` rather than `upsilon` (see their help pages).
+  `uncollapsePibble()` still takes `upsilon` unchanged.
 
 # fido 1.1.4
 

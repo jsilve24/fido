@@ -5,7 +5,8 @@
 #'
 #' @param Y D x N matrix of counts (if NULL uses priors only)
 #' @param X Q x N matrix of covariates (cannot be NULL)
-#' @param upsilon dof for inverse wishart prior (numeric must be > D) 
+#' @param upsilon degrees of freedom for the inverse-Wishart prior on Sigma
+#'   (numeric, must be > D-2; the prior mean of Sigma exists only if > D)
 #'   (default: D+3)
 #' @param Theta A function from dimensions dim(X) -> (D-1)xN (prior mean of gaussian process). For an additive GP model, can be a list of functions from dimensions dim(X) -> (D-1)xN + a (optional) matrix of size (D-1)xQ for the prior of a linear component if desired.
 #' @param Gamma A function from dimension dim(X) -> NxN (kernel matrix of gaussian process). For an additive GP model, can be a list of functions from dimension dim(X) -> NxN + a QxQ prior covariance matrix if a linear component is specified. It is assumed that the order matches the order of Theta.
@@ -20,18 +21,18 @@
 #' @param ... other arguments passed to \link{pibble} (which is used internally to 
 #'  fit the basset model)
 #' 
-#' @details \code{upsilon} uses standard inverse-Wishart degrees of freedom:
-#' for \code{P = D-1}, the prior mean of Sigma is \code{Xi/(upsilon-P-1)}
-#' when it exists. The collapsed matrix-t distribution has df
-#' \code{upsilon-P+1}; the wrapper performs this conversion internally.
-#' Low-level \code{optimPibbleCollapsed} and its likelihood/derivative helpers
-#' accept matrix-t df instead.
+#' @details \code{upsilon} is the usual inverse-Wishart degrees of freedom, so
+#' the prior mean of Sigma is \code{Xi/(upsilon-D)} (for \code{upsilon > D}).
+#' Larger values give a more concentrated prior on Sigma. Internally this is
+#' converted to the matrix-t degrees of freedom (\code{upsilon-D+2}) used by
+#' the collapsed model; you do not need to do this yourself. (If you call
+#' \code{\link{optimPibbleCollapsed}} directly, you do.)
 #'
-#' Fits produced before version 1.1.5 used inconsistent df in collapse and
-#' uncollapse when P > 1. Saved draws remain readable, but cannot be corrected
-#' by changing their stored df: refit from the data and original priors.
-#' Previously stored marginal likelihoods should also be recomputed by refitting,
-#' including when P = 1, because their normalization was incomplete.
+#' Versions of fido before 1.1.5 skipped this conversion when \code{D > 2}, so
+#' the prior used to estimate Eta did not match the prior requested. Fits made
+#' with earlier versions should be refit from the original data and priors.
+#' Log marginal likelihoods from earlier versions were also mis-normalized (for
+#' any \code{D}) and should not be compared with new values.
 #'
 #' The full model is given by:
 #'    \deqn{Y_j \sim Multinomial(\pi_j)}{Y_j \sim Multinomial(Pi_j)}  

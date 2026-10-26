@@ -23,7 +23,8 @@ mongrel(
 \item{X}{Q x N matrix of covariates (design matrix) (if NULL uses priors only, must
 be present to sample Eta)}
 
-\item{upsilon}{dof for inverse wishart prior (numeric must be > D)
+\item{upsilon}{degrees of freedom for the inverse-Wishart prior on Sigma
+(numeric, must be > D-2; the prior mean of Sigma exists only if > D)
 (default: D+3)}
 
 \item{Theta}{(D-1) x Q matrix of prior mean for regression parameters

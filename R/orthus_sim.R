@@ -39,7 +39,7 @@ orthus_sim <- function(D=10, P=10, N=30, Q=2, use_names=TRUE, true_priors=FALSE)
     upsilon <- D+10
     Xi <- Sigma*(upsilon-D-P)
   } else {
-    upsilon <- D
+    upsilon <- D+P
     Xi <- diag(D-1+P)
   }
   

@@ -93,9 +93,8 @@ $\Sigma$ describes the covariance between $ALR_D$ coordinates. Also note, this s
 
 ## Background on the Prior
 The prior for $\Sigma$ is an [Inverse Wishart](https://en.wikipedia.org/wiki/Inverse-Wishart_distribution) written
-$$\Sigma \sim W^{-1}(\Xi, \upsilon)$$
-using standard inverse-Wishart degrees of freedom (the corresponding matrix-t df
-is $\upsilon-D+2$), where $\Xi$ is called the scale matrix (and must be a valid covariance matrix itself), and $\upsilon$ is called the degrees of freedom parameter. If $\Sigma$ is a $(D-1)x(D-1)$ matrix, then there is a constraint on $\upsilon$
+$$\Sigma \sim W^{-1}(\upsilon, \Xi)$$
+where $\Xi$ is called the scale matrix (and must be a valid covariance matrix itself), and $\upsilon$ is called the degrees of freedom parameter. If $\Sigma$ is a $(D-1)\times(D-1)$ matrix, then there is a constraint on $\upsilon$
 such that $\upsilon > D-2$.
 
 The inverse Wishart has a mildly complex form for its moments (e.g., mean and variance). Its mean is given by
@@ -122,9 +121,9 @@ A central question: what is a reasonable prior for log-ratios? We are not used t
 
 _An example:_ Lets say that for a given microbiome dataset, I have weak prior belief that, on average, all the taxa are independent with variance 1. I want to come up with values $\gamma$ and $S$ for my prior on $\Omega$ that reflect this. Lets start by specifying the mean for $\Omega$.
 $$E[\Omega] =I_D.$$
-Next we say we have little certainty about this mean (want high variance) so we set $\gamma$ to be close to the lower bound of $D$ (I often like  $\gamma=D+3$). Now we have $\gamma$ we need to calculate $S$ which we do by solving for $S$ in the equation for the Inverse-Wishart mean^[Note its $D-1$ here because $\Omega$ is $D\times D$ rather than $D-1 \times D-1$]:
+Next we say we have little certainty about this mean (want high variance) so we set $\gamma$ to be close to its lower bound (the mean only exists for $\gamma > D+1$; I often like $\gamma=D+3$). Now we have $\gamma$ we need to calculate $S$ which we do by solving for $S$ in the equation for the Inverse-Wishart mean^[Note its $D-1$ here because $\Omega$ is $D\times D$ rather than $D-1 \times D-1$]:
 $$S = E[\Omega](\gamma -D-1).$$ 
-There you go that's a prior on the log-absolute-abundances. Next we need to transform this into a prior on log-ratios. Well the above allows us to do this by simplifying taking the contrast matrix $\Psi$ from the log-ratio transform we want and transforming our prior for $\Omega$ as $\Sigma \sim W^{-1}(\gamma, \Psi S \Psi^T)$. That's it there the prior on log-ratios built form a prior on log-absolute-abundances. 
+There you go that's a prior on the log-absolute-abundances. Next we need to transform this into a prior on log-ratios. Well the above allows us to do this by simplifying taking the contrast matrix $\Psi$ from the log-ratio transform we want and transforming our prior for $\Omega$ as $\Sigma \sim W^{-1}(\gamma-1, \Psi S \Psi^T)$ (the degrees of freedom drop by one because we go from $D$ to $D-1$ dimensions). That's it there the prior on log-ratios built form a prior on log-absolute-abundances. 
 
 
 *A Note on Phylogenetic priors:* As in phylogenetic linear models, you can make $S$ (as defined above) a covariance derived from the phylogenetic differences between taxa. This allows you to fit phylogenetic linear models in *fido*. 

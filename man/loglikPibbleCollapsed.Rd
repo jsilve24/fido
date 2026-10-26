@@ -15,10 +15,11 @@ hessPibbleCollapsed(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALSE)
 \arguments{
 \item{Y}{D x N matrix of counts}
 
-\item{upsilon}{positive matrix-t degrees of freedom. For a standard
-inverse-Wishart prior with df \code{v} on a \code{P = D-1} dimensional
-covariance, pass \code{v - P + 1}. This differs from \code{pibble}
-and \code{uncollapsePibble}, which accept inverse-Wishart df.}
+\item{upsilon}{matrix-t degrees of freedom (must be > 0). This is
+\emph{not} the same scale as the \code{upsilon} argument of
+\code{\link{pibble}} or \code{\link{uncollapsePibble}}: for an
+inverse-Wishart prior with degrees of freedom \code{upsilon}, pass
+\code{upsilon - D + 2} here.}
 
 \item{ThetaX}{D-1 x N matrix formed by Theta*X (Theta is Prior mean
 for regression coefficients)}

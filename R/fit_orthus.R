@@ -15,8 +15,9 @@
 #'  if Y is present/absent)
 #' @param X Q x N matrix of covariates (design matrix) (if NULL uses priors only, must
 #' be present to sample Eta)
-#' @param upsilon dof for inverse wishart prior (numeric must be > D) 
-#'   (default: D+3)
+#' @param upsilon degrees of freedom for the inverse-Wishart prior on Sigma
+#'   (numeric, must be > D+P-2; the prior mean of Sigma exists only if > D+P)
+#'   (default: D+P+3)
 #' @param Theta (D-1+P) x Q matrix of prior mean for regression parameters
 #'   (default: matrix(0, D-1+P, Q))
 #' @param Gamma QxQ prior covariance matrix 
@@ -29,9 +30,14 @@
 #' @param ... arguments passed to \code{\link{optimPibbleCollapsed}} and 
 #'   \code{\link{uncollapsePibble}}
 #' 
-#' @details \code{upsilon} is standard inverse-Wishart df on the full
-#' \code{D-1+P} dimensional covariance. The full matrix-t df is
-#' \code{upsilon-(D-1+P)+1}; conditioning on Z adds P to that df.
+#' @details \code{upsilon} is the usual inverse-Wishart degrees of freedom for
+#' the full \code{(D-1+P) x (D-1+P)} covariance Sigma, so the prior mean of
+#' Sigma is \code{Xi/(upsilon-D-P)} (for \code{upsilon > D+P}). Internally,
+#' Eta is estimated from its distribution conditional on Z, which is matrix-t
+#' with \code{upsilon-D+2} degrees of freedom; this conversion is automatic.
+#' Versions of fido before 1.1.5 used the wrong conversion
+#' (\code{upsilon+P}); fits made with earlier versions should be refit.
+#'
 #' The full model is given by:
 #'    \deqn{Y_j \sim Multinomial(\pi_j)}{Y_j \sim Multinomial(Pi_j)}  
 #'    \deqn{\pi_j = \Phi^{-1}(\eta_j)}{Pi_j = Phi^(-1)(Eta_j)}
@@ -106,6 +112,7 @@ orthus <- function(Y=NULL, Z=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL,
   
   # check dimensions
   check_dims(upsilon, 1, "upsilon")
+  if (upsilon <= D+P-2) stop("upsilon must be greater than D+P-2 for a proper inverse-Wishart prior on Sigma")
   check_dims(Theta, c(D-1+P, Q), "Theta")
   check_dims(Gamma, c(Q, Q), "Gamma")
   check_dims(Xi, c(D-1+P, D-1+P), "Xi")

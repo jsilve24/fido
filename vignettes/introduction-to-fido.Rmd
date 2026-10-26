@@ -446,9 +446,10 @@ Y_j & \sim \text{Multinomial}\left(\pi_j, n_j\right)  \\
 \end{align}
 $$
 where $A=I_N + X^T \Gamma X$ and $T_{(D-1)\times N}$ is the matrix-t distribution of the $(D-1)\times N$ matrix $\eta$.
-Here `upsilon` is standard inverse-Wishart df. With $P=D-1$, the
-corresponding matrix-t df is $\upsilon-P+1$. The low-level collapsed
-functions accept matrix-t df; `pibble()` and `basset()` convert internally.
+Note that the matrix-t degrees of freedom are $\upsilon-D+2$, where $\upsilon$ is the
+inverse-Wishart degrees of freedom of the prior on $\Sigma$ (the `upsilon` argument to `pibble()`).
+`pibble()` and `basset()` make this conversion for you; only the low-level function
+`optimPibbleCollapsed()` expects the matrix-t value directly.
 
 $$\log T_{(D-1)\times N}(\eta | \upsilon-D+2, \Theta X, \Xi, A) \propto -\frac{\upsilon+N}{2}\log | I_{D-1}+\Xi^{-1}(\eta-\Theta X)A^{-1}(\eta-\Theta X)^T |.$$
 Rather than using MCMC to sample $\eta$ fido uses MAP estimation (using a custom C++ Eigen based implementation of the ADAM optimizer and closed form solutions for gradient and hessian of the collapsed model)^[Which we found preformed substantially better than L-BFGS, which we also tried.]. Additionally, *fido* allows quantification of uncertainty in MAP estimates using a Laplace approximation. We found that in practice this MAP based Laplace approximation produced 

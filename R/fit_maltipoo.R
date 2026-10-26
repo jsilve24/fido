@@ -68,6 +68,7 @@ maltipoo <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, U=NULL,
   
   # check dimensions
   check_dims(upsilon, 1, "upsilon")
+  if (upsilon <= D-2) stop("upsilon must be greater than D-2 for a proper inverse-Wishart prior on Sigma")
   check_dims(Theta, c(D-1, Q), "Theta")
   check_dims(U, c(P*Q, Q), "Q")
   check_dims(Xi, c(D-1, D-1), "Xi")

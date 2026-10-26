@@ -12,7 +12,8 @@
 #' @param Y D x N matrix of counts (if NULL uses priors only)
 #' @param X Q x N matrix of covariates (design matrix) (if NULL uses priors only, must
 #' be present to sample Eta)
-#' @param upsilon dof for inverse wishart prior (numeric must be > D) 
+#' @param upsilon degrees of freedom for the inverse-Wishart prior on Sigma
+#'   (numeric, must be > D-2; the prior mean of Sigma exists only if > D)
 #'   (default: D+3)
 #' @param Theta (D-1) x Q matrix of prior mean for regression parameters
 #'   (default: matrix(0, D-1, Q))
@@ -28,18 +29,18 @@
 #' @param ... arguments passed to \code{\link{optimPibbleCollapsed}} and 
 #'   \code{\link{uncollapsePibble}}
 #' 
-#' @details \code{upsilon} uses standard inverse-Wishart degrees of freedom:
-#' for \code{P = D-1}, the prior mean of Sigma is \code{Xi/(upsilon-P-1)}
-#' when it exists. The collapsed matrix-t distribution has df
-#' \code{upsilon-P+1}; the wrapper performs this conversion internally.
-#' Low-level \code{optimPibbleCollapsed} and its likelihood/derivative helpers
-#' accept matrix-t df instead.
+#' @details \code{upsilon} is the usual inverse-Wishart degrees of freedom, so
+#' the prior mean of Sigma is \code{Xi/(upsilon-D)} (for \code{upsilon > D}).
+#' Larger values give a more concentrated prior on Sigma. Internally this is
+#' converted to the matrix-t degrees of freedom (\code{upsilon-D+2}) used by
+#' the collapsed model; you do not need to do this yourself. (If you call
+#' \code{\link{optimPibbleCollapsed}} directly, you do.)
 #'
-#' Fits produced before version 1.1.5 used inconsistent df in collapse and
-#' uncollapse when P > 1. Saved draws remain readable, but cannot be corrected
-#' by changing their stored df: refit from the data and original priors.
-#' Previously stored marginal likelihoods should also be recomputed by refitting,
-#' including when P = 1, because their normalization was incomplete.
+#' Versions of fido before 1.1.5 skipped this conversion when \code{D > 2}, so
+#' the prior used to estimate Eta did not match the prior requested. Fits made
+#' with earlier versions should be refit from the original data and priors.
+#' Log marginal likelihoods from earlier versions were also mis-normalized (for
+#' any \code{D}) and should not be compared with new values.
 #'
 #' The full model is given by:
 #'    \deqn{Y_j \sim Multinomial(\pi_j)}{Y_j \sim Multinomial(Pi_j)} 
@@ -116,6 +117,7 @@ pibble <- function(Y=NULL, X=NULL, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL
   
   # check dimensions
   check_dims(upsilon, 1, "upsilon")
+  if (upsilon <= D-2) stop("upsilon must be greater than D-2 for a proper inverse-Wishart prior on Sigma")
   check_dims(Theta, c(D-1, Q), "Theta")
   check_dims(Gamma, c(Q, Q), "Gamma")
   check_dims(Xi, c(D-1, D-1), "Xi")

@@ -80,10 +80,11 @@ hessMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv 
 #' of covariates. 
 #' 
 #' @param Y D x N matrix of counts
-#' @param upsilon positive matrix-t degrees of freedom. For a standard
-#' inverse-Wishart prior with df \code{v} on a \code{P = D-1} dimensional
-#' covariance, pass \code{v - P + 1}. This differs from \code{pibble}
-#' and \code{uncollapsePibble}, which accept inverse-Wishart df.
+#' @param upsilon matrix-t degrees of freedom (must be > 0). This is
+#' \emph{not} the same scale as the \code{upsilon} argument of
+#' \code{\link{pibble}} or \code{\link{uncollapsePibble}}: for an
+#' inverse-Wishart prior with degrees of freedom \code{upsilon}, pass
+#' \code{upsilon - D + 2} here.
 #' @param Theta D-1 x Q matrix the prior mean for regression coefficients
 #' @param X Q x N matrix of covariates
 #' @param KInv D-1 x D-1 symmetric positive-definite matrix
@@ -135,8 +136,8 @@ hessMaltipooCollapsed <- function(Y, upsilon, Theta, X, KInv, U, eta, ell, sylv 
 #'   increasing \code{b1} to 0.99 and decreasing \code{eps_f} by a few orders
 #'   of magnitude
 #' 3. Try relaxing prior assumptions regarding covariance matrix. (e.g., may want
-#' to consider decreasing parameter \code{upsilon} closer to a minimum value of 
-#' zero)
+#' to consider decreasing parameter \code{upsilon} towards its minimum
+#' value of zero)
 #' 4. Try adding small amount of jitter (e.g., set \code{jitter=1e-5}) to address
 #'   potential floating point errors. 
 #' @return List containing (all with respect to found optima)
@@ -241,10 +242,11 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #' of covariates. 
 #' 
 #' @param Y D x N matrix of counts
-#' @param upsilon positive matrix-t degrees of freedom. For a standard
-#' inverse-Wishart prior with df \code{v} on a \code{P = D-1} dimensional
-#' covariance, pass \code{v - P + 1}. This differs from \code{pibble}
-#' and \code{uncollapsePibble}, which accept inverse-Wishart df.
+#' @param upsilon matrix-t degrees of freedom (must be > 0). This is
+#' \emph{not} the same scale as the \code{upsilon} argument of
+#' \code{\link{pibble}} or \code{\link{uncollapsePibble}}: for an
+#' inverse-Wishart prior with degrees of freedom \code{upsilon}, pass
+#' \code{upsilon - D + 2} here.
 #' @param ThetaX D-1 x N matrix formed by Theta*X (Theta is Prior mean 
 #'    for regression coefficients) 
 #' @param KInv D-1 x D-1 precision matrix (inverse of Xi)
@@ -303,8 +305,8 @@ hessPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, eta, sylv = FALS
 #'   increasing \code{b1} to 0.99 and decreasing \code{eps_f} by a few orders
 #'   of magnitude
 #' 3. Try relaxing prior assumptions regarding covariance matrix. (e.g., may want
-#' to consider decreasing parameter \code{upsilon} closer to a minimum value of 
-#' zero)
+#' to consider decreasing parameter \code{upsilon} towards its minimum
+#' value of zero)
 #' 4. Try adding small amount of jitter (e.g., set \code{jitter=1e-5}) to address
 #'   potential floating point errors. 
 #' @return List containing (all with respect to found optima)
