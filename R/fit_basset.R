@@ -171,16 +171,16 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
         } else{
           X.red <- X[linear,]
         }
-        fitu <- uncollapsePibble_sigmaKnown(coll_samples, X.red, Theta, Gamma, Gamma_comb, Xi, Sigma, upsilon, 
-                                            ret_mean, ncores, seed)
+        fitu <- uncollapsePibble_sigmaKnown(coll_samples, X.red, Theta, Gamma, Gamma_comb, Xi, Sigma, upsilon,
+                                            seed=seed, ret_mean=ret_mean, ncores=ncores)
         LambdaX <- array(NA, dim = c(nrow(fitu$Lambda), ncol(X), dim(fitu$Lambda)[3]))
         for(j in 1:dim(fitu$Lambda)[3]){
           LambdaX[,,j] <- fitu$Lambda[,,j] %*% X.red
         }
         return(list(Lambda = LambdaX, Lambda.out = fitu$Lambda))
       } else{
-        fitu <- uncollapsePibble_sigmaKnown(coll_samples, diag(ncol(X)), Theta(X), Gamma(X), Gamma_comb, Xi, Sigma, upsilon, 
-                                            ret_mean, ncores, seed)
+        fitu <- uncollapsePibble_sigmaKnown(coll_samples, diag(ncol(X)), Theta(X), Gamma(X), Gamma_comb, Xi, Sigma, upsilon,
+                                            seed=seed, ret_mean=ret_mean, ncores=ncores)
         return(list(Lambda = fitu$Lambda, Lambda.out = fitu$Lambda))
       }
     } 
@@ -212,8 +212,11 @@ basset <- function(Y=NULL, X, upsilon=NULL, Theta=NULL, Gamma=NULL, Xi=NULL, lin
             collapse_samps$Lambda - samp_mean
           }
           Gamma_comb_red <- Reduce('+', Gamma_trans[c((i+1):num.comp)])
+          # Each conditional draw needs fresh noise; reusing the same seed
+          # correlates innovations across components within a posterior draw.
+          component_seed <- seed + i - 1
           fitu <- add.uncollapse(unc_samples, newdata, Theta[[i]], Gamma[[i]], Gamma_comb_red, Xi, collapse_samps$Sigma,
-                                 upsilon, ret_mean, ncores, seed, linear)
+                                 upsilon, ret_mean, ncores, component_seed, linear)
           Lambda[[i]] <- fitu$Lambda
           Lambda.out[[i]] <- fitu$Lambda.out
         } else {

@@ -1,5 +1,13 @@
 # fido 1.1.5
 
+* Fixed argument forwarding to the additive `basset()` component sampler for
+  both Gaussian-process and linear components. `seed`, `ret_mean`, and `ncores`
+  are now passed by name. Previously, the core count could be interpreted as
+  `ret_mean`, returning conditional component means when posterior draws were
+  requested, and the supplied seed and core count were not honored. Sequential
+  component draws now also use distinct deterministic seeds to avoid reusing
+  random noise when there are three or more components. Refit additive analyses
+  to obtain corrected conditional component uncertainty.
 * Fixed inconsistent degrees of freedom between collapse and uncollapse in
   `pibble()` and `basset()` (including additive models). Public `upsilon` remains
   standard inverse-Wishart df; with `P = D-1`, the wrappers now pass
