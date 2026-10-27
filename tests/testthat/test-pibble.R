@@ -219,8 +219,18 @@ test_that("logInvNegHessDet correct", {
 })
 
 
-test_that("max_iter leads to warning not error", {
-  expect_warning(pibble(sim$Y, sim$X, max_iter=3))
+test_that("ADAM iteration limit warns without a Hessian or sampling", {
+  counts <- matrix(c(10, 2, 3, 2, 15, 4, 8, 2, 7, 3, 4, 12), nrow = 3)
+  design <- matrix(1, nrow = 1, ncol = 4)
+  initial <- matrix(0, nrow = 2, ncol = 4)
+  expect_warning(
+    fit <- pibble(counts, design, init = initial, optim_method = "adam",
+                  max_iter = 1, eps_f = 0, eps_g = 0,
+                  n_samples = 0, calcGradHess = FALSE),
+    "[Mm]ax [Ii]terations [Hh]it"
+  )
+  expect_s3_class(fit, "pibblefit")
+  expect_true(all(is.finite(fit$Eta)))
 })
 
 test_that("init argument words in refit", {
