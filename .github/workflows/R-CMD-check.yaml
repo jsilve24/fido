@@ -42,11 +42,7 @@ jobs:
       - name: Configure git
         run: git config --global core.autocrlf false
 
-      - uses: actions/checkout@v3
-
-      - uses: r-lib/actions/setup-pandoc@v2
-
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -95,24 +91,31 @@ jobs:
         run: Rscript .github/build/probe-mkl.R
 
       - uses: r-lib/actions/check-r-package@v2
+        with:
+          upload-results: false
+          upload-snapshots: true
 
       - name: Show configure branch and selected flags
         if: always()
         shell: bash
         run: |
-          find check -name '00install.out' -exec cat '{}' \;
-          find check \( -path '*/src/Makevars' -o -name fidoGenerated.h \) -print -exec cat '{}' \;
+          if [[ -d check ]]; then
+            echo "Configure output:"
+            find check -name '00install.out' -print -exec cat '{}' \;
+            echo "Generated Makevars and fidoGenerated.h:"
+            find check \( -path '*/src/Makevars' -o -name fidoGenerated.h \) -print -exec cat '{}' \;
+            if [[ "${RUNNER_OS:-}" == "Windows" ]]; then
+              echo "Windows static Makevars.win branch:"
+              find check -name 'Makevars.win' -print -exec cat '{}' \;
+            fi
+          else
+            echo "No check directory found; configure output is unavailable."
+          fi
 
       - name: Show testthat output
         if: always()
         run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
         shell: bash
-
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@main
-        with:
-          upload-snapshots: true
 
       # - name: print path
         # if: failure()
