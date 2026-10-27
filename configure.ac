@@ -324,6 +324,13 @@ else
 #endif
 static_assert(sizeof(MKL_INT) == 4, "MKL requires LP64");
 extern "C" void fido_mkl_config_probe(int* status) {
+    const int previous_limit = mkl_set_num_threads_local(1);
+    const int local_limit = mkl_get_max_threads();
+    mkl_set_num_threads_local(previous_limit);
+    if (local_limit != 1) {
+        *status = -1;
+        return;
+    }
     Eigen::Matrix2d precision = Eigen::Matrix2d::Zero();
     precision(0, 0) = 4.0;
     precision(1, 1) = 9.0;

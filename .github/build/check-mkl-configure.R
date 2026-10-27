@@ -137,6 +137,34 @@ make_broken_prefix <- function() {
 }
 
 broken_prefix <- make_broken_prefix()
+make_missing_thread_api_prefix <- function() {
+  prefix <- file.path(work_root, "missing-thread-api-mkl")
+  include_destination <- file.path(prefix, "include")
+  dir.create(include_destination, recursive = TRUE)
+  header_path <- file.path(include_destination, "mkl.h")
+  writeLines(c(
+    paste0('#include "', normalizePath(file.path(include_dir, "mkl.h"),
+                                       winslash = "/", mustWork = TRUE), '"'),
+    "#undef mkl_set_num_threads_local",
+    "#define mkl_set_num_threads_local fido_missing_mkl_thread_api"
+  ), header_path)
+  include_entries <- list.files(include_dir, all.files = TRUE, full.names = TRUE,
+                                no.. = TRUE)
+  include_entries <- include_entries[basename(include_entries) != "mkl.h"]
+  for (entry in include_entries) {
+    if (!file.symlink(entry, file.path(include_destination, basename(entry)))) {
+      stop("Could not symlink an MKL header for thread API testing: ", entry,
+           call. = FALSE)
+    }
+  }
+  if (!file.symlink(mkl_lib_dir, file.path(prefix, "lib"))) {
+    stop("Could not symlink the real MKL library directory for thread API testing",
+         call. = FALSE)
+  }
+  prefix
+}
+
+missing_thread_api_prefix <- make_missing_thread_api_prefix()
 space_prefix <- file.path(work_root, "mkl prefix")
 dir.create(space_prefix)
 if (!file.symlink(include_dir, file.path(space_prefix, "include")) ||
@@ -216,7 +244,8 @@ check_makevars <- function(source_dir, enabled) {
 
 run_case <- function(case_name, option, mklroot_mode, mklroot_value,
                      pkg_path, expected, enabled, required_status,
-                     require_probe_evidence = FALSE) {
+                     require_probe_evidence = FALSE,
+                     require_missing_thread_api = FALSE) {
   source_dir <- file.path(work_root, paste0("source-", case_name))
   dir.create(source_dir, recursive = TRUE)
   copy_source_tree(source_dir)
@@ -303,6 +332,19 @@ run_case <- function(case_name, option, mklroot_mode, mklroot_value,
            call. = FALSE)
     }
   }
+  if (isTRUE(require_missing_thread_api)) {
+    config_log <- file.path(output_dir, paste0(case_name, ".config.log"))
+    config_lines <- readLines(config_log, warn = FALSE)
+    api_error_lines <- config_lines[
+      grepl("fido_missing_mkl_thread_api", config_lines, fixed = TRUE) &
+        grepl("not declared|undeclared", config_lines, ignore.case = TRUE)
+    ]
+    if (!length(api_error_lines)) {
+      stop("Case ", case_name,
+           " config.log lacks the expected undeclared MKL thread API diagnostic",
+           call. = FALSE)
+    }
+  }
   list(status = status, stdout = stdout_path, stderr = stderr_path)
 }
 
@@ -358,7 +400,18 @@ cases <- list(
   list(name = "broken-probe-explicit", option = paste0("--with-mkl=", broken_prefix),
        mklroot_mode = "unset", mklroot_value = "", pkg_path = empty_pkg_config_dir,
        expected = "configure: error: MKL requested but unavailable: compile, link, or R load/run probe failed; see config.log",
-       enabled = FALSE, required_status = 1L, require_probe_evidence = TRUE)
+       enabled = FALSE, required_status = 1L, require_probe_evidence = TRUE),
+  list(name = "missing-thread-api-auto", option = "", mklroot_mode = "set",
+       mklroot_value = missing_thread_api_prefix, pkg_path = empty_pkg_config_dir,
+       expected = "configure: MKL disabled: compile, link, or R load/run probe failed; see config.log",
+       enabled = FALSE, required_status = 0L, require_probe_evidence = TRUE,
+       require_missing_thread_api = TRUE),
+  list(name = "missing-thread-api-explicit",
+       option = paste0("--with-mkl=", missing_thread_api_prefix),
+       mklroot_mode = "unset", mklroot_value = "", pkg_path = empty_pkg_config_dir,
+       expected = "configure: error: MKL requested but unavailable: compile, link, or R load/run probe failed; see config.log",
+       enabled = FALSE, required_status = 1L, require_probe_evidence = TRUE,
+       require_missing_thread_api = TRUE)
 )
 
 if (!nzchar(pkg_config_dir)) {
@@ -369,7 +422,8 @@ for (case in cases) {
   result <- run_case(case$name, case$option, case$mklroot_mode,
                      case$mklroot_value, case$pkg_path, case$expected,
                      case$enabled, case$required_status,
-                     case$require_probe_evidence)
+                     case$require_probe_evidence,
+                     case$require_missing_thread_api)
   record_case(case$name, result, case$expected)
 }
 
