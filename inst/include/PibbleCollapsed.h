@@ -2,6 +2,7 @@
 #define MONGREL_MMTC_H
 
 #include <MatrixAlgebra.h>
+#include <MklThreads.h>
 #include <MongrelModelClass.h>
 
 #ifdef FIDO_USE_MKL
@@ -183,6 +184,7 @@ class PibbleCollapsed : public mongrel::MongrelModel {
       
       #pragma omp parallel shared(rho_parallel, n_parallel)
       {
+      fido_threads::MklThreadLimit mkl_thread_limit;
       MatrixXd W(D-1, D-1);
       //VectorXd rhoseg(D-1);
       #pragma omp for 

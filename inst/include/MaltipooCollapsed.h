@@ -3,6 +3,7 @@
 
 #include <RcppNumerical.h>
 #include <MatrixAlgebra.h>
+#include <MklThreads.h>
 using namespace Rcpp;
 using Eigen::Map;
 using Eigen::MatrixXd;
@@ -220,6 +221,7 @@ class MaltipooCollapsed : public Numer::MFuncGrad
       
       #pragma omp parallel shared(rho_parallel, n_parallel)
       {
+      fido_threads::MklThreadLimit mkl_thread_limit;
       MatrixXd W(D-1, D-1);
       //VectorXd rhoseg(D-1);
       #pragma omp for 

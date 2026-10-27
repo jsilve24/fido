@@ -1,0 +1,23 @@
+args <- commandArgs(trailingOnly = TRUE)
+if (length(args) != 1L) stop("Usage: probe-mkl-threads.R CONFIGURED_MAKEVARS")
+makevars <- normalizePath(args[[1L]], mustWork = TRUE)
+source_file <- normalizePath(".github/build/mkl-thread-probe.cpp", mustWork = TRUE)
+include_dir <- normalizePath("inst/include", mustWork = TRUE)
+build_dir <- tempfile("fido-mkl-thread-probe-")
+dir.create(build_dir)
+file.copy(source_file, file.path(build_dir, "mkl-thread-probe.cpp"))
+writeLines(c(
+  paste("include", makevars),
+  paste0('PKG_CPPFLAGS += -I"', include_dir, '"')
+), file.path(build_dir, "Makevars"))
+setwd(build_dir)
+status <- system2(file.path(R.home("bin"), "R"), c("CMD", "SHLIB", "mkl-thread-probe.cpp"))
+if (status != 0L) stop("Thread-limit probe failed to compile/link")
+library_path <- paste0("mkl-thread-probe", .Platform$dynlib.ext)
+probe <- dyn.load(library_path)
+result <- .C(getNativeSymbolInfo("fido_mkl_thread_probe", probe),
+             status = integer(1), workers = integer(1))
+print(result)
+stopifnot(result$status == 0L, result$workers == 2L)
+dyn.unload(library_path)
+cat("Thread-local MKL limit and restoration probe passed\n")

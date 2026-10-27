@@ -1,4 +1,5 @@
 #include <fido.h>
+#include <MklThreads.h>
 #include <Rcpp/Benchmark/Timer.h>
 #include <boost/random/mersenne_twister.hpp>
 
@@ -126,6 +127,7 @@ List uncollapsePibble(const Eigen::Map<Eigen::VectorXd> eta, // note this is ess
   #endif 
   #pragma omp parallel shared(D, N, Q, LambdaDraw0, SigmaDraw0)
   {
+  fido_threads::MklThreadLimit mkl_thread_limit;
   // storage for computation
   MatrixXd LambdaN(D-1, Q);
   MatrixXd XiN(D-1, D-1);
