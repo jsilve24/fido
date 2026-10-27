@@ -15,7 +15,7 @@ test_that("sampling and Hessian regions preserve MKL limits and results", {
                                 ret_mean = FALSE, ncores = cores)
     expect_identical(fido_build_info()$mkl_max_threads, original_limit)
     known <- uncollapsePibble_sigmaKnown(
-      draws, design, prior_mean, prior_covariance, prior_covariance,
+      draws, design, prior_mean, prior_covariance, diag(ncol(design)),
       prior_covariance, known_covariance, 7, seed = 4201,
       ret_mean = FALSE, ncores = cores
     )
