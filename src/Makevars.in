@@ -2,6 +2,8 @@
 ## enable compilation with C++11 (or even C++14) where available
 ## CXX_STD = CXX11
 
+FIDO_MKL_CPPFLAGS = @MKL_CPPFLAGS@
+FIDO_MKL_LIBS = @MKL_LIBS@
 PKG_CPPFLAGS = -I../inst/include/ $(FIDO_MKL_CPPFLAGS) $(if $(strip $(FIDO_MKL_LIBS)),-DFIDO_USE_MKL -DEIGEN_USE_MKL_ALL)
 PKG_CXXFLAGS = @OPENMP_FLAG@
 PKG_LIBS = @OPENMP_FLAG@ $(FIDO_MKL_LIBS)

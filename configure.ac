@@ -8,6 +8,14 @@
 AC_PREREQ([2.69])
 AC_INIT(fido, m4_esyscmd_s([awk '/^Version:/ {print $2}' DESCRIPTION]))
 
+AC_ARG_WITH([mkl],
+    [AS_HELP_STRING([--with-mkl=auto|no|PATH],
+        [detect MKL (default), disable it, or require the MKL installation at PATH])],
+    [], [with_mkl=auto])
+case "${with_mkl}" in
+    yes|'') AC_MSG_ERROR([--with-mkl requires auto, no, or an installation path]) ;;
+esac
+
 ## Set R_HOME, respecting an environment variable if one is set
 : ${R_HOME=$(R RHOME)}
 if test -z "${R_HOME}"; then
@@ -220,6 +228,150 @@ if test x"${can_use_openmp}" = x"yes"; then
     fi
 fi
 
+
+mkl_cppflags=""
+mkl_libs=""
+mkl_reason="not found via MKLROOT or pkg-config"
+mkl_source=""
+mkl_root=""
+mkl_arch=$("${R_HOME}/bin/Rscript" --vanilla -e 'cat(R.version$arch)')
+
+if test "${with_mkl}" = no; then
+    mkl_reason="disabled by --with-mkl=no"
+elif test "${RSysinfoName}" = Darwin && { test "${mkl_arch}" = aarch64 || test "${mkl_arch}" = arm64; }; then
+    mkl_reason="unavailable on Apple Silicon"
+elif test "${RSysinfoName}" != Linux || test "${mkl_arch}" != x86_64; then
+    mkl_reason="MKL is currently tested only on Linux x86_64"
+else
+    if test "${with_mkl}" != auto; then
+        mkl_root="${with_mkl}"
+        mkl_source="--with-mkl"
+    elif test -n "${MKLROOT}"; then
+        mkl_root="${MKLROOT}"
+        mkl_source="MKLROOT"
+    elif command -v pkg-config >/dev/null 2>&1 &&
+         pkg-config --exists mkl-dynamic-lp64-gomp; then
+        mkl_root=$(pkg-config --variable=prefix mkl-dynamic-lp64-gomp)
+        mkl_source="pkg-config"
+    fi
+
+    if test -n "${mkl_root}"; then
+        mkl_cr=$(printf '\r')
+        case "${mkl_root}" in
+            *'$'*|*'#'*|*'`'*|*'\'*|*'"'*|*"'"*|*','*|*"${as_nl}"*|*"${mkl_cr}"*)
+                mkl_reason="unsupported characters in MKL path"
+                mkl_root=""
+                ;;
+        esac
+        if test -n "${mkl_root}"; then
+            if test -d "${mkl_root}"; then
+                mkl_root=$(cd "${mkl_root}" && pwd -P)
+            else
+                mkl_reason="${mkl_source} directory does not exist"
+                mkl_root=""
+            fi
+        fi
+        case "${mkl_root}" in
+            *'$'*|*'#'*|*'`'*|*'\'*|*'"'*|*"'"*|*','*|*"${as_nl}"*|*"${mkl_cr}"*)
+                mkl_reason="unsupported characters in resolved MKL path"
+                mkl_root=""
+                ;;
+        esac
+        if test -n "${mkl_root}"; then
+            mkl_candidate_libs=""
+            mkl_libdir=""
+            for mkl_directory in "${mkl_root}/lib" "${mkl_root}/lib/intel64" "${mkl_root}/lib/intel64_lin"; do
+                mkl_candidate_libs=""
+                for mkl_library in mkl_intel_lp64 mkl_gnu_thread mkl_core; do
+                    mkl_library_path=""
+                    for mkl_suffix in .so .so.2; do
+                        if test -f "${mkl_directory}/lib${mkl_library}${mkl_suffix}"; then
+                            mkl_library_path="${mkl_directory}/lib${mkl_library}${mkl_suffix}"
+                            break
+                        fi
+                    done
+                    if test -z "${mkl_library_path}"; then
+                        mkl_candidate_libs=""
+                        break
+                    fi
+                    mkl_candidate_libs="${mkl_candidate_libs} \"${mkl_library_path}\""
+                done
+                if test -n "${mkl_candidate_libs}"; then
+                    mkl_libdir="${mkl_directory}"
+                    break
+                fi
+            done
+            if test ! -f "${mkl_root}/include/mkl.h"; then
+                mkl_reason="${mkl_source} is missing include/mkl.h"
+            elif test -z "${mkl_libdir}"; then
+                mkl_reason="${mkl_source} is missing LP64 GNU shared libraries"
+            elif test -z "${openmp_flag}"; then
+                mkl_reason="OpenMP is unavailable"
+            else
+                mkl_candidate_cppflags="-I\"${mkl_root}/include\""
+                mkl_candidate_libs="-Wl,--no-as-needed${mkl_candidate_libs} -Wl,-rpath,\"${mkl_libdir}\" -lgomp -lpthread -lm -ldl"
+                mkl_eigen_include=$("${R_HOME}/bin/Rscript" --vanilla -e 'cat(system.file("include", package="RcppEigen"))')
+                mkl_probe_dir=$(mktemp -d "${TMPDIR}/fido-mkl-XXXXXX")
+                if test -z "${mkl_probe_dir}"; then
+                    mkl_reason="could not create MKL probe directory"
+                else
+                    cat > "${mkl_probe_dir}/fido-mkl-probe.cpp" <<'EOF'
+#include <mkl.h>
+#include <Eigen/Dense>
+#include <omp.h>
+#if !defined(_OPENMP) || !defined(__GNUC__) || defined(__clang__)
+#error MKL GNU threading requires GNU C++ with OpenMP
+#endif
+static_assert(sizeof(MKL_INT) == 4, "MKL requires LP64");
+extern "C" void fido_mkl_config_probe(int* status) {
+    Eigen::Matrix2d precision = Eigen::Matrix2d::Zero();
+    precision(0, 0) = 4.0;
+    precision(1, 1) = 9.0;
+    *status = LAPACKE_dpotrf(LAPACK_COL_MAJOR, 'U', 2, precision.data(), 2);
+    if (*status != 0) return;
+    Eigen::SelfAdjointEigenSolver<Eigen::Matrix2d> solver(Eigen::Matrix2d::Identity());
+    if (precision(0, 0) != 2.0 || precision(1, 1) != 3.0 ||
+        omp_get_max_threads() < 1 || solver.info() != Eigen::Success ||
+        (solver.eigenvalues().array() - 1.0).abs().maxCoeff() > 1e-12) {
+        *status = -1;
+    }
+}
+EOF
+                    cat > "${mkl_probe_dir}/Makevars" <<EOF
+PKG_CPPFLAGS = ${mkl_candidate_cppflags} -I"${mkl_eigen_include}" -DFIDO_USE_MKL -DEIGEN_USE_MKL_ALL
+PKG_CXXFLAGS = ${openmp_flag}
+PKG_LIBS = ${openmp_flag} ${mkl_candidate_libs}
+EOF
+                    if (cd "${mkl_probe_dir}" &&
+                        "${R_HOME}/bin/R" CMD SHLIB fido-mkl-probe.cpp > probe.log 2>&1 &&
+                        "${R_HOME}/bin/Rscript" --vanilla -e '
+                            probe <- dyn.load(paste0("fido-mkl-probe", .Platform$dynlib.ext))
+                            result <- .C(getNativeSymbolInfo("fido_mkl_config_probe", probe), status=integer(1))
+                            stopifnot(identical(result$status, 0L))
+                        ' >> probe.log 2>&1); then
+                        mkl_cppflags="${mkl_candidate_cppflags}"
+                        mkl_libs="${mkl_candidate_libs}"
+                    else
+                        mkl_reason="compile, link, or R load/run probe failed; see config.log"
+                    fi
+                    cat "${mkl_probe_dir}/probe.log" >&AS_MESSAGE_LOG_FD
+                    rm -rf "${mkl_probe_dir}"
+                fi
+            fi
+        fi
+    fi
+fi
+
+if test -n "${mkl_libs}"; then
+    AC_MSG_NOTICE([MKL enabled: LP64, GNU threading (${mkl_source})])
+elif test "${with_mkl}" != auto && test "${with_mkl}" != no; then
+    AC_MSG_ERROR([MKL requested but unavailable: ${mkl_reason}])
+else
+    AC_MSG_NOTICE([MKL disabled: ${mkl_reason}])
+fi
+
+AC_SUBST([MKL_CPPFLAGS], ["${mkl_cppflags}"])
+AC_SUBST([MKL_LIBS], ["${mkl_libs}"])
 
 ## now use all these
 AC_SUBST([ARMA_LAPACK],["${arma_lapack}"])
