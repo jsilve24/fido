@@ -158,13 +158,19 @@ jobs:
         run: |
           fido_library="check/fido.Rcheck"
           test -f "$fido_library/fido/libs/fido.so"
-          default_status=0
-          python3 .github/build/measure-threads.py "$fido_library" GNU "$RUNNER_TEMP/threads-gnu-default.json" --assert-bounded || default_status=$?
-          cat "$RUNNER_TEMP/threads-gnu-default.json"
-          stress_status=0
-          python3 .github/build/measure-threads.py "$fido_library" GNU "$RUNNER_TEMP/threads-gnu-stress.json" --stress --assert-bounded || stress_status=$?
-          cat "$RUNNER_TEMP/threads-gnu-stress.json"
-          test "$default_status" -eq 0 && test "$stress_status" -eq 0
+          measurement_status=0
+          for repetition in 1 2 3; do
+            default_status=0
+            python3 .github/build/measure-threads.py "$fido_library" GNU "$RUNNER_TEMP/threads-gnu-default-$repetition.json" --assert-bounded || default_status=$?
+            cat "$RUNNER_TEMP/threads-gnu-default-$repetition.json"
+            stress_status=0
+            python3 .github/build/measure-threads.py "$fido_library" GNU "$RUNNER_TEMP/threads-gnu-stress-$repetition.json" --stress --assert-bounded || stress_status=$?
+            cat "$RUNNER_TEMP/threads-gnu-stress-$repetition.json"
+            if [[ "$default_status" -ne 0 || "$stress_status" -ne 0 ]]; then
+              measurement_status=1
+            fi
+          done
+          exit "$measurement_status"
 
       - name: Install Intel OpenMP comparison runtime
         if: matrix.config.profile == 'mkl'
