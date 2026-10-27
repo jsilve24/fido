@@ -30,8 +30,9 @@ if (profile %in% c("mac-stock", "mac-libomp")) {
   openmp <- ""
   if (profile == "mac-libomp") {
     stopifnot(all(file.exists(file.path(prefix, c("include/omp.h", "lib/libomp.dylib")))))
-    openmp <- paste("-Xclang -fopenmp", paste0("-I", prefix, "/include"),
-                    paste0("-L", prefix, "/lib"), paste0("-Wl,-rpath,", prefix, "/lib"), "-lomp")
+    openmp <- paste("-Xclang -fopenmp", paste0("-I", prefix, "/include"))
+    settings <- c(settings, paste("PKG_LIBS +=", paste0("-L", prefix, "/lib"),
+                                 paste0("-Wl,-rpath,", prefix, "/lib"), "-lomp"))
   }
   settings <- c(settings, paste("SHLIB_OPENMP_CXXFLAGS =", openmp))
 }
