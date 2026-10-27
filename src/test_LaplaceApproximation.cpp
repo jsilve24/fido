@@ -35,13 +35,13 @@ Eigen::MatrixXd cholesky_lap_test(int n_samples, Eigen::VectorXd m,
 // [[Rcpp::export]]
 Eigen::MatrixXd LaplaceApproximation_test(int n_samples, Eigen::VectorXd m, 
                                           Eigen::MatrixXd S, String decomp_method, 
-                                          double eigvalthresh){
+                                          double eigvalthresh, int seed = -1){
   int p=m.rows();
   MatrixXd z = MatrixXd::Zero(p, n_samples);
   double logInvNegHessDet;
   int status = lapap::LaplaceApproximation(z, m, S, decomp_method, 
                                            eigvalthresh,0, 
-                                           logInvNegHessDet);
+                                           logInvNegHessDet, seed);
   if (status==1) Rcpp::stop("decomposition failed");
   return z;
 }

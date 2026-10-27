@@ -169,7 +169,9 @@ namespace lapap{
     }
  
     if (partial){
+      #ifdef FIDO_USE_MKL
       Rcpp::stop("Partial Hessian Not Implemented for MKL");
+      #endif
       int q = nr/nc;
       int pos=0;
       MatrixXd zl = MatrixXd::Zero(nc, n_samples);

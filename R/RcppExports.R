@@ -521,8 +521,8 @@ cholesky_lap_test <- function(n_samples, m, S, eigvalthresh) {
     .Call('_fido_cholesky_lap_test', PACKAGE = 'fido', n_samples, m, S, eigvalthresh)
 }
 
-LaplaceApproximation_test <- function(n_samples, m, S, decomp_method, eigvalthresh) {
-    .Call('_fido_LaplaceApproximation_test', PACKAGE = 'fido', n_samples, m, S, decomp_method, eigvalthresh)
+LaplaceApproximation_test <- function(n_samples, m, S, decomp_method, eigvalthresh, seed = -1L) {
+    .Call('_fido_LaplaceApproximation_test', PACKAGE = 'fido', n_samples, m, S, decomp_method, eigvalthresh, seed)
 }
 
 alrInv_default_test <- function(eta) {
