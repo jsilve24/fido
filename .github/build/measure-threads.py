@@ -45,6 +45,36 @@ def task_count(pid):
         return None
 
 
+def task_snapshot(pid):
+    tasks = {}
+    task_directory = Path("/proc/{}/task".format(pid))
+    try:
+        task_ids = os.listdir(task_directory)
+    except OSError:
+        return None
+    for task_id in task_ids:
+        try:
+            task_path = task_directory / task_id
+            name = (task_path / "comm").read_text(encoding="utf-8").rstrip("\n")
+            stat = (task_path / "stat").read_text(encoding="utf-8")
+            fields = stat[stat.rfind(")") + 2:].split()
+            tasks[task_id] = {
+                "name": name,
+                "state": fields[0],
+                "cpu_ticks": int(fields[11]) + int(fields[12]),
+            }
+        except (OSError, IndexError, ValueError):
+            continue
+    return tasks
+
+
+def update_task_diagnostics(current, first_seen, last_seen, elapsed):
+    for task_id, details in current.items():
+        if task_id not in first_seen:
+            first_seen[task_id] = {**details, "elapsed_seconds": elapsed}
+        last_seen[task_id] = {**details, "elapsed_seconds": elapsed}
+
+
 def mapped_libraries(pid):
     libraries = set()
     try:
@@ -212,14 +242,24 @@ def run(args):
         samples = 0
         measured_wall_seconds = None
         libraries = set()
+        baseline_tasks = None
+        first_seen_tasks = {}
+        last_seen_tasks = {}
+        new_task_ids = set()
+        peak_task_snapshot = None
         try:
             if not wait_for_marker(ready, process, deadline):
                 timed_out = time.monotonic() >= deadline
             if not timed_out and process.poll() is None:
                 initial_threads = task_count(process.pid)
+                baseline_tasks = task_snapshot(process.pid)
                 libraries.update(mapped_libraries(process.pid))
-                if initial_threads is None:
+                if initial_threads is None or baseline_tasks is None:
                     raise RuntimeError("could not capture initial thread baseline after READY")
+                baseline_time = time.monotonic()
+                update_task_diagnostics(
+                    baseline_tasks, first_seen_tasks, last_seen_tasks, 0.0
+                )
                 start.write_text("start\n", encoding="utf-8")
                 if not wait_for_marker(calls_started, process, deadline):
                     timed_out = time.monotonic() >= deadline
@@ -227,10 +267,29 @@ def run(args):
                 monitor_start = time.monotonic()
                 while not finished.exists() and process.poll() is None:
                     current = task_count(process.pid)
+                    current_tasks = task_snapshot(process.pid)
                     libraries.update(mapped_libraries(process.pid))
+                    new_peak = (current is not None and
+                                (peak_threads is None or current > peak_threads))
                     if current is not None:
                         peak_threads = current if peak_threads is None else max(peak_threads, current)
                         samples += 1
+                    elapsed = time.monotonic() - baseline_time
+                    if current_tasks is not None:
+                        update_task_diagnostics(
+                            current_tasks, first_seen_tasks, last_seen_tasks,
+                            elapsed
+                        )
+                        new_task_ids.update(set(current_tasks) - set(baseline_tasks))
+                        if new_peak:
+                            peak_task_snapshot = {
+                                "elapsed_seconds": elapsed,
+                                "thread_count": current,
+                                "tasks": {
+                                    task_id: current_tasks[task_id]
+                                    for task_id in sorted(current_tasks, key=int)
+                                },
+                            }
                     if time.monotonic() >= deadline:
                         timed_out = True
                         break
@@ -314,6 +373,24 @@ def run(args):
             "allowed_peak_thread_count": bounded_limit,
             "thread_sample_count": samples,
             "thread_sampling_passed": thread_sampling_passed,
+            "thread_diagnostics": {
+                "sampling_interval_seconds": POLL_SECONDS,
+                "clock_ticks_per_second": os.sysconf("SC_CLK_TCK"),
+                "baseline_tasks": baseline_tasks,
+                "peak_snapshot": peak_task_snapshot,
+                "new_task_ids": sorted(new_task_ids, key=int),
+                "per_task": {
+                    task_id: {
+                        "first": first_seen_tasks[task_id],
+                        "last": last_seen_tasks[task_id],
+                        "cpu_tick_delta": (
+                            last_seen_tasks[task_id]["cpu_ticks"] -
+                            first_seen_tasks[task_id]["cpu_ticks"]
+                        ),
+                    }
+                    for task_id in sorted(first_seen_tasks, key=int)
+                },
+            },
             "measured_wall_seconds": measured_wall_seconds,
             "linked_libraries": sorted(libraries),
             "linked_library_verification": linkage,
@@ -322,9 +399,11 @@ def run(args):
             "build_info_before": nested_build_info(values, "before"),
             "build_info_after_parallel": nested_build_info(values, "after_parallel"),
             "build_info_after": nested_build_info(values, "after"),
+            "r_thread_environment": nested_build_info(values, "thread_env"),
             "workload": {
                 key: value for key, value in values.items()
-                if not key.startswith(("before.", "after_parallel.", "after."))
+                if not key.startswith(("before.", "after_parallel.", "after.",
+                                      "thread_env."))
             },
             "stdout_tail": tail(stdout),
             "stderr_tail": tail(stderr),

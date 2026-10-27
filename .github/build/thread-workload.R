@@ -56,6 +56,16 @@ build_info_lines <- function(prefix, info) {
   paste0(prefix, ".", fields, "=", vapply(fields, function(field) scalar_text(info[[field]]), character(1L)))
 }
 
+thread_environment_lines <- function() {
+  variables <- c(
+    "MKL_NUM_THREADS", "MKL_DYNAMIC", "MKL_DOMAIN_NUM_THREADS",
+    "OMP_NUM_THREADS", "OMP_DYNAMIC", "OMP_THREAD_LIMIT",
+    "OPENBLAS_NUM_THREADS", "OPENBLAS_DEFAULT_NUM_THREADS", "GOTO_NUM_THREADS"
+  )
+  paste0("thread_env.", variables, "=",
+         vapply(variables, Sys.getenv, character(1L), unset = NA_character_))
+}
+
 make_fixture <- function(dminus1, sample_count, covariate_count, draws) {
   sample_index <- seq_len(sample_count)
   design_matrix <- matrix(0, nrow = covariate_count, ncol = sample_count)
@@ -147,6 +157,7 @@ build_info_passed <- all(vapply(
 measured_seconds_per_call <- measured_elapsed / repeat_count
 
 result_lines <- c(
+  thread_environment_lines(),
   build_info_lines("before", before),
   build_info_lines("after_parallel", after_parallel),
   build_info_lines("after", after),

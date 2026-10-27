@@ -158,10 +158,13 @@ jobs:
         run: |
           fido_library="check/fido.Rcheck"
           test -f "$fido_library/fido/libs/fido.so"
-          python3 .github/build/measure-threads.py "$fido_library" GNU "$RUNNER_TEMP/threads-gnu-default.json" --assert-bounded
+          default_status=0
+          python3 .github/build/measure-threads.py "$fido_library" GNU "$RUNNER_TEMP/threads-gnu-default.json" --assert-bounded || default_status=$?
           cat "$RUNNER_TEMP/threads-gnu-default.json"
-          python3 .github/build/measure-threads.py "$fido_library" GNU "$RUNNER_TEMP/threads-gnu-stress.json" --stress --assert-bounded
+          stress_status=0
+          python3 .github/build/measure-threads.py "$fido_library" GNU "$RUNNER_TEMP/threads-gnu-stress.json" --stress --assert-bounded || stress_status=$?
           cat "$RUNNER_TEMP/threads-gnu-stress.json"
+          test "$default_status" -eq 0 && test "$stress_status" -eq 0
 
       - name: Install Intel OpenMP comparison runtime
         if: matrix.config.profile == 'mkl'
