@@ -509,6 +509,10 @@ lmvgamma_deriv <- function(a, p) {
     .Call('_fido_lmvgamma_deriv', PACKAGE = 'fido', a, p)
 }
 
+fido_build_info_cpp <- function() {
+    .Call('_fido_fido_build_info_cpp', PACKAGE = 'fido')
+}
+
 eigen_lap_test <- function(n_samples, m, S, eigvalthresh) {
     .Call('_fido_eigen_lap_test', PACKAGE = 'fido', n_samples, m, S, eigvalthresh)
 }

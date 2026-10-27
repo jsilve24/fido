@@ -344,6 +344,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// fido_build_info_cpp
+Rcpp::List fido_build_info_cpp();
+RcppExport SEXP _fido_fido_build_info_cpp() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    rcpp_result_gen = Rcpp::wrap(fido_build_info_cpp());
+    return rcpp_result_gen;
+END_RCPP
+}
 // eigen_lap_test
 Eigen::MatrixXd eigen_lap_test(int n_samples, Eigen::VectorXd m, Eigen::MatrixXd S, double eigvalthresh);
 RcppExport SEXP _fido_eigen_lap_test(SEXP n_samplesSEXP, SEXP mSEXP, SEXP SSEXP, SEXP eigvalthreshSEXP) {
@@ -466,6 +475,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_fido_uncollapsePibble_sigmaKnown", (DL_FUNC) &_fido_uncollapsePibble_sigmaKnown, 12},
     {"_fido_lmvgamma", (DL_FUNC) &_fido_lmvgamma, 2},
     {"_fido_lmvgamma_deriv", (DL_FUNC) &_fido_lmvgamma_deriv, 2},
+    {"_fido_fido_build_info_cpp", (DL_FUNC) &_fido_fido_build_info_cpp, 0},
     {"_fido_eigen_lap_test", (DL_FUNC) &_fido_eigen_lap_test, 4},
     {"_fido_cholesky_lap_test", (DL_FUNC) &_fido_cholesky_lap_test, 4},
     {"_fido_LaplaceApproximation_test", (DL_FUNC) &_fido_LaplaceApproximation_test, 5},
