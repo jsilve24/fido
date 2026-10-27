@@ -19,10 +19,23 @@ test_that("cholesky_lap gets correct answer", {
   S <- diag(4:6)
   S[1,2] <- S[2,1] <- -1
   #S <- -S
-  z <- eigen_lap_test(n_samples, m, S, 0)
+  z <- cholesky_lap_test(n_samples, m, S, 0)
   
   expect_equal(var(t(z)), solve(S), tolerance=0.005)
   expect_equal(rowMeans(z), m, tolerance=.01)
+})
+
+test_that("LaplaceApproximation rejects a non-positive-definite Hessian", {
+  samples <- NULL
+  expect_warning(
+    expect_error(
+      samples <- LaplaceApproximation_test(10, c(0, 0), diag(c(1, -1)),
+                                           "cholesky", 0),
+      "decomposition failed"
+    ),
+    "Cholesky of Hessian failed"
+  )
+  expect_null(samples)
 })
 
 test_that("LaplaceApproximation gets correct result for full hessian", {
@@ -40,7 +53,5 @@ test_that("LaplaceApproximation gets correct result for full hessian", {
   expect_equal(var(t(z)), solve(S), tolerance=0.005)
   expect_equal(rowMeans(z), m, tolerance=.01)
 })
-
-
 
 

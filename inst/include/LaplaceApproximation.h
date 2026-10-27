@@ -89,7 +89,11 @@ namespace lapap{
                    Eigen::PlainObjectBase<T3>& S,  
                    lappars &pars){ 
     #ifdef FIDO_USE_MKL
-      LAPACKE_dpotrf(LAPACK_COL_MAJOR, 'U', S.rows(), S.data() , S.cols());
+      const int status = LAPACKE_dpotrf(LAPACK_COL_MAJOR, 'U', S.rows(), S.data(), S.cols());
+      if (status != 0) {
+        Rcpp::warning("Cholesky of Hessian failed with LAPACK status %d", status);
+        return 1;
+      }
       pars.logInvNegHessDet -=  2.0*S.diagonal().array().log().sum();
       fillUnitNormal(z);
       LAPACKE_dtrtrs(LAPACK_COL_MAJOR, 'U', 'N', 'N', S.cols(), z.cols(), S.data(),
