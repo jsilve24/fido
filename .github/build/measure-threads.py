@@ -28,7 +28,8 @@ def parse_args():
                         help="disable MKL dynamic threading and allow nested OpenMP")
     parser.add_argument("--timeout", type=float, default=DEFAULT_TIMEOUT_SECONDS)
     parser.add_argument("--assert-bounded", action="store_true",
-                        help="fail if GNU peak threads exceed baseline + cores - 1")
+                        help="fail if GNU peak LIVE threads (excluding dead/zombie "
+                             "states X/x and Z) exceed live baseline + cores - 1")
     args = parser.parse_args()
 
     if args.timeout <= 0:
@@ -38,34 +39,42 @@ def parse_args():
     return args
 
 
-def task_count(pid):
-    try:
-        return len(os.listdir("/proc/{}/task".format(pid)))
-    except OSError:
-        return None
-
-
 def task_snapshot(pid):
-    tasks = {}
     task_directory = Path("/proc/{}/task".format(pid))
-    try:
-        task_ids = os.listdir(task_directory)
-    except OSError:
-        return None
+    task_ids = os.listdir(task_directory)
+    tasks = {}
+    vanished_task_ids = []
     for task_id in task_ids:
         try:
-            task_path = task_directory / task_id
-            name = (task_path / "comm").read_text(encoding="utf-8").rstrip("\n")
-            stat = (task_path / "stat").read_text(encoding="utf-8")
-            fields = stat[stat.rfind(")") + 2:].split()
-            tasks[task_id] = {
-                "name": name,
-                "state": fields[0],
-                "cpu_ticks": int(fields[11]) + int(fields[12]),
-            }
-        except (OSError, IndexError, ValueError):
+            stat = (task_directory / task_id / "stat").read_text(encoding="utf-8")
+        except (FileNotFoundError, ProcessLookupError):
+            vanished_task_ids.append(task_id)
             continue
-    return tasks
+        name_start = stat.index("(")
+        name_end = stat.rindex(")")
+        fields = stat[name_end + 2:].split()
+        tasks[task_id] = {
+            "name": stat[name_start + 1:name_end],
+            "state": fields[0],
+            "cpu_ticks": int(fields[11]) + int(fields[12]),
+        }
+    if str(pid) not in tasks or tasks[str(pid)]["state"] in ("X", "x", "Z"):
+        raise RuntimeError("live main PID missing from task snapshot")
+    return len(task_ids), tasks, vanished_task_ids
+
+
+def live_task_count(tasks):
+    return sum(details["state"] not in ("X", "x", "Z") for details in tasks.values())
+
+
+def snapshot_metadata(tasks, elapsed, raw_count=None, vanished_task_ids=()):
+    return {
+        "elapsed_seconds": elapsed,
+        "thread_count": len(tasks) if raw_count is None else raw_count,
+        "live_thread_count": live_task_count(tasks),
+        "vanished_task_ids": sorted(vanished_task_ids, key=int),
+        "tasks": {task_id: tasks[task_id] for task_id in sorted(tasks, key=int)},
+    }
 
 
 def update_task_diagnostics(current, first_seen, last_seen, elapsed):
@@ -239,23 +248,26 @@ def run(args):
         timed_out = False
         initial_threads = None
         peak_threads = None
+        initial_live_threads = None
+        peak_live_threads = None
         samples = 0
         measured_wall_seconds = None
         libraries = set()
         baseline_tasks = None
+        baseline_vanished_task_ids = []
         first_seen_tasks = {}
         last_seen_tasks = {}
         new_task_ids = set()
         peak_task_snapshot = None
+        peak_live_snapshot = None
+        thread_sampling_error = None
         try:
             if not wait_for_marker(ready, process, deadline):
                 timed_out = time.monotonic() >= deadline
             if not timed_out and process.poll() is None:
-                initial_threads = task_count(process.pid)
-                baseline_tasks = task_snapshot(process.pid)
+                initial_threads, baseline_tasks, baseline_vanished_task_ids = task_snapshot(process.pid)
+                initial_live_threads = live_task_count(baseline_tasks)
                 libraries.update(mapped_libraries(process.pid))
-                if initial_threads is None or baseline_tasks is None:
-                    raise RuntimeError("could not capture initial thread baseline after READY")
                 baseline_time = time.monotonic()
                 update_task_diagnostics(
                     baseline_tasks, first_seen_tasks, last_seen_tasks, 0.0
@@ -266,30 +278,32 @@ def run(args):
             if not timed_out and calls_started.exists():
                 monitor_start = time.monotonic()
                 while not finished.exists() and process.poll() is None:
-                    current = task_count(process.pid)
-                    current_tasks = task_snapshot(process.pid)
+                    try:
+                        current, current_tasks, vanished_task_ids = task_snapshot(process.pid)
+                    except (OSError, ValueError, IndexError, RuntimeError) as error:
+                        thread_sampling_error = str(error)
+                        break
+                    current_live = live_task_count(current_tasks)
                     libraries.update(mapped_libraries(process.pid))
-                    new_peak = (current is not None and
-                                (peak_threads is None or current > peak_threads))
-                    if current is not None:
-                        peak_threads = current if peak_threads is None else max(peak_threads, current)
-                        samples += 1
+                    new_peak = peak_threads is None or current > peak_threads
+                    new_live_peak = peak_live_threads is None or current_live > peak_live_threads
+                    peak_threads = current if peak_threads is None else max(peak_threads, current)
+                    peak_live_threads = (current_live if peak_live_threads is None
+                                         else max(peak_live_threads, current_live))
+                    samples += 1
                     elapsed = time.monotonic() - baseline_time
-                    if current_tasks is not None:
-                        update_task_diagnostics(
-                            current_tasks, first_seen_tasks, last_seen_tasks,
-                            elapsed
+                    update_task_diagnostics(
+                        current_tasks, first_seen_tasks, last_seen_tasks, elapsed
+                    )
+                    new_task_ids.update(set(current_tasks) - set(baseline_tasks))
+                    if new_peak:
+                        peak_task_snapshot = snapshot_metadata(
+                            current_tasks, elapsed, current, vanished_task_ids
                         )
-                        new_task_ids.update(set(current_tasks) - set(baseline_tasks))
-                        if new_peak:
-                            peak_task_snapshot = {
-                                "elapsed_seconds": elapsed,
-                                "thread_count": current,
-                                "tasks": {
-                                    task_id: current_tasks[task_id]
-                                    for task_id in sorted(current_tasks, key=int)
-                                },
-                            }
+                    if new_live_peak:
+                        peak_live_snapshot = snapshot_metadata(
+                            current_tasks, elapsed, current, vanished_task_ids
+                        )
                     if time.monotonic() >= deadline:
                         timed_out = True
                         break
@@ -297,12 +311,7 @@ def run(args):
                     time.sleep(max(0.0, next_sample - time.monotonic()))
                 measured_wall_seconds = time.monotonic() - monitor_start
                 libraries.update(mapped_libraries(process.pid))
-                if peak_threads is None:
-                    current = task_count(process.pid)
-                    if current is not None:
-                        peak_threads = current
-                        samples = 1
-            if timed_out:
+            if timed_out or thread_sampling_error is not None:
                 terminate_process(process)
             else:
                 remaining = max(0.0, deadline - time.monotonic())
@@ -322,11 +331,16 @@ def run(args):
         process_exit = process.returncode
         thread_sampling_passed = (
             initial_threads is not None and peak_threads is not None and
+            initial_live_threads is not None and peak_live_threads is not None and
+            initial_live_threads > 0 and peak_live_threads > 0 and
+            peak_live_snapshot is not None and
+            thread_sampling_error is None and
             samples > 0 and measured_wall_seconds is not None
         )
-        bounded_limit = None if initial_threads is None else initial_threads + cores - 1
-        bounded_passed = (peak_threads is not None and bounded_limit is not None
-                          and peak_threads <= bounded_limit)
+        bounded_limit = (None if initial_live_threads is None
+                         else initial_live_threads + cores - 1)
+        bounded_passed = (peak_live_threads is not None and bounded_limit is not None
+                          and peak_live_threads <= bounded_limit)
         assert_passed = True
         if args.assert_bounded:
             assert_passed = bounded_passed
@@ -342,6 +356,9 @@ def run(args):
         if not thread_sampling_passed:
             status = "failed"
             failures.append("required thread samples were not captured")
+        if thread_sampling_error is not None:
+            status = "failed"
+            failures.append("thread snapshot failed: {}".format(thread_sampling_error))
         if not linkage["passed"]:
             status = "failed"
             failures.append("linked library verification failed")
@@ -358,7 +375,7 @@ def run(args):
             failures.append("workload result was not written")
 
         result = {
-            "schema_version": 1,
+            "schema_version": 2,
             "status": status,
             "failures": failures,
             "fido_library": str(args.library),
@@ -370,14 +387,20 @@ def run(args):
             "timed_out": timed_out,
             "initial_thread_count": initial_threads,
             "peak_thread_count": peak_threads,
-            "allowed_peak_thread_count": bounded_limit,
+            "initial_live_thread_count": initial_live_threads,
+            "peak_live_thread_count": peak_live_threads,
+            "allowed_peak_live_thread_count": bounded_limit,
             "thread_sample_count": samples,
             "thread_sampling_passed": thread_sampling_passed,
+            "thread_sampling_error": thread_sampling_error,
             "thread_diagnostics": {
                 "sampling_interval_seconds": POLL_SECONDS,
                 "clock_ticks_per_second": os.sysconf("SC_CLK_TCK"),
                 "baseline_tasks": baseline_tasks,
-                "peak_snapshot": peak_task_snapshot,
+                "baseline_vanished_task_ids": baseline_vanished_task_ids,
+                "raw_peak_snapshot": peak_task_snapshot,
+                "peak_live_snapshot": peak_live_snapshot,
+                "excluded_dead_states": ["X", "x", "Z"],
                 "new_task_ids": sorted(new_task_ids, key=int),
                 "per_task": {
                     task_id: {
@@ -418,7 +441,7 @@ def main():
         return run(args)
     except BaseException as error:
         result = {
-            "schema_version": 1,
+            "schema_version": 2,
             "status": "failed",
             "failures": [str(error)],
         }
