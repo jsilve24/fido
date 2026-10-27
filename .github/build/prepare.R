@@ -19,8 +19,8 @@ if (profile == "mkl") {
   ))
   stopifnot(all(file.exists(c(file.path(prefix, "include", "mkl.h"), libraries))))
   settings <- c(
-    paste("PKG_CPPFLAGS += -DFIDO_USE_MKL -DEIGEN_USE_MKL_ALL", paste0("-I", prefix, "/include")),
-    paste("PKG_LIBS += -Wl,--no-as-needed", paste(libraries, collapse = " "),
+    paste("FIDO_MKL_CPPFLAGS =", paste0("-I", prefix, "/include")),
+    paste("FIDO_MKL_LIBS = -Wl,--no-as-needed", paste(libraries, collapse = " "),
           paste0("-Wl,-rpath,", prefix, "/lib"), "-lgomp -lpthread -lm -ldl")
   )
 }

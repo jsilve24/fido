@@ -21,7 +21,9 @@
 
 #ifdef FIDO_USE_MKL // requres openmp support
   #define FIDO_USE_PARALLEL
-  #define EIGEN_USE_MKL_ALL
+  #ifndef EIGEN_USE_MKL_ALL
+    #define EIGEN_USE_MKL_ALL
+  #endif
   // #define EIGEN_DONT_PARALLELIZE
 #else
   #ifdef ARMA_USE_OPENMP

@@ -5,8 +5,9 @@ dir.create(build_dir)
 file.copy(source_file, file.path(build_dir, "mkl-probe.cpp"))
 writeLines(c(
   paste0("PKG_CPPFLAGS = -I", shQuote(system.file("include", package = "RcppEigen"))),
+  "PKG_CPPFLAGS += $(FIDO_MKL_CPPFLAGS) $(if $(strip $(FIDO_MKL_LIBS)),-DFIDO_USE_MKL -DEIGEN_USE_MKL_ALL)",
   "PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS)",
-  "PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS)"
+  "PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(FIDO_MKL_LIBS)"
 ), file.path(build_dir, "Makevars"))
 setwd(build_dir)
 status <- system2(file.path(R.home("bin"), "R"), c("CMD", "SHLIB", "mkl-probe.cpp"))

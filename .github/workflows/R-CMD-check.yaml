@@ -95,6 +95,10 @@ jobs:
           upload-results: false
           upload-snapshots: true
 
+      - name: Verify MKL flags on every C++ source
+        if: matrix.config.profile == 'mkl'
+        run: Rscript .github/build/check-mkl-flags.R check
+
       - name: Show configure branch and selected flags
         if: always()
         shell: bash
