@@ -27,6 +27,10 @@ jobs:
           - {os: ubuntu-latest, r: 'release', profile: default, openmp: 'true', mkl: 'false'}
           - {os: ubuntu-latest, r: 'oldrel-1', profile: default, openmp: 'true', mkl: 'false'}
           - {os: ubuntu-latest, r: 'release', profile: mkl, openmp: 'true', mkl: 'true'}
+          - {os: ubuntu-latest, r: 'release', profile: mkl-bogus, openmp: 'true', mkl: 'false'}
+          - {os: ubuntu-latest, r: 'release', profile: mkl-off, openmp: 'true', mkl: 'false'}
+          - {os: ubuntu-latest, r: 'release', profile: mkl-path, openmp: 'true', mkl: 'true'}
+          - {os: ubuntu-latest, r: 'release', profile: mkl-pkgconfig, openmp: 'true', mkl: 'true'}
           - {os: macos-latest, r: 'release', profile: mac-stock, openmp: 'false', mkl: 'false'}
           - {os: macos-latest, r: 'release', profile: mac-libomp, openmp: 'false', mkl: 'false'}
 
@@ -58,12 +62,12 @@ jobs:
           needs: check
 
       - uses: actions/setup-python@v5
-        if: matrix.config.profile == 'mkl'
+        if: startsWith(matrix.config.profile, 'mkl')
         with:
           python-version: '3.12'
 
       - name: Install pinned MKL
-        if: matrix.config.profile == 'mkl'
+        if: startsWith(matrix.config.profile, 'mkl')
         shell: bash
         run: bash .github/build/install-mkl.sh "$RUNNER_TEMP/fido-mkl"
 
@@ -78,26 +82,120 @@ jobs:
           FIDO_CI_PROFILE: ${{ matrix.config.profile }}
         run: |
           prefix=""
-          if [[ "$FIDO_CI_PROFILE" == mkl ]]; then
+          if [[ "$FIDO_CI_PROFILE" == mkl* ]]; then
             prefix="$RUNNER_TEMP/fido-mkl"
           elif [[ "$FIDO_CI_PROFILE" == mac-libomp ]]; then
             prefix=$(brew --prefix libomp)
           fi
           Rscript .github/build/prepare.R "$FIDO_CI_PROFILE" "$RUNNER_TEMP/fido.Makevars" "$prefix"
           echo "R_MAKEVARS_USER=$RUNNER_TEMP/fido.Makevars" >> "$GITHUB_ENV"
-
-      - name: Compile, load and call MKL with RcppEigen
-        if: matrix.config.profile == 'mkl'
-        run: Rscript .github/build/probe-mkl.R
+          if [[ "$FIDO_CI_PROFILE" == mkl* ]]; then
+            empty_pkgconfig="$RUNNER_TEMP/empty-pkg-config"
+            mkdir -p "$empty_pkgconfig"
+            case "$FIDO_CI_PROFILE" in
+              mkl)
+                echo "PKG_CONFIG_PATH=$empty_pkgconfig" >> "$GITHUB_ENV"
+                echo "PKG_CONFIG_LIBDIR=$empty_pkgconfig" >> "$GITHUB_ENV"
+                echo "MKLROOT=$prefix" >> "$GITHUB_ENV"
+                echo "FIDO_CONFIGURE_ARGS=" >> "$GITHUB_ENV"
+                ;;
+              mkl-bogus)
+                echo "PKG_CONFIG_PATH=$empty_pkgconfig" >> "$GITHUB_ENV"
+                echo "PKG_CONFIG_LIBDIR=$empty_pkgconfig" >> "$GITHUB_ENV"
+                echo "MKLROOT=$RUNNER_TEMP/missing-mkl" >> "$GITHUB_ENV"
+                echo "FIDO_CONFIGURE_ARGS=" >> "$GITHUB_ENV"
+                ;;
+              mkl-off)
+                echo "PKG_CONFIG_PATH=$empty_pkgconfig" >> "$GITHUB_ENV"
+                echo "PKG_CONFIG_LIBDIR=$empty_pkgconfig" >> "$GITHUB_ENV"
+                echo "MKLROOT=$prefix" >> "$GITHUB_ENV"
+                echo "FIDO_CONFIGURE_ARGS=--with-mkl=no" >> "$GITHUB_ENV"
+                ;;
+              mkl-path)
+                echo "PKG_CONFIG_PATH=$empty_pkgconfig" >> "$GITHUB_ENV"
+                echo "PKG_CONFIG_LIBDIR=$empty_pkgconfig" >> "$GITHUB_ENV"
+                echo "MKLROOT=$RUNNER_TEMP/missing-mkl" >> "$GITHUB_ENV"
+                echo "FIDO_CONFIGURE_ARGS=--with-mkl=$prefix" >> "$GITHUB_ENV"
+                ;;
+              mkl-pkgconfig)
+                echo "MKLROOT=" >> "$GITHUB_ENV"
+                echo "PKG_CONFIG_PATH=$prefix/lib/pkgconfig" >> "$GITHUB_ENV"
+                echo "PKG_CONFIG_LIBDIR=$prefix/lib/pkgconfig" >> "$GITHUB_ENV"
+                echo "FIDO_CONFIGURE_ARGS=" >> "$GITHUB_ENV"
+                ;;
+            esac
+          fi
 
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-results: false
           upload-snapshots: true
+          args: >-
+            c('--no-manual', '--as-cran',
+              if (nzchar(Sys.getenv('FIDO_CONFIGURE_ARGS')))
+                paste0('--install-args=--configure-args=', Sys.getenv('FIDO_CONFIGURE_ARGS'))
+              else character())
+
+      - name: Test MKL configure detection matrix
+        if: matrix.config.profile == 'mkl'
+        run: Rscript .github/build/check-mkl-configure.R "$RUNNER_TEMP/fido-mkl" "$RUNNER_TEMP/mkl-configure"
+
+      - name: Probe thread-local MKL guard
+        if: matrix.config.profile == 'mkl'
+        shell: bash
+        run: |
+          makevars=$(find check -type f -path '*/fido/src/Makevars' -print -quit)
+          test -n "$makevars"
+          Rscript .github/build/probe-mkl-threads.R "$makevars"
 
       - name: Verify MKL flags on every C++ source
-        if: matrix.config.profile == 'mkl'
+        if: matrix.config.mkl == 'true'
         run: Rscript .github/build/check-mkl-flags.R check
+
+      - name: Measure GNU MKL production threading
+        if: matrix.config.profile == 'mkl'
+        shell: bash
+        run: |
+          fido_library="check/fido.Rcheck"
+          test -f "$fido_library/fido/libs/fido.so"
+          python3 .github/build/measure-threads.py "$fido_library" GNU "$RUNNER_TEMP/threads-gnu-default.json" --assert-bounded
+          cat "$RUNNER_TEMP/threads-gnu-default.json"
+          python3 .github/build/measure-threads.py "$fido_library" GNU "$RUNNER_TEMP/threads-gnu-stress.json" --stress --assert-bounded
+          cat "$RUNNER_TEMP/threads-gnu-stress.json"
+
+      - name: Install Intel OpenMP comparison runtime
+        if: matrix.config.profile == 'mkl'
+        shell: bash
+        run: >-
+          "$RUNNER_TEMP/fido-mkl/bin/python" -m pip install --require-hashes --no-deps
+          -r .github/build/intel-openmp-requirements.txt
+
+      - name: Install Intel MKL comparison package
+        if: matrix.config.profile == 'mkl'
+        shell: bash
+        run: |
+          makevars=$(find check -type f -path '*/fido/src/Makevars' -print -quit)
+          test -n "$makevars"
+          source_dir=$(dirname "$(dirname "$makevars")")
+          Rscript .github/build/install-intel-comparison.R "$source_dir" "$RUNNER_TEMP/fido-mkl" "$RUNNER_TEMP/fido-intel-library"
+
+      - name: Measure Intel MKL comparison threading
+        if: matrix.config.profile == 'mkl'
+        shell: bash
+        run: |
+          python3 .github/build/measure-threads.py "$RUNNER_TEMP/fido-intel-library" INTEL "$RUNNER_TEMP/threads-intel-default.json"
+          cat "$RUNNER_TEMP/threads-intel-default.json"
+          python3 .github/build/measure-threads.py "$RUNNER_TEMP/fido-intel-library" INTEL "$RUNNER_TEMP/threads-intel-stress.json" --stress
+          cat "$RUNNER_TEMP/threads-intel-stress.json"
+
+      - name: Upload MKL detection and threading results
+        if: always() && matrix.config.profile == 'mkl'
+        uses: actions/upload-artifact@v4
+        with:
+          name: mkl-detection-threading
+          path: |
+            ${{ runner.temp }}/threads-*.json
+            ${{ runner.temp }}/mkl-configure
 
       - name: Show configure branch and selected flags
         if: always()
@@ -120,6 +218,14 @@ jobs:
         if: always()
         run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
         shell: bash
+
+      - name: Verify Apple Silicon MKL diagnostic
+        if: always() && runner.os == 'macOS' && runner.arch == 'ARM64'
+        shell: bash
+        run: |
+          install_log=$(find check -name '00install.out' -print -quit)
+          test -n "$install_log"
+          grep -Fq 'configure: MKL disabled: unavailable on Apple Silicon' "$install_log"
 
       # - name: print path
         # if: failure()

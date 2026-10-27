@@ -1,16 +1,19 @@
 args <- commandArgs(trailingOnly = TRUE)
-if (length(args) < 2L || !args[[1L]] %in% c("default", "mkl", "mac-stock", "mac-libomp")) {
+profiles <- c("default", "mkl", "mkl-bogus", "mkl-off", "mkl-path",
+              "mkl-pkgconfig", "mac-stock", "mac-libomp")
+if (length(args) < 2L || !args[[1L]] %in% profiles) {
   stop("Usage: prepare.R PROFILE MAKEVARS [MKL_OR_LIBOMP_PREFIX]")
 }
 profile <- args[[1L]]
 makevars <- args[[2L]]
 settings <- character()
-if (profile %in% c("mkl", "mac-libomp")) {
+if (profile %in% c("mkl", "mkl-bogus", "mkl-off", "mkl-path", "mkl-pkgconfig",
+                  "mac-libomp")) {
   if (length(args) != 3L) stop("This profile requires a library prefix")
   prefix <- normalizePath(args[[3L]], winslash = "/", mustWork = TRUE)
   if (grepl("[[:space:]#$]", prefix)) stop("Unsupported characters in CI prefix")
 }
-if (profile == "mkl") {
+if (profile %in% c("mkl", "mkl-bogus", "mkl-off", "mkl-path", "mkl-pkgconfig")) {
   if (Sys.info()[["sysname"]] != "Linux" || R.version$arch != "x86_64") {
     stop("The MKL CI profile requires Linux x86_64")
   }
@@ -18,11 +21,6 @@ if (profile == "mkl") {
     "libmkl_intel_lp64.so.2", "libmkl_gnu_thread.so.2", "libmkl_core.so.2"
   ))
   stopifnot(all(file.exists(c(file.path(prefix, "include", "mkl.h"), libraries))))
-  settings <- c(
-    paste("FIDO_MKL_CPPFLAGS =", paste0("-I", prefix, "/include")),
-    paste("FIDO_MKL_LIBS = -Wl,--no-as-needed", paste(libraries, collapse = " "),
-          paste0("-Wl,-rpath,", prefix, "/lib"), "-lgomp -lpthread -lm -ldl")
-  )
 }
 if (profile %in% c("mac-stock", "mac-libomp")) {
   if (Sys.info()[["sysname"]] != "Darwin") stop("This profile requires macOS")

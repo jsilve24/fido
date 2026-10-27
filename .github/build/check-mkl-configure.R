@@ -215,7 +215,8 @@ check_makevars <- function(source_dir, enabled) {
 }
 
 run_case <- function(case_name, option, mklroot_mode, mklroot_value,
-                     pkg_path, expected, enabled, required_status) {
+                     pkg_path, expected, enabled, required_status,
+                     require_probe_evidence = FALSE) {
   source_dir <- file.path(work_root, paste0("source-", case_name))
   dir.create(source_dir, recursive = TRUE)
   copy_source_tree(source_dir)
@@ -258,6 +259,7 @@ run_case <- function(case_name, option, mklroot_mode, mklroot_value,
                     readLines(stderr_path, warn = FALSE)), collapse = "\n")
   enabled_lines <- configure_line(output, "configure: MKL enabled:")
   disabled_lines <- configure_line(output, "configure: MKL disabled:")
+  error_lines <- configure_line(output, "configure: error:")
   if (required_status == 0L && status != 0L) {
     stop("Case ", case_name, " exited ", status, " instead of 0; logs: ",
          stdout_path, ", ", stderr_path, call. = FALSE)
@@ -275,15 +277,31 @@ run_case <- function(case_name, option, mklroot_mode, mklroot_value,
     check_makevars(source_dir, enabled = TRUE)
   } else if (required_status == 0L) {
     if (length(disabled_lines) != 1L ||
-        !nzchar(trimws(sub("^configure: MKL disabled:[[:space:]]*", "",
-                           disabled_lines[[1L]]))) || length(enabled_lines)) {
-      stop("Case ", case_name, " did not print a non-empty disabled reason; logs: ",
+        !identical(disabled_lines[[1L]], expected) || length(enabled_lines)) {
+      stop("Case ", case_name, " did not print the required disabled line; logs: ",
            stdout_path, ", ", stderr_path, call. = FALSE)
     }
     check_makevars(source_dir, enabled = FALSE)
-  } else if (!grepl("configure: error:", output, fixed = TRUE)) {
-    stop("Case ", case_name, " failed without a configure error; logs: ",
+  } else if (length(error_lines) != 1L || !identical(error_lines[[1L]], expected)) {
+    stop("Case ", case_name, " did not print the required error line; logs: ",
          stdout_path, ", ", stderr_path, call. = FALSE)
+  }
+  if (isTRUE(require_probe_evidence)) {
+    config_log <- file.path(output_dir, paste0(case_name, ".config.log"))
+    if (!file.exists(config_log)) {
+      stop("Case ", case_name, " did not produce config.log probe evidence",
+           call. = FALSE)
+    }
+    config_lines <- readLines(config_log, warn = FALSE)
+    probe_compiler_lines <- config_lines[
+      grepl("fido-mkl-probe\\.cpp", config_lines) &
+        grepl("g\\+\\+|clang\\+\\+|c\\+\\+", config_lines)
+    ]
+    if (!length(probe_compiler_lines)) {
+      stop("Case ", case_name,
+           " config.log lacks fido-mkl-probe.cpp compiler evidence",
+           call. = FALSE)
+    }
   }
   list(status = status, stdout = stdout_path, stderr = stderr_path)
 }
@@ -301,15 +319,18 @@ cases <- list(
        enabled = TRUE, required_status = 0L),
   list(name = "bogus-mklroot-auto", option = "", mklroot_mode = "set",
        mklroot_value = file.path(work_root, "does-not-exist"),
-       pkg_path = empty_pkg_config_dir, expected = "configure: MKL disabled: REASON",
+       pkg_path = empty_pkg_config_dir,
+       expected = "configure: MKL disabled: MKLROOT directory does not exist",
        enabled = FALSE, required_status = 0L),
   list(name = "no-mkl-auto", option = "", mklroot_mode = "unset",
        mklroot_value = "", pkg_path = empty_pkg_config_dir,
-       expected = "configure: MKL disabled: REASON", enabled = FALSE,
+       expected = "configure: MKL disabled: not found via MKLROOT or pkg-config",
+       enabled = FALSE,
        required_status = 0L),
   list(name = "valid-mklroot-no", option = "--with-mkl=no",
        mklroot_mode = "set", mklroot_value = mkl_prefix,
-       pkg_path = empty_pkg_config_dir, expected = "configure: MKL disabled: REASON",
+       pkg_path = empty_pkg_config_dir,
+       expected = "configure: MKL disabled: disabled by --with-mkl=no",
        enabled = FALSE, required_status = 0L),
   list(name = "explicit-valid-path", option = paste0("--with-mkl=", mkl_prefix),
        mklroot_mode = "set", mklroot_value = file.path(work_root, "bogus-mklroot"),
@@ -323,7 +344,8 @@ cases <- list(
   list(name = "explicit-bad-path", option = paste0("--with-mkl=", work_root,
                                                     "/bad-path"),
        mklroot_mode = "unset", mklroot_value = "", pkg_path = empty_pkg_config_dir,
-       expected = "nonzero; configure: error:", enabled = FALSE,
+       expected = "configure: error: MKL requested but unavailable: --with-mkl directory does not exist",
+       enabled = FALSE,
        required_status = 1L),
   list(name = "pkg-config-only", option = "", mklroot_mode = "unset",
        mklroot_value = "", pkg_path = pkg_config_dir,
@@ -331,12 +353,12 @@ cases <- list(
        enabled = TRUE, required_status = 0L),
   list(name = "broken-probe-auto", option = "", mklroot_mode = "set",
        mklroot_value = broken_prefix, pkg_path = empty_pkg_config_dir,
-       expected = "configure: MKL disabled: REASON", enabled = FALSE,
-       required_status = 0L),
+       expected = "configure: MKL disabled: compile, link, or R load/run probe failed; see config.log",
+       enabled = FALSE, required_status = 0L, require_probe_evidence = TRUE),
   list(name = "broken-probe-explicit", option = paste0("--with-mkl=", broken_prefix),
        mklroot_mode = "unset", mklroot_value = "", pkg_path = empty_pkg_config_dir,
-       expected = "nonzero; configure: error:", enabled = FALSE,
-       required_status = 1L)
+       expected = "configure: error: MKL requested but unavailable: compile, link, or R load/run probe failed; see config.log",
+       enabled = FALSE, required_status = 1L, require_probe_evidence = TRUE)
 )
 
 if (!nzchar(pkg_config_dir)) {
@@ -346,7 +368,8 @@ if (!nzchar(pkg_config_dir)) {
 for (case in cases) {
   result <- run_case(case$name, case$option, case$mklroot_mode,
                      case$mklroot_value, case$pkg_path, case$expected,
-                     case$enabled, case$required_status)
+                     case$enabled, case$required_status,
+                     case$require_probe_evidence)
   record_case(case$name, result, case$expected)
 }
 
