@@ -177,6 +177,8 @@ Functions for fitting the main models
   : Convert orthus covariance matricies between representations
 - [`create_default_ilr_base()`](https://jsilve24.github.io/fido/reference/create_default_ilr_base.md)
   : Create a default ILR base
+- [`fido_build_info()`](https://jsilve24.github.io/fido/reference/fido_build_info.md)
+  : Report fido native build and runtime information
 - [`gather_array()`](https://jsilve24.github.io/fido/reference/gather_array.md)
   : Gather Multidimensional Array to Tidy Tibble
 - [`SE()`](https://jsilve24.github.io/fido/reference/kernels.md)

@@ -67,6 +67,9 @@
 <li>Non-integer <code>upsilon</code> was silently rounded down when drawing <code>Sigma</code>; it is now used as given.</li>
 <li>
 <code><a href="../reference/basset_fit.html">basset()</a></code> with more than one component (lists of <code>Theta</code> and <code>Gamma</code>) passed <code>ncores</code> into the <code>ret_mean</code> slot of the component sampler. When <code>ncores</code> was set this could return component means instead of posterior draws, and the <code>seed</code> and <code>ncores</code> settings were ignored. Arguments are now passed by name, and each component uses its own random stream, so component uncertainty is now correct.</li>
+<li>Added <code><a href="../reference/fido_build_info.html">fido_build_info()</a></code> to report native runtime threading configuration and compiler support for OpenMP, Eigen, and MKL.</li>
+<li>Added opt-in support for compiling with Intel MKL and GNU OpenMP via <code>--configure-args="--with-mkl"</code> on supported Linux x86_64 systems, with automatic thread safety guards during parallel uncollapsing.</li>
+<li>Fixed error handling in <code>LaplaceApproximation</code> to verify Cholesky factor status and preserve block-diagonal partial Hessian handling when MKL is disabled.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="what-you-need-to-do-1-1-5">What you need to do<a class="anchor" aria-label="anchor" href="#what-you-need-to-do-1-1-5"></a></h3>
