@@ -67,6 +67,7 @@ reference:
   - conjugateLinearModel
   - convert_orthus_covariance
   - create_default_ilr_base
+  - fido_build_info
   - gather_array
   - kernels
   - lambda_to_iqlr
