@@ -47,6 +47,13 @@ used the correct prior, so the two steps did not agree.
   `seed` and `ncores` settings were ignored. Arguments are now passed by name,
   and each component uses its own random stream, so component uncertainty is
   now correct.
+* Added `fido_build_info()` to report native runtime threading configuration and
+  compiler support for OpenMP, Eigen, and MKL.
+* Added opt-in support for compiling with Intel MKL and GNU OpenMP via
+  `--configure-args="--with-mkl"` on supported Linux x86_64 systems, with automatic
+  thread safety guards during parallel uncollapsing.
+* Fixed error handling in `LaplaceApproximation` to verify Cholesky factor status
+  and preserve block-diagonal partial Hessian handling when MKL is disabled.
 
 ## What you need to do
 
