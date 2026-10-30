@@ -19,19 +19,19 @@ orthus_sim(
 
 - D:
 
-  number of multinomial categories
+  number of multinomial categories (integer \>= 2)
 
 - P:
 
-  number of dimensions of second dataset Z
+  number of dimensions of second dataset Z (integer \>= 1)
 
 - N:
 
-  number of samples
+  number of samples (integer \>= 1)
 
 - Q:
 
-  number of covariates (first one is an intercept, must be \> 1)
+  number of covariates (integer \>= 1; first one is an intercept)
 
 - use_names:
 

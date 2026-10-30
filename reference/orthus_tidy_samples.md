@@ -37,10 +37,10 @@ fit <- orthus(sim$Y, sim$Z, sim$X)
 fit_tidy <- orthus_tidy_samples(fit, use_names=TRUE)
 head(fit_tidy)
 #>   Parameter       coord sample iter        val covariate coord2
-#> 1       Eta log(c1/c10)     s1    1  1.7954650      <NA>   <NA>
-#> 2       Eta log(c2/c10)     s1    1  1.7953739      <NA>   <NA>
-#> 3       Eta log(c3/c10)     s1    1 -0.5374896      <NA>   <NA>
-#> 4       Eta log(c4/c10)     s1    1 -1.0730498      <NA>   <NA>
-#> 5       Eta log(c5/c10)     s1    1  0.2639845      <NA>   <NA>
-#> 6       Eta log(c6/c10)     s1    1 -2.0477811      <NA>   <NA>
+#> 1       Eta log(c1/c10)     s1    1  1.7954891      <NA>   <NA>
+#> 2       Eta log(c2/c10)     s1    1  1.7953976      <NA>   <NA>
+#> 3       Eta log(c3/c10)     s1    1 -0.5375038      <NA>   <NA>
+#> 4       Eta log(c4/c10)     s1    1 -1.0728951      <NA>   <NA>
+#> 5       Eta log(c5/c10)     s1    1  0.2640003      <NA>   <NA>
+#> 6       Eta log(c6/c10)     s1    1 -2.0476895      <NA>   <NA>
 ```

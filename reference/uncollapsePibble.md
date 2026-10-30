@@ -48,7 +48,7 @@ uncollapsePibble(
 
 - upsilon:
 
-  scalar (must be \> D) degrees of freedom for InvWishart prior
+  scalar (must be \> D-2) degrees of freedom for InvWishart prior
 
 - seed:
 
@@ -59,7 +59,8 @@ uncollapsePibble(
   if true then uses posterior mean of Lambda and Sigma corresponding to
   each sample of eta rather than sampling from posterior of Lambda and
   Sigma (useful if Laplace approximation is not used (or fails) in
-  optimPibbleCollapsed)
+  optimPibbleCollapsed). Requires `upsilon + N > D` so the conditional
+  posterior mean of Sigma exists.
 
 - ncores:
 

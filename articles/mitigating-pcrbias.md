@@ -19,7 +19,7 @@ of cycles. You then sequence the resulting samples along with the
 original samples. Then you turn to modeling (which is the focus of this
 vignette).
 
-![](https://github.com/jsilve24/fido/raw/master/vignettes/pcrbias_summary_graphic.png)
+![](pcrbias_summary_graphic.png)
 
 In the manuscript, we show that PCR bias is well approximated by a
 simple multiplicative process. When translated to sequence count data,
@@ -164,7 +164,7 @@ plot(fit, par="Lambda", focus.cov=focus.covariate, focus.coord=focus.coord) +
 #> replace the existing scale.
 ```
 
-![](https://github.com/jsilve24/fido/raw/master/vignettes/pcr-model-results.png)
+![](pcr-model-results.png)
 
 The compositional bias introduced at each cycle can also be visualized.
 
@@ -176,7 +176,7 @@ plot(fit, par="Lambda", focus.cov="cycle_num")
 #> replace the existing scale.
 ```
 
-![](https://github.com/jsilve24/fido/raw/master/vignettes/pcr-results-cycle-num.png)
+![](pcr-results-cycle-num.png)
 
 The *fido* package has a bunch of tools for working with such fitted
 models depending on what you ultimately want to do. See the main
@@ -244,7 +244,7 @@ predicted %>%
   ylab("CLR Coordinates")
 ```
 
-![](https://github.com/jsilve24/fido/raw/master/vignettes/pcr-clr-cycle-num.png)
+![](pcr-clr-cycle-num.png)
 
 There are two things I look for in these plots. First, the data should
 look linear in this space. If the data does not look linear then there
@@ -290,4 +290,4 @@ for (i in seq_along(sigma)){
 base::plot(sigma, lml)
 ```
 
-![](https://github.com/jsilve24/fido/raw/master/vignettes/pcr-max-lik.png)
+![](pcr-max-lik.png)

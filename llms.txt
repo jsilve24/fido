@@ -3,7 +3,7 @@
 ![](https://raw.githubusercontent.com/jsilve24/fido/master/inst/fido.png)
 
 [![R-CMD-check](https://github.com/jsilve24/fido/workflows/R-CMD-check/badge.svg)](https://github.com/jsilve24/fido/actions)
-[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.md)
+[![License](https://img.shields.io/badge/license-GPL--3-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-3.0.html)
 
 Multinomial Logistic-Normal Models (really fast)  
 *its a little **tar**-ball of joy*
@@ -29,7 +29,7 @@ Or to download the development version from GitHub:
 
 ``` r
 
-devtools::install_github("jsilve24/fido", ref="develop")
+devtools::install_github("jsilve24/fido", ref="master")
 ```
 
 A few notes:

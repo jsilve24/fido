@@ -60,8 +60,21 @@ prior, so the two steps did not agree.
 - `orthus_sim(true_priors = FALSE)` now returns `upsilon = D+P`
   (previously `D`, which is not a valid prior for the
   `(D-1+P)`-dimensional covariance).
+- `orthus_sim(true_priors = TRUE)` now uses `upsilon = D+P+10` so the
+  inverse-Wishart prior mean equals the simulated `Sigma`, including
+  with the default dimensions. Previously the scale was zero or negative
+  when `P >= 10`.
+- [`orthus_sim()`](https://jsilve24.github.io/fido/reference/orthus_sim.md)
+  now preserves matrix dimensions with two categories or a single
+  Gaussian variable, sample, or covariate. Invalid dimensions are
+  rejected before simulation, and its fixed covariance entry no longer
+  makes the simulated covariance singular when both corresponding
+  variances are one.
 - Non-integer `upsilon` was silently rounded down when drawing `Sigma`;
   it is now used as given.
+- `ret_mean = TRUE` now errors when `upsilon + N` is too small for the
+  conditional posterior mean of `Sigma` to exist. Use posterior draws
+  (`ret_mean = FALSE`) with these proper, heavy-tailed posteriors.
 - [`basset()`](https://jsilve24.github.io/fido/reference/basset_fit.md)
   with more than one component (lists of `Theta` and `Gamma`) passed
   `ncores` into the `ret_mean` slot of the component sampler. When
@@ -73,6 +86,8 @@ prior, so the two steps did not agree.
   [`fido_build_info()`](https://jsilve24.github.io/fido/reference/fido_build_info.md)
   to report native runtime threading configuration and compiler support
   for OpenMP, Eigen, and MKL.
+- Default thread limits are capped at two when R sets
+  `_R_CHECK_LIMIT_CORES_=TRUE` for package checks.
 - Added opt-in support for compiling with Intel MKL and GNU OpenMP via
   `--configure-args="--with-mkl"` on supported Linux x86_64 systems,
   with automatic thread safety guards during parallel uncollapsing.
@@ -87,8 +102,15 @@ prior, so the two steps did not agree.
   adjusting `upsilon` after the fact; predictions from old fit objects
   reflect the old results.
 - The meaning of the `upsilon` argument has not changed: it is the
-  standard inverse-Wishart degrees of freedom, so the prior mean of
-  `Sigma` is `Xi / (upsilon - D)`. Existing scripts need no edits.
+  standard inverse-Wishart degrees of freedom. For
+  [`pibble()`](https://jsilve24.github.io/fido/reference/pibble_fit.md)
+  and
+  [`basset()`](https://jsilve24.github.io/fido/reference/basset_fit.md),
+  the prior mean of `Sigma` is `Xi / (upsilon - D)` when `upsilon > D`.
+  For
+  [`orthus()`](https://jsilve24.github.io/fido/reference/orthus_fit.md),
+  it is `Xi / (upsilon - D - P)` when `upsilon > D + P`. Existing
+  scripts need no edits.
 - If you call the low-level functions
   [`optimPibbleCollapsed()`](https://jsilve24.github.io/fido/reference/optimPibbleCollapsed.md),
   [`loglikPibbleCollapsed()`](https://jsilve24.github.io/fido/reference/loglikPibbleCollapsed.md),

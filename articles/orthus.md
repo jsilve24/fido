@@ -134,7 +134,7 @@ Xi <- Xi * (upsilon-D-P) # this scales Xi to have the proper mean we wanted
 image(Xi)
 ```
 
-![](https://github.com/jsilve24/fido/raw/master/vignettes/orthus-prior-structure.png)
+![](orthus-prior-structure.png)
 
 Note the structure of this prior, everything is independent but there is
 a moderate positive covariance between the log-ratios based on their

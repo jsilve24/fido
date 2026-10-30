@@ -14,8 +14,9 @@ An otu table, sample data table, and taxonomy table.
 
 ## Details
 
-Study is described here: <https://pubmed.ncbi.nlm.nih.gov/24629344/>.
-Data was obtained from <https://github.com/twbattaglia/MicrobeDS>.
+Study is described here:
+[doi:10.1016/j.chom.2014.02.005](https://doi.org/10.1016/j.chom.2014.02.005)
+. Data was obtained from <https://github.com/twbattaglia/MicrobeDS>.
 
 ## References
 

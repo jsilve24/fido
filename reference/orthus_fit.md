@@ -36,8 +36,8 @@ orthus(
 
 - Z:
 
-  P x N matrix of counts (if NULL uses priors only - must be
-  present/absent if Y is present/absent)
+  P x N matrix of Gaussian observations (if NULL uses priors only - must
+  be present/absent if Y is present/absent)
 
 - X:
 
@@ -48,7 +48,8 @@ orthus(
 
   degrees of freedom for the inverse-Wishart prior on Sigma (numeric,
   must be \> D+P-2; the prior mean of Sigma exists only if \> D+P)
-  (default: D+P+3)
+  Values \<= D+P require an explicit positive-definite Xi. (default:
+  D+P+3)
 
 - Theta:
 
@@ -61,13 +62,13 @@ orthus(
 
 - Xi:
 
-  (D-1+P)x(D-1+P) prior covariance matrix (default: ALR transform of
-  diag(1)\*(upsilon-D)/2 - this is essentially iid on "base scale" using
-  Aitchison terminology)
+  (D-1+P)x(D-1+P) prior covariance matrix (default: an iid multinomial
+  "base scale" block and independent Gaussian coordinates, scaled by
+  upsilon-D-P)
 
 - init:
 
-  (D-1) x Q initialization for Eta for optimization
+  (D-1) x N initialization for Eta for optimization
 
 - pars:
 
@@ -82,7 +83,7 @@ orthus(
 
 ## Value
 
-an object of class pibblefit
+an object of class orthusfit
 
 ## Details
 

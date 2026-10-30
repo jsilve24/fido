@@ -36,8 +36,8 @@ refit(m, pars = c("Eta", "Lambda", "Sigma"), ...)
 - upsilon:
 
   degrees of freedom for the inverse-Wishart prior on Sigma (numeric,
-  must be \> D-2; the prior mean of Sigma exists only if \> D) (default:
-  D+3)
+  must be \> D-2; the prior mean of Sigma exists only if \> D) Values
+  \<= D require an explicit positive-definite Xi. (default: D+3)
 
 - Theta:
 
@@ -67,7 +67,7 @@ refit(m, pars = c("Eta", "Lambda", "Sigma"), ...)
 
 - init:
 
-  (D-1) x Q initialization for Eta for optimization
+  (D-1) x N initialization for Eta for optimization
 
 - pars:
 
