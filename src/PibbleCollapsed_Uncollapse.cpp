@@ -31,11 +31,12 @@ using Eigen::Lower;
 //' @param Theta matrix of prior mean of dimension (D-1) x Q
 //' @param Gamma covariance matrix of dimension Q x Q
 //' @param Xi covariance matrix of dimension (D-1) x (D-1)
-//' @param upsilon scalar (must be > D) degrees of freedom for InvWishart prior
+//' @param upsilon scalar (must be > D-2) degrees of freedom for InvWishart prior
 //' @param ret_mean if true then uses posterior mean of Lambda and Sigma 
 //'   corresponding to each sample of eta rather than sampling from 
 //'   posterior of Lambda and Sigma (useful if Laplace approximation
-//'   is not used (or fails) in optimPibbleCollapsed)
+//'   is not used (or fails) in optimPibbleCollapsed). Requires
+//'   \code{upsilon + N > D} so the conditional posterior mean of Sigma exists.
 //' @param seed seed to use for random number generation 
 //' @param ncores (default:-1) number of cores to use, if ncores==-1 then 
 //' uses default from OpenMP typically to use all available cores. 
@@ -108,6 +109,9 @@ List uncollapsePibble(const Eigen::Map<Eigen::VectorXd> eta, // note this is ess
   int N = X.cols();
   int iter = eta.size()/(N*(D-1)); // assumes result is an integer !!!
   double upsilonN = upsilon + N;
+  if (ret_mean && upsilonN <= D) {
+    Rcpp::stop("The conditional posterior mean of Sigma requires upsilon + N > D; use ret_mean = FALSE to sample instead");
+  }
   const MatrixXd GammaInv(Gamma.lu().inverse());
   const MatrixXd GammaInvN(GammaInv + X*X.transpose());
   const MatrixXd GammaN(GammaInvN.lu().inverse());

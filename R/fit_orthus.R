@@ -11,21 +11,22 @@
 #'  the parameter \code{n_samples} in the function 
 #'  \code{\link{optimPibbleCollapsed}})
 #' @param Y D x N matrix of counts (if NULL uses priors only)
-#' @param Z P x N matrix of counts (if NULL uses priors only - must be present/absent 
+#' @param Z P x N matrix of Gaussian observations (if NULL uses priors only - must be present/absent
 #'  if Y is present/absent)
 #' @param X Q x N matrix of covariates (design matrix) (if NULL uses priors only, must
 #' be present to sample Eta)
 #' @param upsilon degrees of freedom for the inverse-Wishart prior on Sigma
 #'   (numeric, must be > D+P-2; the prior mean of Sigma exists only if > D+P)
+#'   Values <= D+P require an explicit positive-definite Xi.
 #'   (default: D+P+3)
 #' @param Theta (D-1+P) x Q matrix of prior mean for regression parameters
 #'   (default: matrix(0, D-1+P, Q))
 #' @param Gamma QxQ prior covariance matrix 
 #'   (default: diag(Q))
 #' @param Xi (D-1+P)x(D-1+P) prior covariance matrix
-#'   (default: ALR transform of diag(1)*(upsilon-D)/2 - this is 
-#'   essentially iid on "base scale" using Aitchison terminology)
-#' @param init (D-1) x Q initialization for Eta for optimization
+#'   (default: an iid multinomial "base scale" block and independent Gaussian
+#'   coordinates, scaled by upsilon-D-P)
+#' @param init (D-1) x N initialization for Eta for optimization
 #' @param pars character vector of posterior parameters to return
 #' @param ... arguments passed to \code{\link{optimPibbleCollapsed}} and 
 #'   \code{\link{uncollapsePibble}}
@@ -52,7 +53,7 @@
 #'  
 #'  Default behavior is to use MAP estimate for uncollaping the LTP 
 #'  model if laplace approximation is not preformed. 
-#' @return an object of class pibblefit
+#' @return an object of class orthusfit
 #' @md
 #' @name orthus_fit
 #' @examples 

@@ -69,3 +69,52 @@ test_that("fido_build_info does not change R's random stream", {
   fido_build_info()
   expect_identical(.Random.seed, seed)
 })
+
+
+test_that("fresh processes limit check threads without changing user defaults", {
+  script <- tempfile(fileext = ".R")
+  result <- tempfile(fileext = ".rds")
+  on.exit(unlink(c(script, result)), add = TRUE)
+  writeLines(c(
+    paste0(".libPaths(", paste(deparse(.libPaths()), collapse = ""), ")"),
+    "saveRDS(fido::fido_build_info(), commandArgs(trailingOnly = TRUE)[1])"
+  ), script)
+
+  run_info <- function(check_limit, threads) {
+    variables <- c(
+      `_R_CHECK_LIMIT_CORES_` = check_limit,
+      OMP_NUM_THREADS = as.character(threads),
+      MKL_NUM_THREADS = as.character(threads)
+    )
+    previous <- Sys.getenv(names(variables), unset = NA_character_)
+    on.exit({
+      Sys.unsetenv(names(previous)[is.na(previous)])
+      do.call(Sys.setenv, as.list(previous[!is.na(previous)]))
+    }, add = TRUE)
+    do.call(Sys.setenv, as.list(variables))
+    unlink(result)
+    output <- system2(
+      file.path(R.home("bin"), "Rscript"),
+      c("--vanilla", shQuote(script), shQuote(result)),
+      stdout = TRUE, stderr = TRUE
+    )
+    expect_null(attr(output, "status"), info = paste(output, collapse = "\n"))
+    expect_true(file.exists(result))
+    readRDS(result)
+  }
+
+  regular <- run_info("FALSE", 4)
+  limited <- run_info("TRUE", 4)
+  lower <- run_info("true", 1)
+
+  for (field in c("openmp_max_threads", "eigen_max_threads", "mkl_max_threads")) {
+    if (!is.na(regular[[field]])) {
+      expect_equal(limited[[field]], min(regular[[field]], 2L), info = field)
+      expect_equal(lower[[field]], 1L, info = field)
+    }
+  }
+  if (regular$openmp_compiled) {
+    expect_equal(regular$openmp_max_threads, 4L)
+    expect_equal(regular$eigen_max_threads, 4L)
+  }
+})

@@ -7,6 +7,7 @@
 #' @param X Q x N matrix of covariates (cannot be NULL)
 #' @param upsilon degrees of freedom for the inverse-Wishart prior on Sigma
 #'   (numeric, must be > D-2; the prior mean of Sigma exists only if > D)
+#'   Values <= D require an explicit positive-definite Xi.
 #'   (default: D+3)
 #' @param Theta A function from dimensions dim(X) -> (D-1)xN (prior mean of gaussian process). For an additive GP model, can be a list of functions from dimensions dim(X) -> (D-1)xN + a (optional) matrix of size (D-1)xQ for the prior of a linear component if desired.
 #' @param Gamma A function from dimension dim(X) -> NxN (kernel matrix of gaussian process). For an additive GP model, can be a list of functions from dimension dim(X) -> NxN + a QxQ prior covariance matrix if a linear component is specified. It is assumed that the order matches the order of Theta.
@@ -14,7 +15,7 @@
 #'   (default: ALR transform of diag(1)*(upsilon-D)/2 - this is 
 #'   essentially iid on "base scale" using Aitchison terminology)
 #' @param linear A vector denoting which rows of X should be used if  a linear component is specified. Default is all rows.
-#' @param init (D-1) x Q initialization for Eta for optimization 
+#' @param init (D-1) x N initialization for Eta for optimization
 #' @param pars character vector of posterior parameters to return
 #' @param m object of class bassetfit 
 #' @param newdata Default is `NULL`. If non-null, newdata is used in the uncollapse sampler in place of X.

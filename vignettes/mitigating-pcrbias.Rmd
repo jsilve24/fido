@@ -19,7 +19,7 @@ is the design of the PCR calibration curve which is detailed in the manuscript.
 PCR bias can be both measured and corrected by combining a specially designed calibration curve with statistical models. The below figure gives a brief overview of the calibration experiment. In brief, samples are pooled to create a "calibration sample". This calibration sample then contains DNA from every taxa in your study. The calibration sample is then split into multiple aliquots and amplified for a varying number of cycles. You then sequence the resulting samples along with the original samples. Then you turn to modeling (which is the focus of this vignette). 
 
 ```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
-knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/pcrbias_summary_graphic.png')
+knitr::include_graphics('pcrbias_summary_graphic.png')
 ```
 
 
@@ -140,7 +140,7 @@ plot(fit, par="Lambda", focus.cov=focus.covariate, focus.coord=focus.coord) +
 ```
 
 ```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
-knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/pcr-model-results.png')
+knitr::include_graphics('pcr-model-results.png')
 ```
 
 
@@ -154,7 +154,7 @@ plot(fit, par="Lambda", focus.cov="cycle_num")
 ```
 
 ```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
-knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/pcr-results-cycle-num.png')
+knitr::include_graphics('pcr-results-cycle-num.png')
 ```
 
 
@@ -221,7 +221,7 @@ predicted %>%
 ```
 
 ```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
-knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/pcr-clr-cycle-num.png')
+knitr::include_graphics('pcr-clr-cycle-num.png')
 ```
 
 There are two things I look for in these plots. First, the data should look linear
@@ -261,7 +261,7 @@ base::plot(sigma, lml)
 ```
 
 ```{r echo=FALSE, fig.align='center', fig.cap='', out.width='50%'}
-knitr::include_graphics('https://github.com/jsilve24/fido/raw/master/vignettes/pcr-max-lik.png')
+knitr::include_graphics('pcr-max-lik.png')
 ```
 
 

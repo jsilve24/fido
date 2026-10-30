@@ -28,14 +28,15 @@ function optimPibbleCollapsed)}
 
 \item{Xi}{covariance matrix of dimension (D-1) x (D-1)}
 
-\item{upsilon}{scalar (must be > D) degrees of freedom for InvWishart prior}
+\item{upsilon}{scalar (must be > D-2) degrees of freedom for InvWishart prior}
 
 \item{seed}{seed to use for random number generation}
 
 \item{ret_mean}{if true then uses posterior mean of Lambda and Sigma
 corresponding to each sample of eta rather than sampling from
 posterior of Lambda and Sigma (useful if Laplace approximation
-is not used (or fails) in optimPibbleCollapsed)}
+is not used (or fails) in optimPibbleCollapsed). Requires
+\code{upsilon + N > D} so the conditional posterior mean of Sigma exists.}
 
 \item{ncores}{(default:-1) number of cores to use, if ncores==-1 then
 uses default from OpenMP typically to use all available cores.}

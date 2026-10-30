@@ -14,6 +14,7 @@
 #' be present to sample Eta)
 #' @param upsilon degrees of freedom for the inverse-Wishart prior on Sigma
 #'   (numeric, must be > D-2; the prior mean of Sigma exists only if > D)
+#'   Values <= D require an explicit positive-definite Xi.
 #'   (default: D+3)
 #' @param Theta (D-1) x Q matrix of prior mean for regression parameters
 #'   (default: matrix(0, D-1, Q))

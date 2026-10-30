@@ -1,5 +1,8 @@
 #include <fido.h>
 #include <RcppEigen.h>
+#include <algorithm>
+#include <cstdlib>
+#include <cstring>
 
 #if defined(_OPENMP)
 #include <omp.h>
@@ -8,6 +11,25 @@
 #ifdef FIDO_USE_MKL
 #include <mkl.h>
 #endif
+
+// [[Rcpp::init]]
+void fido_init_threads(DllInfo* dll) {
+  const char* limit = std::getenv("_R_CHECK_LIMIT_CORES_");
+  if (limit == NULL ||
+      (std::strcmp(limit, "TRUE") != 0 && std::strcmp(limit, "true") != 0)) {
+    return;
+  }
+
+  // Set runtime defaults before any check examples or tests start workers.
+  const int eigen_threads = Eigen::nbThreads();
+#if defined(_OPENMP)
+  omp_set_num_threads(std::min(omp_get_max_threads(), 2));
+#endif
+  Eigen::setNbThreads(std::min(eigen_threads, 2));
+#ifdef FIDO_USE_MKL
+  mkl_set_num_threads(std::min(mkl_get_max_threads(), 2));
+#endif
+}
 
 // [[Rcpp::export(rng = false)]]
 Rcpp::List fido_build_info_cpp() {

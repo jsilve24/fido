@@ -2,7 +2,7 @@
 
   <!-- badges: start -->
   [![R-CMD-check](https://github.com/jsilve24/fido/workflows/R-CMD-check/badge.svg)](https://github.com/jsilve24/fido/actions)
-  [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) 
+  [![License](https://img.shields.io/badge/license-GPL--3-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-3.0.html)
   <!-- badges: end -->
 
 # fido (formerly stray)
@@ -23,7 +23,7 @@ install.packages("fido")
 Or to download the development version from GitHub:
 
 ``` r
-devtools::install_github("jsilve24/fido", ref="develop")
+devtools::install_github("jsilve24/fido", ref="master")
 ```
 
 A few notes:

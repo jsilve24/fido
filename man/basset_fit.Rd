@@ -29,6 +29,7 @@ basset(
 
 \item{upsilon}{degrees of freedom for the inverse-Wishart prior on Sigma
 (numeric, must be > D-2; the prior mean of Sigma exists only if > D)
+Values <= D require an explicit positive-definite Xi.
 (default: D+3)}
 
 \item{Theta}{A function from dimensions dim(X) -> (D-1)xN (prior mean of gaussian process). For an additive GP model, can be a list of functions from dimensions dim(X) -> (D-1)xN + a (optional) matrix of size (D-1)xQ for the prior of a linear component if desired.}
@@ -41,7 +42,7 @@ essentially iid on "base scale" using Aitchison terminology)}
 
 \item{linear}{A vector denoting which rows of X should be used if  a linear component is specified. Default is all rows.}
 
-\item{init}{(D-1) x Q initialization for Eta for optimization}
+\item{init}{(D-1) x N initialization for Eta for optimization}
 
 \item{pars}{character vector of posterior parameters to return}
 

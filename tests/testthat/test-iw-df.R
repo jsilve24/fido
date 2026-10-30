@@ -357,3 +357,26 @@ test_that("additive basset collapses with public IW df", {
                tolerance = 1e-10)
   expect_equal(fit$upsilon, z$v)
 })
+
+
+test_that("uncollapse requires an existing conditional posterior mean", {
+  eta <- array(0, dim = c(2, 1, 1))
+  uncollapse <- function(v, ret_mean) {
+    uncollapsePibble(
+      eta, matrix(1, 1, 1), matrix(0, 2, 1), matrix(1, 1, 1),
+      diag(2), v, seed = 913, ret_mean = ret_mean, ncores = 1
+    )
+  }
+
+  # D = 3 and N = 1: these are proper priors, but the conditional
+  # posterior mean exists only for v > 2.
+  for (v in c(1.5, 2)) {
+    expect_error(uncollapse(v, TRUE), "posterior mean of Sigma requires")
+    draws <- uncollapse(v, FALSE)
+    expect_true(all(is.finite(draws$Sigma)))
+    expect_gt(min(eigen(draws$Sigma[, , 1], symmetric = TRUE)$values), 0)
+  }
+
+  means <- uncollapse(2.01, TRUE)
+  expect_equal(means$Sigma[, , 1], diag(2) / 0.01, tolerance = 1e-10)
+})

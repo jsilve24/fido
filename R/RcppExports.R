@@ -355,11 +355,12 @@ optimPibbleCollapsed <- function(Y, upsilon, ThetaX, KInv, AInv, init, n_samples
 #' @param Theta matrix of prior mean of dimension (D-1) x Q
 #' @param Gamma covariance matrix of dimension Q x Q
 #' @param Xi covariance matrix of dimension (D-1) x (D-1)
-#' @param upsilon scalar (must be > D) degrees of freedom for InvWishart prior
+#' @param upsilon scalar (must be > D-2) degrees of freedom for InvWishart prior
 #' @param ret_mean if true then uses posterior mean of Lambda and Sigma 
 #'   corresponding to each sample of eta rather than sampling from 
 #'   posterior of Lambda and Sigma (useful if Laplace approximation
-#'   is not used (or fails) in optimPibbleCollapsed)
+#'   is not used (or fails) in optimPibbleCollapsed). Requires
+#'   \code{upsilon + N > D} so the conditional posterior mean of Sigma exists.
 #' @param seed seed to use for random number generation 
 #' @param ncores (default:-1) number of cores to use, if ncores==-1 then 
 #' uses default from OpenMP typically to use all available cores. 

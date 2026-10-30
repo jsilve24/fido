@@ -488,7 +488,9 @@ static const R_CallMethodDef CallEntries[] = {
     {NULL, NULL, 0}
 };
 
+void fido_init_threads(DllInfo* dll);
 RcppExport void R_init_fido(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
+    fido_init_threads(dll);
 }

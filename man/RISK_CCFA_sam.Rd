@@ -14,7 +14,7 @@ data(RISK_CCFA)
 OTU data and metadata for 1,359 samples in a Crohn's disease study
 }
 \details{
-Study is described here: \url{https://pubmed.ncbi.nlm.nih.gov/24629344/}.
+Study is described here: \doi{10.1016/j.chom.2014.02.005}.
 Data was obtained from \url{https://github.com/twbattaglia/MicrobeDS}.
 }
 \references{

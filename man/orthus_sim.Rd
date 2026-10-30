@@ -14,13 +14,13 @@ orthus_sim(
 )
 }
 \arguments{
-\item{D}{number of multinomial categories}
+\item{D}{number of multinomial categories (integer >= 2)}
 
-\item{P}{number of dimensions of second dataset Z}
+\item{P}{number of dimensions of second dataset Z (integer >= 1)}
 
-\item{N}{number of samples}
+\item{N}{number of samples (integer >= 1)}
 
-\item{Q}{number of covariates (first one is an intercept, must be > 1)}
+\item{Q}{number of covariates (integer >= 1; first one is an intercept)}
 
 \item{use_names}{should samples, covariates, and categories be named}
 
