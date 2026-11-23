@@ -89,7 +89,9 @@ test_that("fresh processes limit check threads without changing user defaults", 
     previous <- Sys.getenv(names(variables), unset = NA_character_)
     on.exit({
       Sys.unsetenv(names(previous)[is.na(previous)])
-      do.call(Sys.setenv, as.list(previous[!is.na(previous)]))
+      if (any(!is.na(previous))) {
+        do.call(Sys.setenv, as.list(previous[!is.na(previous)]))
+      }
     }, add = TRUE)
     do.call(Sys.setenv, as.list(variables))
     unlink(result)
