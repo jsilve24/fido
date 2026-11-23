@@ -22,6 +22,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Justin Silverman \email{JustinSilverman@psu.edu}
 
+Authors:
+\itemize{
+  \item Justin Silverman \email{JustinSilverman@psu.edu}
+}
+
 Other contributors:
 \itemize{
   \item Kim Roche \email{kimberly.roche@duke.edu} [contributor]

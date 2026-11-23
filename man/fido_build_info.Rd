@@ -9,19 +9,19 @@ fido_build_info()
 \value{
 A named list with stable fields:
 \describe{
-\item{openmp_compiled}{Logical scalar indicating whether the native code was compiled with the \code{_OPENMP} macro.}
-
-\item{fido_use_parallel}{Logical scalar indicating whether \code{fido.h} defines \code{FIDO_USE_PARALLEL}.}
-
-\item{fido_use_mkl}{Logical scalar indicating whether \code{fido.h} defines \code{FIDO_USE_MKL}.}
-
-\item{openmp_max_threads}{Maximum OpenMP threads at runtime, or \code{NA} when \code{_OPENMP} is unavailable.}
-
-\item{eigen_max_threads}{Maximum Eigen threads reported at runtime.}
-
-\item{mkl_max_threads}{Maximum MKL threads at runtime, or \code{NA} when MKL is not enabled.}
-
-\item{r_blas}{The BLAS reported by R's \code{extSoftVersion()}, or \code{NA} if R does not report one.}
+  \item{openmp_compiled}{Logical scalar indicating whether the native code
+  was compiled with the `_OPENMP` macro.}
+  \item{fido_use_parallel}{Logical scalar indicating whether `fido.h`
+  defines `FIDO_USE_PARALLEL`.}
+  \item{fido_use_mkl}{Logical scalar indicating whether `fido.h` defines
+  `FIDO_USE_MKL`.}
+  \item{openmp_max_threads}{Maximum OpenMP threads at runtime, or `NA`
+  when `_OPENMP` is unavailable.}
+  \item{eigen_max_threads}{Maximum Eigen threads reported at runtime.}
+  \item{mkl_max_threads}{Maximum MKL threads at runtime, or `NA` when MKL
+  is not enabled.}
+  \item{r_blas}{The BLAS reported by R's `extSoftVersion()`, or `NA` if R
+  does not report one.}
 }
 }
 \description{
