@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fido</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,11 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.1.5" id="fido-115">fido 1.1.5<a class="anchor" aria-label="anchor" href="#fido-115"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.1.6" id="fido-116">fido 1.1.6<a class="anchor" aria-label="anchor" href="#fido-116"></a></h2>
+<ul><li>Fixed a test cleanup error when thread environment variables are unset, which caused CRAN checks to fail on macOS.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.1.5" id="fido-115">fido 1.1.5<a class="anchor" aria-label="anchor" href="#fido-115"></a></h2><p class="text-muted">CRAN release: 2026-10-30</p>
 <p>This release fixes a long-standing error in how the prior degrees of freedom (<code>upsilon</code>) were used. <strong>Results from <code><a href="../reference/pibble_fit.html">pibble()</a></code>, <code><a href="../reference/basset_fit.html">basset()</a></code> and <code><a href="../reference/orthus_fit.html">orthus()</a></code> fitted with earlier versions may change; please refit.</strong></p>
 <div class="section level3">
 <h3 id="what-was-wrong-1-1-5">What was wrong<a class="anchor" aria-label="anchor" href="#what-was-wrong-1-1-5"></a></h3>

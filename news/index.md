@@ -1,6 +1,13 @@
 # Changelog
 
+## fido 1.1.6
+
+- Fixed a test cleanup error when thread environment variables are
+  unset, which caused CRAN checks to fail on macOS.
+
 ## fido 1.1.5
+
+CRAN release: 2026-10-30
 
 This release fixes a long-standing error in how the prior degrees of
 freedom (`upsilon`) were used. **Results from

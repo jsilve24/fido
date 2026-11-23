@@ -45,5 +45,5 @@ print(fit)
 #>   Number of Posterior Samples:    2000 
 #>   Contains Samples of Parameters:Eta  Lambda  Sigma
 #>   Coordinate System:      alr, reference category: 10 [c10] 
-#>   Log Marginal Likelihood:    -1860.083 
+#>   Log Marginal Likelihood:    -1726.592 
 ```
