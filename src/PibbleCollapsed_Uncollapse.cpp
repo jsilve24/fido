@@ -92,7 +92,6 @@ List uncollapsePibble(const Eigen::Map<Eigen::VectorXd> eta, // note this is ess
                     bool ret_mean = false, 
                     int ncores=-1){
   #ifdef FIDO_USE_PARALLEL
-    Eigen::initParallel();
     if (ncores > 0) Eigen::setNbThreads(ncores);
     if (ncores > 0) {
       omp_set_num_threads(ncores);

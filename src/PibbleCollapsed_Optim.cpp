@@ -143,7 +143,6 @@ List optimPibbleCollapsed(const Eigen::ArrayXXd Y,
                int ncores=-1, 
                long seed=-1){  
   #ifdef FIDO_USE_PARALLEL 
-    Eigen::initParallel();
     if (ncores > 0) Eigen::setNbThreads(ncores);
   #endif 
   Timer timer;
