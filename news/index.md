@@ -1,5 +1,10 @@
 # Changelog
 
+## fido 1.1.7
+
+- Removed deprecated Eigen initialization calls that caused compiler
+  warnings in CRAN Windows checks. Thread-count settings are unchanged.
+
 ## fido 1.1.6
 
 - Fixed a test cleanup error when thread environment variables are
