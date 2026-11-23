@@ -56,31 +56,31 @@ threads. R's BLAS is separate from the backend used by Eigen in fido.</p>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A named list with stable fields:</p><dl><dt>openmp_compiled</dt>
-<dd><p>Logical scalar indicating whether the native code was compiled with the <code>_OPENMP</code> macro.</p></dd>
+<dd><p>Logical scalar indicating whether the native code
+  was compiled with the `_OPENMP` macro.</p></dd>
 
+  <dt>fido_use_parallel</dt>
+<dd><p>Logical scalar indicating whether `fido.h`
+  defines `FIDO_USE_PARALLEL`.</p></dd>
 
-<dt>fido_use_parallel</dt>
-<dd><p>Logical scalar indicating whether <code>fido.h</code> defines <code>FIDO_USE_PARALLEL</code>.</p></dd>
+  <dt>fido_use_mkl</dt>
+<dd><p>Logical scalar indicating whether `fido.h` defines
+  `FIDO_USE_MKL`.</p></dd>
 
+  <dt>openmp_max_threads</dt>
+<dd><p>Maximum OpenMP threads at runtime, or `NA`
+  when `_OPENMP` is unavailable.</p></dd>
 
-<dt>fido_use_mkl</dt>
-<dd><p>Logical scalar indicating whether <code>fido.h</code> defines <code>FIDO_USE_MKL</code>.</p></dd>
-
-
-<dt>openmp_max_threads</dt>
-<dd><p>Maximum OpenMP threads at runtime, or <code>NA</code> when <code>_OPENMP</code> is unavailable.</p></dd>
-
-
-<dt>eigen_max_threads</dt>
+  <dt>eigen_max_threads</dt>
 <dd><p>Maximum Eigen threads reported at runtime.</p></dd>
 
+  <dt>mkl_max_threads</dt>
+<dd><p>Maximum MKL threads at runtime, or `NA` when MKL
+  is not enabled.</p></dd>
 
-<dt>mkl_max_threads</dt>
-<dd><p>Maximum MKL threads at runtime, or <code>NA</code> when MKL is not enabled.</p></dd>
-
-
-<dt>r_blas</dt>
-<dd><p>The BLAS reported by R's <code><a href="https://rdrr.io/r/base/extSoftVersion.html" class="external-link">extSoftVersion()</a></code>, or <code>NA</code> if R does not report one.</p></dd>
+  <dt>r_blas</dt>
+<dd><p>The BLAS reported by R's `extSoftVersion()`, or `NA` if R
+  does not report one.</p></dd>
 
 
 </dl></div>

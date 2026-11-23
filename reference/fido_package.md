@@ -16,6 +16,10 @@ Useful links:
 
 **Maintainer**: Justin Silverman <JustinSilverman@psu.edu>
 
+Authors:
+
+- Justin Silverman <JustinSilverman@psu.edu>
+
 Other contributors:
 
 - Kim Roche <kimberly.roche@duke.edu> \[contributor\]

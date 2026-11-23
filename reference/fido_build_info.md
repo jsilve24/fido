@@ -16,20 +16,20 @@ A named list with stable fields:
 - openmp_compiled:
 
   Logical scalar indicating whether the native code was compiled with
-  the `_OPENMP` macro.
+  the \`\_OPENMP\` macro.
 
 - fido_use_parallel:
 
-  Logical scalar indicating whether `fido.h` defines
-  `FIDO_USE_PARALLEL`.
+  Logical scalar indicating whether \`fido.h\` defines
+  \`FIDO_USE_PARALLEL\`.
 
 - fido_use_mkl:
 
-  Logical scalar indicating whether `fido.h` defines `FIDO_USE_MKL`.
+  Logical scalar indicating whether \`fido.h\` defines \`FIDO_USE_MKL\`.
 
 - openmp_max_threads:
 
-  Maximum OpenMP threads at runtime, or `NA` when `_OPENMP` is
+  Maximum OpenMP threads at runtime, or \`NA\` when \`\_OPENMP\` is
   unavailable.
 
 - eigen_max_threads:
@@ -38,10 +38,9 @@ A named list with stable fields:
 
 - mkl_max_threads:
 
-  Maximum MKL threads at runtime, or `NA` when MKL is not enabled.
+  Maximum MKL threads at runtime, or \`NA\` when MKL is not enabled.
 
 - r_blas:
 
-  The BLAS reported by R's
-  [`extSoftVersion()`](https://rdrr.io/r/base/extSoftVersion.html), or
-  `NA` if R does not report one.
+  The BLAS reported by R's \`extSoftVersion()\`, or \`NA\` if R does not
+  report one.

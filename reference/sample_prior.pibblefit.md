@@ -54,22 +54,38 @@ in this library - see MatDist.h).
 ``` r
 # Sample prior of already fitted  pibblefit object
 sim <- pibble_sim()
-#> Error in chol.default(Sigma): the leading minor of order 3 is not positive
 attach(sim)
-#> Error: object 'sim' not found
+#> The following object is masked from package:fido:
+#> 
+#>     Y
 fit <- pibble(Y, X)
-#> Error: object 'X' not found
 head(sample_prior(fit))
-#> Error: object 'fit' not found
+#> $D
+#> [1] 10
+#> 
+#> $N
+#> [1] 30
+#> 
+#> $Q
+#> [1] 2
+#> 
+#> $iter
+#> [1] 2000
+#> 
+#> $coord_system
+#> [1] "alr"
+#> 
+#> $alr_base
+#> [1] 10
+#> 
 
 # Sample prior as part of model fitting
 m <- pibblefit(N=as.integer(sim$N), D=as.integer(sim$D), Q=as.integer(sim$Q), 
                 iter=2000L, upsilon=upsilon, 
                 Xi=Xi, Gamma=Gamma, Theta=Theta, X=X, 
                 coord_system="alr", alr_base=D)
-#> Error: object 'sim' not found
 m <- sample_prior(m)
-#> Error: object 'm' not found
 plot(m) # plot prior distribution (defaults to parameter Lambda) 
-#> Error: object 'm' not found
+#> Scale for colour is already present.
+#> Adding another scale for colour, which will replace the existing scale.
 ```
